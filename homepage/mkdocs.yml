@@ -1,0 +1,8 @@
+site_name: FIDO Device Onboard
+theme:
+  name: 'material'
+  logo: 'images/securedeviceonboard-icon-color.png'
+  extra:
+  search:
+    language: 'en'
+  favicon: 'images/securedeviceonboard-icon-color.png'

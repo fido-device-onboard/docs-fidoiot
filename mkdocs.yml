@@ -1,0 +1,54 @@
+# Project information
+site_name: 'FIDO Device Onboard'
+site_description: 'Documentation for FIDO Device Onboard Project'
+site_author: 'FIDO Device Onboard Contributers'
+#change this when site goes live
+site_url: 'https://secure-device-onboard.github.io/docs-fidoiot/'
+
+# Documentation Repository
+# Add this when the doucmentation goes live, if you want to invite the public to edit
+# repo_name: 'secure-device-onboard'
+# repo_url: 'https://github.com/secure-device-onboard'
+
+# Copyright
+copyright: 'Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license'
+
+theme:
+  name: 'material'
+  logo: 'images/securedeviceonboard-icon-color.png'
+  extra:
+  search:
+    language: 'en'
+  favicon: 'images/securedeviceonboard-icon-color.png'
+  features:
+    - tabs
+
+markdown_extensions:
+  - admonition
+  - footnotes
+  - toc:
+      permalink: true
+
+# Page tree
+nav:
+  - Home:
+    - Home: index.md
+    - Reference: reference.md
+    - Community: community.md
+    - Releases: releases.md
+    - Security Best Practices: security-best-practices.md
+    - Installation Guide : installation.md
+    - Protocol Specification: protocol-specification.md
+  - PRI:
+    - Protocol Reference Implementation: pri/pri-introduction.md
+  - Client SDK:
+    - Client SDK Design: client-sdk/client-sdk-design.md
+    - Client SDK Introduction: client-sdk/client-sdk-reference-guide.md
+    - Client SDK API Reference: client-sdk/client-sdk-api-reference.md
+    - Client SDK Porting Guide: client-sdk/client-sdk-porting-guide.md
+  - Implementation Reference:
+    - Getting Started Guide: implementation-references/getting-started-guide.md
+    - ServiceInfo System Module: implementation-references/serviceinfo-sys-module.md
+    - DeviceMfgInfo Specification: implementation-references/device-mfg-info.md
+    - Manufacturer Guide: implementation-references/manufacturer-guide.md
+    - DMS Integration Guide: implementation-references/dms-integration-guide.md
