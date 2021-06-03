@@ -18,6 +18,8 @@ node('ubuntu18.04-OnDemand'){
     """
     } else {
       sh 'mkdocs build'
+      print "Archiving site directory"
+      archiveArtifacts artifacts: 'site/**/*', fingerprint: true, allowEmptyArchive: false
       echo 'Deployment to gh-pages is done only from master branch'
     }
   }
