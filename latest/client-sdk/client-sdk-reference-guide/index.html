@@ -1,0 +1,1205 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for FIDO Device Onboard Project">
+      
+      
+        <link rel="canonical" href="https://secure-device-onboard.github.io/docs-fidoiot/client-sdk/client-sdk-reference-guide/">
+      
+      
+        <meta name="author" content="FIDO Device Onboard Contributers">
+      
+      <link rel="shortcut icon" href="../../images/securedeviceonboard-icon-color.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.12">
+    
+    
+      
+        <title>Client SDK Introduction - FIDO Device Onboard</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4dd2dd8d.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../css/version-select.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://secure-device-onboard.github.io/docs-fidoiot/" title="FIDO Device Onboard" class="md-header-nav__button md-logo" aria-label="FIDO Device Onboard">
+      
+  <img src="../../images/securedeviceonboard-icon-color.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            FIDO Device Onboard
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Client SDK Introduction
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../.." class="md-tabs__link">
+          Home
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../pri/pri-introduction/" class="md-tabs__link">
+          PRI
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../client-sdk-design/" class="md-tabs__link md-tabs__link--active">
+          Client SDK
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../implementation-references/getting-started-guide/" class="md-tabs__link">
+          Implementation Reference
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://secure-device-onboard.github.io/docs-fidoiot/" title="FIDO Device Onboard" class="md-nav__button md-logo" aria-label="FIDO Device Onboard">
+      
+  <img src="../../images/securedeviceonboard-icon-color.png" alt="logo">
+
+    </a>
+    FIDO Device Onboard
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      Home
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Home" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        <span class="md-nav__icon md-icon"></span>
+        Home
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/" title="Reference" class="md-nav__link">
+      Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../community/" title="Community" class="md-nav__link">
+      Community
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../releases/" title="Releases" class="md-nav__link">
+      Releases
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../security-best-practices/" title="Security Best Practices" class="md-nav__link">
+      Security Best Practices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../installation/" title="Installation Guide" class="md-nav__link">
+      Installation Guide
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol-specification/" title="Protocol Specification" class="md-nav__link">
+      Protocol Specification
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      PRI
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="PRI" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        PRI
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../pri/pri-introduction/" title="Protocol Reference Implementation" class="md-nav__link">
+      Protocol Reference Implementation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Client SDK
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Client SDK" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Client SDK
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../client-sdk-design/" title="Client SDK Design" class="md-nav__link">
+      Client SDK Design
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Client SDK Introduction
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="Client SDK Introduction" class="md-nav__link md-nav__link--active">
+      Client SDK Introduction
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terminology" class="md-nav__link">
+    Terminology
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference-documents" class="md-nav__link">
+    Reference Documents
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#client-sdk-overview" class="md-nav__link">
+    Client SDK Overview
+  </a>
+  
+    <nav class="md-nav" aria-label="Client SDK Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#threading-model" class="md-nav__link">
+    Threading Model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#networking" class="md-nav__link">
+    Networking
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-specific-modules" class="md-nav__link">
+    Device-Specific Modules
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integrated-operational-flows" class="md-nav__link">
+    Integrated Operational Flows
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo-module-flows" class="md-nav__link">
+    FDO Module Flows
+  </a>
+  
+    <nav class="md-nav" aria-label="FDO Module Flows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#module-initialization" class="md-nav__link">
+    Module Initialization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-serviceinfo" class="md-nav__link">
+    Device ServiceInfo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#owner-serviceinfo" class="md-nav__link">
+    Owner ServiceInfo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-completion" class="md-nav__link">
+    Module Completion
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-errors" class="md-nav__link">
+    Module Errors
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-the-client-sdk" class="md-nav__link">
+    Run the Client SDK
+  </a>
+  
+    <nav class="md-nav" aria-label="Run the Client SDK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-the-device-private-key-ecdsa-based" class="md-nav__link">
+    Get the Device Private Key (ECDSA based)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-the-fdo-client-sdk-onboarding-demo" class="md-nav__link">
+    Run the FDO Client SDK Onboarding Demo
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-pluggable-modules" class="md-nav__link">
+    Custom Pluggable Modules
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#known-issues-and-limitations" class="md-nav__link">
+    Known Issues and Limitations
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../client-sdk-api-reference/" title="Client SDK API Reference" class="md-nav__link">
+      Client SDK API Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../client-sdk-porting-guide/" title="Client SDK Porting Guide" class="md-nav__link">
+      Client SDK Porting Guide
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Implementation Reference
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Implementation Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Implementation Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../implementation-references/getting-started-guide/" title="Getting Started Guide" class="md-nav__link">
+      Getting Started Guide
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../implementation-references/serviceinfo-sys-module/" title="ServiceInfo System Module" class="md-nav__link">
+      ServiceInfo System Module
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../implementation-references/device-mfg-info/" title="DeviceMfgInfo Specification" class="md-nav__link">
+      DeviceMfgInfo Specification
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../implementation-references/manufacturer-guide/" title="Manufacturer Guide" class="md-nav__link">
+      Manufacturer Guide
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../implementation-references/dms-integration-guide/" title="DMS Integration Guide" class="md-nav__link">
+      DMS Integration Guide
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terminology" class="md-nav__link">
+    Terminology
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference-documents" class="md-nav__link">
+    Reference Documents
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#client-sdk-overview" class="md-nav__link">
+    Client SDK Overview
+  </a>
+  
+    <nav class="md-nav" aria-label="Client SDK Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#threading-model" class="md-nav__link">
+    Threading Model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#networking" class="md-nav__link">
+    Networking
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-specific-modules" class="md-nav__link">
+    Device-Specific Modules
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integrated-operational-flows" class="md-nav__link">
+    Integrated Operational Flows
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo-module-flows" class="md-nav__link">
+    FDO Module Flows
+  </a>
+  
+    <nav class="md-nav" aria-label="FDO Module Flows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#module-initialization" class="md-nav__link">
+    Module Initialization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-serviceinfo" class="md-nav__link">
+    Device ServiceInfo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#owner-serviceinfo" class="md-nav__link">
+    Owner ServiceInfo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-completion" class="md-nav__link">
+    Module Completion
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-errors" class="md-nav__link">
+    Module Errors
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-the-client-sdk" class="md-nav__link">
+    Run the Client SDK
+  </a>
+  
+    <nav class="md-nav" aria-label="Run the Client SDK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-the-device-private-key-ecdsa-based" class="md-nav__link">
+    Get the Device Private Key (ECDSA based)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-the-fdo-client-sdk-onboarding-demo" class="md-nav__link">
+    Run the FDO Client SDK Onboarding Demo
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-pluggable-modules" class="md-nav__link">
+    Custom Pluggable Modules
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#known-issues-and-limitations" class="md-nav__link">
+    Known Issues and Limitations
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  
+                
+                
+                  <h1>Client SDK Introduction</h1>
+                
+                <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>The FIDO Device Onboard Client SDK is a portable implementation of the FIDO Device Onboard (FDO) protocol state machines, cryptographic operations, and associated components. While the Client SDK was developed and tested on the Linux* OS, the core components of the SDK are isolated from OS-specific components via an abstraction layer. Well-known open-source implementations of cryptographic libraries are used for cryptographic operations.</p>
+<p>In addition, the Client SDK will be ported to the following Arm* platforms in future releases:</p>
+<ol>
+<li>Nucleo<em> development board (NUCLEO-F429ZI) running STM32F429ZI ARM Cortex</em>-M4 MCU over Mbed* OS.</li>
+<li>NUCLEO-F767ZI development board running STM32F767ZI Arm<em> Cortex</em>-M7 MCU over Mbed* OS.</li>
+<li>WaRP7 development board running i.MX 7 series Arm Cortex-A7 MPU over Mbed Linux.</li>
+</ol>
+<p>The Client SDK is a reference implementation that can be used to onboard a device and then give control to the device application or IOT Platform Service. “Onboarding” means the process by which a device establishes its first trusted connection with an IOT Platform Service.</p>
+<p>Linux provides an easy-to-use development environment for SDK development, debug, and validation. When the SDK is ported to a particular environment, the abstraction layer will be ported to the target environment and real-time operating system (RTOS) (or bare metal). If the target environment supports hardware-accelerated cryptography, the cryptography interfaces will also be ported. If the target environment does not support cryptographic acceleration, the software cryptography libraries used by the SDK will need to be ported. The core SDK can be recompiled in the target environment with no change.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The hardware abstraction layer (HAL) implementation provided in this release is for reference only and not intended for production. It does not provide the level of security required by industry standards for a fully secure production environment.</p>
+</div>
+<h3 id="terminology">Terminology<a class="headerlink" href="#terminology" title="Permanent link">&para;</a></h3>
+<p>Refer to the <a href="../../reference/">FIDO Device Onboard Reference page</a>.</p>
+<h3 id="reference-documents">Reference Documents<a class="headerlink" href="#reference-documents" title="Permanent link">&para;</a></h3>
+<p>Refer to the <a href="../../reference/">FIDO Device Onboard Reference page</a>.</p>
+<h2 id="client-sdk-overview">Client SDK Overview<a class="headerlink" href="#client-sdk-overview" title="Permanent link">&para;</a></h2>
+<p>Like any SDK, the Client SDK is expected to be embedded within a custom implementation that provides overall device functionality while using the SDK to perform FDO-based device onboarding. The SDK will be statically linked to an application that invokes SDK APIs to trigger onboarding functionality. This implementation is referred to as the ‘Application’ in this document.</p>
+<p>Figure 1.   FDO Client Block Diagram</p>
+<p><img alt="FDO Client Block Diagram" src="../img/1-Intel%20FDO%20Client%20Block%20Diagram.JPG" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>FDO is an acronym for FIDO Device Onboard.</p>
+</div>
+<p>Before initiating the FIDO Device Onboard functionality, the Application must first initialize the SDK. After initializing the SDK, the Application can initiate the onboarding by calling the <code>fdo_sdk_run()</code>API.
+The SDK maintains persistent data such as configuration and state information that are used to track the onboarding state and store credentials, among others. This information is stored in the <strong>SDK Configuration</strong> file that persists across reboots.</p>
+<h3 id="threading-model">Threading Model<a class="headerlink" href="#threading-model" title="Permanent link">&para;</a></h3>
+<p>The FDO Client SDK is single threaded and the APIs are non-reentrant and blocking. SDK code executes in the context of the calling application thread and will make OS calls via the abstraction layer for storage and networking services within the context of this thread. OS service such as storage and network are assumed to be blocking.</p>
+<p>During the execution of the onboarding protocol, the SDK receives data from the Owner Server that must be passed back to application modules (Pre-Service &amp; Owner ServiceInfo).This is achieved via module-specific callback functions that are registered during the SDK initialization.</p>
+<p>These callback functions are also called within the context of the application thread that entered the SDK via one of the SDK’s APIs (<em><code>fdo_sdk_run</code></em>). The application must not invoke an SDK API from within the callback – SDK flows have been designed such that this is not required.</p>
+<p>In addition to module specific callbacks, the SDK requires an additional callback that is used to inform the Application of events occurring during long-running activities, such as network connection retries, as well as errors, such as network connection drop.</p>
+<h3 id="networking">Networking<a class="headerlink" href="#networking" title="Permanent link">&para;</a></h3>
+<p>It is assumed that the machine on which the SDK runs has access to the network. The SDK uses standard POSIX sockets interface to connect to external back-end Rendezvous and Owner Servers. The SDK uses the OpenSSL* toolkit for SSL support.</p>
+<p>The SDK will initiate connections to the following external ports, which must not be blocked by a firewall:</p>
+<ul>
+<li>8039: The SDK connects to the FDO Manufacturer Server on this port.</li>
+<li>8040: The SDK connects to the FDO Rendezvous Server on this port.</li>
+<li>8042: The SDK connects to the FDO Owner Server on this port.</li>
+</ul>
+<p>For details on the Manufacturer Server, Rendezvous Server, and Owner Server refer to the Reference Documents.</p>
+<h3 id="device-specific-modules">Device-Specific Modules<a class="headerlink" href="#device-specific-modules" title="Permanent link">&para;</a></h3>
+<p>FDO is a generic mechanism of establishing trust between a device and the final owner’s cloud-based IOT Platform Service (known as the Owner Service). Once this trust is established, the Owner Service must perform the following actions:</p>
+<ol>
+<li>Setup the device for final operation. This requires configuration of device specific operational parameters. This is determined by the device being onboarded, for example, it is device specific.</li>
+<li>Full integration into the organization’s IOT Platform Service. This is specific to the IOT Platform Service being used.</li>
+</ol>
+<p>Since FDO cannot define these steps for all devices and IOT Platforms, it provides a flexible method to allow these operations to be carried out in a secure manner using Modules.</p>
+<p>Modules are defined by the device manufacturer (ODM) and are pieces of code that have a specific name and perform a specific function. Firmware update, key provisioning, and Wi-Fi* network setup are some examples of common functionality that could be provided by modules.</p>
+<p>A module must be able to report information [called the <strong><em>Device ServiceInfo</em></strong>], to IOT Platform, and/or accept configuration information [called the <strong><em>Owner ServiceInfo</em></strong>], from the Owner Service. A module must also be able to publish details of what information it will report as Device ServiceInfo and/or what information it will accept as Owner ServiceInfo. This is done in the form of key-value pairs. The key identifies a parameter and the value provides the value of the parameter.</p>
+<p>A module will publish its interface in the form of Device and Owner ServiceInfo Keys (ServiceInfoKey) with associated valid values (ServiceInfoVal). The Owner Service is expected to be aware of all devices it will onboard and associated Device and Owner ServiceInfo interfaces.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In this release, a module can only be integrated for processing Owner ServiceInfo. Support for integrating Device ServiceInfo modules into the Client SDK will be added in future releases.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The expectation is that over time, much like reusable libraries, modules providing specific functionality such as firmware updates or key provisioning will become standardized in terms of their capabilities and interfaces. Device manufactures will simply port the modules and include these libraries to their device implementation. A similar development is expected to occur on the Owner Server side where standard libraries will be developed to interact with the device module and included in the Owner Server implementation.</p>
+</div>
+<p>When a device is onboarded, a secure channel is established between the device and Owner Server after the device has authenticated the Owner Server and vice-versa (during the TO2 protocol). At this point, the Owner Server can query information from the device (Device ServiceInfo) and send down configuration information to the device (Owner ServiceInfo). The secure channel uses encryption and integrity protection to secure Device ServiceInfo/Owner ServiceInfo data in transit from/to the device.</p>
+<p>The Device ServiceInfo must always send 'devmod' module as the very first module, containing a list of supported modules along with basic capabilities expected of the module.
+The following section details the interactions between the Application, Client SDK and Device-specific Modules.</p>
+<h3 id="integrated-operational-flows">Integrated Operational Flows<a class="headerlink" href="#integrated-operational-flows" title="Permanent link">&para;</a></h3>
+<p>This SDK release requires all software components to be linked together into a single binary image and execute at the same privilege level. While some systems might include overlays and Trusted Execution Environments, these are not considered for this version.</p>
+<p>Figure 2.   Integrated Image and Execution Flow</p>
+<p><img alt="FDO Client Block Diagram" src="../img/2-Integrated%20Image%20and%20Execution%20Flow.JPG" /></p>
+<p>The integrated image and execution flows from system boot are shown above and each step is described below:</p>
+<ol>
+<li>
+<p>On reset, the Board Support Package (BSP) and RTOS initialize the hardware and pass the control to the Application. On Linux* systems, this is the normal OS boot flow and is complete by the time the Application executes.</p>
+</li>
+<li>
+<p>The Application initializes all FDO modules if required. The Application also initializes the SDK by calling the <code>fdo_sdk_init()</code> API and registers each module with the SDK by passing the module’s name and callback address to the SDK (in the <code>fdo_sdk_service_info_module</code> structure).</p>
+</li>
+<li>The Application checks if FDO onboarding has been completed by calling the <code>fdo_sdk_get_status()</code> API. If the status <code>FDO_SDK_STATE_IDLE</code> is returned, onboarding has been completed and the Application goes to step 6. If not, the Application goes to step 4.</li>
+<li>The Application initiates FDO onboarding by calling the <code>fdo_sdk_run()</code> API. This call returns either a successful completion of onboarding or an error. If an error occurs, the Application will reset the device and retry the sequence, with some delay. On successful completion of onboarding, the Application goes to step 6.</li>
+<li>During the onboarding process, the SDK will call registered modules during the Service Info stage of the protocol. This is done by calling the registered module callback. Details of this interaction are provided in the Figure 3. The onboarding process will succeed only if all module interactions at this stage are successful.</li>
+<li>The Application has successfully completed onboarding and continues normal operation of the device.</li>
+</ol>
+<p>The Application continues operating until the system is powered off or reset. On System restart, the preceding steps are re-executed.</p>
+<h3 id="fdo-module-flows">FDO Module Flows<a class="headerlink" href="#fdo-module-flows" title="Permanent link">&para;</a></h3>
+<p>As mentioned in <a href="#device-specific-modules">Device Specific Modules section</a>, three types of information exchange occur between each module and the Owner Service:</p>
+<ol>
+<li>Device ServiceInfo</li>
+<li>Owner ServiceInfo</li>
+</ol>
+<p>Each of these is described as follows:</p>
+<p>Figure 3.   Service Info Exchanges between Device and Owner Server</p>
+<p><img alt="FDO Client Block Diagram" src="../img/3-Service%20Info%20Exchanges%20between%20Device%20and%20Owner%20Server.JPG" /></p>
+<h4 id="module-initialization">Module Initialization<a class="headerlink" href="#module-initialization" title="Permanent link">&para;</a></h4>
+<p>For each registered module, the SDK initializes the module by calling its callback with the <code>FDO_SI_START</code> type. The module is expected to prepare to receive PSI, Device ServiceInfo, and Owner ServiceInfo calls after initialization.</p>
+<p>If an error occurs after a module has been initialized, during the remainder of TO2 protocol execution and the Application is restarted, the SDK will again call this API to initialize each registered module. The module must be prepared for multiple such calls due to the SDK’s retry-based approach to error recovery.</p>
+<h4 id="device-serviceinfo">Device ServiceInfo<a class="headerlink" href="#device-serviceinfo" title="Permanent link">&para;</a></h4>
+<p>This is the information that make the Owner aware of the supported Owner ServiceInfo modules along with other information that aids in proper configuration of the Device. The module needs to determine in advance how many Device ServiceInfo key-value pairs it needs to send to the Owner Service.</p>
+<p>The Device initally sends the 'devmod' module in the first round. Other module is sent to the Owner in subsequent rounds. As mentioned previously, only one Device ServiceInfo module is supported currently, i.e, <code>devmod</code> module, which is configured statically in <code>app_initialize()</code>. All but one parameters are configured in the same method, except Device ServiceInfo Key <code>devmod:modules</code> that is configured in <code>fdo_serviceinfo_modules_list_write()</code>. The total number of supported Owner ServiceInfo modules and their names must be updated in the above mentioned methods. Support for handling multiple Device ServiceInfo modules will be added in future releases.</p>
+<p>Note that Device ServiceInfo is one way – from device to Owner Server. The Owner Server cannot respond to any Device ServiceInfo message during this phase.</p>
+<h4 id="owner-serviceinfo">Owner ServiceInfo<a class="headerlink" href="#owner-serviceinfo" title="Permanent link">&para;</a></h4>
+<p>Owner ServiceInfo follows Device ServiceInfo. Unlike Device ServiceInfo, neither the SDK nor the module can determine in advance how many Owner ServiceInfo key-values they are going to receive. On receiving an Owner ServiceInfo, the SDK locates the module and invokes its callback with the <code>FDO_SI_SET_OSI</code> type.</p>
+<p>The Owner is supposed to send module activation message, that is it sends <code>active</code> key with value <code>true</code> for a particular module, prior to sending the Owner ServiceInfo for that module. When the SDK receives the same, it activates that particular module and passes on the subsequent ServiceInfo key-values to that module. If the SDK receives ServiceInfo for a module that is, either not supported, or, is not currently active, it returns without throwing any error, without invoking the callback method. Optionally, the Owner Server could send a deactivation message to a module, that is it sends <code>active</code> key with value <code>false</code> for a particular module if it is not planning to use the module.</p>
+<p>Received key-values are passed to the module in the <code>module_message</code> and <code>fdor</code> callback parameter fields. The internal buffer of <code>fdor</code> contains the entire message as received in TO2.OwnerServiceInfo (Type 69) with the current position set to the received Owner ServiceInfo value (ServiceInfoVal), while the Owner ServiceInfo key (ServiceInfoKey) is provided in module_message. The module must read the value from <code>fdor_t</code>, process it as per the key, and advance the <code>fdor_t</code> internal buffer to the next valid CBOR entry (currently being done internally in few methods). The module must treat the received <code>fdor_t</code> as a read-only structure, and must never modify it, excpet advancing to the next CBOR entry. It is assumed that the module knows how to interpret the value for a particular key based on the key.</p>
+<p>The module is expected to process the key-value pair and return a result indicating if the operation was successful or failed. The module may return <code>FDO_SI_CONTENT_ERROR</code> or <code>FDO_SI_INTERNAL_ERROR</code> to differentiate between invalid value contents or a module run-time error. This information is reported to the Owner Server. The module must return <code>FDO_SI_SUCCESS</code> on successful completion.</p>
+<p>Note that Owner ServiceInfo is one way – from Owner Server to the device. Apart from indicating failure, the device cannot respond to an Owner ServiceInfo message.</p>
+<h4 id="module-completion">Module Completion<a class="headerlink" href="#module-completion" title="Permanent link">&para;</a></h4>
+<p>When all ServiceInfo rounds of all modules have completed successfully, the SDK calls each module’s callback with the <code>FDO_SI_END</code> type. All other callback parameters are <code>NULL</code>. Modules can commit configuration information at this point if not already done so.</p>
+<p>The SDK will not call into the module after this. The SDK will ignore the return value of this callback since no further failure is expected at this point.</p>
+<h4 id="module-errors">Module Errors<a class="headerlink" href="#module-errors" title="Permanent link">&para;</a></h4>
+<p>If an error occurs during the ServiceInfo phase, the TO2 protocol is considered to have failed and will be aborted. The Application will need to retry onboarding later. A failure could occur for multiple reasons including failure of device/server interaction, failure of signature or hash verification, malformed messages and if a module returns a failure while processing a PSI, Device ServiceInfo, or Owner ServiceInfo command/request.</p>
+<p>On failure, all modules must clean up internal state and discard any configuration information they might have got from the Owner Server. Conversely, the Owner Server will also discard all data it might have received from modules.</p>
+<p>When all ServiceInfo rounds of all modules have completed successfully, the SDK calls each module’s callback with the <code>FDO_SI_FAILURE</code> type. All other callback parameters are <code>NULL</code>. Modules must discard all information received via Owner ServiceInfo commands until this point. If operations have been performed, or data already committed, they should be undone to return the system to it intial state.</p>
+<p>The SDK will not call into the module after this. The SDK will ignore the return value of this callback since no further failure is expected at this point.</p>
+<h2 id="run-the-client-sdk">Run the Client SDK<a class="headerlink" href="#run-the-client-sdk" title="Permanent link">&para;</a></h2>
+<p>The Client SDK includes a binary package, intended to get you started quickly and a source package. For details on downloading the packages, refer to the Get Started Guide.</p>
+<h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h3>
+<p>The requirements for the computer that you will run Client SDK on are as follows:</p>
+<p>Table 1.    Prerequisites</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Software</td>
+<td>·      Linux* Ubuntu* 20.04 using   OpenSSL* 1.1.1k <br/>. Download FDO PRI Components-Samples 0.5-rel (for running test servers) from https://github.com/secure-device-onboard/pri-fidoiot. <br/></td>
+</tr>
+<tr>
+<td>Safestring   library</td>
+<td>Safestring library v1.0.0  <br/> ·          Download safestringlib from  https://github.com/intel/safestringlib  <br/> ·          <code>cd safestringlib</code> <br/>   ·          <code>mkdir obj</code> <br/>  ·          <code>make</code> <br/>  ·          The   library file libsafestring.a will be created after make.</td>
+</tr>
+<tr>
+<td>TinyCBOR   library</td>
+<td>TinyCBOR library v0.5.3  <br/> ·          Download TinyCBOR from  https://github.com/intel/tinycbor  <br/> ·          <code>cd tinycbor</code> <br/>   ·          <code>make</code> <br/></td>
+</tr>
+</tbody>
+</table>
+<h4 id="get-the-device-private-key-ecdsa-based">Get the Device Private Key (ECDSA based)<a class="headerlink" href="#get-the-device-private-key-ecdsa-based" title="Permanent link">&para;</a></h4>
+<p>The SDK requires a device Private Key as input for device attestation process (to prove itself to Rendezvous or Owner Server during TO1 or TO2 protocol). The key could be based on ECDSA (on curve P-256/P-384) based on the device attestation method being used on the field. This key must be stored in a specific file and is read by the SDK on startup.</p>
+<p><em><strong>For ECDSA (P-256) based device-attestation method:</strong></em></p>
+<p>In case of ECDSA, place the ECDSA P-256 private Key with the name ecdsa256privkey.dat in the following location:
+<code>data/ecdsa256privkey.dat</code></p>
+<p><em><strong>For ECDSA (P-384) based device-attestation method:</strong></em></p>
+<p>For ECDSA384, place the ECDSA P-384 private Key with the name ecdsa384privkey.dat in the following
+location: <code>data/ecdsa384privkey.data</code></p>
+<h3 id="run-the-fdo-client-sdk-onboarding-demo">Run the FDO Client SDK Onboarding Demo<a class="headerlink" href="#run-the-fdo-client-sdk-onboarding-demo" title="Permanent link">&para;</a></h3>
+<p>Refer to <a href="https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/0.5-rel/README.md">Client SDK README</a> for detailed steps on setting up FDO Client SDK and FDO PRI Manufacturer, Rendezvous and Owner and running the demo.</p>
+<h2 id="custom-pluggable-modules">Custom Pluggable Modules<a class="headerlink" href="#custom-pluggable-modules" title="Permanent link">&para;</a></h2>
+<p>As part of the onboard protocol, the Client SDK supports custom pluggable modules. OEMs can develop their desired functionality by following the module protocol. This module functionality will be called during the onboard protocol.</p>
+<p>A sample device module, <strong>fdo_sys</strong> has been developed as per <a href="../../implementation-references/serviceinfo-sys-module/">specification</a>, and is available for reference.</p>
+<p><strong>fdo_sys</strong> device module is intended to collect the data (typically files and scripts) sent from the FDO PRI Owner to the FDO Client SDK, process, and execute the data in some meaningful way.</p>
+<p>To use <strong>fdo_sys</strong> device module, follow these steps:</p>
+<p><strong>To use the sample device module fdo_sys :</strong></p>
+<ol>
+<li>Build Client SDK either in release or debug mode using MODULES=true flag.</li>
+</ol>
+<pre><code>$ cd client-sdk/
+$ cmake -DMODULES=true .
+$ make -j(nproc)
+</code></pre>
+<p>The binary would be created either in build/linux/debug or build/linux/release folder. Copy them to the root folder before proceeding with the next steps.</p>
+<ol>
+<li>Run the FDO Linux* device for Device Initialization (DI) protocol:</li>
+</ol>
+<pre><code>$ ./linux-client
+--------DI successful--------
+</code></pre>
+<ol>
+<li>Run the FDO Linux* device for Transfer of Ownership (TO1/TO2) protocol (it is assumed that ownership voucher is correctly extended and TO0 is successfully completed prior to this step):</li>
+</ol>
+<pre><code>$ ./linux-client
+
+--------TO2 successful--------
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@FIDO Device Onboarding Complete@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+</code></pre>
+<h2 id="known-issues-and-limitations">Known Issues and Limitations<a class="headerlink" href="#known-issues-and-limitations" title="Permanent link">&para;</a></h2>
+<p>The following are the known issues:</p>
+<p>•   The HAL implementation provided in this release is for reference only and not intended for production. It does not provide the level of security required by industry standards for a fully secure production environment.</p>
+<p>•   ‘fdo_sys’ module source within 'device_modules' folder is an example code demonstrating FDO device module implementation for reference purpose only. The executable script must only contain alpha-numeric characters and underscore (_) in their names, with extensions <code>.py</code> and <code>.sh</code>. This code is not written following secure production level coding and checks. This sample code must not to be used as it is.</p>
+<p>The following are the known limitations:</p>
+<p>•   The ARM platforms, namely ARM Cortex M4, M7, and A7 devices, as well as mbedTLS and SE crypto operations, are not supported in this release.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../client-sdk-design/" title="Client SDK Design" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Client SDK Design
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../client-sdk-api-reference/" title="Client SDK API Reference" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Client SDK API Reference
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.3636a4ec.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../js/version-select.js"></script>
+      
+    
+  </body>
+</html>
