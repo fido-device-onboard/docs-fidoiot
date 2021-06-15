@@ -101,12 +101,12 @@ DI complete, GUID is <guid>
 
     $ curl -D - --digest -u apiUser:OwnerApiPass123 --header "Content-Type: application/cbor" --data-binary @voucher http://localhost:8042/api/v1/owner/vouchers/
 
-Wait for T00 finished for <guid> message in the Owner console.
+Wait for TO0 finished for <guid> message in the Owner console.
 
 Expect the following message on successful TO0 completion.
 
 ```
-To0 Response Wait for <guid> : 3600
+TO0 Response Wait for <guid> : 3600
 TO0 Client finished for GUID <guid>
 ```
 
@@ -114,13 +114,13 @@ TO0 Client finished for GUID <guid>
     - [Keystore Management](#keystore-management) needs to be taken care, if PRI Rendezvous server and PRI Owner server is not running on the same machine.
     - **You can enable ServiceInfo at this stage.** [Follow the instructions](#enabling-serviceinfo-transfer) to enable ServiceInfo.
 
-4.&nbsp;T01 and T02
+4.&nbsp;TO1 and TO2
    ```
    $ cd <fdo-pri-src>/component-samples/demo/device
    $ java -jar device.jar
    ```
 
-Wait for T0 protocol completed message and Device is Onboarded Successfully.
+Wait for TO2 protocol completed message and Device is Onboarded Successfully.
 
 Expect the following message on successful TO completion.
 
@@ -173,12 +173,12 @@ $ curl -D - --digest -u apiUser:MfgApiPass123 -XGET http://localhost:8039/api/v1
 $ curl -D - --digest -u apiUser:OwnerApiPass123 --header "Content-Type: application/cbor" --data-binary @voucher http://localhost:8042/api/v1/owner/vouchers/
 ```
 
-Wait for T00 finished for <guid> message on the Owner console.
+Wait for TO0 finished for <guid> message on the Owner console.
 
 Expect the following message on successful TO0 completion.
 
 ```
-To0 Response Wait for <guid> : 3600
+TO0 Response Wait for <guid> : 3600
 TO0 Client finished for GUID <guid>
 ```
 
@@ -186,14 +186,14 @@ TO0 Client finished for GUID <guid>
     - [Keystore Management](#keystore-management) needs to be taken care, if PRI Rendezvous server and PRI Owner server is not running on the same machine.
     - **You can enable ServiceInfo at this stage.** [Follow the instructions](#enabling-serviceinfo-transfer) to enable ServiceInfo.
 
-4.&nbsp;T01 and T02
+4.&nbsp;TO1 and TO2
 
 ```
 $ cd <client-sdk-src>
 $ ./build/linux-client
 ```
 
-Wait for T0 protocol completed message
+Wait for TO2 protocol completed message
 
 Expect the following message on successful TO completion.
 
