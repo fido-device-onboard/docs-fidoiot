@@ -4,6 +4,15 @@ not been implemented, and any aspect of this implementation is subject to change
 
 # Getting Started Guide
 
+ADD CONTENT -- What's FDO? Why FDO ? Real Usecases. (5-10 lines at max)
+
+<figure>
+  <img src="../../images/securedeviceonboard-icon-color.png" width="300" />
+  <figcaption>Placeholder for a better diagram</figcaption>
+</figure>
+
+< Better to have a FDO block diagram >
+
 Quick walk through the E2E flow, so you can get started. Included in this guide:
 
 - [Building FDO PRI Source](#building-fdo-pri-source)
@@ -16,35 +25,48 @@ Quick walk through the E2E flow, so you can get started. Included in this guide:
 
 ## Building FDO PRI Source
 
+!!! NOTE 
+    - Check the [System Requirements](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/#system-requirements)
+    - If working behind a proxy,ensure to [set proper proxy](https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo#configuring-proxies) variables.
+    - [Follow the steps](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/) to setup Docker* environment. 
+    - [Read more](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/) about PRI source building.
+
+1.&nbsp; Clone the PRI-fidoiot repository
+```
+git clone https://github.com/secure-device-onboard/pri-fidoiot.git
+```
+
+2.&nbsp; Build PRI-fidoiot:
+
+  FDO PRI source can be built in two ways:
+
+
 !!! NOTE
     For the instructions in this document, `<fdo-pri-src>` refers to the path of the FDO PRI folder 'pri-fidoiot'.
 
-FDO PRI source can be built in two ways:
-
-1. Using the maven build system to build FDO PRI source.
+  1. Using the maven build system to build FDO PRI source.
 
 ```
-$ cd <fdo-pri-src>
-$ mvn clean install
+  $ cd <fdo-pri-src>
+  $ mvn clean install
 ```
 
-2.&nbsp;Using docker container to build FDO PRI source
+  2.&nbsp;Using docker container to build FDO PRI source
 
 ```
-$ cd <fdo-pri-src>/build
-$ sudo docker-compose up --build
+   $ cd <fdo-pri-src>/build
+   $ sudo docker-compose up --build
 ```
 
-The build stage generates artifacts and stores them in `component-samples/demo` directory.
+  The build stage generates artifacts and stores them in `component-samples/demo` directory.
 
-!!! NOTE
-    - If working behind a proxy,ensure to set proper proxy variables.
-    - [Follow the steps](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/) to setup Docker* environment.
-    - [Read more](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/) about PRI source building.
+## Starting FDO Server-side Containers
 
-## Starting FDO Service Containers
+Block diagram containing all components
 
 ### Starting the FDO PRI Manufacturer Server
+
+< ADD Content > -- Describe manufacturer? What's the purpose ? What all it can do ? What's the Role in FDO protocol ? Port on which MFG is listening.
 
 ```
 $ cd <fdo-pri-src>/component-samples/demo/manufacturer/
@@ -53,12 +75,16 @@ $ sudo docker-compose up --build
 
 ### Starting the FDO PRI Rendezvous (RV) Server
 
+< ADD Content> -- Describe rv? What's the purpose ? What all it can do ? What's the Role in FDO protocol ? Port on which RV is listening.
+
 ```
 $ cd <fdo-pri-src>/component-samples/demo/rv/
 $ sudo docker-compose up --build
 ```
 
 ###Starting the FDO PRI Owner Server
+
+< ADD Content> -- Describe owner? What's the purpose ? What all it can do ? What's the Role in FDO protocol ? Port on which OWNER is listening.
 
 ```
 $ cd <fdo-pri-src>/component-samples/demo/owner/
@@ -77,6 +103,8 @@ $ sudo docker-compose up --build
 
 
 2. Start Device Initialization (DI)
+
+< ADD content> -- What's DI?, DI in FDO protocol, Starting state of device, End state of Device. If possible add an image. 5 lines max.
 
 ```
 $ cd <fdo-pri-src>/component-samples/demo/device
@@ -97,6 +125,13 @@ DI complete, GUID is <guid>
 
 3.&nbsp;Voucher Extension for PRI device
 
+<figure>
+  <img src="../../images/security-best-practices-slide3.PNG" width="800" />
+  <figcaption>Voucher Extension</figcaption>
+</figure>
+
+< ADD content > --  What's Voucher extension ? Role in FDO protocol ? End state ? Add an image if possible. 
+
     $ curl -D - --digest -u apiUser:MfgApiPass123 -XGET http://localhost:8039/api/v1/vouchers/0 -o voucher
 
     $ curl -D - --digest -u apiUser:OwnerApiPass123 --header "Content-Type: application/cbor" --data-binary @voucher http://localhost:8042/api/v1/owner/vouchers/
@@ -115,6 +150,9 @@ TO0 Client finished for GUID <guid>
     - **You can enable ServiceInfo at this stage.** [Follow the instructions](#enabling-serviceinfo-transfer) to enable ServiceInfo.
 
 4.&nbsp;TO1 and TO2
+
+< ADD content> -- What's TO1/2?, TO1/2 in FDO protocol, Starting state of device, End state of Device. If possible add an image. 5 lines max.
+
    ```
    $ cd <fdo-pri-src>/component-samples/demo/device
    $ java -jar device.jar
@@ -130,15 +168,20 @@ TO2 complete, GUID is d43c6dc6...
 
 ## Building Client-SDK Source
 
-!!! NOTE
-    For the instructions in this document, `<client-sdk-src>` refers to the path of the FDO Client-SDK source folder 'client-sdk-fidoiot'.
-
 FDO Client-SDK source can be build by:
 
 1. Follow instructions in the [documentation](https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/linux.md) to install dependencies.
 
+2. Clone the repository
 
-2. Execute build.sh script
+    ```
+    git clone https://github.com/secure-device-onboard/client-sdk-fidoiot.git
+    ```
+
+!!! NOTE
+    For the instructions in this document, `<client-sdk-src>` refers to the path of the FDO Client-SDK source folder 'client-sdk-fidoiot'.
+
+3.&nbsp; Execute build.sh script
 
 ```
 $ cd <client-sdk-src>
@@ -153,6 +196,8 @@ The build script generates artifacts and stores them in `./build/` directory.
 
 
 2. Start Device Initialization (DI)
+
+< ADD content> --- add content similiar to PRI DI + an image. 
 
 ```
 $ cd <client-sdk-src>
@@ -188,6 +233,8 @@ TO0 Client finished for GUID <guid>
 
 4.&nbsp;TO1 and TO2
 
+< ADD content> -- Add content similar to PRI T01/2 + add an image if possible.
+
 ```
 $ cd <client-sdk-src>
 $ ./build/linux-client
@@ -206,6 +253,7 @@ Device onboarded successfully.
 
 ## Enabling ServiceInfo transfer
 
+< Add content> -- What is serviceInfo? What is the usecase ? During which stage we perform ServiceInfo transfer (5 lines max) + (Good) if we can add a sample real life usecase.
 
 1. Activating ServiceInfo Module.
 

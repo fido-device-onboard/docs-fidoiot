@@ -16,6 +16,10 @@ This document can be used as a quick start guide to setup the development enviro
 ```
 sudo apt-get remove docker docker-engine docker.io containerd runc
 ```
+
+!!! NOTE
+If you are working behind a proxy, ensure to set proper proxy variables.
+
 2 . Update the `apt` package index and install packages to allow `apt` to use a repository over HTTPS:
 ```
  sudo apt-get update
@@ -27,23 +31,13 @@ sudo apt-get remove docker docker-engine docker.io containerd runc
       software-properties-common
 ```
 
-!!! NOTE
-    If you are working behind a proxy, ensure to set proper proxy variables.
-
-3 . Add official GPG key for Docker*:
-```
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-```
-4 . Use the following command to set up the **stable** repository.
-```
-sudo add-apt-repository \ "deb [arch=amd64] https://download.docker.com/linux/ubuntu \ $(lsb_release -cs) \ stable"
-```
-5 . Update the `apt` package index and install the Docker* Engine 18.09
+3 . Update the `apt` package index and install the Docker* Engine
 ```
 sudo apt-get update
-sudo apt-get install docker-ce=5:18.09.9~3-0~ubuntu-bionic docker-ce-cli=5:18.09.9~3-0~ubuntu-bionic containerd.io
+sudo apt-get install docker-ce docker-ce-cli containerd.io
 ```
-6 . Verify that Docker* Engine is installed correctly by running the `hello-world` image.
+
+4 . Verify that Docker* Engine is installed correctly by running the `hello-world` image.
 ```
 sudo docker run hello-world
 ```
@@ -112,7 +106,7 @@ sudo chmod +x /usr/bin/docker-compose
 ```
 3 . To ensure that the required version is installed, run ` docker-compose --version` command
 
-## Other Development Tools
+## Optional Development package
 
 1 . To install OpenJDK*
 ```
@@ -124,7 +118,9 @@ sudo apt install openjdk-11-jdk-headless
 sudo apt install maven
 ```
 
-3 . To set the correct system time
+## Reset System time
+
+- To set the correct system time
 ```
 sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
 ```
