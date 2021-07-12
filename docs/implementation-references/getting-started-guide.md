@@ -4,14 +4,11 @@ not been implemented, and any aspect of this implementation is subject to change
 
 # Getting Started Guide
 
-ADD CONTENT -- What's FDO? Why FDO ? Real Usecases. (5-10 lines at max)
-
 <figure>
-  <img src="../../images/securedeviceonboard-icon-color.png" width="300" />
-  <figcaption>Placeholder for a better diagram</figcaption>
+  <img src="../../images/securedeviceonboard-icon-color.png" width="250" />
 </figure>
 
-< Better to have a FDO block diagram >
+***FDO (FIDO device onboard) provides a fast and more secure way to onboard any device to any device management system. A unique feature of FDO is the ability for the device owner to select the IoT platform at a late stage in the device life cycle. The secrets or configuration data may also be created or chosen at this late stage.***
 
 Quick walk through the E2E flow, so you can get started. Included in this guide:
 
@@ -62,11 +59,13 @@ git clone https://github.com/secure-device-onboard/pri-fidoiot.git
 
 ## Starting FDO Server-side Containers
 
-Block diagram containing all components
-
+<figure>
+  <img src="../../images/entities.png" align="left"/>
+  <figcaption> FIDO Device Onboard Entities and Entity Interconnection </figcaption>
+</figure>
 ### Starting the FDO PRI Manufacturer Server
 
-< ADD Content > -- Describe manufacturer? What's the purpose ? What all it can do ? What's the Role in FDO protocol ? Port on which MFG is listening.
+***FDO Manufacturer is an application that runs in the factory, which implements the initial communications with the Device, as part of the Device Initialize Protocol (DI). The manufacturer creates an Ownership Voucher based on the credentials received during DI and extends the voucher to respective owner.*** 
 
 ```
 $ cd <fdo-pri-src>/component-samples/demo/manufacturer/
@@ -75,7 +74,7 @@ $ sudo docker-compose up --build
 
 ### Starting the FDO PRI Rendezvous (RV) Server
 
-< ADD Content> -- Describe rv? What's the purpose ? What all it can do ? What's the Role in FDO protocol ? Port on which RV is listening.
+***RV Server is a network server or service (e.g., on the Internet) that acts as a rendezvous point between a newly powered on Device and the Owner Onboarding Service.***
 
 ```
 $ cd <fdo-pri-src>/component-samples/demo/rv/
@@ -84,7 +83,7 @@ $ sudo docker-compose up --build
 
 ###Starting the FDO PRI Owner Server
 
-< ADD Content> -- Describe owner? What's the purpose ? What all it can do ? What's the Role in FDO protocol ? Port on which OWNER is listening.
+***Owner is an entity that is able to prove ownership to the Device using an Ownership Voucher and a private key for the last entry of the Ownership Voucher. Owner supports the transfer of Serviceinfo to the Device.***
 
 ```
 $ cd <fdo-pri-src>/component-samples/demo/owner/
@@ -104,7 +103,7 @@ $ sudo docker-compose up --build
 
 2. Start Device Initialization (DI)
 
-< ADD content> -- What's DI?, DI in FDO protocol, Starting state of device, End state of Device. If possible add an image. 5 lines max.
+    ***DI includes the insertion of FDO credentials into device during the manufacturing process and creation of ownership voucher.***
 
 ```
 $ cd <fdo-pri-src>/component-samples/demo/device
@@ -123,14 +122,15 @@ DI complete, GUID is <guid>
     - [Read more](https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/device/README.md) about Device Intialization.
 
 
-3.&nbsp;Voucher Extension for PRI device
+3.&nbsp;Voucher Extension & TO0 for PRI device
 
 <figure>
-  <img src="../../images/security-best-practices-slide3.PNG" width="800" />
-  <figcaption>Voucher Extension</figcaption>
+  <img src="../../images/slide3.png"/>
+  <figcaption>Voucher extension</figcaption>
 </figure>
 
-< ADD content > --  What's Voucher extension ? Role in FDO protocol ? End state ? Add an image if possible. 
+***During TO0, The FDO Owner identifies itself to Rendezvous Server. Establishes the mapping of GUID to the Owner IP address. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob.'***
+
 
     $ curl -D - --digest -u apiUser:MfgApiPass123 -XGET http://localhost:8039/api/v1/vouchers/0 -o voucher
 
@@ -151,12 +151,13 @@ TO0 Client finished for GUID <guid>
 
 4.&nbsp;TO1 and TO2
 
-< ADD content> -- What's TO1/2?, TO1/2 in FDO protocol, Starting state of device, End state of Device. If possible add an image. 5 lines max.
+***During T01, Device identifies itself to the Rendezvous Server. Obtains mapping to connect to the Owner’s IP address. During T02, The Device contacts Owner and establishes trust and then performs Ownership Transfer.***  
 
-   ```
-   $ cd <fdo-pri-src>/component-samples/demo/device
-   $ java -jar device.jar
-   ```
+
+```
+$ cd <fdo-pri-src>/component-samples/demo/device
+$ java -jar device.jar
+```
 
 Wait for TO2 protocol completed message and Device is Onboarded Successfully.
 
@@ -196,8 +197,6 @@ The build script generates artifacts and stores them in `./build/` directory.
 
 
 2. Start Device Initialization (DI)
-
-< ADD content> --- add content similiar to PRI DI + an image. 
 
 ```
 $ cd <client-sdk-src>
