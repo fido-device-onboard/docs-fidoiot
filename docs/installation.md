@@ -126,7 +126,7 @@ sudo apt install openjdk-11-jdk-headless
 sudo apt install maven
 ```
 
-3 . To set the correct system time
+## To set correct system time
 ```
 sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
 ```
@@ -142,3 +142,5 @@ Change Google* domain according to your location.
 [Docker-compose-installation](https://docs.docker.com/compose/install/)
 
 [Setting-proxy-for-docker](https://docs.docker.com/network/proxy/)
+
+_*_ represents proprietary software products. FDO claims no rights over the mentioned software products. Use them at your own discretion.

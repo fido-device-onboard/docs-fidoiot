@@ -8,15 +8,15 @@ not been implemented, and any aspect of this implementation is subject to change
   <img src="../../images/securedeviceonboard-icon-color.png" width="250" />
 </figure>
 
-***FDO (FIDO device onboard) provides a fast and more secure way to onboard any device to any device management system. A unique feature of FDO is the ability for the device owner to select the IoT platform at a late stage in the device life cycle. The secrets or configuration data may also be created or chosen at this late stage.***
+***FDO (FIDO device onboard) provides a fast and more secure way to onboard a device to any device management system. A unique feature of FDO is the ability for the device owner to select the IoT platform at a late stage in the device life cycle. The secrets or configuration data may also be created or chosen at this late stage.***
 
-Quick walk through the E2E flow, so you can get started. Included in this guide:
+This document provides a quick walk through the E2E flow. Included in this guide:
 
 - [Building FDO PRI Source](#building-fdo-pri-source)
-- [Starting FDO Service Containers](#starting-fdo-service-containers)
+- [Starting FDO Service Containers](#starting-fdo-server-side-containers)
 - [Running E2E for PRI device](#running-e2e-for-pri-device)
 - [Building Client-SDK Source](#building-client-sdk-source)
-- [Running E2E for Client-SDK device](#running-e2e-for-client-sdk-device)
+- [Running E2E for Client-SDK device](#running-e2e-demo-for-fdo-client-sdk)
 - [Enabling ServiceInfo](#enabling-serviceinfo-transfer)
 - [Keystore Management](#keystore-management)
 
@@ -26,9 +26,8 @@ Quick walk through the E2E flow, so you can get started. Included in this guide:
       - Check the [System Requirements](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/#system-requirements)
       - If working behind a proxy,ensure to [set proper proxy](https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo#configuring-proxies) variables.
       - [Follow the steps](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/) to setup Docker* environment.
-      - [Read more](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/) about PRI source building.
-      - [Follow the steps](../../implementation-references/proxy-settings/) to set the right proxy settings.
-
+      - [Read more](https://github.com/secure-device-onboard/pri-fidoiot#building-fdo-pri-source) about PRI source building.
+      - [Follow the steps](../../implementation-references/proxy-settings/) to set the right proxy settings. (Includes documentation for system wide proxy configuration)
 
 1.&nbsp; Clone the PRI-fidoiot repository
 ```
@@ -42,7 +41,6 @@ FDO PRI source can be built in two ways:
 
 !!! NOTE
       For the instructions in this document, `<fdo-pri-src>` refers to the path of the FDO PRI folder 'pri-fidoiot'.
-      If you are not executing this command for the first time, ensure there are no docker instances of Owner, Manufacturer, RV running on the machine already.
 
 1. Using the maven build system to build FDO PRI source.
 
@@ -66,7 +64,6 @@ The build stage generates artifacts and stores them in `component-samples/demo` 
   <img src="../../images/entities.png" align="left"/>
   <figcaption> FIDO Device Onboard Entities and Entity Interconnection </figcaption>
 </figure>
-### Starting the FDO PRI Manufacturer Server
 
 ### Key Generation for FDO Server-side Containers
 
@@ -77,6 +74,10 @@ cd <fdo-pri-src>/component-samples/demo/scripts/
 bash keys_gen.sh .
 cp -r creds/* ../
 ```
+
+All the generated keys are now copied to the respective components.
+
+### Starting the FDO PRI Manufacturer Server
 
 ***FDO Manufacturer is an application that runs in the factory, which implements the initial communications with the Device, as part of the Device Initialize Protocol (DI). The manufacturer creates an Ownership Voucher based on the credentials received during DI and extends the voucher to respective owner.***    
 
@@ -132,7 +133,7 @@ Once the Owner instance has successfully started, the following output is displa
 
 ## Running E2E for PRI device
 
-1. [Start FDO Service Containers](https://secure-device-onboard.github.io/docs-fidoiot/latest/implementation-references/getting-started-guide/#starting-fdo-service-containers).
+1. [Start FDO Service Containers](#starting-fdo-server-side-containers).
 
 
 2. Start Device Initialization (DI)
@@ -153,7 +154,7 @@ DI complete, GUID is <guid>
 
 !!! NOTE
         - Additional arguments for [configuring PRI device](https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-the-device-service).
-        - Configuring PRI device for [HTTPS/TLS communication](https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md).
+        - Configuring PRI device for [HTTPS/TLS communication](https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-device-for-httpstls-communication).
         - [Read more](https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/device/README.md) about Device Intialization.
 
 
@@ -231,7 +232,7 @@ The build script generates artifacts and stores them in `./build/` directory.
 
 ## Running E2E demo for FDO Client-SDK.
 
-1. [Start FDO Service Containers](https://secure-device-onboard.github.io/docs-fidoiot/latest/implementation-references/getting-started-guide/#starting-fdo-service-containers).
+1. [Start FDO Service Containers](#starting-fdo-server-side-containers).
 
 
 2. Start Device Initialization (DI)
@@ -272,8 +273,6 @@ TO0 Client finished for GUID <guid>
 
 4.&nbsp;TO1 and TO2
 
-< ADD content> -- Add content similar to PRI T01/2 + add an image if possible.
-
 ```
 cd <client-sdk-src>
 ./build/linux-client
@@ -292,8 +291,6 @@ Device onboarded successfully.
 
 ## Enabling ServiceInfo transfer
 
-< Add content> -- What is serviceInfo? What is the usecase ? During which stage we perform ServiceInfo transfer (5 lines max) + (Good) if we can add a sample real life usecase.
-
 1. Activating ServiceInfo Module.
 
         $ curl --location --digest -u apiUser:OwnerApiPass123 --request PUT 'http://localhost:8042/api/v1/device/svi?module=fdo_sys&var=active&priority=0&bytes=F5' --header 'Content-Type: application/octet-stream'
@@ -302,9 +299,9 @@ Device onboarded successfully.
    http://localhost:8042 can be changed with the IP address of the owner.
 
 
-2. Transferring payload or executable resource for a specific type of device.
+&nbsp;2. Transferring payload or executable resource for a specific type of device.
 
-    - Create a sample linux64.sh shell script.
+- Create a sample linux64.sh shell script.
 
             #!/bin/bash
             wget https://raw.githubusercontent.com/secure-device-onboard/pri-fidoiot/master/SECURITY.md
@@ -321,22 +318,22 @@ Device onboarded successfully.
 
    This script downloads the SECURITY.md file and checks the integrity of file against the pre-computed checksum value.
 
-    -  Curl command to transfer executable resource.
+-  Curl command to transfer executable resource.
 
             $ curl --location --digest -u apiUser:OwnerApiPass123 --request PUT 'http://localhost:8042/api/v1/device/svi?module=fdo_sys&var=filedesc&priority=1&filename=linux64.sh&device=FDO-Pri-Device' --header 'Content-Type: application/octet-stream' --data-binary '@path-to-executable/linux64.sh'
 
-    - for Client-SDK devices, update device parameter to `Intel-FDO-Linux`. Eg:
+- for Client-SDK devices, update device parameter to `Intel-FDO-Linux`. Eg:
 
             $ curl --location --digest -u apiUser:OwnerApiPass123 --request PUT 'http://localhost:8042/api/v1/device/svi?module=fdo_sys&var=filedesc&priority=1&filename=linux64.sh&device=Intel-FDO-Linux' --header 'Content-Type: application/octet-stream' --data-binary '@path-to-executable/linux64.sh'
 
 
-3. Curl command to add exec command on the transferred script
+&nbsp;3. Curl command to add exec command on the transferred script
 
             $ curl --location --digest -u apiUser:OwnerApiPass123 --request PUT 'http://localhost:8042/api/v1/device/svi?module=fdo_sys&var=exec&guid=<guid-of-device>&priority=2&bytes=82672F62696E2F73686A6C696E757836342E7368' --header 'Content-Type: application/octet-stream'
 
-   !!! NOTE
-   bytes parameter is the cbor equivalent of ./linux64.sh.
-   You can skip step 3, if you are just transferring a payload.
+!!! NOTE
+        bytes parameter is the cbor equivalent of ./linux64.sh.
+        You can skip step 3, if you are just transferring a payload.
 
 ## Keystore Management
 
