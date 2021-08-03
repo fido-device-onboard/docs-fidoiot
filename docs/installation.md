@@ -23,8 +23,8 @@ sudo apt-get remove docker docker-engine docker.io containerd runc
       apt-transport-https \
       ca-certificates \
       curl \
-      gnupg-agent \
-      software-properties-common
+      gnupg \
+      lsb-release
 ```
 
 !!! NOTE
@@ -32,16 +32,18 @@ sudo apt-get remove docker docker-engine docker.io containerd runc
 
 3 . Add official GPG key for Docker*:
 ```
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 ```
 4 . Use the following command to set up the **stable** repository.
 ```
-sudo add-apt-repository \ "deb [arch=amd64] https://download.docker.com/linux/ubuntu \ $(lsb_release -cs) \ stable"
+echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 ```
 5 . Update the `apt` package index and install the Docker* Engine 18.09
 ```
 sudo apt-get update
-sudo apt-get install docker-ce=5:18.09.9~3-0~ubuntu-bionic docker-ce-cli=5:18.09.9~3-0~ubuntu-bionic containerd.io
+sudo apt-get install docker-ce docker-ce-cli containerd.io
 ```
 6 . Verify that Docker* Engine is installed correctly by running the `hello-world` image.
 ```
