@@ -58,6 +58,17 @@ sudo docker-compose up --build
 
 The build stage generates artifacts and stores them in `component-samples/demo` directory.
 
+**NOTE:** During the build stage, the following error messages may be displayed on the console. These error messages
+are a result of the discrepancy of logging levels during build stage and can be ignored.
+```
+[ERROR] Picked up _JAVA_OPTIONS: -Dhttp.proxyHost= -Dhttp.proxyPort= -Dhttps.proxyHost= -Dhttps.proxyPort=
+[ERROR] WARNING: An illegal reflective access operation has occurred
+[ERROR] WARNING: Illegal reflective access by org.apache.catalina.loader.WebappClassLoaderBase to field java.io.ObjectStreamClass$Caches.localDescs
+[ERROR] WARNING: Please consider reporting this to the maintainers of org.apache.catalina.loader.WebappClassLoaderBase
+[ERROR] WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+[ERROR] WARNING: All illegal access operations will be denied in a future release
+```
+
 ## Starting FDO Server-side Containers
 
 <figure>
