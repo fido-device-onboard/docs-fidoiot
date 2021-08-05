@@ -11,19 +11,21 @@
         <meta name="description" content="Documentation for FIDO Device Onboard Project">
       
       
+        <link rel="canonical" href="https://secure-device-onboard.github.io/docs-fidoiot/implementation-references/proxy-settings/">
+      
       
         <meta name="author" content="FIDO Device Onboard Contributers">
       
-      <link rel="shortcut icon" href="/docs-fidoiot/images/securedeviceonboard-icon-color.png">
+      <link rel="shortcut icon" href="../../images/securedeviceonboard-icon-color.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.12">
     
     
       
-        <title>FIDO Device Onboard</title>
+        <title>Proxy Setup Guide - FIDO Device Onboard</title>
       
     
     
-      <link rel="stylesheet" href="/docs-fidoiot/assets/stylesheets/main.4dd2dd8d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4dd2dd8d.min.css">
       
       
     
@@ -37,7 +39,7 @@
     
     
     
-      <link rel="stylesheet" href="/docs-fidoiot/css/version-select.css">
+      <link rel="stylesheet" href="../../css/version-select.css">
     
     
       
@@ -54,6 +56,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#proxy-settings-for-running-fdo" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -63,7 +70,7 @@
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href="https://secure-device-onboard.github.io/docs-fidoiot/" title="FIDO Device Onboard" class="md-header-nav__button md-logo" aria-label="FIDO Device Onboard">
       
-  <img src="/docs-fidoiot/images/securedeviceonboard-icon-color.png" alt="logo">
+  <img src="../../images/securedeviceonboard-icon-color.png" alt="logo">
 
     </a>
     <label class="md-header-nav__button md-icon" for="__drawer">
@@ -77,7 +84,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              
+              Proxy Setup Guide
             
           </span>
         </div>
@@ -126,7 +133,9 @@
         
           
 
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
   <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
       
@@ -135,7 +144,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="/docs-fidoiot/." class="md-tabs__link">
+        <a href="../.." class="md-tabs__link">
           Home
         </a>
       
@@ -148,7 +157,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="/docs-fidoiot/pri/pri-introduction/" class="md-tabs__link">
+        <a href="../../pri/pri-introduction/" class="md-tabs__link">
           PRI
         </a>
       
@@ -161,7 +170,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="/docs-fidoiot/client-sdk/client-sdk-design/" class="md-tabs__link">
+        <a href="../../client-sdk/client-sdk-design/" class="md-tabs__link">
           Client SDK
         </a>
       
@@ -174,7 +183,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="/docs-fidoiot/implementation-references/getting-started-guide/" class="md-tabs__link">
+        <a href="../getting-started-guide/" class="md-tabs__link md-tabs__link--active">
           Implementation Reference
         </a>
       
@@ -198,7 +207,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="https://secure-device-onboard.github.io/docs-fidoiot/" title="FIDO Device Onboard" class="md-nav__button md-logo" aria-label="FIDO Device Onboard">
       
-  <img src="/docs-fidoiot/images/securedeviceonboard-icon-color.png" alt="logo">
+  <img src="../../images/securedeviceonboard-icon-color.png" alt="logo">
 
     </a>
     FIDO Device Onboard
@@ -233,7 +242,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/docs-fidoiot/." title="Home" class="md-nav__link">
+    <a href="../.." title="Home" class="md-nav__link">
       Home
     </a>
   </li>
@@ -245,7 +254,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/docs-fidoiot/reference/" title="Reference" class="md-nav__link">
+    <a href="../../reference/" title="Reference" class="md-nav__link">
       Reference
     </a>
   </li>
@@ -257,7 +266,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/docs-fidoiot/community/" title="Community" class="md-nav__link">
+    <a href="../../community/" title="Community" class="md-nav__link">
       Community
     </a>
   </li>
@@ -269,7 +278,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/docs-fidoiot/releases/" title="Releases" class="md-nav__link">
+    <a href="../../releases/" title="Releases" class="md-nav__link">
       Releases
     </a>
   </li>
@@ -281,7 +290,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/docs-fidoiot/security-best-practices/" title="Security Best Practices" class="md-nav__link">
+    <a href="../../security-best-practices/" title="Security Best Practices" class="md-nav__link">
       Security Best Practices
     </a>
   </li>
@@ -293,7 +302,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/docs-fidoiot/installation/" title="Installation Guide" class="md-nav__link">
+    <a href="../../installation/" title="Installation Guide" class="md-nav__link">
       Installation Guide
     </a>
   </li>
@@ -305,7 +314,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/docs-fidoiot/protocol-specification/" title="Protocol Specification" class="md-nav__link">
+    <a href="../../protocol-specification/" title="Protocol Specification" class="md-nav__link">
       Protocol Specification
     </a>
   </li>
@@ -343,7 +352,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/docs-fidoiot/pri/pri-introduction/" title="Protocol Reference Implementation" class="md-nav__link">
+    <a href="../../pri/pri-introduction/" title="Protocol Reference Implementation" class="md-nav__link">
       Protocol Reference Implementation
     </a>
   </li>
@@ -381,7 +390,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/docs-fidoiot/client-sdk/client-sdk-design/" title="Client SDK Design" class="md-nav__link">
+    <a href="../../client-sdk/client-sdk-design/" title="Client SDK Design" class="md-nav__link">
       Client SDK Design
     </a>
   </li>
@@ -393,7 +402,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/docs-fidoiot/client-sdk/client-sdk-reference-guide/" title="Client SDK Introduction" class="md-nav__link">
+    <a href="../../client-sdk/client-sdk-reference-guide/" title="Client SDK Introduction" class="md-nav__link">
       Client SDK Introduction
     </a>
   </li>
@@ -405,7 +414,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/docs-fidoiot/client-sdk/client-sdk-api-reference/" title="Client SDK API Reference" class="md-nav__link">
+    <a href="../../client-sdk/client-sdk-api-reference/" title="Client SDK API Reference" class="md-nav__link">
       Client SDK API Reference
     </a>
   </li>
@@ -417,7 +426,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/docs-fidoiot/client-sdk/client-sdk-porting-guide/" title="Client SDK Porting Guide" class="md-nav__link">
+    <a href="../../client-sdk/client-sdk-porting-guide/" title="Client SDK Porting Guide" class="md-nav__link">
       Client SDK Porting Guide
     </a>
   </li>
@@ -432,10 +441,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
     
     <label class="md-nav__link" for="nav-4">
       Implementation Reference
@@ -455,7 +466,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/docs-fidoiot/implementation-references/getting-started-guide/" title="Getting Started Guide" class="md-nav__link">
+    <a href="../getting-started-guide/" title="Getting Started Guide" class="md-nav__link">
       Getting Started Guide
     </a>
   </li>
@@ -467,7 +478,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/docs-fidoiot/implementation-references/serviceinfo-sys-module/" title="ServiceInfo System Module" class="md-nav__link">
+    <a href="../serviceinfo-sys-module/" title="ServiceInfo System Module" class="md-nav__link">
       ServiceInfo System Module
     </a>
   </li>
@@ -479,7 +490,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/docs-fidoiot/implementation-references/device-mfg-info/" title="DeviceMfgInfo Specification" class="md-nav__link">
+    <a href="../device-mfg-info/" title="DeviceMfgInfo Specification" class="md-nav__link">
       DeviceMfgInfo Specification
     </a>
   </li>
@@ -491,7 +502,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/docs-fidoiot/implementation-references/manufacturer-guide/" title="Manufacturer Guide" class="md-nav__link">
+    <a href="../manufacturer-guide/" title="Manufacturer Guide" class="md-nav__link">
       Manufacturer Guide
     </a>
   </li>
@@ -503,7 +514,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/docs-fidoiot/implementation-references/dms-integration-guide/" title="DMS Integration Guide" class="md-nav__link">
+    <a href="../dms-integration-guide/" title="DMS Integration Guide" class="md-nav__link">
       DMS Integration Guide
     </a>
   </li>
@@ -513,11 +524,70 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="/docs-fidoiot/implementation-references/proxy-settings/" title="Proxy Setup Guide" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Proxy Setup Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="Proxy Setup Guide" class="md-nav__link md-nav__link--active">
       Proxy Setup Guide
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#in-bashrc" class="md-nav__link">
+    In .bashrc
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#maven-settingsxml" class="md-nav__link">
+    Maven settings.xml
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-dockerfile" class="md-nav__link">
+    In Dockerfile
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proxy-settings-for-docker" class="md-nav__link">
+    Proxy settings for Docker
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -533,12 +603,113 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#in-bashrc" class="md-nav__link">
+    In .bashrc
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#maven-settingsxml" class="md-nav__link">
+    Maven settings.xml
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-dockerfile" class="md-nav__link">
+    In Dockerfile
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proxy-settings-for-docker" class="md-nav__link">
+    Proxy settings for Docker
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
               
-  <h1>404 - Not found</h1>
+                
+                
+                  
+                
+                
+                <h1 id="proxy-settings-for-running-fdo">Proxy settings for running FDO<a class="headerlink" href="#proxy-settings-for-running-fdo" title="Permanent link">&para;</a></h1>
+<p>This document lists the different proxy settings that need to be set </p>
+<h2 id="in-bashrc">In .bashrc<a class="headerlink" href="#in-bashrc" title="Permanent link">&para;</a></h2>
+<p>Add this line </p>
+<pre><code>export _JAVA_OPTIONS=&quot;-Dhttp.proxyHost=&lt;proxy host&gt; -Dhttp.proxyPort=&lt;port&gt; -Dhttps.proxyHost=&lt;proxy host&gt; -Dhttps.proxyPort=&lt;port&gt;&quot;
+</code></pre>
+<h2 id="maven-settingsxml">Maven settings.xml<a class="headerlink" href="#maven-settingsxml" title="Permanent link">&para;</a></h2>
+<p>Create a settings.xml file in ~/.m2 folder (if it does not already exist) and add the below content. Replace with the actual proxy host and port details </p>
+<pre><code>&lt;settings xmlns=&quot;http://maven.apache.org/SETTINGS/1.0.0&quot;
+xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+xsi:schemaLocation=&quot;http://maven.apache.org/SETTINGS/1.0.
+http://maven.apache.org/xsd/settings-1.0.0.xsd&quot;&gt;
 
+&lt;proxies&gt;
+&lt;proxy&gt;
+&lt;id&gt;http_proxy&lt;/id&gt;
+&lt;active&gt;true&lt;/active&gt;
+&lt;protocol&gt;http&lt;/protocol&gt;
+&lt;host&gt;&lt;proxy host&gt;&lt;/host&gt;
+&lt;port&gt; &lt;port&gt; &lt;/port&gt;
+&lt;username&gt;&lt;/username&gt;
+&lt;password&gt;&lt;/password&gt;
+&lt;nonProxyHosts&gt;localhost|&lt;proxy details&gt;&lt;/nonProxyHosts&gt;
+&lt;/proxy&gt;
+&lt;proxy&gt;
+&lt;id&gt;https_proxy&lt;/id&gt;
+&lt;active&gt;true&lt;/active&gt;
+&lt;protocol&gt;https&lt;/protocol&gt;
+&lt;host&gt;&lt;proxy host&gt;&lt;/host&gt;
+&lt;port&gt;&lt;port&gt;&lt;/port&gt;
+&lt;username&gt;&lt;/username&gt;
+&lt;password&gt;&lt;/password&gt;
+&lt;nonProxyHosts&gt;localhost|&lt;proxy&gt;&lt;/nonProxyHosts&gt;
+&lt;/proxy&gt;
+&lt;/proxies&gt;
+&lt;/settings&gt;
+</code></pre>
+<h2 id="in-dockerfile">In Dockerfile<a class="headerlink" href="#in-dockerfile" title="Permanent link">&para;</a></h2>
+<p>After successful PRI build, add the proxy settings to the Dockerfile file in the path <fdo-pri-src>/component-samples/demo/<rv/owner/manufacturer></p>
+<pre><code>ENV http_proxy &lt;proxy host&gt;:&lt;port&gt;
+ENV https_proxy &lt;proxy host&gt;:&lt;port&gt;
+
+</code></pre>
+<h2 id="proxy-settings-for-docker">Proxy settings for Docker<a class="headerlink" href="#proxy-settings-for-docker" title="Permanent link">&para;</a></h2>
+<p>Follow the proxy settings detailed <a href="#https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/">here</a> </p>
+                
+              
               
                 
 
@@ -551,6 +722,27 @@
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../dms-integration-guide/" title="DMS Integration Guide" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                DMS Integration Guide
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -572,20 +764,20 @@
       
     </div>
     
-      <script src="/docs-fidoiot/assets/javascripts/vendor.3636a4ec.min.js"></script>
-      <script src="/docs-fidoiot/assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../../assets/javascripts/vendor.3636a4ec.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
       
       <script>
         app = initialize({
-          base: "/docs-fidoiot/",
+          base: "../..",
           features: ["tabs"],
           search: Object.assign({
-            worker: "/docs-fidoiot/assets/javascripts/worker/search.5eca75d3.min.js"
+            worker: "../../assets/javascripts/worker/search.5eca75d3.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
       
-        <script src="/docs-fidoiot/js/version-select.js"></script>
+        <script src="../../js/version-select.js"></script>
       
     
   </body>
