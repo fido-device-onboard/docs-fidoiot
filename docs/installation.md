@@ -10,6 +10,8 @@ This document can be used as a quick start guide to setup the development enviro
 | Docker* Engine | 18.09 |
 | Docker* Compose | 1.21.2 |
 | Maven* | 3.5.4 |
+| Java | 11 |
+| Haveged | - |
 
 ## Docker* Installation
 1 . Removing the older versions of Docker*. If these are installed, uninstall them:
@@ -124,6 +126,11 @@ sudo apt install openjdk-11-jdk-headless
 2 . To install Maven*
 ```
 sudo apt install maven
+```
+
+3 . To install Haveged
+```
+sudo apt install haveged
 ```
 
 ## To set correct system time
