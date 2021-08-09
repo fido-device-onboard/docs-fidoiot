@@ -13,7 +13,7 @@ The manufacturer makes use of the provided tools for this process: a manufacture
 For details on how to setup and initialize the Manufacturer Component Sample see the Readme included with this sample as part of the FDO software [Manufacturer Component Readme] (https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/manufacturer/README.md).
 
 ### Manufacturer Component Sample
-The main function of the manufacturer component sample is to serve as a DI protocol server. The manufacturer component sample runs as a web service and makes use of the FOD H2 database for configuration and storage of ownership vouchers. All configuration and data for the manufacturer is stored in this H2 database and property or environment files. 
+The main function of the manufacturer component sample is to serve as a DI protocol server. The manufacturer component sample runs as a web service and makes use of the FDO H2 database for configuration and storage of ownership vouchers. All configuration and data for the manufacturer is stored in this H2 database and property or environment files. 
 
 ## Evaluation Deployment
 The evaluation deployment is useful for development, test, and enabling purposes. The evaluation deployment can fully initialize a device to the same extent as the production deployment but does not require any integration with business systems.
@@ -25,7 +25,7 @@ Install the manufacturer component sample, see [Manufacturer Component Readme](#
 Set up the device to run the FDO DI protocol (refer to device specific documentation for details). Run DI on the device against the manufacturer component sample. You can use any value for the device serial no at this point. For a production scenario, see [Device Serial No](device-mfg-info.md) for details. Use the REST APIs (or a database management tool) to view and confirm the ownership voucher has been created.
 
 ## Production Deployment
-A production deployment requires requires all steps of an evaluation deployment with the addition of integration with the manufacturing business systems. In addition, the manufacturer component sample is just a sample and will require further enchancements to make it production worthy.
+A production deployment requires all steps of an evaluation deployment with the addition of integration with the manufacturing business systems. In addition, the manufacturer component sample is just a sample and will require further enchancements to make it production worthy.
 
 ### Device Serial No
 Since a device identifier (typically, a serial no) is required for the DI protocol, it is recommended that there be some programmatic mechanism to determine the serial no of a device. This value can then be passed to the FDO client software to be encorporated into the appropriate DI message. This may require modifications to your existing manufacturing workflow.
@@ -54,6 +54,6 @@ attacks if exposed externally.
 only qualified individuals. 
 
 ### Supply Chain Requirements
-FDO requires support from your supply chain partners. Specially, they will need to deploy the means to manage and extend ownership vouchers. As physical devices come into their inventory they will need to associated those devices with the respective ownership vouchers. Then as those device are resold, the vouchers will need to be extended to the next owner in the supply chain. 
+FDO requires support from your supply chain partners. Specially, they will need to deploy the means to manage and extend ownership vouchers. As physical devices come into their inventory they will need to associate those devices with the respective ownership vouchers. Then as those device are resold, the vouchers will need to be extended to the next owner in the supply chain. 
 
 To support this process, there is a reseller component sample that can perform the storage and extension of ownership vouchers. See [Component Reseller] (https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/reseller) for details.
