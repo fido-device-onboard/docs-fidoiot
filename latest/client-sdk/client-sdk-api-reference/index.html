@@ -1050,7 +1050,7 @@
 <tbody>
 <tr>
 <td><strong>FDO_SI_START</strong></td>
-<td>This value indicates that the SDK is starting Service Info rounds. The module may perform pre-preparation operations at this time. The count and si parameters will be NULL.</td>
+<td>This value indicates that the SDK is starting ServiceInfo rounds. The module may perform pre-preparation operations at this time. The count and si parameters will be NULL.</td>
 </tr>
 <tr>
 <td><strong>FDO_SI_GET_DSI</strong></td>
@@ -1058,15 +1058,15 @@
 </tr>
 <tr>
 <td><strong>FDO_SI_SET_OSI</strong></td>
-<td>This value indicates that the SDK is providing a valid Owner Service Info key-value pair to the module and it must process the provide Owner ServiceInfo information. The count parameter is a progressively increasing index value of the provided Owner ServiceInfo.</td>
+<td>This value indicates that the SDK is providing a valid Owner ServiceInfo key-value pair to the module and it must process the provide Owner ServiceInfo information. The count parameter is a progressively increasing index value of the provided Owner ServiceInfo.</td>
 </tr>
 <tr>
 <td><strong>FDO_SI_END</strong></td>
-<td>This value indicates that the SDK has completed all Service Info rounds and the module can perform cleanup or final operations if required (like saving a file to disk, and so on).</td>
+<td>This value indicates that the SDK has completed all ServiceInfo rounds and the module can perform cleanup or final operations if required (like saving a file to disk, and so on).</td>
 </tr>
 <tr>
 <td><strong>FDO_SI_FAILURE</strong></td>
-<td>This value indicates that an error occurred and the SDK is aborting or abandoning this Service Info round. The module must ignore all the information it received thus far (if any) and reset to its initial state.</td>
+<td>This value indicates that an error occurred and the SDK is aborting or abandoning this ServiceInfo round. The module must ignore all the information it received thus far (if any) and reset to its initial state.</td>
 </tr>
 </tbody>
 </table>
@@ -1156,7 +1156,7 @@
 </tr>
 <tr>
 <td><strong>serviceInfoCallback</strong></td>
-<td>This callback function will be invoked by the SDK to obtain Device Service Info from the module as well as pass Pre-Service Info and Owner Service Info to the module. This callback will be executed in the context of the onboarding protocol. See ServiceInfo Module Callback.</td>
+<td>This callback function will be invoked by the SDK to pass Owner ServiceInfo to the module. This callback will be executed in the context of the onboarding protocol. See ServiceInfo Module Callback.</td>
 </tr>
 </tbody>
 </table>

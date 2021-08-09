@@ -514,8 +514,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#manufacturer_ipdnport" class="md-nav__link">
-    MANUFACTURER_(IP/DN/PORT)
+  <a href="#manufacturer_addr" class="md-nav__link">
+    MANUFACTURER_ADDR
   </a>
   
 </li>
@@ -557,13 +557,6 @@
           <li class="md-nav__item">
   <a href="#supported-configurations" class="md-nav__link">
     Supported Configurations
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#auto-configuration" class="md-nav__link">
-    Auto Configuration
   </a>
   
 </li>
@@ -1431,8 +1424,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#manufacturer_ipdnport" class="md-nav__link">
-    MANUFACTURER_(IP/DN/PORT)
+  <a href="#manufacturer_addr" class="md-nav__link">
+    MANUFACTURER_ADDR
   </a>
   
 </li>
@@ -1474,13 +1467,6 @@
           <li class="md-nav__item">
   <a href="#supported-configurations" class="md-nav__link">
     Supported Configurations
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#auto-configuration" class="md-nav__link">
-    Auto Configuration
   </a>
   
 </li>
@@ -2206,7 +2192,7 @@
 ├── crypto*  - - - - Crypto Subsystem
 ├── cmake* - - - - - cmake sub files
 ├── data - - - - - - Filesystem place to store blob like keys, network info.
-├── device_modules - Service Info Modules
+├── device_modules - ServiceInfo Modules
 ├── docs - - - - - - Documents
 ├── include  - - - - Client SDK APIs
 ├── lib  - - - - - - The core protocol implementation
@@ -2245,28 +2231,23 @@
 <pre><code>set (TARGET_OS linux)
 set (CSTD c99)
 set (TLS openssl)
-set (DA ecdsa256)
-set (PK_ENC ecdsa)
-set (KEX ecdh)
-set (AES_MODE ctr)
-set (EPID epid_r6)
+set (DA ecdsa384)
+set (AES_MODE gcm)
 set (BUILD debug)
 set (TARGET_OS linux)
 set (HTTPPROXY true)
 set (PROXY_DISCOVERY false)
 set (OPTIMIZE 1)
-set (MODULES false)
 set (DA_FILE der)
 set (CRYPTO_HW false)
 set (ARCH x86)
 set (RETRY true)
 set (unit-test false)
-set (MANUFACTURER_TOOLKIT true)
 set (STORAGE true)
 set (BOARD NUCLEO_F767ZI)
 set (BLOB_PATH .)
 set (TPM2_TCTI_TYPE tabrmd)
-set (RESALE false)
+set (RESALE true)
 set (REUSE true)
 </code></pre>
 <h4 id="blob_pathcmake">blob_path.cmake<a class="headerlink" href="#blob_pathcmake" title="Permanent link">&para;</a></h4>
@@ -2279,9 +2260,8 @@ set (REUSE true)
     -DPLATFORM_AES_KEY=\&quot;${BLOB_PATH}/data/platform_aes_key.bin\&quot;
     -DEPID_PRIVKEY=\&quot;${BLOB_PATH}/data/epidprivkey.dat\&quot;
     -DFDO_CRED=\&quot;${BLOB_PATH}/data/PMDeviceCredentials.bin\&quot;
-    -DMANUFACTURER_IP=\&quot;${BLOB_PATH}/data/manufacturer_ip.bin\&quot;
-    -DMANUFACTURER_DN=\&quot;${BLOB_PATH}/data/manufacturer_dn.bin\&quot;
-    -DMANUFACTURER_PORT=\&quot;${BLOB_PATH}/data/manufacturer_port.bin\&quot;
+    -DMANUFACTURER_ADDR=\&quot;${BLOB_PATH}/data/manufacturer_addr.bin\&quot;
+    -DMAX_SERVICEINFO_SZ_FILE=\&quot;${BLOB_PATH}/data/max_serviceinfo_sz.bin\&quot;
     )
 
 client_sdk_compile_definitions(
@@ -2315,15 +2295,16 @@ file(WRITE ${BLOB_PATH}/data/Normal.blob &quot;{\&quot;ST\&quot;:1}&quot;)
 <p class="admonition-title">Note</p>
 <p>These flags are not necessary for the platforms which have their own Secure Storage mechanisms. The platform may be able to store all blobs using Authenticated Encryption including Normal.blob. Client SDK always uses <code>fdo_blob_read()</code> to read the data, so, the underlying detail is already abstracted. In the reference solution, it is expected that these files exist physically although without any content. The content gets generated on an as-needed basis.</p>
 </div>
-<h5 id="manufacturer_ipdnport">MANUFACTURER_(IP/DN/PORT)<a class="headerlink" href="#manufacturer_ipdnport" title="Permanent link">&para;</a></h5>
-<p>Client SDK uses the location defined by the below flags to connect to Manufacturer Server to perform Device Initialization.</p>
+<h5 id="manufacturer_addr">MANUFACTURER_ADDR<a class="headerlink" href="#manufacturer_addr" title="Permanent link">&para;</a></h5>
+<p>Client SDK uses the location defined in the specified file to connect to Manufacturer Server to perform Device Initialization. The format for the Manufacturer Address is of the form: <code>{http,https}://{DNS,IP}:port</code>. The following rules apply while setting the value and all of these are mandatory:</p>
 <ul>
-<li><strong>MANUFACTURER_IP:</strong> This is the manufacturer IP address to be used for performing Device Initialization.</li>
-<li><strong>MANUFACTURER_DN:</strong> This is the manufacturer Domain Name used to resolve to the IP address. This is used if the MANUFACTURER_IP is not given.</li>
-<li><strong>MANUFACTURER_PORT:</strong> This is the manufacturer server port, where the Device Initialization protocol is waiting for the device. By default, the port is 8039 if this blob is not created, otherwise, the port is used from this blob.</li>
+<li>The transport protocol value must be either http or https (case-sensitive). Any other value will result in an error.</li>
+<li>Either one of DNS or IP Address can be provided. The maximum value of DNS is 100 characters and must only contain alphanumeric characters (0-9A-za-z), hyphens (-) and dot (.).</li>
+<li>The port should be an integer between (1-65535).</li>
+<li>The URL separators :// and : should be present at appropriate indices as per the indices of the above values.</li>
 </ul>
 <h5 id="max_serviceinfo_sz_file">MAX_SERVICEINFO_SZ_FILE<a class="headerlink" href="#max_serviceinfo_sz_file" title="Permanent link">&para;</a></h5>
-<p>Client SDK uses the value contained in the file path as defined by this flag, to decide the maximum ServiceInfo size the Device can process. The value must lie between 1300 and 8192 (both inclusive). If the set value is less than 1300, the value would default to 1300. Similarly, if the value is greater than 8192, the value would default to 8192.</p>
+<p>Client SDK uses the value contained in the file path as defined by this flag, to decide the maximum ServiceInfo size the Device can process. The value must lie between 256 and 8192 (both inclusive). If the set value is less than 256, the value would default to 256. Similarly, if the value is greater than 8192, the value would default to 8192.</p>
 <h5 id="ecdsa_privkey">ECDSA_PRIVKEY<a class="headerlink" href="#ecdsa_privkey" title="Permanent link">&para;</a></h5>
 <p>This specifies the ECDSA private key to be used as a device identity. Two options are possible:</p>
 <ul>
@@ -2348,50 +2329,28 @@ file(WRITE ${BLOB_PATH}/data/Normal.blob &quot;{\&quot;ST\&quot;:1}&quot;)
 <p>This cmake file consists mostly of build configuration from crypto.conf but is not limited to it.</p>
 <h5 id="supported-configurations">Supported Configurations<a class="headerlink" href="#supported-configurations" title="Permanent link">&para;</a></h5>
 <p>The following content is retained from crypto.conf for readability.</p>
-<pre><code>### KEX (key exchange) validation
-SUPPORTED_KEX = ecdh ecdh384
-
-### Device Attestation validation
+<pre><code>### Device Attestation validation
 SUPPORTED_DA = ecdsa256 ecdsa384 tpm20_ecdsa256
 
-### Public Key Encoding
-SUPPORTED_PK_ENC = ecdsa
-
 ### AES mode for secure channel
-SUPPORTED_AES_MODE = cbc ctr
+SUPPORTED_AES_MODE = gcm ccm
 </code></pre>
 <ul>
 <li>
-<p><strong>SUPPORTED_KEX:</strong> This specifies the key exchange algorithms implemented to create a secure channel between Device and Owner in Ownership Transfer Protocol.</p>
-<ul>
-<li>ecdhxxx: Based on Elliptic Curve Diffie Hellman</li>
-</ul>
-</li>
-<li>
-<p><strong>SUPPORTED_DA:</strong> This specifies the supported Device Attestation algorithms which device uses to prove its identity to Rendezvous Server and Owner.</p>
+<p><strong>SUPPORTED_DA:</strong> This specifies the supported Device Attestation algorithms which device uses to prove its identity to Rendezvous Server and Owner. This automatically configures the Key Exchange algorithm (ECDH256/ECDH384) that is used to generate the shared secret and th AES Mode, to use higher crypto in the source.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>tpm20_ecdsa256 isn’t a separate algorithm, it uses ecdsa256 as Device Attestation, but uses TPM2.0 to generate keys and store data</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Public Key Encoding supported in COSEX509.</p>
+</div>
 </li>
 <li>
-<p><strong>SUPPORTED_PK_ENC:</strong> This specifies the Public Key Encoding which Device supports to authenticate the Owner</p>
-</li>
-<li>
-<p><strong>SUPPORTED_AES_MODE:</strong> This specifies the AES mode of encryption supported by device. The device supports CBC and CTR.</p>
+<p><strong>SUPPORTED_AES_MODE:</strong> This specifies the AES mode of encryption supported by device. The device supports GCM and CCM. The following configurations are supported as per the Device Attestation algorithm: A128GCM, A256GCM, AES-CCM-64-128-128 and AES-CCM-64-128-256.</p>
 </li>
 </ul>
-<h5 id="auto-configuration">Auto Configuration<a class="headerlink" href="#auto-configuration" title="Permanent link">&para;</a></h5>
-<p>A selection of higher crypto for Device Attestation automatically configures Key Exchange to use higher crypto.</p>
-<pre><code>elseif(DA MATCHES ecdsa384)
-    client_sdk_compile_definitions(
-      -DECDSA384_DA)
-    #Move KEX to higher crypto
-    if (NOT(${KEX} STREQUAL ecdh384))
-      set(KEX ecdh384)
-      message(&quot;KEX moved to higher crypto&quot;)
-    endif()
-</code></pre>
 <h3 id="client-sdk-constants">Client SDK Constants<a class="headerlink" href="#client-sdk-constants" title="Permanent link">&para;</a></h3>
 <h4 id="fdo_sdk_error">fdo_sdk_error<a class="headerlink" href="#fdo_sdk_error" title="Permanent link">&para;</a></h4>
 <pre><code>typedef enum {
@@ -2441,11 +2400,11 @@ typedef int (*fdo_sdk_errorCB)(fdo_sdk_status type, fdo_sdk_error error_code);
 <p class="admonition-title">Note</p>
 <p>The reference application allows the Client SDK to retry for 5 times before calling abort</p>
 </div>
-<p>The Client SDK allows the owner to download the required Device Management System agents via Service Info mechanism; the num_modules and module_information registers the Service Info modules with the Client SDK.</p>
+<p>The Client SDK allows the owner to download the required Device Management System agents via ServiceInfo mechanism; the num_modules and module_information registers the ServiceInfo modules with the Client SDK.</p>
 <p><em>Parameters</em></p>
 <p><code>error_handling_callback:</code> It is of type fdo_sdk_errorCB</p>
-<p><code>num_modules:</code> number of Service Info modules to register.</p>
-<p><code>module_information:</code> Array of Service Info modules registration information</p>
+<p><code>num_modules:</code> number of ServiceInfo modules to register.</p>
+<p><code>module_information:</code> Array of ServiceInfo modules registration information</p>
 <p><em>Return Value</em></p>
 <p><code>FDO_SUCCESS</code> for success.</p>
 <p>Greater than <code>FDO_SUCCESS</code> for failure (refer fdo_sdk_status)</p>
@@ -2502,9 +2461,7 @@ typedef int (*fdo_sdk_errorCB)(fdo_sdk_status type, fdo_sdk_error error_code);
 </code></pre>
 <p>The usage of this define is detailed in <code>crypto_hal_hmac()</code>.</p>
 <h4 id="fdo_crypto_pub_key_encoding">FDO_CRYPTO_PUB_KEY_ENCODING<a class="headerlink" href="#fdo_crypto_pub_key_encoding" title="Permanent link">&para;</a></h4>
-<pre><code>#define FDO_CRYPTO_PUB_KEY_ENCODING_X509        1
-#define FDO_CRYPTO_PUB_KEY_ENCODING_COSEX509    2
-#define FDO_CRYPTO_PUB_KEY_ENCODING_COSEKEY     3
+<pre><code>#define FDO_CRYPTO_PUB_KEY_ENCODING_COSEX509    2
 </code></pre>
 <p>The usage of this define is detailed in <code>crypto_hal_sig_verify()</code>.</p>
 <h4 id="fdo_crypto_pub_key_algo">FDO_CRYPTO_PUB_KEY_ALGO<a class="headerlink" href="#fdo_crypto_pub_key_algo" title="Permanent link">&para;</a></h4>
@@ -2643,22 +2600,22 @@ typedef fdo_bits_t fdo_byte_array_t;
                               uint32_t key_param2Length)
 </code></pre>
 <p><em>Description</em></p>
-<p>This function verifies the ECDSA or RSA signature pointed by <code>message_signature</code> of size <code>message_length</code> on the data pointed by <code>message</code> of size <code>message_length</code> with the key material <code>key_param1</code> and <code>key_param2</code> interpreted according to <code>key_encoding</code>.</p>
+<p>This function verifies the ECDSA signature pointed by <code>message_signature</code> of size <code>message_length</code> on the data pointed by <code>message</code> of size <code>message_length</code> with the key material <code>key_param1</code> and <code>key_param2</code> interpreted according to <code>key_encoding</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
 </div>
 <p><em>Parameters</em></p>
-<p><code>key_encoding:</code> FDO_CRYPTO_PUB_KEY_ENCODING_X509 encoding is used for ECDSA and FDO_CRYPTO_PUB_KEY_ENCODING_RSA_MOD_EXP is used for RSA. Please refer FDO_CRYPTO_PUB_KEY_ENCODING</p>
-<p><code>key_algorithm:</code> FDO_CRYPTO_PUB_KEY_ALGO_(ECDSAp256/ECDSAp384) is used for ECDSA and FDO_CRYPTO_PUB_KEY_ALGO_RSA for RSA. Please refer FDO_CRYPTO_PUB_KEY_ALGO</p>
+<p><code>key_encoding:</code> FDO_CRYPTO_PUB_KEY_ENCODING_COSEX509 encoding is used for ECDSA. Please refer FDO_CRYPTO_PUB_KEY_ENCODING</p>
+<p><code>key_algorithm:</code> FDO_CRYPTO_PUB_KEY_ALGO_(ECDSAp256/ECDSAp384) is used for ECDSA. Please refer FDO_CRYPTO_PUB_KEY_ALGO</p>
 <p><code>message:</code> data over which the sign verification needs to be performed.</p>
 <p><code>message_length:</code> size of the message</p>
-<p><code>message_signature:</code> signature over the message sent by the signing entity</p>
+<p><code>message_signature:</code> signature over the message sent by the signing entity. Signature is of the form 'r' concatenated with 's' (r|s).</p>
 <p><code>signature_length:</code> size of the message_signature</p>
-<p><code>key_param1:</code> either ECDSA key or RSA Modulus</p>
+<p><code>key_param1:</code> ECDSA key of the form Affine 'x' concatenated with Affine 'y' (X|Y)</p>
 <p><code>key_param1Length:</code> size of the key in key_param1</p>
-<p><code>key_param2:</code> NULL for ECDSA or Public Exponent for RSA</p>
-<p><code>key_param2Length:</code> size of the key in key_param2</p>
+<p><code>key_param2:</code> NULL, unused</p>
+<p><code>key_param2Length:</code> size of the key in key_param2, unused</p>
 <p><em>Return Value</em></p>
 <p><code>0</code> for success</p>
 <p><code>-1</code> for failure</p>
@@ -2686,7 +2643,7 @@ typedef fdo_bits_t fdo_byte_array_t;
 <p><em>Parameters</em></p>
 <p><code>message:</code> The message over which sign is to be calculated.</p>
 <p><code>message_length:</code> size of the message</p>
-<p><code>signature:</code> The buffer to fill signature with.</p>
+<p><code>signature:</code> The buffer to fill signature with. Signature is of the form r concatenated with s (r|s).</p>
 <p><code>signature_len:</code> size of the signature</p>
 <p><em>Return Value</em></p>
 <p><code>0</code> for success</p>
@@ -2697,7 +2654,8 @@ typedef fdo_bits_t fdo_byte_array_t;
                                uint32_t clear_text_length, uint8_t *cipher_text,
                                uint32_t *cipher_length, size_t block_size,
                                const uint8_t *iv, const uint8_t *key,
-                               uint32_t key_length)
+                               uint32_t key_length, uint8_t *tag, size_t tag_length,
+                               const uint8_t *aad, size_t aad_length)
 </code></pre>
 <p><em>Description</em></p>
 <p>This function encrypts the <code>clear_text</code> of size <code>clear_text_length</code> with the AES algorithm using <code>key</code> of size <code>key_length</code> and fills the <code>cipher_text</code> with encrypted content of size <code>cipher_length</code>.</p>
@@ -2710,10 +2668,14 @@ typedef fdo_bits_t fdo_byte_array_t;
 <p><code>clear_text_length:</code> size of clear_text</p>
 <p><code>cipher_text:</code> pointer to the empty buffer to be filled after encrypting clear_text</p>
 <p><code>cipher_length:</code> size of buffer pointed by cipher_text. This is IN/OUT parameter and gets filled with size of expected encrypted buffer in case cipher_text is passed as NULL with all other parameters as valid.</p>
-<p><code>block_size:</code> is 16 in case of AES CBC encrypt</p>
-<p><code>iv</code>: Initialization Vector of size 16 bytes. Counter management is to be done by the caller for AES CTR mode.</p>
+<p><code>block_size:</code> AES block size (16 bytes)</p>
+<p><code>iv</code>: Initialization Vector of size 12 bytes for AES-GCM and 7 bytes for AES-CCM.</p>
 <p><code>key:</code> AES symmetric key</p>
 <p><code>key_length:</code> size of the key</p>
+<p><code>tag:</code> pointer to the empty buffer to be filled after generating the Authentication Tag</p>
+<p><code>tag_length:</code> size of the Authentication Tag (16 bytes)</p>
+<p><code>aad:</code> pointer to the buffer containing Additional Authenticated Data (AAD)</p>
+<p><code>aad_length:</code> size of the Additional Authenticated Data (AAD)</p>
 <p><em>Return Value</em></p>
 <p><code>0</code> for success</p>
 <p><code>-1</code> for failure</p>
@@ -2722,7 +2684,8 @@ typedef fdo_bits_t fdo_byte_array_t;
                                const uint8_t *cipher_text,
                                uint32_t cipher_length, size_t block_size,
                                const uint8_t *iv, const uint8_t *key,
-                               uint32_t key_length)
+                               uint32_t key_length, uint8_t *tag, size_t tag_length,
+                               const uint8_t *aad, size_t aad_length)
 </code></pre>
 <p><em>Description</em></p>
 <p>This function decrypts the <code>cipher_text</code> of size <code>cipher_length</code> with the AES algorithm using <code>key</code> of size <code>key_length</code> and fills the <code>clear_text</code> with unencrypted content of length <code>clear_text_length</code>.</p>
@@ -2735,10 +2698,14 @@ typedef fdo_bits_t fdo_byte_array_t;
 <p><code>clear_text_length:</code> size of clear_text. This is IN/OUT parameter and gets filled with size of expected unencrypted buffer in case clear_text is passed as NULL with all other parameters as valid.</p>
 <p><code>cipher_text:</code> pointer to the buffer containing text to be decrypted.</p>
 <p><code>cipher_length:</code> size of cipher_text.</p>
-<p><code>block_size:</code> is 16 in case of AES CBC encrypt</p>
-<p><code>iv:</code> Initialization Vector of size 16 bytes. Counter management is to be done by the caller for AES CTR mode.</p>
+<p><code>block_size:</code> AES block size (16 bytes)</p>
+<p><code>iv:</code> Initialization Vector of size 12 bytes for AES-GCM and 7 bytes for AES-CCM.</p>
 <p><code>key:</code> AES symmetric key</p>
 <p><code>key_length:</code> size of the key</p>
+<p><code>tag:</code> pointer to the buffer containing Authentication Tag to be verified</p>
+<p><code>tag_length:</code> size of the Authentication Tag (16 bytes)</p>
+<p><code>aad:</code> pointer to the buffer containing Additional Authenticated Data (AAD)</p>
+<p><code>aad_length:</code> size of the Additional Authenticated Data (AAD)</p>
 <p><em>Return Value</em></p>
 <p><code>0</code> for success</p>
 <p><code>-1</code> for failure</p>
@@ -3237,7 +3204,7 @@ It may be called multiple times, and if in subsequent calls to this function, th
 <p>Number of bytes written for success</p>
 <p><code>-1</code> for failure</p>
 <h4 id="fdo_blob_size">fdo_blob_size()<a class="headerlink" href="#fdo_blob_size" title="Permanent link">&para;</a></h4>
-<pre><code>int32_t fdo_blob_size(const char *blob_name, fdo_sdk_blob_flags flags)
+<pre><code>size_t fdo_blob_size(const char *blob_name, fdo_sdk_blob_flags flags)
 </code></pre>
 <p><em>Description</em>
 This function returns the size of blob identified by <code>blob_name</code> whose storage properties match with the <code>flags</code>. This should be used before fdo_blob_read()</p>
@@ -3250,8 +3217,8 @@ This function returns the size of blob identified by <code>blob_name</code> whos
 <p><code>flags:</code>  Please refer fdo_sdk_blob_flags</p>
 <p><em>Return Value</em></p>
 <p>Blob size for success</p>
-<p><code>0</code> if the blob doesn’t exist</p>
-<p><code>-1</code> for failure</p>
+<p><code>file size</code> on success</p>
+<p><code>0</code> if file does not exist or in case of failure</p>
                 
               
               
