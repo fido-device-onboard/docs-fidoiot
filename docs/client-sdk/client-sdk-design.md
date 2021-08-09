@@ -1,6 +1,6 @@
 ## Introduction
 
-This document describes the changes required in the FIDO Device Onboard (FDO) Client Software Development Kit (SDK) to support the new [FIDO Device Onboard specification](https://fidoalliance.org/specs/fidoiot/FIDO-IoT-spec-v1.0-wd-20200730.html).
+This document describes the changes required in the FIDO Device Onboard (FDO) Client Software Development Kit (SDK) to support the new [FIDO Device Onboard specification](https://fidoalliance.org/specs/FDO/fido-device-onboard-v1.0-ps-20210323/fido-device-onboard-v1.0-ps-20210323.html).
 
 The FDO Client SDK is a portable C Code implementation of the FDO Device Onboarding (FDO) protocols, cryptographic operations, and associated functions required to support microcontroller (MCU) devices. The SDK is written in C since it is the language of choice for programming MCU devices. While the SDK is developed and tested on Linux, the core components of the SDK are isolated from Linux specifics via an abstraction layer. Well-known open source implementations of cryptographic libraries are used for crypto operations.
 
@@ -35,7 +35,7 @@ This layer must be adapted to the new FDO implementation. Each message API must 
 
 ### ServiceInfo Message Handling (A3)
 
-The FDO specification requires changes to the handling of ServiceInfo messages. Handling of service info is done almost similar to previous specification; however, the repeat transmit, acknowledgement, and DSI messages require full implementation in the FDO library. Unlike the current implementation, service message must be part of the FDO library rather than a separate module.
+The FDO specification requires changes to the handling of ServiceInfo messages. Handling of ServiceInfo is done almost similar to previous specification; however, the repeat transmit, acknowledgement, and DSI messages require full implementation in the FDO library. Unlike the current implementation, service message must be part of the FDO library rather than a separate module.
 
 ### Storage Implementation - CBOR Format (A4)
 
@@ -59,5 +59,5 @@ Figure 3. FDO Transmit Message Flowchart
 Figure 4. FDO Receive Message Flowchart
 ![FDO Receive Message Flowchart](img/Slide6.PNG)
 
-Further Client SDK porting details can be found [here](https://github.com/secure-device-onboard/docs/blob/master/docs/client-sdk/client-sdk-porting-guide.md). 
+Further Client SDK porting details can be found [here](https://github.com/secure-device-onboard/docs-fidoiot/blob/master/docs/client-sdk/client-sdk-porting-guide.md).
 
