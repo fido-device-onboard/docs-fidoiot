@@ -744,6 +744,14 @@
 <td>Maven*</td>
 <td>3.5.4</td>
 </tr>
+<tr>
+<td>Java</td>
+<td>11</td>
+</tr>
+<tr>
+<td>Haveged</td>
+<td>-</td>
+</tr>
 </tbody>
 </table>
 <h2 id="docker-installation">Docker* Installation<a class="headerlink" href="#docker-installation" title="Permanent link">&para;</a></h2>
@@ -834,6 +842,9 @@ sudo systemctl restart docker
 </code></pre>
 <p>2 . To install Maven*</p>
 <pre><code>sudo apt install maven
+</code></pre>
+<p>3 . To install Haveged</p>
+<pre><code>sudo apt install haveged
 </code></pre>
 <h2 id="to-set-correct-system-time">To set correct system time<a class="headerlink" href="#to-set-correct-system-time" title="Permanent link">&para;</a></h2>
 <pre><code>sudo date -s &quot;$(wget -qSO- --max-redirect=0 google.com 2&gt;&amp;1 | grep Date: | cut -d' ' -f5-8)Z&quot;
