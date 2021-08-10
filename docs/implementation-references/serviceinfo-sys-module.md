@@ -92,6 +92,6 @@ Device should advertise it supports fdo_sys.
 
 #### ismore flag
 
-Modules should always set the 'ismore' flag to false to allow device modules to respond.  The only time 'ismore' should be true is if the message being sent is not complete processable message.  All fdo_sys messages are complete messages, so ismore can always be true.
+The 'ismore' more should be true is if the message being sent is not a complete processable message.  All fdo_sys messages are complete messages, so the 'ismore' flag will always be true in this case.
 
 

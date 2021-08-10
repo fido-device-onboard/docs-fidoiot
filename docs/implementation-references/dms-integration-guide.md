@@ -11,16 +11,16 @@ and provide onboarding and onboarding solution in the form of service info instr
 For details on how to setup and initialize the Owner Service Component Sample see the Readme included with this sample as part of the FDO software [Owner Component Readme] (https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/owner/README.md).
 
 ### Owner Component Sample
-The main function of the Owner component sample is to serve as a TO2 protocol server. The onwer component sample runs as a web service and makes use of the FDO H2 database for configuration and storage of ownership vouchers. All configuration and data for the owner is stored in this H2 database and property or environment files. 
+The main function of the Owner component sample is to serve as a TO2 protocol server. The owner component sample runs as a web service and makes use of the FDO H2 database for configuration and storage of ownership vouchers. All configuration and data for the owner is stored in this H2 database and property or environment files. 
 
 ### All-in-One (AIO) Component Sample
-In addition to the owner component, the All-in-one component can be used to host Owner, Rendezvous, and Manufacturing services all in one service.  This makes deploying and testing and FDO solution easier.
+In addition to the owner component, the All-in-one component can be used to host Owner, Rendezvous, and Manufacturing services all in one service.  This makes deploying and testing of FDO easier.
 
 ## Evaluation Deployment
 The evaluation deployment is useful for development, test, and enabling purposes. The evaluation deployment can fully initialize a device to the same extent as the production deployment but does not require any integration with business systems.
 
 # DMS Integration using Service Info
-Owner component service info can integration with a DMS by providing the following:
+Owner component service info can integrate with a DMS by providing the following:
 
 -A script to download the agent used to connect to the DMS
 
@@ -45,7 +45,7 @@ Use the device uuid as the name
 
 
 Steps:
-1.	Ran CLI docker
+1.	Run CLI docker
       a.	https://docs.microsoft.com/en-us/cli/azure/run-azure-cli-docker
       b.	“docker run -it -v ${HOME}/.ssh:/root/.ssh -v ~/Desktop/dev/Azure:/home mcr.microsoft.com/azure-cli”
 2.	log in to Azure account
