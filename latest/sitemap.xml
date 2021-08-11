@@ -1,75 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://secure-device-onboard.github.io/docs-fidoiot/</loc>
-     <lastmod>2021-08-09</lastmod>
+     <lastmod>2021-08-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://secure-device-onboard.github.io/docs-fidoiot/reference/</loc>
-     <lastmod>2021-08-09</lastmod>
+     <lastmod>2021-08-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://secure-device-onboard.github.io/docs-fidoiot/community/</loc>
-     <lastmod>2021-08-09</lastmod>
+     <lastmod>2021-08-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://secure-device-onboard.github.io/docs-fidoiot/releases/</loc>
-     <lastmod>2021-08-09</lastmod>
+     <lastmod>2021-08-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://secure-device-onboard.github.io/docs-fidoiot/security-best-practices/</loc>
-     <lastmod>2021-08-09</lastmod>
+     <lastmod>2021-08-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://secure-device-onboard.github.io/docs-fidoiot/installation/</loc>
-     <lastmod>2021-08-09</lastmod>
+     <lastmod>2021-08-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://secure-device-onboard.github.io/docs-fidoiot/protocol-specification/</loc>
-     <lastmod>2021-08-09</lastmod>
+     <lastmod>2021-08-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://secure-device-onboard.github.io/docs-fidoiot/pri/pri-introduction/</loc>
-     <lastmod>2021-08-09</lastmod>
+     <lastmod>2021-08-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://secure-device-onboard.github.io/docs-fidoiot/client-sdk/client-sdk-design/</loc>
-     <lastmod>2021-08-09</lastmod>
+     <lastmod>2021-08-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://secure-device-onboard.github.io/docs-fidoiot/client-sdk/client-sdk-reference-guide/</loc>
-     <lastmod>2021-08-09</lastmod>
+     <lastmod>2021-08-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://secure-device-onboard.github.io/docs-fidoiot/client-sdk/client-sdk-api-reference/</loc>
-     <lastmod>2021-08-09</lastmod>
+     <lastmod>2021-08-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://secure-device-onboard.github.io/docs-fidoiot/client-sdk/client-sdk-porting-guide/</loc>
-     <lastmod>2021-08-09</lastmod>
+     <lastmod>2021-08-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://secure-device-onboard.github.io/docs-fidoiot/implementation-references/getting-started-guide/</loc>
-     <lastmod>2021-08-09</lastmod>
+     <lastmod>2021-08-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://secure-device-onboard.github.io/docs-fidoiot/implementation-references/serviceinfo-sys-module/</loc>
-     <lastmod>2021-08-09</lastmod>
+     <lastmod>2021-08-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://secure-device-onboard.github.io/docs-fidoiot/implementation-references/device-mfg-info/</loc>
-     <lastmod>2021-08-09</lastmod>
+     <lastmod>2021-08-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://secure-device-onboard.github.io/docs-fidoiot/implementation-references/manufacturer-guide/</loc>
-     <lastmod>2021-08-09</lastmod>
+     <lastmod>2021-08-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://secure-device-onboard.github.io/docs-fidoiot/implementation-references/dms-integration-guide/</loc>
-     <lastmod>2021-08-09</lastmod>
+     <lastmod>2021-08-11</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://secure-device-onboard.github.io/docs-fidoiot/implementation-references/proxy-settings/</loc>
-     <lastmod>2021-08-09</lastmod>
+     <lastmod>2021-08-11</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
