@@ -100,11 +100,11 @@ Below are the parameters of the ServiceInfo Module Callback function described i
 
 | | |
 |-|-|
-| **FDO_SI_START** | This value indicates that the SDK is starting Service Info rounds. The module may perform pre-preparation operations at this time. The count and si parameters will be NULL. |
+| **FDO_SI_START** | This value indicates that the SDK is starting ServiceInfo rounds. The module may perform pre-preparation operations at this time. The count and si parameters will be NULL. |
 | **FDO_SI_GET_DSI** | This is a legacy value that shall be removed in a future release. |
-| **FDO_SI_SET_OSI** | This value indicates that the SDK is providing a valid Owner Service Info key-value pair to the module and it must process the provide Owner ServiceInfo information. The count parameter is a progressively increasing index value of the provided Owner ServiceInfo. |
-| **FDO_SI_END** | This value indicates that the SDK has completed all Service Info rounds and the module can perform cleanup or final operations if required (like saving a file to disk, and so on). |
-| **FDO_SI_FAILURE** | This value indicates that an error occurred and the SDK is aborting or abandoning this Service Info round. The module must ignore all the information it received thus far (if any) and reset to its initial state. |
+| **FDO_SI_SET_OSI** | This value indicates that the SDK is providing a valid Owner ServiceInfo key-value pair to the module and it must process the provide Owner ServiceInfo information. The count parameter is a progressively increasing index value of the provided Owner ServiceInfo. |
+| **FDO_SI_END** | This value indicates that the SDK has completed all ServiceInfo rounds and the module can perform cleanup or final operations if required (like saving a file to disk, and so on). |
+| **FDO_SI_FAILURE** | This value indicates that an error occurred and the SDK is aborting or abandoning this ServiceInfo round. The module must ignore all the information it received thus far (if any) and reset to its initial state. |
 
 ### Owner ServiceInfo Module Callback
 This type is a pointer to a callback function that is used to process Owner ServiceInfo messages received from the Owner Server for a specific ServiceInfo module.
@@ -158,7 +158,7 @@ _**Members**_
 |-|-|
 | **active** | A bool value denoting whether the ServiceInfo module is currently active(true) or inactive(false). This value is maintained by the SDK and should not be tampered with by the module during ServiceInfo processing. |
 | **moduleName** | The symbolic name of the ServiceInfo Module. This should be a NULL terminated string, no larger than 15 characters. |
-| **serviceInfoCallback** | This callback function will be invoked by the SDK to obtain Device Service Info from the module as well as pass Pre-Service Info and Owner Service Info to the module. This callback will be executed in the context of the onboarding protocol. See ServiceInfo Module Callback. |
+| **serviceInfoCallback** | This callback function will be invoked by the SDK to pass Owner ServiceInfo to the module. This callback will be executed in the context of the onboarding protocol. See ServiceInfo Module Callback. |
 
 ### Error Handling Callback
 This type is a pointer to a callback function that is used to process errors during protocol execution. The Application can use information provided by this callback to perform application-specific operations. The Application can also control the execution of the protocol state machine by return different values as specified below.

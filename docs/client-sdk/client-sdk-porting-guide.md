@@ -29,7 +29,7 @@ The Client SDK reference implementation source code is organized as follows (fol
 ├── crypto*  - - - - Crypto Subsystem
 ├── cmake* - - - - - cmake sub files
 ├── data - - - - - - Filesystem place to store blob like keys, network info.
-├── device_modules - Service Info Modules
+├── device_modules - ServiceInfo Modules
 ├── docs - - - - - - Documents
 ├── include  - - - - Client SDK APIs
 ├── lib  - - - - - - The core protocol implementation
@@ -74,28 +74,23 @@ The following specifies the default build configuration which can be overridden 
 set (TARGET_OS linux)
 set (CSTD c99)
 set (TLS openssl)
-set (DA ecdsa256)
-set (PK_ENC ecdsa)
-set (KEX ecdh)
-set (AES_MODE ctr)
-set (EPID epid_r6)
+set (DA ecdsa384)
+set (AES_MODE gcm)
 set (BUILD debug)
 set (TARGET_OS linux)
 set (HTTPPROXY true)
 set (PROXY_DISCOVERY false)
 set (OPTIMIZE 1)
-set (MODULES false)
 set (DA_FILE der)
 set (CRYPTO_HW false)
 set (ARCH x86)
 set (RETRY true)
 set (unit-test false)
-set (MANUFACTURER_TOOLKIT true)
 set (STORAGE true)
 set (BOARD NUCLEO_F767ZI)
 set (BLOB_PATH .)
 set (TPM2_TCTI_TYPE tabrmd)
-set (RESALE false)
+set (RESALE true)
 set (REUSE true)
 ```
 #### blob_path.cmake
@@ -110,9 +105,8 @@ client_sdk_compile_definitions(
     -DPLATFORM_AES_KEY=\"${BLOB_PATH}/data/platform_aes_key.bin\"
     -DEPID_PRIVKEY=\"${BLOB_PATH}/data/epidprivkey.dat\"
     -DFDO_CRED=\"${BLOB_PATH}/data/PMDeviceCredentials.bin\"
-    -DMANUFACTURER_IP=\"${BLOB_PATH}/data/manufacturer_ip.bin\"
-    -DMANUFACTURER_DN=\"${BLOB_PATH}/data/manufacturer_dn.bin\"
-    -DMANUFACTURER_PORT=\"${BLOB_PATH}/data/manufacturer_port.bin\"
+    -DMANUFACTURER_ADDR=\"${BLOB_PATH}/data/manufacturer_addr.bin\"
+    -DMAX_SERVICEINFO_SZ_FILE=\"${BLOB_PATH}/data/max_serviceinfo_sz.bin\"
     )
 
 client_sdk_compile_definitions(
@@ -146,15 +140,16 @@ The purpose of these defines is to specify the location where the reference solu
 !!! note
     These flags are not necessary for the platforms which have their own Secure Storage mechanisms. The platform may be able to store all blobs using Authenticated Encryption including Normal.blob. Client SDK always uses `fdo_blob_read()` to read the data, so, the underlying detail is already abstracted. In the reference solution, it is expected that these files exist physically although without any content. The content gets generated on an as-needed basis.
 
-##### MANUFACTURER_(IP/DN/PORT)
-Client SDK uses the location defined by the below flags to connect to Manufacturer Server to perform Device Initialization.
+##### MANUFACTURER_ADDR
+Client SDK uses the location defined in the specified file to connect to Manufacturer Server to perform Device Initialization. The format for the Manufacturer Address is of the form: `{http,https}://{DNS,IP}:port`. The following rules apply while setting the value and all of these are mandatory:
 
-* **MANUFACTURER_IP:** This is the manufacturer IP address to be used for performing Device Initialization.
-* **MANUFACTURER_DN:** This is the manufacturer Domain Name used to resolve to the IP address. This is used if the MANUFACTURER_IP is not given.
-* **MANUFACTURER_PORT:** This is the manufacturer server port, where the Device Initialization protocol is waiting for the device. By default, the port is 8039 if this blob is not created, otherwise, the port is used from this blob.
+* The transport protocol value must be either http or https (case-sensitive). Any other value will result in an error.
+* Either one of DNS or IP Address can be provided. The maximum value of DNS is 100 characters and must only contain alphanumeric characters (0-9A-za-z), hyphens (-) and dot (.).
+* The port should be an integer between (1-65535).
+* The URL separators :// and : should be present at appropriate indices as per the indices of the above values.
 
 ##### MAX_SERVICEINFO_SZ_FILE
-Client SDK uses the value contained in the file path as defined by this flag, to decide the maximum ServiceInfo size the Device can process. The value must lie between 1300 and 8192 (both inclusive). If the set value is less than 1300, the value would default to 1300. Similarly, if the value is greater than 8192, the value would default to 8192.
+Client SDK uses the value contained in the file path as defined by this flag, to decide the maximum ServiceInfo size the Device can process. The value must lie between 256 and 8192 (both inclusive). If the set value is less than 256, the value would default to 256. Similarly, if the value is greater than 8192, the value would default to 8192.
 
 ##### ECDSA_PRIVKEY
 This specifies the ECDSA private key to be used as a device identity. Two options are possible:
@@ -181,45 +176,22 @@ This cmake file consists mostly of build configuration from crypto.conf but is n
 The following content is retained from crypto.conf for readability.
 
 ```
-### KEX (key exchange) validation
-SUPPORTED_KEX = ecdh ecdh384
-
 ### Device Attestation validation
 SUPPORTED_DA = ecdsa256 ecdsa384 tpm20_ecdsa256
 
-### Public Key Encoding
-SUPPORTED_PK_ENC = ecdsa
-
 ### AES mode for secure channel
-SUPPORTED_AES_MODE = cbc ctr
+SUPPORTED_AES_MODE = gcm ccm
 ```
 
-  * **SUPPORTED_KEX:** This specifies the key exchange algorithms implemented to create a secure channel between Device and Owner in Ownership Transfer Protocol.
-
-    * ecdhxxx: Based on Elliptic Curve Diffie Hellman
-
-  * **SUPPORTED_DA:** This specifies the supported Device Attestation algorithms which device uses to prove its identity to Rendezvous Server and Owner.
+  * **SUPPORTED_DA:** This specifies the supported Device Attestation algorithms which device uses to prove its identity to Rendezvous Server and Owner. This automatically configures the Key Exchange algorithm (ECDH256/ECDH384) that is used to generate the shared secret and th AES Mode, to use higher crypto in the source.
 
     !!! note
         tpm20_ecdsa256 isn’t a separate algorithm, it uses ecdsa256 as Device Attestation, but uses TPM2.0 to generate keys and store data
 
-  * **SUPPORTED_PK_ENC:** This specifies the Public Key Encoding which Device supports to authenticate the Owner
+    !!! note
+        The Public Key Encoding supported in COSEX509.
 
-  * **SUPPORTED_AES_MODE:** This specifies the AES mode of encryption supported by device. The device supports CBC and CTR.
-
-##### Auto Configuration
-A selection of higher crypto for Device Attestation automatically configures Key Exchange to use higher crypto.
-
-```
-elseif(DA MATCHES ecdsa384)
-    client_sdk_compile_definitions(
-      -DECDSA384_DA)
-    #Move KEX to higher crypto
-    if (NOT(${KEX} STREQUAL ecdh384))
-      set(KEX ecdh384)
-      message("KEX moved to higher crypto")
-    endif()
-```
+  * **SUPPORTED_AES_MODE:** This specifies the AES mode of encryption supported by device. The device supports GCM and CCM. The following configurations are supported as per the Device Attestation algorithm: A128GCM, A256GCM, AES-CCM-64-128-128 and AES-CCM-64-128-256.
 
 ### Client SDK Constants
 
@@ -280,15 +252,15 @@ This function initializes the Client SDK data structures. It allows the applicat
 !!! note
     The reference application allows the Client SDK to retry for 5 times before calling abort
 
-The Client SDK allows the owner to download the required Device Management System agents via Service Info mechanism; the num_modules and module_information registers the Service Info modules with the Client SDK.
+The Client SDK allows the owner to download the required Device Management System agents via ServiceInfo mechanism; the num_modules and module_information registers the ServiceInfo modules with the Client SDK.
 
 *Parameters*
 
 `error_handling_callback:` It is of type fdo_sdk_errorCB
 
-`num_modules:` number of Service Info modules to register.
+`num_modules:` number of ServiceInfo modules to register.
 
-`module_information:` Array of Service Info modules registration information
+`module_information:` Array of ServiceInfo modules registration information
 
 *Return Value*
 
@@ -382,9 +354,7 @@ The usage of this define is detailed in `crypto_hal_hmac()`.
 
 #### FDO_CRYPTO_PUB_KEY_ENCODING
 ```
-#define FDO_CRYPTO_PUB_KEY_ENCODING_X509        1
 #define FDO_CRYPTO_PUB_KEY_ENCODING_COSEX509    2
-#define FDO_CRYPTO_PUB_KEY_ENCODING_COSEKEY     3
 ```
 The usage of this define is detailed in `crypto_hal_sig_verify()`.
 
@@ -593,32 +563,32 @@ int32_t crypto_hal_sig_verify(uint8_t key_encoding, uint8_t key_algorithm,
 ```
 *Description*
 
-This function verifies the ECDSA or RSA signature pointed by `message_signature` of size `message_length` on the data pointed by `message` of size `message_length` with the key material `key_param1` and `key_param2` interpreted according to `key_encoding`.
+This function verifies the ECDSA signature pointed by `message_signature` of size `message_length` on the data pointed by `message` of size `message_length` with the key material `key_param1` and `key_param2` interpreted according to `key_encoding`.
 
 !!! note
     This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs
 
 *Parameters*
 
-`key_encoding:` FDO_CRYPTO_PUB_KEY_ENCODING_X509 encoding is used for ECDSA and FDO_CRYPTO_PUB_KEY_ENCODING_RSA_MOD_EXP is used for RSA. Please refer FDO_CRYPTO_PUB_KEY_ENCODING
+`key_encoding:` FDO_CRYPTO_PUB_KEY_ENCODING_COSEX509 encoding is used for ECDSA. Please refer FDO_CRYPTO_PUB_KEY_ENCODING
 
-`key_algorithm:` FDO_CRYPTO_PUB_KEY_ALGO_(ECDSAp256/ECDSAp384) is used for ECDSA and FDO_CRYPTO_PUB_KEY_ALGO_RSA for RSA. Please refer FDO_CRYPTO_PUB_KEY_ALGO
+`key_algorithm:` FDO_CRYPTO_PUB_KEY_ALGO_(ECDSAp256/ECDSAp384) is used for ECDSA. Please refer FDO_CRYPTO_PUB_KEY_ALGO
 
 `message:` data over which the sign verification needs to be performed.
 
 `message_length:` size of the message
 
-`message_signature:` signature over the message sent by the signing entity
+`message_signature:` signature over the message sent by the signing entity. Signature is of the form 'r' concatenated with 's' (r|s).
 
 `signature_length:` size of the message_signature
 
-`key_param1:` either ECDSA key or RSA Modulus
+`key_param1:` ECDSA key of the form Affine 'x' concatenated with Affine 'y' (X|Y)
 
 `key_param1Length:` size of the key in key_param1
 
-`key_param2:` NULL for ECDSA or Public Exponent for RSA
+`key_param2:` NULL, unused
 
-`key_param2Length:` size of the key in key_param2
+`key_param2Length:` size of the key in key_param2, unused
 
 *Return Value*
 
@@ -650,7 +620,7 @@ This function signs the `message` of size `message_len` and fills the signed dat
 
 `message_length:` size of the message
 
-`signature:` The buffer to fill signature with.
+`signature:` The buffer to fill signature with. Signature is of the form r concatenated with s (r|s).
 
 `signature_len:` size of the signature
 
@@ -668,7 +638,8 @@ int32_t crypto_hal_aes_encrypt(const uint8_t *clear_text,
                                uint32_t clear_text_length, uint8_t *cipher_text,
                                uint32_t *cipher_length, size_t block_size,
                                const uint8_t *iv, const uint8_t *key,
-                               uint32_t key_length)
+                               uint32_t key_length, uint8_t *tag, size_t tag_length,
+                               const uint8_t *aad, size_t aad_length)
 ```
 *Description*
 
@@ -687,13 +658,21 @@ This function encrypts the `clear_text` of size `clear_text_length` with the AES
 
 `cipher_length:` size of buffer pointed by cipher_text. This is IN/OUT parameter and gets filled with size of expected encrypted buffer in case cipher_text is passed as NULL with all other parameters as valid.
 
-`block_size:` is 16 in case of AES CBC encrypt
+`block_size:` AES block size (16 bytes)
 
-`iv`: Initialization Vector of size 16 bytes. Counter management is to be done by the caller for AES CTR mode.
+`iv`: Initialization Vector of size 12 bytes for AES-GCM and 7 bytes for AES-CCM.
 
 `key:` AES symmetric key
 
 `key_length:` size of the key
+
+`tag:` pointer to the empty buffer to be filled after generating the Authentication Tag
+
+`tag_length:` size of the Authentication Tag (16 bytes)
+
+`aad:` pointer to the buffer containing Additional Authenticated Data (AAD)
+
+`aad_length:` size of the Additional Authenticated Data (AAD)
 
 *Return Value*
 
@@ -707,7 +686,8 @@ int32_t crypto_hal_aes_decrypt(uint8_t *clear_text, uint32_t *clear_text_length,
                                const uint8_t *cipher_text,
                                uint32_t cipher_length, size_t block_size,
                                const uint8_t *iv, const uint8_t *key,
-                               uint32_t key_length)
+                               uint32_t key_length, uint8_t *tag, size_t tag_length,
+                               const uint8_t *aad, size_t aad_length)
 ```
 *Description*
 
@@ -726,13 +706,21 @@ This function decrypts the `cipher_text` of size `cipher_length` with the AES al
 
 `cipher_length:` size of cipher_text.
 
-`block_size:` is 16 in case of AES CBC encrypt
+`block_size:` AES block size (16 bytes)
 
-`iv:` Initialization Vector of size 16 bytes. Counter management is to be done by the caller for AES CTR mode.
+`iv:` Initialization Vector of size 12 bytes for AES-GCM and 7 bytes for AES-CCM.
 
 `key:` AES symmetric key
 
 `key_length:` size of the key
+
+`tag:` pointer to the buffer containing Authentication Tag to be verified
+
+`tag_length:` size of the Authentication Tag (16 bytes)
+
+`aad:` pointer to the buffer containing Additional Authenticated Data (AAD)
+
+`aad_length:` size of the Additional Authenticated Data (AAD)
 
 *Return Value*
 
@@ -1393,7 +1381,7 @@ Number of bytes written for success
 
 #### fdo_blob_size()
 ```
-int32_t fdo_blob_size(const char *blob_name, fdo_sdk_blob_flags flags)
+size_t fdo_blob_size(const char *blob_name, fdo_sdk_blob_flags flags)
 ```
 
 *Description*
@@ -1412,6 +1400,6 @@ This function returns the size of blob identified by `blob_name` whose storage p
 
 Blob size for success
 
-`0` if the blob doesn’t exist
+`file size` on success
 
-`-1` for failure
+`0` if file does not exist or in case of failure
