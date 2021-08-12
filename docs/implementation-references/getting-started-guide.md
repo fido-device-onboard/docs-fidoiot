@@ -24,7 +24,7 @@ This document provides a quick walk through the E2E flow. Included in this guide
 
 !!! NOTES
       - Check the [System Requirements](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/#system-requirements)
-      - If working behind a proxy,ensure to [set proper proxy](https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo#configuring-proxies) variables.
+      - If working behind a proxy, ensure to [set proper proxy](https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo#configuring-proxies) variables.
       - [Follow the steps](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/) to setup Docker* environment.
       - [Read more](https://github.com/secure-device-onboard/pri-fidoiot#building-fdo-pri-source) about PRI source building.
       - [Follow the steps](../../implementation-references/proxy-settings/) to set the right proxy settings. (Includes documentation for system wide proxy configuration)
@@ -42,14 +42,14 @@ FDO PRI source can be built in two ways:
 !!! NOTE
       For the instructions in this document, `<fdo-pri-src>` refers to the path of the FDO PRI folder 'pri-fidoiot'.
 
-1. Using the maven build system to build FDO PRI source.
+1. Using the Maven build system to build FDO PRI source.
 
 ```
 cd <fdo-pri-src>
 mvn clean install
 ```
 
-2.&nbsp;Using docker container to build FDO PRI source
+2.&nbsp;Using Docker container to build FDO PRI source
 
 ```
 cd <fdo-pri-src>/build
@@ -106,9 +106,9 @@ Once the Manufacturer has successfully started, the following output is displaye
 
 ### Starting the FDO PRI Rendezvous (RV) Server
 
-***RV Server is a network server or service (e.g., on the Internet) that acts as a rendezvous point between a newly powered on Device and the Owner Onboarding Service.***   
+***RV Server is a network server or service (For example, on the Internet) that acts as a rendezvous point between a newly powered on Device and the Owner Onboarding Service.***   
 
-Run the below commands,on a seperate console, to start the RV server.
+Run the below commands, on a seperate console, to start the RV server.
 
 ```
 cd <fdo-pri-src>/component-samples/demo/rv/
@@ -142,7 +142,7 @@ Once the Owner instance has successfully started, the following output is displa
       Update `owner_to0_scheduling_interval=30`
       - [Read more](https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md) about starting PRI services.
 
-## Running E2E for PRI device
+## Running E2E for PRI Device
 
 1. [Start FDO Service Containers](#starting-fdo-server-side-containers).
 
@@ -169,21 +169,21 @@ DI complete, GUID is <guid>
         - [Read more](https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/device/README.md) about Device Intialization.
 
 
-3.&nbsp;Voucher Extension & TO0 for PRI device
+3.&nbsp;Voucher Extension & TO0 for PRI Device
 
 <figure>
   <img src="../../images/slide3.png"/>
   <figcaption>Voucher extension</figcaption>
 </figure>
 
-***During TO0, The FDO Owner identifies itself to Rendezvous Server. Establishes the mapping of GUID to the Owner IP address. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob.'***
+***During TO0, the FDO Owner identifies itself to Rendezvous Server, establishes the mapping of GUID to the Owner IP address. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob.'***
 
 
     curl -D - --digest -u apiUser:MfgApiPass123 -XGET http://localhost:8039/api/v1/vouchers/0 -o voucher
 
     curl -D - --digest -u apiUser:OwnerApiPass123 --header "Content-Type: application/cbor" --data-binary @voucher http://localhost:8042/api/v1/owner/vouchers/
 
-**Make sure you are getting status `200 OK` for the curl calls. If you are facing issue with `localhost` curl calls, try with ip address instead of localhost.**
+**Make sure you are getting status `200 OK` for the curl calls. If you are facing issue with `localhost` curl calls, try with IP address instead of localhost.**
 
 Wait for TO0 finished for <guid> message in the Owner console. This generally takes a few minutes to complete.
 
@@ -197,11 +197,11 @@ TO0 Client finished for GUID <guid>
 !!! NOTE
         - [Keystore Management](#keystore-management) needs to be taken care, if PRI Rendezvous server and PRI Owner server is not running on the same machine.
         - **You can enable ServiceInfo at this stage.** [Follow the instructions](#enabling-serviceinfo-transfer) to enable ServiceInfo.
-        - In the above commands, if the return value is **500**, replace localhost with the ip address of the machine
+        - In the above commands, if the return value is **500**, replace localhost with the IP address of the machine.
 
 4.&nbsp;TO1 and TO2
 
-***During T01, Device identifies itself to the Rendezvous Server. Obtains mapping to connect to the Owner’s IP address. During T02, The Device contacts Owner and establishes trust and then performs Ownership Transfer.***
+***During T01, Device identifies itself to the Rendezvous Server. Obtains mapping to connect to the Owner’s IP address. During T02, the Device contacts Owner and establishes trust and then performs Ownership Transfer.***
 
 
 ```
@@ -241,7 +241,7 @@ cd <client-sdk-src>
 
 The build script generates artifacts and stores them in `./build/` directory.
 
-## Running E2E demo for FDO Client-SDK.
+## Running E2E Demo for FDO Client-SDK.
 
 1. [Start FDO Service Containers](#starting-fdo-server-side-containers).
 
@@ -259,7 +259,7 @@ cd <client-sdk-src>
 - Follow instructions in the [documentation](https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/setup.md#3-setting-the-manufacturer-network-address), to update Manufacturer's address.
 
 
-3.&nbsp;Voucher Extension for Client-SDK device
+3.&nbsp;Voucher Extension for Client-SDK Device
 
 ```
 curl -D - --digest -u apiUser:MfgApiPass123 -XGET http://localhost:8039/api/v1/vouchers/abcdef -o voucher
@@ -267,9 +267,9 @@ curl -D - --digest -u apiUser:MfgApiPass123 -XGET http://localhost:8039/api/v1/v
 curl -D - --digest -u apiUser:OwnerApiPass123 --header "Content-Type: application/cbor" --data-binary @voucher http://localhost:8042/api/v1/owner/vouchers/
 ```
 
-**Make sure you are getting status `200 OK` for the curl calls. If you are facing issue with `localhost` curl calls, try with ip address instead of localhost.**
+**Make sure you are getting status `200 OK` for the curl calls. If you are facing issue with `localhost` curl calls, try with IP address instead of localhost.**
 
-Wait for TO0 finished for <guid> message on the Owner console.
+Wait for TO0 to finish for <guid> message on the Owner console.
 
 Expect the following message on successful TO0 completion.
 
@@ -300,7 +300,7 @@ Device onboarded successfully.
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ```
 
-## Enabling ServiceInfo transfer
+## Enabling ServiceInfo Transfer
 
 1. Activating ServiceInfo Module.
 
@@ -348,7 +348,7 @@ Device onboarded successfully.
 
 ## Keystore Management
 
-### Generating self-signed keys for HTTPS/TLS communication.
+### Generating Self-signed keys for HTTPS/TLS Communication.
 
 1. Generate key and certificate.
 
@@ -369,7 +369,7 @@ Device onboarded successfully.
           echo 'subjectAltName=DNS:localhost,IP:<ip-address>')
 
 
-    Update `<ip-address>` with the ip address of machine running the FDO service.
+    Update `<ip-address>` with the IP address of machine running the FDO service.
 
 
 2. Generate Keystore using fresh key and certificate.
@@ -390,4 +390,4 @@ Device onboarded successfully.
 !!!NOTE
 - [Read more](https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md#generating-key-pair) about key generation.
 - You can update the key type, by modifying the `-newkey` attribute during the key generation stage.
-- You can add multiple ip addresses in the `subjectAltName` attribute.
+- You can add multiple IP addresses in the `subjectAltName` attribute.
