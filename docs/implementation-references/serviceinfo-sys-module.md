@@ -51,7 +51,7 @@ follow.
 ## Examples
 Below are examples of the fdo_sys messages encoded as CBOR. The JSON examples are just human
 readable definitions while the actual messages are always CBOR. The encoding includes the entire
-TO2.OwnerServiceInfo message include the isMore and isDone flags.
+TO2. OwnerServiceInfo message include the isMore and isDone flags.
 
 Device should advertise it supports fdo_sys.
 
@@ -90,7 +90,7 @@ Device should advertise it supports fdo_sys.
 | Diagnostic Notation (not used by protocol) | [false, true, [[["fdo_sys:exec", ["cmd", "/c", "startup.bat"]]]] |
 | CBOR | `83` # array(3) <br> `F4` # primitive(20) - IsMoreSeviceInfo <br> `F5` # primitive(21) - IsDone <br> `81` # array(1) - ServiceInfo <br> `81` # array(1) - ServiceInfo Key-Value Array <br> `82` # array(2) - ServiceInfo Key-Value Pair <br> `6C` # text(12) <br> `66646F5F7379733A65786563` # "fdo_sys:exec" <br> `83` # array(3) <br> `63` # text(3) <br> `636D64` # "cmd" <br> `62` # text(2) <br> `2F63` # "/c" <br> `6B` # text(11) <br> `737461727475702E626174` # "startup.bat" |
 
-#### ismore flag
+#### ismore Flag
 
 The 'ismore' more should be true is if the message being sent is not a complete processable message.  All fdo_sys messages are complete messages, so the 'ismore' flag will always be true in this case.
 
