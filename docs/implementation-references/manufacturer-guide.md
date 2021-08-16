@@ -2,7 +2,7 @@
 FIDO Device Onboard (FDO) enhances the out-of-the-box setup and provisioning experience for connected IoT devices. The FIDO Device Onboard project provides the manufacturer component sample for manufacturers (OEMs, ODMs, or 3rd party integrators) to enable FDO on their devices. This document details how a manufacturer can use this tool to produce an FDO-enabled device. 
 
 ### Terminology
-Refer to the FIDO Device Onboard [Reference page](../../reference.md).
+Refer to the [FIDO Device Onboard Reference page](../reference.md).
 
 ## Overview
 To produce FIDO Device Onboard (FDO)-enabled devices, a manufacturer must run the FIDO device initialization (DI) protocol on the device. The DI process sets security 
