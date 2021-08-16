@@ -27,7 +27,7 @@ Set up the device to run the FDO DI protocol (refer to device specific documenta
 ## Production Deployment
 A production deployment requires all steps of an evaluation deployment with the addition of integration with the manufacturing business systems. In addition, the manufacturer component sample is just a sample and will require further enchancements to make it production worthy.
 
-### Device Serial Nnumber
+### Device Serial Number
 Since a device identifier (typically, a serial number) is required for the DI protocol, it is recommended that there be some programmatic mechanism to determine the serial no of a device. This value can then be passed to the FDO client software to be encorporated into the appropriate DI message. This may require modifications to your existing manufacturing workflow.
 
 ### Manage FDO public key(s) from customers, and the public key(s) storage in the H2 database. 
