@@ -21,7 +21,7 @@ There are a few blocks and implementations to be either fully rewritten or modif
 
 This block implements the following functionality:
 
-1. CBOR Encode API – Uses the TinyCBOR library calls directly to encode data provided from upper layer to create CBOR data stream.  Data is provided back to FDO library to be sent using network layer.
+1. CBOR Encode API – Uses the TinyCBOR library calls directly to encode data provided from upper layer to create CBOR data stream.  Data is provided back to FDO library to be sent using the network layer.
 2. CBOR Decode API – Uses TinyCBOR library calls directly to decode received CBOR encoded data from servers.  Library calls may be used recursively.
 3. CBOR COSE APIs – Implements the COSE API requirement using the Crypto HAL API calls as well as using TinyCBOR APIs calls. Refer to the FDO specification for further details on API requirements.
 
@@ -35,7 +35,7 @@ This layer must be adapted to the new FDO implementation. Each message API must 
 
 ### ServiceInfo Message Handling (A3)
 
-The FDO specification requires changes to the handling of ServiceInfo messages. Handling of ServiceInfo is done almost similar to previous specification; however, the repeat transmit, acknowledgement, and DSI messages require full implementation in the FDO library. Unlike the current implementation, service message must be part of the FDO library rather than a separate module.
+The FDO specification requires changes to the handling of ServiceInfo messages. Handling of ServiceInfo is done almost similar to the previous specification; however, the repeat transmit, acknowledgement, and DSI messages require full implementation in the FDO library. Unlike the current implementation, service message must be part of the FDO library rather than a separate module.
 
 ### Storage Implementation - CBOR Format (A4)
 
