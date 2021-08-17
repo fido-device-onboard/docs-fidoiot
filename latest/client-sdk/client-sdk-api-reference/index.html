@@ -927,7 +927,7 @@
 </tr>
 <tr>
 <td><strong>FDO_RESALE_NOT_READY</strong></td>
-<td>The SDK is not in a state to execute the Resale Protocol. This error will occur when the Resale API (fdoSdkResale) is called when device ownership transfer has not yet completed successfully.</td>
+<td>The SDK is not in a state to execute the Resale Protocol. This error will occur when the Resale API (fdoSdkResale) is called when device ownership transfer has not yet been completed successfully.</td>
 </tr>
 <tr>
 <td><strong>FDO_WARNING</strong></td>
@@ -1066,13 +1066,13 @@
 </tr>
 <tr>
 <td><strong>FDO_SI_FAILURE</strong></td>
-<td>This value indicates that an error occurred and the SDK is aborting or abandoning this ServiceInfo round. The module must ignore all the information it received thus far (if any) and reset to its initial state.</td>
+<td>This value indicates that an error occurred and the SDK is aborting or abandoning this ServiceInfo round. The module must ignore all the information it has received thus far (if any) and reset to its initial state.</td>
 </tr>
 </tbody>
 </table>
 <h3 id="owner-serviceinfo-module-callback">Owner ServiceInfo Module Callback<a class="headerlink" href="#owner-serviceinfo-module-callback" title="Permanent link">&para;</a></h3>
 <p>This type is a pointer to a callback function that is used to process Owner ServiceInfo messages received from the Owner Server for a specific ServiceInfo module.</p>
-<p>It takes a pointer to the structure <code>fdor_t</code> whose internal buffer contains the entire message as received in TO2.OwnerServiceInfo (Type 69) with the current position set to the ServiceInfoVal, as well as the ServiceInfoKey (module message). The module must read the ServiceInfoVal from <code>fdor_t</code>, process it as per the ServiceInfoKey, and advance the <code>fdor_t</code> internal buffer to the next valid CBOR entry (currently being done internally in few methods). The module must treat the received <code>fdor_t</code> as a read-only structure, and must never modify it, excpet advancing to the next CBOR entry.</p>
+<p>It takes a pointer to the structure <code>fdor_t</code> whose internal buffer contains the entire message as received in TO2.OwnerServiceInfo (Type 69) with the current position set to the ServiceInfoVal, as well as the ServiceInfoKey (module message). The module must read the ServiceInfoVal from <code>fdor_t</code>, process it as per the ServiceInfoKey, and advance the <code>fdor_t</code> internal buffer to the next valid CBOR entry (currently being done internally in few methods). The module must treat the received <code>fdor_t</code> as a read-only structure, and must never modify it, except advancing to the next CBOR entry.</p>
 <p>This callback function is invoked in the context of the executing onboarding protocol hence, although there is no fixed timeline, the module must complete execution in the shortest possible time.</p>
 <p><em><strong>Syntax</strong></em></p>
 <pre><code>typedef int (*fdo_sdk_owner_service_infoCB)(
@@ -1266,7 +1266,7 @@ The SDK will invoke the Application error callback if an error occurs in this ph
 <p><em><strong>Return Value</strong></em></p>
 <p>This function returns success or an error code as defined in Generic API Return Status</p>
 <h2 id="fdo-concise-binary-object-representation-cbor-encoderdecoder-apis">FDO Concise Binary Object Representation (CBOR) encoder/decoder APIs<a class="headerlink" href="#fdo-concise-binary-object-representation-cbor-encoderdecoder-apis" title="Permanent link">&para;</a></h2>
-<p>Client SDK uses APIS provided in the header file <code>fdoblockio.h</code> to handle CBOR operations (encode/decode). The API implementations wraps and internally uses the APIs provided by Intel TinyCBOR* library. The structue for writer (encoder) and reader (decoder) are given below:</p>
+<p>Client SDK uses APIS provided in the header file <code>fdoblockio.h</code> to handle CBOR operations (encode/decode). The API implementations wrap and internally uses the APIs provided by Intel TinyCBOR* library. The structure for writer (encoder) and reader (decoder) are given below:</p>
 <h3 id="fdo-writer-cbor-encoder">FDO Writer (CBOR Encoder)<a class="headerlink" href="#fdo-writer-cbor-encoder" title="Permanent link">&para;</a></h3>
 <p>It is responsible for encoding the buffer inside <code>fdo_block_t</code> into CBOR-encoded stream. Internally, it uses wraps TinyCBOR's <code>CborEncoder</code> into a doubly-linked-list type structure, that is used to manage CBOR container-specific operations (CBOR map/array).</p>
 <p>The user must perform following operations in sequence to use the FDO Writer struct <code>fdow_t</code>:</p>
@@ -1308,7 +1308,7 @@ typedef struct _FDOW_CBOR_ENCODER {
 <tbody>
 <tr>
 <td><strong>b</strong></td>
-<td>The <code>fdo_block_t</code> structure containing the buffer alogwith its size. The TinyCBOR* library uses this buffer to store the data that has been CBOR-encoded so far.</td>
+<td>The <code>fdo_block_t</code> structure containing the buffer along with its size. The TinyCBOR* library uses this buffer to store the data that has been CBOR-encoded so far.</td>
 </tr>
 <tr>
 <td><strong>msg_type</strong></td>
@@ -1366,7 +1366,7 @@ typedef struct _FDOR_CBOR_DECODER {
 <tbody>
 <tr>
 <td><strong>b</strong></td>
-<td>The <code>fdo_block_t</code> structure containing the buffer alogwith its size. The TinyCBOR* library reads the CBOR-encoded stream from this buffer and decodes them into binary stream.</td>
+<td>The <code>fdo_block_t</code> structure containing the buffer along with its size. The TinyCBOR* library reads the CBOR-encoded stream from this buffer and decodes them into binary stream.</td>
 </tr>
 <tr>
 <td><strong>msg_type</strong></td>
@@ -1374,7 +1374,7 @@ typedef struct _FDOR_CBOR_DECODER {
 </tr>
 <tr>
 <td><strong>have_block</strong></td>
-<td>A bool value that represents whether the structure contains data to be decoded. Generally, used by protocol, before decoding is started.</td>
+<td>A bool value that represents whether the structure contains data to be decoded. Generally, used by the protocol, before decoding is started.</td>
 </tr>
 <tr>
 <td><strong>cbor_parser</strong></td>

@@ -2337,7 +2337,7 @@ SUPPORTED_AES_MODE = gcm ccm
 </code></pre>
 <ul>
 <li>
-<p><strong>SUPPORTED_DA:</strong> This specifies the supported Device Attestation algorithms which device uses to prove its identity to Rendezvous Server and Owner. This automatically configures the Key Exchange algorithm (ECDH256/ECDH384) that is used to generate the shared secret and th AES Mode, to use higher crypto in the source.</p>
+<p><strong>SUPPORTED_DA:</strong> This specifies the supported Device Attestation algorithms which device uses to prove its identity to Rendezvous Server and Owner. This automatically configures the Key Exchange algorithm (ECDH256/ECDH384) that is used to generate the shared secret and the AES Mode, to use higher crypto in the source.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>tpm20_ecdsa256 isn’t a separate algorithm, it uses ecdsa256 as Device Attestation, but uses TPM2.0 to generate keys and store data</p>
@@ -2398,7 +2398,7 @@ typedef int (*fdo_sdk_errorCB)(fdo_sdk_status type, fdo_sdk_error error_code);
 <p>This function initializes the Client SDK data structures. It allows the application to control the error handling of the Client SDK state machine by setting error_handling_callback. Client SDK calls error_handling_callback to propagate the error_code(fdo_sdk_error) back to the application with Client SDK internal status fdo_sdk_status(fdo_sdk_status). The application may handle the error and return the appropriate action to be taken by Client SDK further.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The reference application allows the Client SDK to retry for 5 times before calling abort</p>
+<p>The reference application allows the Client SDK to retry 5 times before calling abort</p>
 </div>
 <p>The Client SDK allows the owner to download the required Device Management System agents via ServiceInfo mechanism; the num_modules and module_information registers the ServiceInfo modules with the Client SDK.</p>
 <p><em>Parameters</em></p>
@@ -2414,7 +2414,7 @@ typedef int (*fdo_sdk_errorCB)(fdo_sdk_status type, fdo_sdk_error error_code);
 <p>This function triggers either the Device Initialize state machine or Ownership Transfer Protocol state machine depending on the device status stored in Normal.blob.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The reference application first successful executions performs Device Initialization. The second execution begins to perform Ownership Transfer Protocol.</p>
+<p>The reference application's first successful execution performs Device Initialization. The second execution begins to perform Ownership Transfer Protocol.</p>
 </div>
 <p><em>Parameters</em></p>
 <p>None</p>
@@ -2535,7 +2535,7 @@ typedef fdo_bits_t fdo_byte_array_t;
 <h4 id="crypto_hal_random_bytes">crypto_hal_random_bytes()<a class="headerlink" href="#crypto_hal_random_bytes" title="Permanent link">&para;</a></h4>
 <p><code>int32_t crypto_hal_random_bytes(uint8_t *random_buffer, size_t num_bytes)</code></p>
 <p><em>Description</em></p>
-<p>This function fills the random_buffer with random number of size num_bytes.</p>
+<p>This function fills the random_buffer with the random number of size num_bytes.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
@@ -2829,7 +2829,7 @@ Client SDK communicates with Manufacturer, Rendezvous and Owner using REST API. 
 <p>The Client SDK uses this define for IPv4 IP address. For usage, please refer <code>fdo_con_dns_lookup()</code></p>
 <h4 id="fdo_type_error">FDO_TYPE_ERROR<a class="headerlink" href="#fdo_type_error" title="Permanent link">&para;</a></h4>
 <p><code>#define FDO_TYPE_ERROR 255</code></p>
-<p>The Client SDK uses this to indicate error. For usage, please refer <code>fdo_con_recv_msg_header()</code></p>
+<p>The Client SDK uses this to indicates an error. For usage, please refer <code>fdo_con_recv_msg_header()</code></p>
 <h3 id="data-types">Data Types<a class="headerlink" href="#data-types" title="Permanent link">&para;</a></h3>
 <h4 id="fdo_ip_address_t">fdo_ip_address_t<a class="headerlink" href="#fdo_ip_address_t" title="Permanent link">&para;</a></h4>
 <p>This defines the IP address structure used to pass IP address information within Client SDK. The usage of the structure is detailed in <code>fdo_con_dns_lookup()</code></p>
@@ -2839,7 +2839,7 @@ Client SDK communicates with Manufacturer, Rendezvous and Owner using REST API. 
 } fdo_ip_address_t;
 </code></pre>
 <h4 id="fdo_con_handle">fdo_con_handle<a class="headerlink" href="#fdo_con_handle" title="Permanent link">&para;</a></h4>
-<p><code>fdo_con_handle</code> is specific to the underlying network library. In software distributions supporting POSIX, fdo_con_handle can be int or any implementation specific datatype. For Client SDK, this is opaque data type, and it will not use its internal members.</p>
+<p><code>fdo_con_handle</code> is specific to the underlying network library. In software distributions supporting POSIX, fdo_con_handle can be an int or any implementation specific datatype. For Client SDK, this is opaque data type, and it will not use its internal members.</p>
 <h3 id="connection-management-functions">Connection Management Functions<a class="headerlink" href="#connection-management-functions" title="Permanent link">&para;</a></h3>
 <h4 id="fdo_con_setup">fdo_con_setup()<a class="headerlink" href="#fdo_con_setup" title="Permanent link">&para;</a></h4>
 <pre><code>int32_t fdo_con_setup(char *medium, char **params, uint32_t count)
@@ -2918,7 +2918,7 @@ It may be called multiple times, and if in subsequent calls to this function, th
                            uint32_t *ip_list_size)
 </code></pre>
 <p><em>Description</em></p>
-<p>This function perform a DNS lookup for the specified host identified by the <code>url</code> and return a list of IP addresses in the <code>ip_list</code>.</p>
+<p>This function performs a DNS lookup for the specified host identified by the <code>url</code> and return a list of IP addresses in the <code>ip_list</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux libraries to perform Domain Name resolution.</p>

@@ -823,7 +823,7 @@ not been implemented, and any aspect of this implementation is subject to change
 <p class="admonition-title">Notes</p>
 <ul>
 <li>Check the <a href="https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/#system-requirements">System Requirements</a></li>
-<li>If working behind a proxy,ensure to <a href="https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo#configuring-proxies">set proper proxy</a> variables.</li>
+<li>If working behind a proxy, ensure to <a href="https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo#configuring-proxies">set proper proxy</a> variables.</li>
 <li><a href="https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/">Follow the steps</a> to setup Docker* environment.</li>
 <li><a href="https://github.com/secure-device-onboard/pri-fidoiot#building-fdo-pri-source">Read more</a> about PRI source building.</li>
 <li><a href="../../implementation-references/proxy-settings/">Follow the steps</a> to set the right proxy settings. (Includes documentation for system wide proxy configuration)</li>
@@ -850,7 +850,7 @@ sudo docker-compose up --build
 </code></pre>
 <p>The build stage generates artifacts and stores them in <code>component-samples/demo</code> directory.</p>
 <p><strong>NOTE:</strong> During the build stage, the following error messages may be displayed on the console. These error messages
-are a result of the discrepancy of logging levels during build stage and can be ignored.</p>
+are a result of the discrepancy of logging levels during the build stage and can be ignored.</p>
 <pre><code>[ERROR] Picked up _JAVA_OPTIONS: -Dhttp.proxyHost= -Dhttp.proxyPort= -Dhttps.proxyHost= -Dhttps.proxyPort=
 [ERROR] WARNING: An illegal reflective access operation has occurred
 [ERROR] WARNING: Illegal reflective access by org.apache.catalina.loader.WebappClassLoaderBase to field java.io.ObjectStreamClass$Caches.localDescs
@@ -872,7 +872,7 @@ cp -r creds/* ../
 </code></pre>
 <p>All the generated keys are now copied to the respective components.</p>
 <h3 id="starting-the-fdo-pri-manufacturer-server">Starting the FDO PRI Manufacturer Server<a class="headerlink" href="#starting-the-fdo-pri-manufacturer-server" title="Permanent link">&para;</a></h3>
-<p><strong><em>FDO Manufacturer is an application that runs in the factory, which implements the initial communications with the Device, as part of the Device Initialize Protocol (DI). The manufacturer creates an Ownership Voucher based on the credentials received during DI and extends the voucher to respective owner.</em></strong>    </p>
+<p><strong><em>FDO Manufacturer is an application that runs in the factory, which implements the initial communications with the Device, as part of the Device Initialize Protocol (DI). The manufacturer creates an Ownership Voucher based on the credentials received during DI and extends the voucher to the respective owner.</em></strong>    </p>
 <p>Run the below commands, in a separate console, to start the Manufacturer.</p>
 <pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/manufacturer/
 sudo docker-compose up --build
