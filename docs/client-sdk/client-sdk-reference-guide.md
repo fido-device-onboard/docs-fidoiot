@@ -36,16 +36,16 @@ Before initiating the FIDO Device Onboard functionality, the Application must fi
 The SDK maintains persistent data such as configuration and state information that are used to track the onboarding state and store credentials, among others. This information is stored in the **SDK Configuration** file that persists across reboots.
 
 ### Threading Model
-The FDO Client SDK is single threaded and the APIs are non-reentrant and blocking. SDK code executes in the context of the calling application thread and will make OS calls via the abstraction layer for storage and networking services within the context of this thread. OS service such as storage and network are assumed to be blocking.
+The FDO Client SDK is single-threaded and the APIs are non-reentrant and blocking. SDK code executes in the context of the calling application thread and will make OS calls via the abstraction layer for storage and networking services within the context of this thread. OS services such as storage and network are assumed to be blocking.
 
-During the execution of the onboarding protocol, the SDK receives data from the Owner Server that must be passed back to application modules (Pre-Service & Owner ServiceInfo).This is achieved via module-specific callback functions that are registered during the SDK initialization.
+During the execution of the onboarding protocol, the SDK receives data from the Owner Server that must be passed back to application modules (Pre-Service & Owner ServiceInfo). This is achieved via module-specific callback functions that are registered during the SDK initialization.
 
 These callback functions are also called within the context of the application thread that entered the SDK via one of the SDK’s APIs (*`fdo_sdk_run`*). The application must not invoke an SDK API from within the callback – SDK flows have been designed such that this is not required.
 
 In addition to module specific callbacks, the SDK requires an additional callback that is used to inform the Application of events occurring during long-running activities, such as network connection retries, as well as errors, such as network connection drop.
 
 ### Networking
-It is assumed that the machine on which the SDK runs has access to the network. The SDK uses standard POSIX sockets interface to connect to external back-end Rendezvous and Owner Servers. The SDK uses the OpenSSL* toolkit for SSL support.
+It is assumed that the machine on which the SDK runs has access to the network. The SDK uses a standard POSIX sockets interface to connect to external back-end Rendezvous and Owner Servers. The SDK uses the OpenSSL* toolkit for SSL support.
 
 The SDK will initiate connections to the following external ports, which must not be blocked by a firewall:
 
@@ -73,9 +73,9 @@ A module will publish its interface in the form of Device and Owner ServiceInfo 
 	In this release, a module can only be integrated for processing Owner ServiceInfo. Support for integrating Device ServiceInfo modules into the Client SDK will be added in future releases.
 
 !!! note
-	The expectation is that over time, much like reusable libraries, modules providing specific functionality such as firmware updates or key provisioning will become standardized in terms of their capabilities and interfaces. Device manufactures will simply port the modules and include these libraries to their device implementation. A similar development is expected to occur on the Owner Server side where standard libraries will be developed to interact with the device module and included in the Owner Server implementation.
+	The expectation is that over time, much like reusable libraries, modules providing specific functionality such as firmware updates or key provisioning will become standardized in terms of their capabilities and interfaces. Device manufactures will simply port the modules and include these libraries in their device implementation. A similar development is expected to occur on the Owner Server-side where standard libraries will be developed to interact with the device module and included in the Owner Server implementation.
 
-When a device is onboarded, a secure channel is established between the device and Owner Server after the device has authenticated the Owner Server and vice-versa (during the TO2 protocol). At this point, the Owner Server can query information from the device (Device ServiceInfo) and send down configuration information to the device (Owner ServiceInfo). The secure channel uses encryption and integrity protection to secure Device ServiceInfo/Owner ServiceInfo data in transit from/to the device.
+When a device is onboarded, a secure channel is established between the device and the Owner Server after the device has authenticated the Owner Server and vice-versa (during the TO2 protocol). At this point, the Owner Server can query information from the device (Device ServiceInfo) and send down configuration information to the device (Owner ServiceInfo). The secure channel uses encryption and integrity protection to secure Device ServiceInfo/Owner ServiceInfo data in transit from/to the device.
 
 The Device ServiceInfo must always send 'devmod' module as the very first module, containing a list of supported modules along with basic capabilities expected of the module.
 The following section details the interactions between the Application, Client SDK and Device-specific Modules.
@@ -95,7 +95,7 @@ The integrated image and execution flows from system boot are shown above and ea
 3.	The Application checks if FDO onboarding has been completed by calling the `fdo_sdk_get_status()` API. If the status `FDO_SDK_STATE_IDLE` is returned, onboarding has been completed and the Application goes to step 6. If not, the Application goes to step 4.
 4.	The Application initiates FDO onboarding by calling the `fdo_sdk_run()` API. This call returns either a successful completion of onboarding or an error. If an error occurs, the Application will reset the device and retry the sequence, with some delay. On successful completion of onboarding, the Application goes to step 6.
 5.	During the onboarding process, the SDK will call registered modules during the ServiceInfo stage of the protocol. This is done by calling the registered module callback. Details of this interaction are provided in the Figure 3. The onboarding process will succeed only if all module interactions at this stage are successful.
-6.	The Application has successfully completed onboarding and continues normal operation of the device.
+6.	The Application has successfully completed onboarding and continues the normal operation of the device.
 
 The Application continues operating until the system is powered off or reset. On System restart, the preceding steps are re-executed.
 
@@ -119,14 +119,14 @@ If an error occurs after a module has been initialized, during the remainder of 
 #### Device ServiceInfo
 This is the information that make the Owner aware of the supported Owner ServiceInfo modules along with other information that aids in proper configuration of the Device. The module needs to determine in advance how many Device ServiceInfo key-value pairs it needs to send to the Owner Service.
 
-The Device initally sends the 'devmod' module in the first round. Other module is sent to the Owner in subsequent rounds. As mentioned previously, only one Device ServiceInfo module is supported currently, i.e, `devmod` module, which is configured statically in `add_module_devmod()`. All but one parameters are configured in the same method, except Device ServiceInfo Key `devmod:modules` that is partially configured here, and in `fdo_serviceinfo_modules_list_write()`. The total number of supported Owner ServiceInfo modules and their names must be updated in the above mentioned methods. Support for handling multiple Device ServiceInfo modules will be added in future releases.
+The Device initially sends the 'devmod' module in the first round. Other module is sent to the Owner in subsequent rounds. As mentioned previously, only one Device ServiceInfo module is supported currently, i.e, `devmod` module, which is configured statically in `add_module_devmod()`. All but one of the parameters are configured in the same method, except Device ServiceInfo Key `devmod:modules` that is partially configured here, and in `fdo_serviceinfo_modules_list_write()`. The total number of supported Owner ServiceInfo modules and their names must be updated in the above mentioned methods. Support for handling multiple Device ServiceInfo modules will be added in future releases.
 
 Note that Device ServiceInfo is one way for now – from device to Owner Server. The Owner Server cannot respond to any Device ServiceInfo message during this phase.
 
 #### Owner ServiceInfo
 Owner ServiceInfo follows Device ServiceInfo. Unlike Device ServiceInfo, neither the SDK nor the module can determine in advance how many Owner ServiceInfo key-values they are going to receive. On receiving an Owner ServiceInfo, the SDK locates the module and invokes its callback with the `FDO_SI_SET_OSI` type.
 
-The Owner is supposed to send module activation message, that is it sends `active` key with value `true` for a particular module, prior to sending the Owner ServiceInfo for that module. When the SDK receives the same, it activates that particular module and passes on the subsequent ServiceInfo key-values to that module. If the SDK receives ServiceInfo for a module that is not currently active, it returns without throwing any error, without invoking the callback method. If the SDK receives ServiceInfo for a module that is not supported, it keeps on adding the received module name 'modname' to an internal list, and responds with [modname:active, false] for each unsupported module names encountered so far, when the Owner sends TO2.OwnerServiceInfo.isMore as false. Optionally, the Owner Server could send a deactivation message to a module, that is it sends `active` key with value `false` for a particular module if it is not planning to use the module.
+The Owner is supposed to send module activation message, that is it sends an `active` key with value `true` for a particular module, prior to sending the Owner ServiceInfo for that module. When the SDK receives the same, it activates that particular module and passes on the subsequent ServiceInfo key-values to that module. If the SDK receives ServiceInfo for a module that is not currently active, it returns without throwing any error, without invoking the callback method. If the SDK receives ServiceInfo for a module that is not supported, it keeps on adding the received module name 'modname' to an internal list, and responds with [modname:active, false] for each unsupported module names encountered so far, when the Owner sends TO2.OwnerServiceInfo.isMore as false. Optionally, the Owner Server could send a deactivation message to a module, that is it sends `active` key with value `false` for a particular module if it is not planning to use the module.
 
 Received key-values are passed to the module in the `module_message` and `fdor` callback parameter fields. The internal buffer of `fdor` contains the entire message as received in TO2.OwnerServiceInfo (Type 69) with the current position set to the received Owner ServiceInfo value (ServiceInfoVal), while the Owner ServiceInfo key (ServiceInfoKey) is provided in module_message. The module must read the value from `fdor_t`, process it as per the key, and advance the `fdor_t` internal buffer to the next valid CBOR entry (currently being done internally in few methods). The module must treat the received `fdor_t` as a read-only structure, and must never modify it, excpet advancing to the next CBOR entry. It is assumed that the module knows how to interpret the value for a particular key based on the key.
 
@@ -144,7 +144,7 @@ If an error occurs during the ServiceInfo phase, the TO2 protocol is considered 
 
 On failure, all modules must clean up internal state and discard any configuration information they might have got from the Owner Server. Conversely, the Owner Server will also discard all data it might have received from modules.
 
-When all ServiceInfo rounds of all modules have completed successfully, the SDK calls each module’s callback with the `FDO_SI_FAILURE` type. All other callback parameters are `NULL`. Modules must discard all information received via Owner ServiceInfo commands until this point. If operations have been performed, or data already committed, they should be undone to return the system to it intial state.
+When all ServiceInfo rounds of all modules have completed successfully, the SDK calls each module’s callback with the `FDO_SI_FAILURE` type. All other callback parameters are `NULL`. Modules must discard all information received via Owner ServiceInfo commands until this point. If operations have been performed, or data already committed, they should be undone to return the system to its initial state.
 
 The SDK will not call into the module after this. The SDK will ignore the return value of this callback since no further failure is expected at this point.
 
@@ -189,7 +189,7 @@ The following are the known issues:
 
 •	The HAL implementation provided in this release is for reference only and not intended for production. It does not provide the level of security required by industry standards for a fully secure production environment.
 
-•	‘fdo_sys’ module source within 'device_modules' folder is an example code demonstrating FDO device module implementation for reference purpose only. The executable script must only contain alpha-numeric characters, hyphen (-) and underscore (_) in their names, with extensions `.py` and `.sh`. This code is not written following secure production level coding and checks. This sample code must not to be used as it is.
+•	‘fdo_sys’ module source within 'device_modules' folder is an example code demonstrating FDO device module implementation for reference purpose only. The executable script must only contain alpha-numeric characters, hyphen (-) and underscore (_) in their names, with extensions `.py` and `.sh`. This code is not written following secure production level coding and checks. This sample code must not be used as it is.
 
 The following are the known limitations:
 
