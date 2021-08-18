@@ -22,7 +22,7 @@ This document provides a quick walk through the E2E flow. Included in this guide
 
 ## Building FDO PRI Source
 
-!!! NOTES
+***NOTES:***
       - Check the [System Requirements](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/#system-requirements)
       - If working behind a proxy, ensure to [set proper proxy](https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo#configuring-proxies) variables.
       - [Follow the steps](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/) to setup Docker* environment.
@@ -39,10 +39,10 @@ git clone https://github.com/secure-device-onboard/pri-fidoiot.git
 FDO PRI source can be built in two ways:
 
 
-!!! NOTE
+***NOTE:***
       For the instructions in this document, `<fdo-pri-src>` refers to the path of the FDO PRI folder 'pri-fidoiot'.
 
-1. Using the maven build system to build FDO PRI source.
+1. Using the Maven build system to build FDO PRI source.
 
 ```
 cd <fdo-pri-src>
@@ -58,7 +58,7 @@ sudo docker-compose up --build
 
 The build stage generates artifacts and stores them in `component-samples/demo` directory.
 
-**NOTE:** During the build stage, the following error messages may be displayed on the console. These error messages
+***NOTE:*** During the build stage, the following error messages may be displayed on the console. These error messages
 are a result of the discrepancy of logging levels during the build stage and can be ignored.
 ```
 [ERROR] Picked up _JAVA_OPTIONS: -Dhttp.proxyHost= -Dhttp.proxyPort= -Dhttps.proxyHost= -Dhttps.proxyPort=
@@ -106,7 +106,7 @@ Once the Manufacturer has successfully started, the following output is displaye
 
 ### Starting the FDO PRI Rendezvous (RV) Server
 
-***RV Server is a network server or service (e.g., on the Internet) that acts as a rendezvous point between a newly powered on Device and the Owner Onboarding Service.***   
+***RV Server is a network server or service (For example, on the Internet) that acts as a rendezvous point between a newly powered on Device and the Owner Onboarding Service.***   
 
 Run the below commands,on a seperate console, to start the RV server.
 
@@ -136,13 +136,13 @@ Once the Owner instance has successfully started, the following output is displa
   <figcaption> Owner getting started </figcaption>
 </figure>
 
-!!!NOTE
+***NOTE:***
       - Proper [keystore management](#keystore-management) to be considered before using the services in production environment.
       - To0scheduling interval property can be modified in the component-sample/demo/owner/owner.env.
       Update `owner_to0_scheduling_interval=30`
       - [Read more](https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md) about starting PRI services.
 
-## Running E2E for PRI device
+## Running E2E for PRI Device
 
 1. [Start FDO Service Containers](#starting-fdo-server-side-containers).
 
@@ -163,7 +163,7 @@ Expect the following line on successful DI completion.
 DI complete, GUID is <guid>
 ```
 
-!!! NOTE
+***NOTE:***
         - Additional arguments for [configuring PRI device](https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-the-device-service).
         - Configuring PRI device for [HTTPS/TLS communication](https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-device-for-httpstls-communication).
         - [Read more](https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/device/README.md) about Device Intialization.
@@ -194,7 +194,7 @@ TO0 Response Wait for <guid> : 3600
 TO0 Client finished for GUID <guid>
 ```
 
-!!! NOTE
+***NOTE:***
         - [Keystore Management](#keystore-management) needs to be taken care, if PRI Rendezvous server and PRI Owner server is not running on the same machine.
         - **You can enable ServiceInfo at this stage.** [Follow the instructions](#enabling-serviceinfo-transfer) to enable ServiceInfo.
         - In the above commands, if the return value is **500**, replace localhost with the ip address of the machine
@@ -229,7 +229,7 @@ FDO Client-SDK source can be build by:
     git clone https://github.com/secure-device-onboard/client-sdk-fidoiot.git
     ```
 
-!!! NOTE
+***NOTE:***
 For the instructions in this document, `<client-sdk-src>` refers to the path of the FDO Client-SDK source folder 'client-sdk-fidoiot'.
 
 3.&nbsp; Execute build.sh script
@@ -241,7 +241,7 @@ cd <client-sdk-src>
 
 The build script generates artifacts and stores them in `./build/` directory.
 
-## Running E2E demo for FDO Client-SDK.
+## Running E2E demo for FDO Client-SDK
 
 1. [Start FDO Service Containers](#starting-fdo-server-side-containers).
 
@@ -253,7 +253,7 @@ cd <client-sdk-src>
 ./build/linux-client
 ```
 
-!!! NOTE
+***NOTE:***
 - [Read more](https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/linux.md#7-running-the-application-) on Client-SDK Device Initialization.
 - [Configuring Client-SDK device](https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/setup.md#7-http-proxy-configuration-optional) for Proxy Network.
 - Follow instructions in the [documentation](https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/setup.md#3-setting-the-manufacturer-network-address), to update Manufacturer's address.
@@ -278,7 +278,7 @@ TO0 Response Wait for <guid> : 3600
 TO0 Client finished for GUID <guid>
 ```
 
-!!! NOTE
+***NOTE:***
 - [Keystore Management](#keystore-management) needs to be taken care, if PRI Rendezvous server and PRI Owner server is not running on the same machine.
 - **You can enable ServiceInfo at this stage.** [Follow the instructions](#enabling-serviceinfo-transfer) to enable ServiceInfo.
 
@@ -300,7 +300,7 @@ Device onboarded successfully.
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ```
 
-## Enabling ServiceInfo transfer
+## Enabling ServiceInfo Transfer
 
 1. Activating ServiceInfo Module.
 
@@ -342,7 +342,7 @@ Device onboarded successfully.
 
             $ curl --location --digest -u apiUser:OwnerApiPass123 --request PUT 'http://localhost:8042/api/v1/device/svi?module=fdo_sys&var=exec&guid=<guid-of-device>&priority=2&bytes=82672F62696E2F73686A6C696E757836342E7368' --header 'Content-Type: application/octet-stream'
 
-!!! NOTE
+***NOTE:***
         bytes parameter is the cbor equivalent of ./linux64.sh.
         You can skip step 3, if you are just transferring a payload.
 
@@ -387,7 +387,7 @@ Device onboarded successfully.
     keytool -import -alias fdo -file tls.crt -storetype PKCS12 -keystore truststore
     ```
 
-!!!NOTE
+***NOTE:***
 - [Read more](https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md#generating-key-pair) about key generation.
 - You can update the key type, by modifying the `-newkey` attribute during the key generation stage.
-- You can add multiple ip addresses in the `subjectAltName` attribute.
+- You can add multiple IP addresses in the `subjectAltName` attribute.
