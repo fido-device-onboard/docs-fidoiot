@@ -1,5 +1,5 @@
 
-# Proxy settings for running FDO 
+# Proxy Settings for Running FDO 
 This document lists the different proxy settings that need to be set 
 ## In .bashrc
 Add this line 
@@ -50,5 +50,5 @@ ENV https_proxy <proxy host>:<port>
 
 ```
 
-## Proxy settings for Docker 
+## Proxy Settings for Docker 
 Follow the proxy settings detailed [here](#https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/) 
