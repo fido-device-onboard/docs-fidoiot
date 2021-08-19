@@ -51,7 +51,6 @@ follow.
 ## Examples
 Below are examples of the fdo_sys messages encoded as CBOR. The JSON examples are just human
 readable definitions while the actual messages are always CBOR. The encoding includes the entire
-
 TO2.OwnerServiceInfo message include the isMore and isDone flags.
 
 Device should advertise it supports fdo_sys.
