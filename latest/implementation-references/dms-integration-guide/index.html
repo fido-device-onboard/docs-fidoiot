@@ -626,8 +626,7 @@
 <h3 id="terminology">Terminology<a class="headerlink" href="#terminology" title="Permanent link">&para;</a></h3>
 <p>Refer to the FIDO Device Onboard <a href="../../reference.md">Reference page</a>.</p>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>To Integrate FIDO Device Onboard (FDO)-services into a Device Management Service (DMS), a DMS must host an Owner service, manage owner cryptographic keys, ingest ownership vouchers from a supply chain, 
-and provide onboarding and onboarding solution in the form of service info instructions. </p>
+<p>To Integrate FIDO Device Onboard (FDO)-services into a Device Management Service (DMS), a DMS must host an Owner service, manage owner cryptographic keys, ingest ownership vouchers from a supply chain, and provide onboarding and onboarding solution in the form of service info instructions. </p>
 <p>For details on how to setup and initialize the Owner Service Component Sample see the Readme included with this sample as part of the FDO software [Owner Component Readme] (https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/owner/README.md).</p>
 <h3 id="owner-component-sample">Owner Component Sample<a class="headerlink" href="#owner-component-sample" title="Permanent link">&para;</a></h3>
 <p>The main function of the Owner component sample is to serve as a TO2 protocol server. The owner component sample runs as a web service and makes use of the FDO H2 database for configuration and storage of ownership vouchers. All configuration and data for the owner is stored in this H2 database and property or environment files. </p>
@@ -638,10 +637,10 @@ and provide onboarding and onboarding solution in the form of service info instr
 <h1 id="dms-integration-using-service-info">DMS Integration using Service Info<a class="headerlink" href="#dms-integration-using-service-info" title="Permanent link">&para;</a></h1>
 <p>Owner component service info can integrate with a DMS by providing the following:</p>
 <p>-A script to download the agent used to connect to the DMS</p>
-<p>-The Agent Credentials to download (e.g certificates or one time tokens)</p>
-<p>-Any connection information such as scope id, url, or tenant information.</p>
+<p>-The Agent Credentials to download (for example, certificates or one time tokens)</p>
+<p>-Any connection information such as scope ID, URL, or tenant information.</p>
 <p><strong><em>NOTE</em></strong>: Service info is always encrypted even if http protocol is being used for To2 Protocol.</p>
-<h1 id="dms-credential-creation">DMS Credential creation<a class="headerlink" href="#dms-credential-creation" title="Permanent link">&para;</a></h1>
+<h1 id="dms-credential-creation">DMS Credential Creation<a class="headerlink" href="#dms-credential-creation" title="Permanent link">&para;</a></h1>
 <p>DMS credentials can be created at the time of ownership voucher injection or when the device is running the To2 protocol.</p>
 <h3 id="to-do">To Do:<a class="headerlink" href="#to-do" title="Permanent link">&para;</a></h3>
 <p>Setup local Azure CLI</p>
@@ -653,7 +652,7 @@ Use the device uuid as the name</p>
 1.  Run CLI docker
       a.    https://docs.microsoft.com/en-us/cli/azure/run-azure-cli-docker
       b.    “docker run -it -v ${HOME}/.ssh:/root/.ssh -v ~/Desktop/dev/Azure:/home mcr.microsoft.com/azure-cli”
-2.  log in to Azure account
+2.  Log in to Azure account
       a.    “az login”
       b.    https://microsoft.com/devicelogin
 3.  Create a device place holder
@@ -672,8 +671,8 @@ Use the device uuid as the name</p>
 <h4 id="azurecertssh">Azure/certs.sh<a class="headerlink" href="#azurecertssh" title="Permanent link">&para;</a></h4>
 <h3 id="device">Device:<a class="headerlink" href="#device" title="Permanent link">&para;</a></h3>
 <h4 id="usingfdo-install-iot-edge-containers-on-the-target-device">UsingFDO: Install Iot-edge containers on the target device<a class="headerlink" href="#usingfdo-install-iot-edge-containers-on-the-target-device" title="Permanent link">&para;</a></h4>
-<h4 id="usingfdo-inject-the-connection-string-into-config-file">UsingFDO: inject the Connection String into config file<a class="headerlink" href="#usingfdo-inject-the-connection-string-into-config-file" title="Permanent link">&para;</a></h4>
-<h4 id="usingfdo-restart-iotg-containers">UsingFDO: restart iotg containers<a class="headerlink" href="#usingfdo-restart-iotg-containers" title="Permanent link">&para;</a></h4>
+<h4 id="usingfdo-inject-the-connection-string-into-config-file">UsingFDO: Inject the Connection String into config file<a class="headerlink" href="#usingfdo-inject-the-connection-string-into-config-file" title="Permanent link">&para;</a></h4>
+<h4 id="usingfdo-restart-iotg-containers">UsingFDO: Restart IOTG containers<a class="headerlink" href="#usingfdo-restart-iotg-containers" title="Permanent link">&para;</a></h4>
                 
               
               
