@@ -30,7 +30,7 @@ _**Members**_
 | **FDO_CONFIG_NOT_FOUND** | An expected configuration file was not found or not accessible. |
 | **FDO_INVALID_STATE** | The SDK is in an invalid state to perform the requested operation. |
 | **FDO_RESALE_NOT_SUPPORTED** | This configuration of the SDK does not support the Resale Protocol. |
-| **FDO_RESALE_NOT_READY** | The SDK is not in a state to execute the Resale Protocol. This error will occur when the Resale API (fdoSdkResale) is called when device ownership transfer has not yet completed successfully. |
+| **FDO_RESALE_NOT_READY** | The SDK is not in a state to execute the Resale Protocol. This error will occur when the Resale API (fdoSdkResale) is called when device ownership transfer has not yet been completed successfully. |
 | **FDO_WARNING** | This value is used in the SDK error callback to notify the Application that a transient failure occurred. See Error Handling Callback for details. |
 | **FDO_ERROR** | The API call did not succeed. We might extend this later (TBD) to allow returning of specific error types as positive values (for example, memory allocation failure, communications failure, and so on). |
 | **FDO_ABORT** | This value is returned by the error callback function to prevent the SDK from continuing the transfer of ownership protocol if an error occurred. Details are provided in Error Handling Callback. |
@@ -100,16 +100,16 @@ Below are the parameters of the ServiceInfo Module Callback function described i
 
 | | |
 |-|-|
-| **FDO_SI_START** | This value indicates that the SDK is starting Service Info rounds. The module may perform pre-preparation operations at this time. The count and si parameters will be NULL. |
+| **FDO_SI_START** | This value indicates that the SDK is starting ServiceInfo rounds. The module may perform pre-preparation operations at this time. The count and si parameters will be NULL. |
 | **FDO_SI_GET_DSI** | This is a legacy value that shall be removed in a future release. |
-| **FDO_SI_SET_OSI** | This value indicates that the SDK is providing a valid Owner Service Info key-value pair to the module and it must process the provide Owner ServiceInfo information. The count parameter is a progressively increasing index value of the provided Owner ServiceInfo. |
-| **FDO_SI_END** | This value indicates that the SDK has completed all Service Info rounds and the module can perform cleanup or final operations if required (like saving a file to disk, and so on). |
-| **FDO_SI_FAILURE** | This value indicates that an error occurred and the SDK is aborting or abandoning this Service Info round. The module must ignore all the information it received thus far (if any) and reset to its initial state. |
+| **FDO_SI_SET_OSI** | This value indicates that the SDK is providing a valid Owner ServiceInfo key-value pair to the module and it must process the provide Owner ServiceInfo information. The count parameter is a progressively increasing index value of the provided Owner ServiceInfo. |
+| **FDO_SI_END** | This value indicates that the SDK has completed all ServiceInfo rounds and the module can perform cleanup or final operations if required (like saving a file to disk, and so on). |
+| **FDO_SI_FAILURE** | This value indicates that an error occurred and the SDK is aborting or abandoning this ServiceInfo round. The module must ignore all the information it has received thus far (if any) and reset to its initial state. |
 
 ### Owner ServiceInfo Module Callback
 This type is a pointer to a callback function that is used to process Owner ServiceInfo messages received from the Owner Server for a specific ServiceInfo module.
 
-It takes a pointer to the structure `fdor_t` whose internal buffer contains the entire message as received in TO2.OwnerServiceInfo (Type 69) with the current position set to the ServiceInfoVal, as well as the ServiceInfoKey (module message). The module must read the ServiceInfoVal from `fdor_t`, process it as per the ServiceInfoKey, and advance the `fdor_t` internal buffer to the next valid CBOR entry (currently being done internally in few methods). The module must treat the received `fdor_t` as a read-only structure, and must never modify it, excpet advancing to the next CBOR entry.
+It takes a pointer to the structure `fdor_t` whose internal buffer contains the entire message as received in TO2.OwnerServiceInfo (Type 69) with the current position set to the ServiceInfoVal, as well as the ServiceInfoKey (module message). The module must read the ServiceInfoVal from `fdor_t`, process it as per the ServiceInfoKey, and advance the `fdor_t` internal buffer to the next valid CBOR entry (currently being done internally in few methods). The module must treat the received `fdor_t` as a read-only structure, and must never modify it, except advancing to the next CBOR entry.
 
 This callback function is invoked in the context of the executing onboarding protocol hence, although there is no fixed timeline, the module must complete execution in the shortest possible time.
 
@@ -158,7 +158,7 @@ _**Members**_
 |-|-|
 | **active** | A bool value denoting whether the ServiceInfo module is currently active(true) or inactive(false). This value is maintained by the SDK and should not be tampered with by the module during ServiceInfo processing. |
 | **moduleName** | The symbolic name of the ServiceInfo Module. This should be a NULL terminated string, no larger than 15 characters. |
-| **serviceInfoCallback** | This callback function will be invoked by the SDK to obtain Device Service Info from the module as well as pass Pre-Service Info and Owner Service Info to the module. This callback will be executed in the context of the onboarding protocol. See ServiceInfo Module Callback. |
+| **serviceInfoCallback** | This callback function will be invoked by the SDK to pass Owner ServiceInfo to the module. This callback will be executed in the context of the onboarding protocol. See ServiceInfo Module Callback. |
 
 ### Error Handling Callback
 This type is a pointer to a callback function that is used to process errors during protocol execution. The Application can use information provided by this callback to perform application-specific operations. The Application can also control the execution of the protocol state machine by return different values as specified below.
@@ -255,7 +255,7 @@ This function returns success or an error code as defined in Generic API Return 
 
 ## FDO Concise Binary Object Representation (CBOR) encoder/decoder APIs
 
-Client SDK uses APIS provided in the header file `fdoblockio.h` to handle CBOR operations (encode/decode). The API implementations wraps and internally uses the APIs provided by Intel TinyCBOR\* library. The structue for writer (encoder) and reader (decoder) are given below:
+Client SDK uses APIS provided in the header file `fdoblockio.h` to handle CBOR operations (encode/decode). The API implementations wrap and internally uses the APIs provided by Intel TinyCBOR\* library. The structure for writer (encoder) and reader (decoder) are given below:
 
 ### FDO Writer (CBOR Encoder)
 
@@ -290,7 +290,7 @@ _**Members**_
 
 | | |
 |-|-|
-| **b** | The `fdo_block_t` structure containing the buffer alogwith its size. The TinyCBOR\* library uses this buffer to store the data that has been CBOR-encoded so far. |
+| **b** | The `fdo_block_t` structure containing the buffer along with its size. The TinyCBOR\* library uses this buffer to store the data that has been CBOR-encoded so far. |
 | **msg_type** | FDO type (Type 1x/3x/6x/255) |
 | **current** | A `fdow_cbor_encoder_t` structure that resembles a doubly-linked-list, containing TinyCBOR's CborEncoder. |
 
@@ -331,8 +331,8 @@ _**Members**_
 
 | | |
 |-|-|
-| **b** | The `fdo_block_t` structure containing the buffer alogwith its size. The TinyCBOR* library reads the CBOR-encoded stream from this buffer and decodes them into binary stream. |
+| **b** | The `fdo_block_t` structure containing the buffer along with its size. The TinyCBOR* library reads the CBOR-encoded stream from this buffer and decodes them into binary stream. |
 | **msg_type** | FDO type (Type 1x/3x/6x/255) |
-| **have_block** | A bool value that represents whether the structure contains data to be decoded. Generally, used by protocol, before decoding is started. |
+| **have_block** | A bool value that represents whether the structure contains data to be decoded. Generally, used by the protocol, before decoding is started. |
 | **cbor_parser** | CborParser from the TinyCBOR* library. |
 | **current** | The `fdow_cbor_decoder_t` structure that resembles a doubly-linked-list, containing TinyCBOR's CborValue. |

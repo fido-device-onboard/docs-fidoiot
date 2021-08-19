@@ -10,6 +10,8 @@ This document can be used as a quick start guide to setup the development enviro
 | Docker* Engine | 18.09 |
 | Docker* Compose | 1.21.2 |
 | Maven* | 3.5.4 |
+| Java | 11 |
+| Haveged | - |
 
 ## Docker* Installation
 1 . Removing the older versions of Docker*. If these are installed, uninstall them:
@@ -23,8 +25,8 @@ sudo apt-get remove docker docker-engine docker.io containerd runc
       apt-transport-https \
       ca-certificates \
       curl \
-      gnupg-agent \
-      software-properties-common
+      gnupg \
+      lsb-release
 ```
 
 !!! NOTE
@@ -32,16 +34,18 @@ sudo apt-get remove docker docker-engine docker.io containerd runc
 
 3 . Add official GPG key for Docker*:
 ```
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 ```
 4 . Use the following command to set up the **stable** repository.
 ```
-sudo add-apt-repository \ "deb [arch=amd64] https://download.docker.com/linux/ubuntu \ $(lsb_release -cs) \ stable"
+echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 ```
 5 . Update the `apt` package index and install the Docker* Engine 18.09
 ```
 sudo apt-get update
-sudo apt-get install docker-ce=5:18.09.9~3-0~ubuntu-bionic docker-ce-cli=5:18.09.9~3-0~ubuntu-bionic containerd.io
+sudo apt-get install docker-ce docker-ce-cli containerd.io
 ```
 6 . Verify that Docker* Engine is installed correctly by running the `hello-world` image.
 ```
@@ -69,7 +73,7 @@ Environment="HTTP_PROXY=<Proxy IP/URL:Port>"
 Environment="HTTPS_PROXY=<Proxy IP/URL:Port>"
 ```
 
-4 . Next, create a directory named **_.docker_** in the user home path (**~/**) and a create a file named **_config.json_** if not present, add the following content.
+4 . Next, create a directory named **_.docker_** in the user home path (**~/**) and create a file named **_config.json_** if not present, add the following content.
 ```
 {
     "proxies":
@@ -124,7 +128,12 @@ sudo apt install openjdk-11-jdk-headless
 sudo apt install maven
 ```
 
-3 . To set the correct system time
+3 . To install Haveged
+```
+sudo apt install haveged
+```
+
+## To set correct system time
 ```
 sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
 ```
@@ -140,3 +149,5 @@ Change Google* domain according to your location.
 [Docker-compose-installation](https://docs.docker.com/compose/install/)
 
 [Setting-proxy-for-docker](https://docs.docker.com/network/proxy/)
+
+_*_ represents proprietary software products. FDO claims no rights over the mentioned software products. Use them at your own discretion.
