@@ -73,7 +73,7 @@ Environment="HTTP_PROXY=<Proxy IP/URL:Port>"
 Environment="HTTPS_PROXY=<Proxy IP/URL:Port>"
 ```
 
-4 . Next, create a directory named **_.docker_** in the user home path (**~/**) and a create a file named **_config.json_** if not present, add the following content.
+4 . Next, create a directory named **_.docker_** in the user home path (**~/**) and create a file named **_config.json_** if not present, add the following content.
 ```
 {
     "proxies":
