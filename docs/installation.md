@@ -52,7 +52,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 sudo docker run hello-world
 ```
 
-### Running the Docker* behind a proxy
+### Running the Docker* Behind a Proxy
 
 To run the Docker* system behind a proxy server, the configuration is done by the following steps:
 
@@ -73,7 +73,7 @@ Environment="HTTP_PROXY=<Proxy IP/URL:Port>"
 Environment="HTTPS_PROXY=<Proxy IP/URL:Port>"
 ```
 
-4 . Next, create a directory named **_.docker_** in the user home path (**~/**) and a create a file named **_config.json_** if not present, add the following content.
+4 . Next, create a directory named **_.docker_** in the user home path (**~/**) and create a file named **_config.json_** if not present, add the following content.
 ```
 {
     "proxies":
@@ -133,7 +133,7 @@ sudo apt install maven
 sudo apt install haveged
 ```
 
-## To set correct system time
+## To set Correct System Time
 ```
 sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
 ```
