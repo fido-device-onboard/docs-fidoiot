@@ -5,8 +5,7 @@ FIDO Device Onboard (FDO) enhances the out-of-the-box setup and provisioning exp
 Refer to the FIDO Device Onboard [Reference page](../../reference.md).
 
 ## Overview
-To Integrate FIDO Device Onboard (FDO)-services into a Device Management Service (DMS), a DMS must host an Owner service, manage owner cryptographic keys, ingest ownership vouchers from a supply chain, 
-and provide onboarding and onboarding solution in the form of service info instructions. 
+To Integrate FIDO Device Onboard (FDO)-services into a Device Management Service (DMS), a DMS must host an Owner service, manage owner cryptographic keys, ingest ownership vouchers from a supply chain, and provide onboarding and onboarding solution in the form of service info instructions. 
 
 For details on how to setup and initialize the Owner Service Component Sample see the Readme included with this sample as part of the FDO software [Owner Component Readme] (https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/owner/README.md).
 
@@ -24,13 +23,13 @@ Owner component service info can integrate with a DMS by providing the following
 
 -A script to download the agent used to connect to the DMS
 
--The Agent Credentials to download (e.g certificates or one time tokens)
+-The Agent Credentials to download (for example, certificates or one time tokens)
 
--Any connection information such as scope id, url, or tenant information.
+-Any connection information such as scope ID, URL, or tenant information.
 
 ***NOTE***: Service info is always encrypted even if http protocol is being used for To2 Protocol.
 
-# DMS Credential creation
+# DMS Credential Creation
 
 DMS credentials can be created at the time of ownership voucher injection or when the device is running the To2 protocol.
 
@@ -48,7 +47,7 @@ Steps:
 1.	Run CLI docker
       a.	https://docs.microsoft.com/en-us/cli/azure/run-azure-cli-docker
       b.	“docker run -it -v ${HOME}/.ssh:/root/.ssh -v ~/Desktop/dev/Azure:/home mcr.microsoft.com/azure-cli”
-2.	log in to Azure account
+2.	Log in to Azure account
       a.	“az login”
       b.	https://microsoft.com/devicelogin
 3.	Create a device place holder
@@ -69,5 +68,5 @@ Steps:
 
 ### Device:
 #### UsingFDO: Install Iot-edge containers on the target device
-#### UsingFDO: inject the Connection String into config file
-#### UsingFDO: restart iotg containers
+#### UsingFDO: Inject the Connection String into config file
+#### UsingFDO: Restart IOTG containers
