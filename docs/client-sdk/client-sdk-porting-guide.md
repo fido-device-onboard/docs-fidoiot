@@ -180,7 +180,7 @@ SUPPORTED_DA = ecdsa256 ecdsa384 tpm20_ecdsa256
 SUPPORTED_AES_MODE = gcm ccm
 ```
 
-  * **SUPPORTED_DA:** This specifies the supported Device Attestation algorithms which device uses to prove its identity to Rendezvous Server and Owner. This automatically configures the Key Exchange algorithm (ECDH256/ECDH384) that is used to generate the shared secret and th AES Mode, to use higher crypto in the source.
+  * **SUPPORTED_DA:** This specifies the supported Device Attestation algorithms which device uses to prove its identity to Rendezvous Server and Owner. This automatically configures the Key Exchange algorithm (ECDH256/ECDH384) that is used to generate the shared secret and the AES Mode, to use higher crypto in the source.
 
  ***NOTE:*** tpm20_ecdsa256 isn’t a separate algorithm, it uses ecdsa256 as Device Attestation, but uses TPM2.0 to generate keys and store data
 
@@ -454,7 +454,7 @@ None
 
 *Description*
 
-This function fills the random_buffer with random number of size num_bytes.
+This function fills the random_buffer with the random number of size num_bytes.
 
 ***NOTE:***
     This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs
@@ -880,7 +880,7 @@ The Client SDK uses this define for IPv4 IP address. For usage, please refer `fd
 #### FDO_TYPE_ERROR
 `#define FDO_TYPE_ERROR 255`
 
-The Client SDK uses this to indicate error. For usage, please refer `fdo_con_recv_msg_header()`
+The Client SDK uses this to indicates an error. For usage, please refer `fdo_con_recv_msg_header()`
 
 ### Data Types
 
@@ -894,7 +894,7 @@ typedef struct {
 } fdo_ip_address_t;
 ```
 #### fdo_con_handle
-`fdo_con_handle` is specific to the underlying network library. In software distributions supporting POSIX, fdo_con_handle can be int or any implementation specific datatype. For Client SDK, this is opaque data type, and it will not use its internal members.
+`fdo_con_handle` is specific to the underlying network library. In software distributions supporting POSIX, fdo_con_handle can be an int or any implementation specific datatype. For Client SDK, this is opaque data type, and it will not use its internal members.
 
 ### Connection Management Functions
 
@@ -960,7 +960,7 @@ int32_t fdo_con_dns_lookup(const char *url, fdo_ip_address_t **ip_list,
 ```
 *Description*
 
-This function perform a DNS lookup for the specified host identified by the `url` and return a list of IP addresses in the `ip_list`.
+This function performs a DNS lookup for the specified host identified by the `url` and return a list of IP addresses in the `ip_list`.
 
 ***NOTE:*** This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux libraries to perform Domain Name resolution.
 
@@ -1048,13 +1048,13 @@ This function receives the message header on the specified connection handle and
 
 `handle:` Connection handle. Please refer to `fdo_con_connect()`
 
-`protocol_version:` Incoming protocol version. Client SDK supports 113
+`protocol_version:` Incoming protocol version. Client SDK supports 100
 
 `message_type:` Set to FDO_TYPE_ERROR in case of error. Please refer FDO_TYPE_ERROR
 
 `msglen:` Length of incoming message body
 
-`ssl:` Valid SSL context in case SSL is enabled. Please refer to `do_con_connect()`
+`ssl:` Valid SSL context in case SSL is enabled. Please refer to `fdo_con_connect()`
 
 *Return Value*
 
