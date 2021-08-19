@@ -579,7 +579,7 @@
       
         <li class="md-nav__item">
   <a href="#proxy-settings-for-docker" class="md-nav__link">
-    Proxy settings for Docker
+    Proxy Settings for Docker*
   </a>
   
 </li>
@@ -642,7 +642,7 @@
       
         <li class="md-nav__item">
   <a href="#proxy-settings-for-docker" class="md-nav__link">
-    Proxy settings for Docker
+    Proxy Settings for Docker*
   </a>
   
 </li>
@@ -663,14 +663,14 @@
                   
                 
                 
-                <h1 id="proxy-settings-for-running-fdo">Proxy settings for running FDO<a class="headerlink" href="#proxy-settings-for-running-fdo" title="Permanent link">&para;</a></h1>
-<p>This document lists the different proxy settings that need to be set </p>
+                <h1 id="proxy-settings-for-running-fdo">Proxy Settings for Running FDO<a class="headerlink" href="#proxy-settings-for-running-fdo" title="Permanent link">&para;</a></h1>
+<p>This document lists the different proxy settings that needs to be set </p>
 <h2 id="in-bashrc">In .bashrc<a class="headerlink" href="#in-bashrc" title="Permanent link">&para;</a></h2>
 <p>Add this line </p>
 <pre><code>export _JAVA_OPTIONS=&quot;-Dhttp.proxyHost=&lt;proxy host&gt; -Dhttp.proxyPort=&lt;port&gt; -Dhttps.proxyHost=&lt;proxy host&gt; -Dhttps.proxyPort=&lt;port&gt;&quot;
 </code></pre>
 <h2 id="maven-settingsxml">Maven settings.xml<a class="headerlink" href="#maven-settingsxml" title="Permanent link">&para;</a></h2>
-<p>Create a settings.xml file in ~/.m2 folder (if it does not already exist) and add the below content. Replace with the actual proxy host and port details </p>
+<p>Create a settings.xml file in ~/.m2 folder (if it does not already exist) and add the below content. Replace with the actual proxy host and port details. </p>
 <pre><code>&lt;settings xmlns=&quot;http://maven.apache.org/SETTINGS/1.0.0&quot;
 xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
 xsi:schemaLocation=&quot;http://maven.apache.org/SETTINGS/1.0.
@@ -706,7 +706,7 @@ http://maven.apache.org/xsd/settings-1.0.0.xsd&quot;&gt;
 ENV https_proxy &lt;proxy host&gt;:&lt;port&gt;
 
 </code></pre>
-<h2 id="proxy-settings-for-docker">Proxy settings for Docker<a class="headerlink" href="#proxy-settings-for-docker" title="Permanent link">&para;</a></h2>
+<h2 id="proxy-settings-for-docker">Proxy Settings for Docker*<a class="headerlink" href="#proxy-settings-for-docker" title="Permanent link">&para;</a></h2>
 <p>Follow the proxy settings detailed <a href="#https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/">here</a> </p>
                 
               
