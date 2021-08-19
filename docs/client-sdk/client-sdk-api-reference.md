@@ -55,7 +55,7 @@ _**Members**_
 | **FDO_STATE_PRE_DI** | The SDK is in the pre-Device Initialization state. It is ready to run the DI protocol which can be initiated by calling the `fdoSdkRun()` API. |
 | **FDO_STATE_PRE_TO1** | The SDK has completed the DI stage and is ready for Device onboarding. The SDK will run the TO1 protocol if the `fdoSdkRun()` API is called. |
 | **FDO_STATE_IDLE** | The SDK has completed ownership transfer and is in the idle state. Calling `fdoSdkRun()` will have no effect. The Application may only call the `fdoSdkResale()` API to initiate the Resale protocol at his point. |
-| **FDO_STATE_RESALE** | The SDK has is now ready for resale. Calling `fdoSdkRun()` will run the TO1 & TO2 protocols, to carryout onboarding to the new (post-resale) device owner. |
+| **FDO_STATE_RESALE** | The SDK has is now ready for resale. Calling `fdoSdkRun()` will run the TO1 & TO2 protocols, to carry out onboarding to the new (post-resale) device owner. |
 | **FDO_STATE_ERROR** | This API failed due to an internal error. |
 
 ### FDO SDK Error Values
@@ -333,6 +333,6 @@ _**Members**_
 |-|-|
 | **b** | The `fdo_block_t` structure containing the buffer along with its size. The TinyCBOR* library reads the CBOR-encoded stream from this buffer and decodes them into binary stream. |
 | **msg_type** | FDO type (Type 1x/3x/6x/255) |
-| **have_block** | A bool value that represents whether the structure contains data to be decoded. Generally, used by the protocol, before decoding is started. |
+| **have_block** | A bool value that represents whether the structure contains data to be decoded. Generally, used by the protocol before decoding is started. |
 | **cbor_parser** | CborParser from the TinyCBOR* library. |
 | **current** | The `fdow_cbor_decoder_t` structure that resembles a doubly-linked-list, containing TinyCBOR's CborValue. |
