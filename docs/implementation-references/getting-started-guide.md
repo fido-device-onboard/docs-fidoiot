@@ -59,7 +59,7 @@ sudo docker-compose up --build
 The build stage generates artifacts and stores them in `component-samples/demo` directory.
 
 **NOTE:** During the build stage, the following error messages may be displayed on the console. These error messages
-are a result of the discrepancy of logging levels during build stage and can be ignored.
+are a result of the discrepancy of logging levels during the build stage and can be ignored.
 ```
 [ERROR] Picked up _JAVA_OPTIONS: -Dhttp.proxyHost= -Dhttp.proxyPort= -Dhttps.proxyHost= -Dhttps.proxyPort=
 [ERROR] WARNING: An illegal reflective access operation has occurred
@@ -90,7 +90,7 @@ All the generated keys are now copied to the respective components.
 
 ### Starting the FDO PRI Manufacturer Server
 
-***FDO Manufacturer is an application that runs in the factory, which implements the initial communications with the Device, as part of the Device Initialize Protocol (DI). The manufacturer creates an Ownership Voucher based on the credentials received during DI and extends the voucher to respective owner.***    
+***FDO Manufacturer is an application that runs in the factory, which implements the initial communications with the Device, as part of the Device Initialize Protocol (DI). The manufacturer creates an Ownership Voucher based on the credentials received during DI and extends the voucher to the respective owner.***    
 
 Run the below commands, in a separate console, to start the Manufacturer.
 
