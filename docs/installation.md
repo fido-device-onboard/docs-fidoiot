@@ -29,8 +29,7 @@ sudo apt-get remove docker docker-engine docker.io containerd runc
       lsb-release
 ```
 
-!!! NOTE
-    If you are working behind a proxy, ensure to set proper proxy variables.
+***NOTE:*** If you are working behind a proxy, ensure to set proper proxy variables.
 
 3 . Add official GPG key for Docker*:
 ```
@@ -133,7 +132,7 @@ sudo apt install maven
 sudo apt install haveged
 ```
 
-## To set Correct System Time
+## To Set Correct System Time
 ```
 sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
 ```
