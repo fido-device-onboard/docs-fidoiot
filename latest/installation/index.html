@@ -377,7 +377,7 @@
       
         <li class="md-nav__item">
   <a href="#to-set-correct-system-time" class="md-nav__link">
-    To set Correct System Time
+    To Set Correct System Time
   </a>
   
 </li>
@@ -689,7 +689,7 @@
       
         <li class="md-nav__item">
   <a href="#to-set-correct-system-time" class="md-nav__link">
-    To set Correct System Time
+    To Set Correct System Time
   </a>
   
 </li>
@@ -767,10 +767,7 @@
       gnupg \
       lsb-release
 </code></pre>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you are working behind a proxy, ensure to set proper proxy variables.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> If you are working behind a proxy, ensure to set proper proxy variables.</p>
 <p>3 . Add official GPG key for Docker*:</p>
 <pre><code>curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 </code></pre>
@@ -846,7 +843,7 @@ sudo systemctl restart docker
 <p>3 . To install Haveged</p>
 <pre><code>sudo apt install haveged
 </code></pre>
-<h2 id="to-set-correct-system-time">To set Correct System Time<a class="headerlink" href="#to-set-correct-system-time" title="Permanent link">&para;</a></h2>
+<h2 id="to-set-correct-system-time">To Set Correct System Time<a class="headerlink" href="#to-set-correct-system-time" title="Permanent link">&para;</a></h2>
 <pre><code>sudo date -s &quot;$(wget -qSO- --max-redirect=0 google.com 2&gt;&amp;1 | grep Date: | cut -d' ' -f5-8)Z&quot;
 </code></pre>
 <p>Ensure that the system time is correct, else you will receive the certificate expiration error.</p>

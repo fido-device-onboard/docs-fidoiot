@@ -2200,10 +2200,10 @@
 ├── network* - - - - Network subsystem
 ├── NOTICES  - - - - License specific information
 ├── storage* - - - - Storage Subsystem
-└── utils  - - - - - Reference files for setting up TPM, flashing etc.
+└── utils  - - - - - Reference files for setting up TPM, flashing and others.
 </code></pre>
 <h3 id="build-system">Build System<a class="headerlink" href="#build-system" title="Permanent link">&para;</a></h3>
-<p>Starting with release v1.9.0 of the Client SDK, the build system uses cmake. This section explains the most prominent configurations in build system. The reference application is tightly coupled with the build system, storage and crypto APIs. The intent of this section is to cover those specific bindings to make the solution easy to traverse.</p>
+<p>The build system uses cmake. This section explains the most prominent configurations in build system. The reference application is tightly coupled with the build system, storage, and crypto APIs. The intent of this section is to cover those specific bindings to make the solution easy to traverse.</p>
 <pre><code>├── app
 │   └── CMakeLists.txt
 ├── cmake
@@ -2275,10 +2275,7 @@ client_sdk_compile_definitions(
 </code></pre>
 <h5 id="fdo_cred_normal-normalblob">FDO_CRED_NORMAL - Normal.blob<a class="headerlink" href="#fdo_cred_normal-normalblob" title="Permanent link">&para;</a></h5>
 <p>The Client SDK or Device lifecycle is maintained in this blob. This data is stored as Authenticated Data meaning that HMAC256 is calculated over this data and stored back.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This is part of custom storage implementation in reference solution. Please refer Storage Subsystem API for details required for implementation on custom platform. The Application may use APIs listed in Storage Subsystem API, to manipulate blobs, so, the blobs remain consistent as expected by Client SDK. However, the APIs mentioned in the above said section are internal APIs and it is up to the application developer to reuse them.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This is part of custom storage implementation in reference solution. Please refer to Storage Subsystem API for details required for implementation on custom platform. The Application may use APIs listed in Storage Subsystem API, to manipulate blobs, so, the blobs remain consistent as expected by Client SDK. However, the APIs mentioned in the above said section are internal APIs and it is up to the application developer to reuse them.</p>
 <p>The application, before starting the state machine by calling <code>fdo_sdk_init()</code> generates the HMAC over this data and stores it back along with the data.
 This is initialized to the following value to indicate that the device is in manufactured state. It also allows the reference application to perform multiple cycles of FIDO Device Onboard operation.</p>
 <pre><code>blob_path.cmake:
@@ -2291,10 +2288,7 @@ file(WRITE ${BLOB_PATH}/data/Normal.blob &quot;{\&quot;ST\&quot;:1}&quot;)
 <li><strong>PLATFORM_HMAC_KEY:</strong> HMAC key to authenticate Normal.blob or any other internal blob which only needs Authenticated read.</li>
 <li><strong>PLATFORM_AES_KEY:</strong> AES key to Authenticate Encrypt the Secure Blobs. The Secure Blobs are internal to Client SDK and are not controlled by the application.</li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>These flags are not necessary for the platforms which have their own Secure Storage mechanisms. The platform may be able to store all blobs using Authenticated Encryption including Normal.blob. Client SDK always uses <code>fdo_blob_read()</code> to read the data, so, the underlying detail is already abstracted. In the reference solution, it is expected that these files exist physically although without any content. The content gets generated on an as-needed basis.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> These flags are not necessary for the platforms which have their own Secure Storage mechanisms. The platform may be able to store all blobs using Authenticated Encryption including Normal.blob. Client SDK always uses <code>fdo_blob_read()</code> to read the data, so, the underlying detail is already abstracted. In the reference solution, it is expected that these files exist physically although without any content. The content gets generated on an as-needed basis.</p>
 <h5 id="manufacturer_addr">MANUFACTURER_ADDR<a class="headerlink" href="#manufacturer_addr" title="Permanent link">&para;</a></h5>
 <p>Client SDK uses the location defined in the specified file to connect to Manufacturer Server to perform Device Initialization. The format for the Manufacturer Address is of the form: <code>{http,https}://{DNS,IP}:port</code>. The following rules apply while setting the value and all of these are mandatory:</p>
 <ul>
@@ -2311,10 +2305,7 @@ file(WRITE ${BLOB_PATH}/data/Normal.blob &quot;{\&quot;ST\&quot;:1}&quot;)
 <li>The key could be pre-created like the reference application.</li>
 <li>If the device supports secure storage, then the key can be generated within the device and stored using secure storage APIs</li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This section is not a recommendation, but specifies some of the possibilities that exist.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This section is not a recommendation, but specifies some of the possibilities that exist.</p>
 <h5 id="fdo_cred_securemfg">FDO_CRED_(SECURE/MFG)<a class="headerlink" href="#fdo_cred_securemfg" title="Permanent link">&para;</a></h5>
 <p>These defines are used internally by Client SDK:</p>
 <ul>
@@ -2336,20 +2327,12 @@ SUPPORTED_DA = ecdsa256 ecdsa384 tpm20_ecdsa256
 SUPPORTED_AES_MODE = gcm ccm
 </code></pre>
 <ul>
-<li>
-<p><strong>SUPPORTED_DA:</strong> This specifies the supported Device Attestation algorithms which device uses to prove its identity to Rendezvous Server and Owner. This automatically configures the Key Exchange algorithm (ECDH256/ECDH384) that is used to generate the shared secret and the AES Mode, to use higher crypto in the source.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>tpm20_ecdsa256 isn’t a separate algorithm, it uses ecdsa256 as Device Attestation, but uses TPM2.0 to generate keys and store data</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The Public Key Encoding supported in COSEX509.</p>
-</div>
-</li>
-<li>
-<p><strong>SUPPORTED_AES_MODE:</strong> This specifies the AES mode of encryption supported by device. The device supports GCM and CCM. The following configurations are supported as per the Device Attestation algorithm: A128GCM, A256GCM, AES-CCM-64-128-128 and AES-CCM-64-128-256.</p>
-</li>
+<li><strong>SUPPORTED_DA:</strong> This specifies the supported Device Attestation algorithms which device uses to prove its identity to Rendezvous Server and Owner. This automatically configures the Key Exchange algorithm (ECDH256/ECDH384) that is used to generate the shared secret and the AES Mode, to use higher crypto in the source.</li>
+</ul>
+<p><strong><em>NOTE:</em></strong> tpm20_ecdsa256 isn’t a separate algorithm, it uses ecdsa256 as Device Attestation, but uses TPM2.0 to generate keys and store data.</p>
+<p><strong><em>NOTE:</em></strong> The Public Key Encoding supported in COSEX509.</p>
+<ul>
+<li><strong>SUPPORTED_AES_MODE:</strong> This specifies the AES mode of encryption supported by device. The device supports GCM and CCM. The following configurations are supported as per the Device Attestation algorithm: A128GCM, A256GCM, AES-CCM-64-128-128, and AES-CCM-64-128-256.</li>
 </ul>
 <h3 id="client-sdk-constants">Client SDK Constants<a class="headerlink" href="#client-sdk-constants" title="Permanent link">&para;</a></h3>
 <h4 id="fdo_sdk_error">fdo_sdk_error<a class="headerlink" href="#fdo_sdk_error" title="Permanent link">&para;</a></h4>
@@ -2396,31 +2379,25 @@ typedef int (*fdo_sdk_errorCB)(fdo_sdk_status type, fdo_sdk_error error_code);
 </code></pre>
 <p><em>Description</em></p>
 <p>This function initializes the Client SDK data structures. It allows the application to control the error handling of the Client SDK state machine by setting error_handling_callback. Client SDK calls error_handling_callback to propagate the error_code(fdo_sdk_error) back to the application with Client SDK internal status fdo_sdk_status(fdo_sdk_status). The application may handle the error and return the appropriate action to be taken by Client SDK further.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The reference application allows the Client SDK to retry 5 times before calling abort</p>
-</div>
+<p><strong><em>NOTE:</em></strong> The reference application allows the Client SDK to retry for 5 times before calling abort.</p>
 <p>The Client SDK allows the owner to download the required Device Management System agents via ServiceInfo mechanism; the num_modules and module_information registers the ServiceInfo modules with the Client SDK.</p>
 <p><em>Parameters</em></p>
 <p><code>error_handling_callback:</code> It is of type fdo_sdk_errorCB</p>
-<p><code>num_modules:</code> number of ServiceInfo modules to register.</p>
+<p><code>num_modules:</code> Number of ServiceInfo modules to register.</p>
 <p><code>module_information:</code> Array of ServiceInfo modules registration information</p>
 <p><em>Return Value</em></p>
 <p><code>FDO_SUCCESS</code> for success.</p>
-<p>Greater than <code>FDO_SUCCESS</code> for failure (refer fdo_sdk_status)</p>
+<p>Greater than <code>FDO_SUCCESS</code> for failure (refer to fdo_sdk_status)</p>
 <h4 id="fdo_sdk_run">fdo_sdk_run()<a class="headerlink" href="#fdo_sdk_run" title="Permanent link">&para;</a></h4>
 <p><code>fdo_sdk_status fdo_sdk_run(void);</code></p>
 <p><em>Description</em></p>
 <p>This function triggers either the Device Initialize state machine or Ownership Transfer Protocol state machine depending on the device status stored in Normal.blob.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The reference application's first successful execution performs Device Initialization. The second execution begins to perform Ownership Transfer Protocol.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> The first successful execution of the reference application performs Device Initialization. The second execution begins to perform Ownership Transfer Protocol.</p>
 <p><em>Parameters</em></p>
 <p>None</p>
 <p><em>Return Value</em></p>
 <p><code>FDO_SUCCESS</code> for success.</p>
-<p>Greater than <code>FDO_SUCCESS</code> for failure (refer fdo_sdk_status)</p>
+<p>Greater than <code>FDO_SUCCESS</code> for failure (refer to fdo_sdk_status)</p>
 <h4 id="fdo_sdk_resale">fdo_sdk_resale()<a class="headerlink" href="#fdo_sdk_resale" title="Permanent link">&para;</a></h4>
 <p><code>fdo_sdk_status fdo_sdk_resale(void);</code></p>
 <p><em>Description</em></p>
@@ -2429,7 +2406,7 @@ typedef int (*fdo_sdk_errorCB)(fdo_sdk_status type, fdo_sdk_error error_code);
 <p>None</p>
 <p><em>Return Value</em></p>
 <p><code>FDO_SUCCESS</code> for success.</p>
-<p>Greater than <code>FDO_SUCCESS</code> for failure (refer fdo_sdk_status)</p>
+<p>Greater than <code>FDO_SUCCESS</code> for failure (refer to fdo_sdk_status)</p>
 <h4 id="fdo_sdk_get_status">fdo_sdk_get_status()<a class="headerlink" href="#fdo_sdk_get_status" title="Permanent link">&para;</a></h4>
 <p><code>fdo_sdk_device_state fdo_sdk_get_status(void);</code></p>
 <p><em>Description</em></p>
@@ -2444,11 +2421,8 @@ typedef int (*fdo_sdk_errorCB)(fdo_sdk_status type, fdo_sdk_error error_code);
 <p><code>FDO_STATE_RESALE:</code> Device is ready for ownership transfer</p>
 <p><code>FDO_STATE_ERROR:</code> Error in getting device status</p>
 <h2 id="crypto-subsystem-api">Crypto Subsystem API<a class="headerlink" href="#crypto-subsystem-api" title="Permanent link">&para;</a></h2>
-<p>Cryptography support is a platform offering which enables Client SDK to generate random number, perform encryption, signing, sign verification and so on. The required functionality by the Client SDK is abstracted via a set of APIs declared in file "crypto/include/fdoCryptoHal.h" and "crypto/include/base64.h"</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This section of the document specifies the internal APIs to abstract Crypto implementation from Client SDK and are subject to change.</p>
-</div>
+<p>Cryptography support is a platform offering which enables Client SDK to generate random number, perform encryption, signing, sign verification, and so on. The required functionality by the Client SDK is abstracted via a set of APIs declared in file "crypto/include/fdoCryptoHal.h" and "crypto/include/base64.h"</p>
+<p><strong><em>NOTE:</em></strong> This section of the document specifies the internal APIs to abstract Crypto implementation from Client SDK and are subject to change.</p>
 <h3 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h3>
 <h4 id="fdo_crypto_hash_type">FDO_CRYPTO_HASH_TYPE<a class="headerlink" href="#fdo_crypto_hash_type" title="Permanent link">&para;</a></h4>
 <pre><code>#define FDO_CRYPTO_HASH_TYPE_SHA_256  -16
@@ -2483,10 +2457,7 @@ typedef fdo_bits_t fdo_byte_array_t;
 <p><code>int32_t crypto_init(void)</code></p>
 <p><em>Description</em></p>
 <p>This function initializes and enables the crypto services to be used by Client SDK.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may require a change in implementation for porting to a custom platform. For guidance in assessing the secure random number generation requirements for your device, refer to the Client SDK Security Implications document.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to a custom platform. For guidance in assessing the secure random number generation requirements for your device, refer to the Client SDK Security Implications document.</p>
 <p><em>Parameters</em></p>
 <p>None</p>
 <p><em>Return Value</em></p>
@@ -2496,10 +2467,7 @@ typedef fdo_bits_t fdo_byte_array_t;
 <p><code>int32_t crypto_close(void)</code></p>
 <p><em>Description</em></p>
 <p>This function tears down any initialization done to enable crypto services to Client SDK.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may require a change in implementation for porting to custom platform, as it tears down the initialization done in <code>crypto_init()</code>. Also, the crypto tear down could be different for custom platforms.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as it tears down the initialization done in <code>crypto_init()</code>. Also, the crypto tear down could be different for custom platforms.</p>
 <p><em>Parameters</em></p>
 <p>None</p>
 <p><em>Return Value</em></p>
@@ -2510,10 +2478,7 @@ typedef fdo_bits_t fdo_byte_array_t;
 <p><code>int random_init(void)</code></p>
 <p><em>Description</em></p>
 <p>This function initializes the random number generator functionality.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may require a change in implementation for porting to a custom platform. For guidance in assessing the secure random number generation requirements for your device, refer to the Client SDK Security Implications document.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to a custom platform. For guidance in assessing the secure random number generation requirements for your device, refer to the Client SDK Security Implications document.</p>
 <p><em>Parameters</em></p>
 <p>None</p>
 <p><em>Return Value</em></p>
@@ -2523,10 +2488,7 @@ typedef fdo_bits_t fdo_byte_array_t;
 <p><code>int random_close(void)</code></p>
 <p><em>Description</em></p>
 <p>This function releases the random number context. After this call, the random number cannot be retrieved from a call to <code>crypto_hal_random_bytes()</code></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may require a change in implementation for porting to custom platform, as it tears down the initialization done to setup random number generator which may be different in custom platform</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as it tears down the initialization done to setup random number generator which may be different in custom platform</p>
 <p><em>Parameters</em></p>
 <p>None</p>
 <p><em>Return Value</em></p>
@@ -2536,13 +2498,10 @@ typedef fdo_bits_t fdo_byte_array_t;
 <p><code>int32_t crypto_hal_random_bytes(uint8_t *random_buffer, size_t num_bytes)</code></p>
 <p><em>Description</em></p>
 <p>This function fills the random_buffer with the random number of size num_bytes.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
 <p><em>Parameters</em></p>
-<p><code>random_buffer:</code> pointer to memory to receive random number</p>
-<p><code>num_bytes:</code> size of memory pointed by random_buffer indicating the bytes of random number requested.</p>
+<p><code>random_buffer:</code> Pointer to memory to receive random number</p>
+<p><code>num_bytes:</code> Size of memory pointed by random_buffer indicating the bytes of random number requested.</p>
 <p><em>Return Value</em></p>
 <p><code>0</code> for success</p>
 <p><code>-1</code> for failure</p>
@@ -2554,16 +2513,13 @@ typedef fdo_bits_t fdo_byte_array_t;
 </code></pre>
 <p><em>Description</em></p>
 <p>This function hashes the contents of the memory pointed to by buffer of size <code>buffer_length</code> with <code>hash_type</code> algorithm and fills the memory pointed to by <code>output</code> of size <code>output_length</code> with generated hash.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
 <p><em>Parameters</em></p>
 <p><code>hash_type:</code> This function must support all the hash algorithms identifiers mentioned in FDO_CRYPTO_HASH_TYPE except FDO_CRYPTO_HASH_TYPE_SHA_512 (optional). Client SDK uses FDO_CRYPTO_HASH_TYPE_USED to decide at compile time which hash_type to use - either FDO_CRYPTO_HASH_TYPE_SHA_256 or FDO_CRYPTO_HASH_TYPE_SHA_384.</p>
-<p><code>buffer:</code> a valid pointer to a memory containing data to be hashed</p>
-<p><code>buffer_length:</code> size of memory pointed to by buffer</p>
-<p>output: a valid pointer to a memory which will be filled by hash</p>
-<p><code>output_length:</code> size of the memory pointed to by output. It must be able to contain the generated Hash.</p>
+<p><code>buffer:</code> A valid pointer to a memory containing data to be hashed</p>
+<p><code>buffer_length:</code> Size of memory pointed to by buffer</p>
+<p><code>output:</code> A valid pointer to a memory which will be filled by hash</p>
+<p><code>output_length:</code> Size of the memory pointed to by output. It must be able to contain the generated Hash.</p>
 <p><em>Return Value</em></p>
 <p><code>0</code> for success</p>
 <p><code>-1</code> for failure</p>
@@ -2575,16 +2531,13 @@ typedef fdo_bits_t fdo_byte_array_t;
 </code></pre>
 <p><em>Description</em></p>
 <p>This function HMACs the contents of the memory pointed to by buffer of size <code>buffer_length</code> using <code>key</code> of size <code>key_length</code>, with <code>hmac_type</code> algorithm and fills the memory pointed to by <code>output</code> of size <code>output_length</code> with generated HMAC.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
 <p><em>Parameters</em></p>
 <p><code>hmac_type</code>: This function must support all the HMAC algorithms identifiers mentioned in FDO_CRYPTO_HMAC_TYPE except FDO_CRYPTO_HMAC_TYPE_SHA_512 (optional).  Client SDK uses FDO_CRYPTO_HMAC_TYPE_USED to decide at compile time which hmac_type to use - either FDO_CRYPTO_HMAC_TYPE_SHA_256 or FDO_CRYPTO_HMAC_TYPE_SHA_384.</p>
-<p><code>buffer:</code> a valid pointer to a memory containing data to be HMACed.</p>
-<p><code>buffer_length:</code> size of memory pointed to by buffer</p>
-<p><code>output:</code> a valid pointer to a memory which will be filled by HMACed data.</p>
-<p><code>output_length:</code> size of the memory pointed to by output. It must be able to contain the generated HMAC.</p>
+<p><code>buffer:</code> A valid pointer to a memory containing data to be HMACed.</p>
+<p><code>buffer_length:</code> Size of memory pointed to by buffer</p>
+<p><code>output:</code> A valid pointer to a memory which will be filled by HMACed data.</p>
+<p><code>output_length:</code> Size of the memory pointed to by output. It must be able to contain the generated HMAC.</p>
 <p><em>Return Value</em></p>
 <p><code>0</code> for success</p>
 <p><code>-1</code> for failure</p>
@@ -2601,21 +2554,18 @@ typedef fdo_bits_t fdo_byte_array_t;
 </code></pre>
 <p><em>Description</em></p>
 <p>This function verifies the ECDSA signature pointed by <code>message_signature</code> of size <code>message_length</code> on the data pointed by <code>message</code> of size <code>message_length</code> with the key material <code>key_param1</code> and <code>key_param2</code> interpreted according to <code>key_encoding</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
 <p><em>Parameters</em></p>
 <p><code>key_encoding:</code> FDO_CRYPTO_PUB_KEY_ENCODING_COSEX509 encoding is used for ECDSA. Please refer FDO_CRYPTO_PUB_KEY_ENCODING</p>
 <p><code>key_algorithm:</code> FDO_CRYPTO_PUB_KEY_ALGO_(ECDSAp256/ECDSAp384) is used for ECDSA. Please refer FDO_CRYPTO_PUB_KEY_ALGO</p>
-<p><code>message:</code> data over which the sign verification needs to be performed.</p>
-<p><code>message_length:</code> size of the message</p>
-<p><code>message_signature:</code> signature over the message sent by the signing entity. Signature is of the form 'r' concatenated with 's' (r|s).</p>
-<p><code>signature_length:</code> size of the message_signature</p>
+<p><code>message:</code> Data over which the sign verification needs to be performed.</p>
+<p><code>message_length:</code> Size of the message</p>
+<p><code>message_signature:</code> Signature over the message sent by the signing entity. Signature is of the form 'r' concatenated with 's' (r|s).</p>
+<p><code>signature_length:</code> Size of the message_signature</p>
 <p><code>key_param1:</code> ECDSA key of the form Affine 'x' concatenated with Affine 'y' (X|Y)</p>
-<p><code>key_param1Length:</code> size of the key in key_param1</p>
+<p><code>key_param1Length:</code> Size of the key in key_param1</p>
 <p><code>key_param2:</code> NULL, unused</p>
-<p><code>key_param2Length:</code> size of the key in key_param2, unused</p>
+<p><code>key_param2Length:</code> Size of the key in key_param2, unused</p>
 <p><em>Return Value</em></p>
 <p><code>0</code> for success</p>
 <p><code>-1</code> for failure</p>
@@ -2636,15 +2586,12 @@ typedef fdo_bits_t fdo_byte_array_t;
 <p>Signature Length is allocated by Client SDK based on internal define ECDSA_SIGNATURE_MAX_LEN.</p>
 </li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
 <p><em>Parameters</em></p>
 <p><code>message:</code> The message over which sign is to be calculated.</p>
-<p><code>message_length:</code> size of the message</p>
+<p><code>message_length:</code> Size of the message</p>
 <p><code>signature:</code> The buffer to fill signature with. Signature is of the form r concatenated with s (r|s).</p>
-<p><code>signature_len:</code> size of the signature</p>
+<p><code>signature_len:</code> Size of the signature</p>
 <p><em>Return Value</em></p>
 <p><code>0</code> for success</p>
 <p><code>-1</code> for failure</p>
@@ -2659,23 +2606,20 @@ typedef fdo_bits_t fdo_byte_array_t;
 </code></pre>
 <p><em>Description</em></p>
 <p>This function encrypts the <code>clear_text</code> of size <code>clear_text_length</code> with the AES algorithm using <code>key</code> of size <code>key_length</code> and fills the <code>cipher_text</code> with encrypted content of size <code>cipher_length</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
 <p><em>Parameters</em></p>
-<p><code>clear_text:</code> pointer to the buffer containing text to be encrypted</p>
-<p><code>clear_text_length:</code> size of clear_text</p>
-<p><code>cipher_text:</code> pointer to the empty buffer to be filled after encrypting clear_text</p>
-<p><code>cipher_length:</code> size of buffer pointed by cipher_text. This is IN/OUT parameter and gets filled with size of expected encrypted buffer in case cipher_text is passed as NULL with all other parameters as valid.</p>
+<p><code>clear_text:</code> Pointer to the buffer containing text to be encrypted</p>
+<p><code>clear_text_length:</code> Size of clear_text</p>
+<p><code>cipher_text:</code> Pointer to the empty buffer to be filled after encrypting clear_text</p>
+<p><code>cipher_length:</code> Size of buffer pointed by cipher_text. This is IN/OUT parameter and gets filled with size of expected encrypted buffer in case cipher_text is passed as NULL with all other parameters as valid.</p>
 <p><code>block_size:</code> AES block size (16 bytes)</p>
 <p><code>iv</code>: Initialization Vector of size 12 bytes for AES-GCM and 7 bytes for AES-CCM.</p>
 <p><code>key:</code> AES symmetric key</p>
-<p><code>key_length:</code> size of the key</p>
-<p><code>tag:</code> pointer to the empty buffer to be filled after generating the Authentication Tag</p>
-<p><code>tag_length:</code> size of the Authentication Tag (16 bytes)</p>
-<p><code>aad:</code> pointer to the buffer containing Additional Authenticated Data (AAD)</p>
-<p><code>aad_length:</code> size of the Additional Authenticated Data (AAD)</p>
+<p><code>key_length:</code> Size of the key</p>
+<p><code>tag:</code> Pointer to the empty buffer to be filled after generating the Authentication Tag</p>
+<p><code>tag_length:</code> Size of the Authentication Tag (16 bytes)</p>
+<p><code>aad:</code> Pointer to the buffer containing Additional Authenticated Data (AAD)</p>
+<p><code>aad_length:</code> Size of the Additional Authenticated Data (AAD)</p>
 <p><em>Return Value</em></p>
 <p><code>0</code> for success</p>
 <p><code>-1</code> for failure</p>
@@ -2689,23 +2633,20 @@ typedef fdo_bits_t fdo_byte_array_t;
 </code></pre>
 <p><em>Description</em></p>
 <p>This function decrypts the <code>cipher_text</code> of size <code>cipher_length</code> with the AES algorithm using <code>key</code> of size <code>key_length</code> and fills the <code>clear_text</code> with unencrypted content of length <code>clear_text_length</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
 <p><em>Parameters</em></p>
-<p><code>clear_text:</code> pointer to the empty buffer to be filled with unencrypted text</p>
-<p><code>clear_text_length:</code> size of clear_text. This is IN/OUT parameter and gets filled with size of expected unencrypted buffer in case clear_text is passed as NULL with all other parameters as valid.</p>
-<p><code>cipher_text:</code> pointer to the buffer containing text to be decrypted.</p>
-<p><code>cipher_length:</code> size of cipher_text.</p>
+<p><code>clear_text:</code> Pointer to the empty buffer to be filled with unencrypted text</p>
+<p><code>clear_text_length:</code> Size of clear_text. This is IN/OUT parameter and gets filled with size of expected unencrypted buffer in case clear_text is passed as NULL with all other parameters as valid.</p>
+<p><code>cipher_text:</code> Pointer to the buffer containing text to be decrypted.</p>
+<p><code>cipher_length:</code> Size of cipher_text.</p>
 <p><code>block_size:</code> AES block size (16 bytes)</p>
 <p><code>iv:</code> Initialization Vector of size 12 bytes for AES-GCM and 7 bytes for AES-CCM.</p>
 <p><code>key:</code> AES symmetric key</p>
-<p><code>key_length:</code> size of the key</p>
-<p><code>tag:</code> pointer to the buffer containing Authentication Tag to be verified</p>
-<p><code>tag_length:</code> size of the Authentication Tag (16 bytes)</p>
-<p><code>aad:</code> pointer to the buffer containing Additional Authenticated Data (AAD)</p>
-<p><code>aad_length:</code> size of the Additional Authenticated Data (AAD)</p>
+<p><code>key_length:</code> Size of the key</p>
+<p><code>tag:</code> Pointer to the buffer containing Authentication Tag to be verified</p>
+<p><code>tag_length:</code> Size of the Authentication Tag (16 bytes)</p>
+<p><code>aad:</code> Pointer to the buffer containing Additional Authenticated Data (AAD)</p>
+<p><code>aad_length:</code> Size of the Additional Authenticated Data (AAD)</p>
 <p><em>Return Value</em></p>
 <p><code>0</code> for success</p>
 <p><code>-1</code> for failure</p>
@@ -2715,10 +2656,7 @@ typedef fdo_bits_t fdo_byte_array_t;
 </code></pre>
 <p><em>Description</em></p>
 <p>This function fills the Client SDK byte array <code>csr</code> with the Certificate Signing Request (CSR) data.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may not require a change in implementation for porting to custom platform, as the reference implementation uses the standard mbedTLS/openSSL APIs</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses the standard mbedTLS/openSSL APIs</p>
 <p><em>Parameters</em></p>
 <p><code>csr:</code> FDO byte array. Please refer fdo_byte_array_t. The usage of the structure is as below:
   - byte_sz: size of the buffer in bytes pointed by bytes
@@ -2737,12 +2675,9 @@ This array is allocated by using fdo_byte_array_alloc(size_of_buffer) function.<
 <code>ByteArray[blen(Qx), Qx, blen(Qy), Qy, blen(DeviceRandom), Random Number]</code></p>
 <p>The random number as mentioned above is of size 16 bytes (ECDH256) or 48 bytes (ECDH384).
 In the later part of Client SDK execution, this buffer is retrieved using <code>crypto_hal_get_device_random()</code> and sent to the owner for generating the shared secret.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
 <p><em>Parameters</em></p>
-<p><code>context:</code> a valid pointer to store the key exchange context.</p>
+<p><code>context:</code> A valid pointer to store the key exchange context.</p>
 <p><em>Return Value</em></p>
 <p><code>0</code> for success</p>
 <p><code>-1</code> for failure</p>
@@ -2750,12 +2685,9 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
 <p><code>int32_t crypto_hal_kex_close(void \*\*context)</code></p>
 <p><em>Description</em></p>
 <p>This function tears down the key exchange context created by <code>crypto_hal_kex_init()</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
 <p><em>Parameters</em></p>
-<p><code>context:</code> a valid pointer of key exchange context.</p>
+<p><code>context:</code> A valid pointer of key exchange context.</p>
 <p><em>Return Value</em></p>
 <p><code>0</code> for success</p>
 <p><code>-1</code> for failure</p>
@@ -2766,12 +2698,9 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
 <p><em>Description</em></p>
 <p>This function fills the buffer pointed to by dev_rand_value of size dev_rand_length with the Device Random Value. The Device Random value is generated differently for different algorithms. Currently, only <code>ECDH</code> algorithm is supported in this release.</p>
 <p><strong>ECDH:</strong> The buffer generated in <code>crypto_hal_kex_init()</code> is the Device Random.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs or internal data structures which can be reused.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs or internal data structures which can be reused.</p>
 <p><em>Parameters</em></p>
-<p><code>context:</code> a valid pointer of key exchange context.</p>
+<p><code>context:</code> A valid pointer of key exchange context.</p>
 <p><code>dev_rand_value:</code> A valid pointer to an empty buffer. If this parameter is passed as NULL, then this function returns the size of the Device Random in dev_rand_length.</p>
 <p><code>dev_rand_length:</code> The size of the buffer pointed by dev_rand_value.</p>
 <p><em>Return Value</em></p>
@@ -2788,13 +2717,10 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
 <code>ByteArray[blen(Ax), Ax, blen(Ay), Ay, blen(OwnerRandom), OwnerRandom]</code></p>
 <p>This function fills the point Qp with the Owner Information and generates an ECDH key pair. The shared secret is generated as:
 <code>Shx ||DeviceRandom||OwnerRandom</code></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
 <p><em>Parameters</em></p>
-<p><code>context:</code> a valid pointer of key exchange context.</p>
-<p><code>peer_rand_value:</code> a valid pointer to Owner data for generating shared secret.</p>
+<p><code>context:</code> A valid pointer of key exchange context.</p>
+<p><code>peer_rand_value:</code> A valid pointer to Owner data for generating shared secret.</p>
 <p><code>peer_rand_length:</code> The size of the buffer pointed by peer_rand_value.</p>
 <p><em>Return Value</em></p>
 <p><code>0</code> for success</p>
@@ -2805,24 +2731,17 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
 </code></pre>
 <p><em>Description</em></p>
 <p>This function returns the shared secret created as part of key exchange protocol by <code>crypto_hal_set_peer_random()</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may not require a change in implementation for porting to custom platform, as the reference implementation uses the internal structure members which gets filled in Key Exchange protocol.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses the internal structure members which gets filled in Key Exchange protocol.</p>
 <p><em>Parameters</em></p>
-<p><code>context:</code> a valid pointer of key exchange context.</p>
+<p><code>context:</code> A valid pointer of key exchange context.</p>
 <p><code>secret:</code> A valid pointer to an empty buffer. If this parameter is passed as NULL, then this function returns the size of the secret in secret_length.</p>
 <p><code>secret_length:</code> The size of the buffer pointed by secret.</p>
 <p><em>Return Value</em></p>
 <p><code>0</code> for success</p>
 <p><code>-1</code> for failure</p>
 <h2 id="network-subsystem-api">Network Subsystem API<a class="headerlink" href="#network-subsystem-api" title="Permanent link">&para;</a></h2>
-<p>Networking is a platform offering which enables Client SDK to connect to Manufacturer, Rendezvous and Owner over the network. The required functionality by the Client SDK is abstracted via a set of APIs declared in file "network/include/network_al.h".
-Client SDK communicates with Manufacturer, Rendezvous and Owner using REST API. It is not a constraint on the APIs, and the APIs could well be defined to communicate over any protocol.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This section of the document specifies the internal APIs to abstract Network implementation from Client SDK and are subject to change.</p>
-</div>
+<p>Networking is a platform offering which enables Client SDK to connect to Manufacturer, Rendezvous, and Owner over the network. The required functionality by the Client SDK is abstracted via a set of APIs declared in file "network/include/network_al.h". Client SDK communicates with Manufacturer, Rendezvous, and Owner using REST API. It is not a constraint on the APIs, and the APIs could well be defined to communicate over any protocol.</p>
+<p><strong><em>NOTE:</em></strong> This section of the document specifies the internal APIs to abstract Network implementation from Client SDK and are subject to change.</p>
 <h3 id="constants_1">Constants<a class="headerlink" href="#constants_1" title="Permanent link">&para;</a></h3>
 <h4 id="ipv4_addr_len">IPV4_ADDR_LEN<a class="headerlink" href="#ipv4_addr_len" title="Permanent link">&para;</a></h4>
 <p><code>#define IPV4_ADDR_LEN 4</code></p>
@@ -2845,8 +2764,7 @@ Client SDK communicates with Manufacturer, Rendezvous and Owner using REST API. 
 <pre><code>int32_t fdo_con_setup(char *medium, char **params, uint32_t count)
 </code></pre>
 <p><em>Description</em></p>
-<p>This function sets up the connection identified by <code>medium</code> based on the <code>count</code> number of <code>params</code>. It is expected that this call will block until the interface has been established and is stable.
-It may be called multiple times, and if in subsequent calls to this function, the medium value changes, the existing connection must be terminated, and a new connection must be created on new medium. If the medium is the same as used in existing connection, this function must continue to retain the previous setup connection.</p>
+<p>This function sets up the connection identified by <code>medium</code> based on the <code>count</code> number of <code>params</code>. It is expected that this call will block until the interface has been established and is stable. It may be called multiple times, and if in subsequent calls to this function, the medium value changes, the existing connection must be terminated, and a new connection must be created on new medium. If the medium is the same as used in existing connection, this function must continue to retain the previous setup connection.</p>
 <table>
 <thead>
 <tr>
@@ -2872,25 +2790,19 @@ It may be called multiple times, and if in subsequent calls to this function, th
 <td align="center">NULL</td>
 </tr>
 <tr>
-<td align="center">wifi*</td>
-<td align="center">Connect to any available WiFi interface.</td>
+<td align="center">Wi-Fi*</td>
+<td align="center">Connect to any available Wi-Fi interface.</td>
 <td align="center">NULL</td>
 </tr>
 <tr>
-<td align="center">wifi</td>
+<td align="center">Wi-Fi</td>
 <td align="center">Connect to the WiFi SSID and password specified by params.</td>
 <td align="center">params[0] = SSID</td>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In existing implementation, Client SDK calls this function with medium as NULL and params as NULL and initializes REST API handling context.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may not require a change in implementation for porting to custom platform, as the reference implementation initializes REST context which is used to communicate with Manufacturer/Rendezvous/Owner Server</p>
-</div>
+<p><strong><em>NOTE:</em></strong> In the existing implementation, Client SDK calls this function with medium as NULL and params as NULL and initializes REST API handling context.</p>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation initializes REST context which is used to communicate with Manufacturer/Rendezvous/Owner Server</p>
 <p><em>Parameters</em></p>
 <p><code>medium:</code> Refer above table</p>
 <p><code>params:</code> NULL or an array of NULL terminated ASCII strings required to connect to medium.</p>
@@ -2904,10 +2816,7 @@ It may be called multiple times, and if in subsequent calls to this function, th
 </code></pre>
 <p><em>Description</em></p>
 <p>This function shuts down the connection established by the function described in <code>fdo_con_setup()</code></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may not require a change in implementation for porting to custom platform, as the reference implementation tears down the REST context created in <code>fdo_con_setup()</code></p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation tears down the REST context created in <code>fdo_con_setup()</code></p>
 <p><em>Parameters</em></p>
 <p>None</p>
 <p><em>Return Value</em></p>
@@ -2919,10 +2828,7 @@ It may be called multiple times, and if in subsequent calls to this function, th
 </code></pre>
 <p><em>Description</em></p>
 <p>This function performs a DNS lookup for the specified host identified by the <code>url</code> and return a list of IP addresses in the <code>ip_list</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux libraries to perform Domain Name resolution.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux* libraries to perform Domain Name resolution.</p>
 <p><em>Parameters</em></p>
 <p><code>url:</code> NULL terminated string like “192.168.0.1” or “example@noname.com”</p>
 <p><code>ip_list:</code> Refer fdo_ip_address_t for the structure declaration. The usage of this structure is as follows:</p>
@@ -2931,10 +2837,10 @@ It may be called multiple times, and if in subsequent calls to this function, th
 <p><code>length:</code> The value should be 4 for IPv4 and 16 for IPv6 addresses</p>
 </li>
 <li>
-<p><code>addr:</code> specifies the IP address in network byte order</p>
+<p><code>addr:</code> Specifies the IP address in network byte order</p>
 </li>
 </ul>
-<p><code>ip_list_size:</code> specifies the number of IP addresses in the ip_list.</p>
+<p><code>ip_list_size:</code> Specifies the number of IP addresses in the ip_list.</p>
 <p><em>Return Value</em></p>
 <p><code>0</code> for success</p>
 <p><code>-1</code> for failure</p>
@@ -2943,27 +2849,21 @@ It may be called multiple times, and if in subsequent calls to this function, th
                                void **ssl)
 </code></pre>
 <p><em>Description</em></p>
-<p>This function connects to the IP address specified in addr on the given port. If the ssl pointer is non-NULL, enable SSL on the opened socket.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux libraries to connect to the server.</p>
-</div>
+<p>This function connects to the IP address specified in addr on the given port. If the SSL pointer is non-NULL, enable SSL on the opened socket.</p>
+<p><strong><em>NOTE:</em></strong> This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux* libraries to connect to the server.</p>
 <p><em>Parameters</em></p>
-<p><code>addr:</code> server IP address. Please refer <code>fdo_con_dns_lookup()</code></p>
-<p><code>port:</code> server port to connect to</p>
-<p><code>ssl:</code> NULL or valid pointer to receive the ssl context in case ssl is enabled</p>
+<p><code>addr:</code> Server IP address. Please refer to <code>fdo_con_dns_lookup()</code></p>
+<p><code>port:</code> Server port to connect to</p>
+<p><code>ssl:</code> NULL or valid pointer to receive the SSL context in case SSL is enabled</p>
 <p><em>Return Value</em></p>
-<p>Connection handle for success. Please refer <code>fdo_con_handle</code>.</p>
+<p>Connection handle for success. Please refer to <code>fdo_con_handle</code>.</p>
 <p><code>-1</code> for failure</p>
 <h4 id="fdo_con_disconnect">fdo_con_disconnect()<a class="headerlink" href="#fdo_con_disconnect" title="Permanent link">&para;</a></h4>
 <pre><code>int32_t fdo_con_disconnect(fdo_con_handle handle, void *ssl)
 </code></pre>
 <p><em>Description</em></p>
 <p>This function terminates the connection associated with handle.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux libraries to disconnect from the server.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux libraries to disconnect from the server.</p>
 <p><em>Parameters</em></p>
 <p><code>handle:</code> Valid connection handle. Please refer to <code>fdo_con_connect()</code></p>
 <p><code>ssl:</code> NULL or valid pointer in case, SSL connection was established. Please refer to <code>fdo_con_connect()</code></p>
@@ -2978,17 +2878,14 @@ It may be called multiple times, and if in subsequent calls to this function, th
                                 void *ssl)
 </code></pre>
 <p><em>Description</em></p>
-<p>This function receives the message header on the specified connection handle and returns <code>protocol_version</code>, <code>message_type</code> and <code>msglen</code>. It will block until a message is available.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux* libraries to receive data from the server.</p>
-</div>
+<p>This function receives the message header on the specified connection handle and returns <code>protocol_version</code>, <code>message_type</code>, and <code>msglen</code>. It will block until a message is available.</p>
+<p><strong><em>NOTE:</em></strong> This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux* libraries to receive data from the server.</p>
 <p><em>Parameters</em></p>
 <p><code>handle:</code> Connection handle. Please refer to <code>fdo_con_connect()</code></p>
-<p><code>protocol_version:</code> Incoming protocol version. Client SDK supports 113</p>
-<p><code>message_type:</code> set to FDO_TYPE_ERROR in case of error. Please refer FDO_TYPE_ERROR</p>
+<p><code>protocol_version:</code> Incoming protocol version. Client SDK supports 100</p>
+<p><code>message_type:</code> Set to FDO_TYPE_ERROR in case of error. Please refer FDO_TYPE_ERROR</p>
 <p><code>msglen:</code> Length of incoming message body</p>
-<p><code>ssl:</code> valid SSL context in case SSL is enabled. Please refer s<code>do_con_connect()</code></p>
+<p><code>ssl:</code> Valid SSL context in case SSL is enabled. Please refer to <code>fdo_con_connect()</code></p>
 <p><em>Return Value</em></p>
 <p><code>0</code> for success</p>
 <p><code>-1</code> for failure</p>
@@ -2998,15 +2895,12 @@ It may be called multiple times, and if in subsequent calls to this function, th
 </code></pre>
 <p><em>Description</em></p>
 <p>This function receives the message body on the connection specified by <code>handle</code> in the provided memory pointed to by <code>buf</code> of size <code>length</code>. The message received corresponds to the message header received in the immediate preceding call to <code>fdo_con_recv_msg_header()</code>. This function blocks unless the specified length of data is received.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux* libraries to receive data from the server.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux* libraries to receive data from the server.</p>
 <p><em>Parameters</em></p>
 <p><code>handle:</code> Connection handle. Please refer to <code>fdo_con_connect()</code></p>
-<p><code>buf:</code> pointer to the empty buffer for receiving the message</p>
-<p><code>length:</code> size of buf and equal to returned from fdo_con_recv_msg_header().</p>
-<p><code>ssl:</code> valid SSL context in case SSL is enabled. Please refer to <code>fdo_con_connect()</code></p>
+<p><code>buf:</code> Pointer to the empty buffer for receiving the message</p>
+<p><code>length:</code> Size of buf and equal to returned from fdo_con_recv_msg_header().</p>
+<p><code>ssl:</code> Valid SSL context in case SSL is enabled. Please refer to <code>fdo_con_connect()</code></p>
 <p><em>Return Value</em></p>
 <p>Number of bytes for success</p>
 <p><code>-1</code> for failure</p>
@@ -3017,17 +2911,14 @@ It may be called multiple times, and if in subsequent calls to this function, th
 </code></pre>
 <p><em>Description</em></p>
 <p>This function sends the data pointed by <code>buf</code> of size <code>length</code> over the connection specified by <code>handle</code> with <code>protocol_version</code> and <code>message_type</code> as metadata.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux libraries to send data to the server.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux libraries to send data to the server.</p>
 <p><em>Parameters</em></p>
 <p><code>handle:</code> Connection handle. Please refer to <code>fdo_con_connect()</code></p>
 <p><code>protocol_version:</code> Client SDK supports 113</p>
 <p><code>message_type:</code> Client SDK state machine specific. To be used as is</p>
-<p><code>buf:</code> pointer to the buffer containing the message to be sent</p>
-<p><code>length:</code> size of buf</p>
-<p><code>ssl:</code> valid SSL context in case SSL is enabled. Please refer to <code>fdo_con_connect()</code></p>
+<p><code>buf:</code> Pointer to the buffer containing the message to be sent</p>
+<p><code>length:</code> Size of buf</p>
+<p><code>ssl:</code> Valid SSL context in case SSL is enabled. Please refer to <code>fdo_con_connect()</code></p>
 <p><em>Return Value</em></p>
 <p><code>0</code> for success</p>
 <p><code>-1</code> for failure</p>
@@ -3037,24 +2928,18 @@ It may be called multiple times, and if in subsequent calls to this function, th
 </code></pre>
 <p><em>Description</em></p>
 <p>This function converts the <code>value</code> from network byte order to host byte order.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may require a change in implementation for porting to custom platform, as the reference implementation to perform the functionality.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as the reference implementation to perform the functionality.</p>
 <p><em>Parameters</em></p>
-<p>value: unsigned integer of size 4 bytes in network byte order</p>
+<p><code>value:</code> Unsigned integer of size 4 bytes in network byte order</p>
 <p><em>Return Value</em></p>
 <p>Unsigned integer of size 4 bytes converted to host byte order</p>
 <h4 id="fdo_host_to_net_long">fdo_host_to_net_long()<a class="headerlink" href="#fdo_host_to_net_long" title="Permanent link">&para;</a></h4>
 <p><code>uint32_t fdo_host_to_net_long(uint32_t value)</code></p>
 <p><em>Description</em></p>
 <p>This function converts the <code>value</code> from host byte order to network byte order.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may require a change in implementation for porting to custom platform, as the reference implementation to perform the functionality.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as the reference implementation to perform the functionality.</p>
 <p><em>Parameters</em></p>
-<p><code>value:</code> unsigned integer of size 4 bytes in host byte order</p>
+<p><code>value:</code> Unsigned integer of size 4 bytes in host byte order</p>
 <p><em>Return Value</em></p>
 <p>Unsigned integer of size 4 bytes converted to network byte order</p>
 <h4 id="fdo_printable_to_net">fdo_printable_to_net()<a class="headerlink" href="#fdo_printable_to_net" title="Permanent link">&para;</a></h4>
@@ -3062,13 +2947,10 @@ It may be called multiple times, and if in subsequent calls to this function, th
 </code></pre>
 <p><em>Description</em></p>
 <p>This function converts the IP address in ASCII string pointed to by <code>src</code> to network byte order and stores the result in <code>addr</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may require a change in implementation for porting to custom platform, as the reference implementation to perform the functionality.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as the reference implementation to perform the functionality.</p>
 <p><em>Parameters</em></p>
-<p><code>src:</code> points to a character string containing an IPv4 network address in dotted-decimal format</p>
-<p><code>addr:</code> output buffer to receive IPV4 network address in network byte order</p>
+<p><code>src:</code> Points to a character string containing an IPv4 network address in dotted-decimal format</p>
+<p><code>addr:</code> Output buffer to receive IPV4 network address in network byte order</p>
 <p><em>Return Value</em></p>
 <p><code>1</code> for success</p>
 <p><code>-1</code> for failure</p>
@@ -3079,10 +2961,7 @@ It may be called multiple times, and if in subsequent calls to this function, th
 </code></pre>
 <p><em>Description</em></p>
 <p>This function either statically or dynamically generates a device model string.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may require a change in implementation for porting to custom platform, as the reference implementation returns a hard-coded string.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as the reference implementation returns a hard-coded string.</p>
 <p><em>Parameters</em></p>
 <p>None</p>
 <p><em>Return Value</em></p>
@@ -3092,10 +2971,7 @@ It may be called multiple times, and if in subsequent calls to this function, th
 </code></pre>
 <p><em>Description</em></p>
 <p>This function either statically or dynamically generates a device serial number string.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may require a change in implementation for porting to custom platform, as the reference implementation returns a hard-coded string.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as the reference implementation returns a hard-coded string.</p>
 <p><em>Parameters</em></p>
 <p>None</p>
 <p><em>Return Value</em></p>
@@ -3105,10 +2981,7 @@ It may be called multiple times, and if in subsequent calls to this function, th
 </code></pre>
 <p><em>Description</em></p>
 <p>This function generates a random number</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may require a change in implementation for porting to custom platform, as the reference implementation uses Linux libraries to perform the functionality.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as the reference implementation uses Linux libraries to perform the functionality.</p>
 <p><em>Parameters</em></p>
 <p>None</p>
 <p><em>Return Value</em></p>
@@ -3118,16 +2991,10 @@ It may be called multiple times, and if in subsequent calls to this function, th
 </code></pre>
 <p><em>Description</em></p>
 <p>This function introduces the delay for <code>sec</code> number of seconds</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may require a change in implementation for porting to custom platform, as the reference implementation uses Linux libraries to perform the functionality.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as the reference implementation uses Linux libraries to perform the functionality.</p>
 <h2 id="storage-subsystem-api">Storage Subsystem API<a class="headerlink" href="#storage-subsystem-api" title="Permanent link">&para;</a></h2>
 <p>Storage is a platform offering which enables Client SDK to store the credentials, state of the Client device on the storage medium. The required functionality by the Client SDK is abstracted via a set of APIs declared in file "storage/include/storage_al.h".</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This section of the document specifies the internal APIs to abstract Storage implementation from Client SDK and are subject to change.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This section of the document specifies the internal APIs to abstract Storage implementation from Client SDK and are subject to change.</p>
 <h3 id="constants_2">Constants<a class="headerlink" href="#constants_2" title="Permanent link">&para;</a></h3>
 <h4 id="fdo_sdk_blob_flags">fdo_sdk_blob_flags<a class="headerlink" href="#fdo_sdk_blob_flags" title="Permanent link">&para;</a></h4>
 <p>This enum defines the supported storage hierarchy by the API</p>
@@ -3173,15 +3040,12 @@ It may be called multiple times, and if in subsequent calls to this function, th
 </code></pre>
 <p><em>Description</em></p>
 <p>This function reads the data into the <code>buffer</code> of size <code>length</code> from the blob identified by <code>blob_name</code> whose storage properties match with the <code>flags</code>. Before reading the data from blob into the <code>buffer</code>, it is recommended to use <code>fdo_blob_size()</code> to allocate the exact length of <code>buffer</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may require a change in implementation for porting to a custom platform. For guidance in assessing the secure storage requirements for your device, refer to the Client SDK Security Implications document.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to a custom platform. For guidance in assessing the secure storage requirements for your device, refer to the Client SDK Security Implications document.</p>
 <p><em>Parameters</em></p>
 <p><code>blob_name:</code> NULL terminated string identifying the existing blob</p>
 <p><code>flags:</code>  Please refer fdo_sdk_blob_flags</p>
-<p><code>buffer:</code> empty buffer to read the blob data</p>
-<p><code>length:</code> size of buffer</p>
+<p><code>buffer:</code> Empty buffer to read the blob data</p>
+<p><code>length:</code> Size of buffer</p>
 <p><em>Return Value</em></p>
 <p>Number of bytes read for success</p>
 <p><code>-1</code> for failure</p>
@@ -3191,15 +3055,12 @@ It may be called multiple times, and if in subsequent calls to this function, th
 </code></pre>
 <p><em>Description</em></p>
 <p>This function writes the data from <code>buffer</code> of size <code>length</code> to the blob identified by <code>blob_name</code> whose storage properties are identified with the <code>flags</code>. This function must create the blob if it doesn’t exist, otherwise, overwrite the blob.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may require a change in implementation for porting to a custom platform. For guidance in assessing the secure storage requirements for your device, refer to the Client SDK Security Implications document.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to a custom platform. For guidance in assessing the secure storage requirements for your device, refer to the Client SDK Security Implications document.</p>
 <p><em>Parameters</em></p>
 <p><code>blob_name:</code> NULL terminated string identifying the blob to be created</p>
 <p><code>flags:</code>  Please refer fdo_sdk_blob_flags</p>
-<p><code>buffer:</code> data to be stored in the blob</p>
-<p><code>length:</code> size of the data to be stored into the blob</p>
+<p><code>buffer:</code> Data to be stored in the blob</p>
+<p><code>length:</code> Size of the data to be stored into the blob</p>
 <p><em>Return Value</em></p>
 <p>Number of bytes written for success</p>
 <p><code>-1</code> for failure</p>
@@ -3208,10 +3069,7 @@ It may be called multiple times, and if in subsequent calls to this function, th
 </code></pre>
 <p><em>Description</em>
 This function returns the size of blob identified by <code>blob_name</code> whose storage properties match with the <code>flags</code>. This should be used before fdo_blob_read()</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function may require a change in implementation for porting to a custom platform. For guidance in assessing the secure storage requirements for your device, refer to the Client SDK Security Implications document.</p>
-</div>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to a custom platform. For guidance in assessing the secure storage requirements for your device, refer to the Client SDK Security Implications document.</p>
 <p><em>Parameters</em></p>
 <p><code>blob_name:</code> NULL terminated string identifying the existing blob</p>
 <p><code>flags:</code>  Please refer fdo_sdk_blob_flags</p>
