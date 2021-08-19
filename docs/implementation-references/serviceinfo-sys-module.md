@@ -31,7 +31,7 @@ remaining strings are the arguments to the command. It is expected that it would
 ### fdo_sys:filedesc Message
 
 The fdo_sys:filedesc message describes the path to a file the will be used as a part of the
-on-boarding process. A zero-length file is expected to exist on the local file system after this
+onboarding process. A zero-length file is expected to exist on the local file system after this
 command is received. If the described file already exists, it is truncated to zero length, otherwise
 a zero-length file is created. The permissions for the created file is set to read/write
 for the user account the module is running under. File permissions can subsequently be modified with
@@ -44,14 +44,15 @@ fdo_sys:write messages will start appending to the file specified by the fdo_sys
 
 The fdo_sys:write message provides an array of bytes that gets appended to the file described by
 the last fdo_sys:filedesc message. If this message is sent without being preceded by
-fdo_sys:filedesc, then an message `255: INVALID_MESSAGE_ERROR` will be thrown and TO2 will not be
+fdo_sys:filedesc, then a message `255: INVALID_MESSAGE_ERROR` will be thrown and TO2 will not be
 completed. Once a fdo_sys:filedesc message has been received, many fdo_sys:write messages can
 follow.
 
 ## Examples
 Below are examples of the fdo_sys messages encoded as CBOR. The JSON examples are just human
 readable definitions while the actual messages are always CBOR. The encoding includes the entire
-TO2. OwnerServiceInfo message include the isMore and isDone flags.
+
+TO2.OwnerServiceInfo message include the isMore and isDone flags.
 
 Device should advertise it supports fdo_sys.
 
