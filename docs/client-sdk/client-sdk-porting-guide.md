@@ -136,7 +136,7 @@ The purpose of these defines is to specify the location where the reference solu
 * **PLATFORM_HMAC_KEY:** HMAC key to authenticate Normal.blob or any other internal blob which only needs Authenticated read.
 * **PLATFORM_AES_KEY:** AES key to Authenticate Encrypt the Secure Blobs. The Secure Blobs are internal to Client SDK and are not controlled by the application.
 
-***NOTE*** These flags are not necessary for the platforms which have their own Secure Storage mechanisms. The platform may be able to store all blobs using Authenticated Encryption including Normal.blob. Client SDK always uses `fdo_blob_read()` to read the data, so, the underlying detail is already abstracted. In the reference solution, it is expected that these files exist physically although without any content. The content gets generated on an as-needed basis.
+***NOTE:*** These flags are not necessary for the platforms which have their own Secure Storage mechanisms. The platform may be able to store all blobs using Authenticated Encryption including Normal.blob. Client SDK always uses `fdo_blob_read()` to read the data, so, the underlying detail is already abstracted. In the reference solution, it is expected that these files exist physically although without any content. The content gets generated on an as-needed basis.
 
 ##### MANUFACTURER_ADDR
 Client SDK uses the location defined in the specified file to connect to Manufacturer Server to perform Device Initialization. The format for the Manufacturer Address is of the form: `{http,https}://{DNS,IP}:port`. The following rules apply while setting the value and all of these are mandatory:
@@ -182,7 +182,7 @@ SUPPORTED_AES_MODE = gcm ccm
 
   * **SUPPORTED_DA:** This specifies the supported Device Attestation algorithms which device uses to prove its identity to Rendezvous Server and Owner. This automatically configures the Key Exchange algorithm (ECDH256/ECDH384) that is used to generate the shared secret and the AES Mode, to use higher crypto in the source.
 
-***NOTE:*** tpm20_ecdsa256 isn’t a separate algorithm, it uses ecdsa256 as Device Attestation, but uses TPM2.0 to generate keys and store data
+***NOTE:*** tpm20_ecdsa256 isn’t a separate algorithm, it uses ecdsa256 as Device Attestation, but uses TPM2.0 to generate keys and store data.
 
 ***NOTE:*** The Public Key Encoding supported in COSEX509.
 
@@ -252,7 +252,7 @@ The Client SDK allows the owner to download the required Device Management Syste
 
 `error_handling_callback:` It is of type fdo_sdk_errorCB
 
-`num_modules:` number of ServiceInfo modules to register.
+`num_modules:` Number of ServiceInfo modules to register.
 
 `module_information:` Array of ServiceInfo modules registration information
 
@@ -260,7 +260,7 @@ The Client SDK allows the owner to download the required Device Management Syste
 
 `FDO_SUCCESS` for success.
 
-Greater than `FDO_SUCCESS` for failure (refer fdo_sdk_status)
+Greater than `FDO_SUCCESS` for failure (refer to fdo_sdk_status)
 
 #### fdo_sdk_run()
 `fdo_sdk_status fdo_sdk_run(void);`
@@ -279,7 +279,7 @@ None
 
 `FDO_SUCCESS` for success.
 
-Greater than `FDO_SUCCESS` for failure (refer fdo_sdk_status)
+Greater than `FDO_SUCCESS` for failure (refer to fdo_sdk_status)
 
 #### fdo_sdk_resale()
 `fdo_sdk_status fdo_sdk_resale(void);`
@@ -296,7 +296,7 @@ None
 
 `FDO_SUCCESS` for success.
 
-Greater than `FDO_SUCCESS` for failure (refer fdo_sdk_status)
+Greater than `FDO_SUCCESS` for failure (refer to fdo_sdk_status)
 
 #### fdo_sdk_get_status()
 `fdo_sdk_device_state fdo_sdk_get_status(void);`
@@ -460,9 +460,9 @@ This function fills the random_buffer with the random number of size num_bytes.
 
 *Parameters*
 
-`random_buffer:` pointer to memory to receive random number
+`random_buffer:` Pointer to memory to receive random number
 
-`num_bytes:` size of memory pointed by random_buffer indicating the bytes of random number requested.
+`num_bytes:` Size of memory pointed by random_buffer indicating the bytes of random number requested.
 
 *Return Value*
 
@@ -519,13 +519,13 @@ This function HMACs the contents of the memory pointed to by buffer of size `buf
 
 `hmac_type`: This function must support all the HMAC algorithms identifiers mentioned in FDO_CRYPTO_HMAC_TYPE except FDO_CRYPTO_HMAC_TYPE_SHA_512 (optional).  Client SDK uses FDO_CRYPTO_HMAC_TYPE_USED to decide at compile time which hmac_type to use - either FDO_CRYPTO_HMAC_TYPE_SHA_256 or FDO_CRYPTO_HMAC_TYPE_SHA_384.
 
-`buffer:` a valid pointer to a memory containing data to be HMACed.
+`buffer:` A valid pointer to a memory containing data to be HMACed.
 
-`buffer_length:` size of memory pointed to by buffer
+`buffer_length:` Size of memory pointed to by buffer
 
-`output:` a valid pointer to a memory which will be filled by HMACed data.
+`output:` A valid pointer to a memory which will be filled by HMACed data.
 
-`output_length:` size of the memory pointed to by output. It must be able to contain the generated HMAC.
+`output_length:` Size of the memory pointed to by output. It must be able to contain the generated HMAC.
 
 *Return Value*
 
@@ -558,21 +558,21 @@ This function verifies the ECDSA signature pointed by `message_signature` of siz
 
 `key_algorithm:` FDO_CRYPTO_PUB_KEY_ALGO_(ECDSAp256/ECDSAp384) is used for ECDSA. Please refer FDO_CRYPTO_PUB_KEY_ALGO
 
-`message:` data over which the sign verification needs to be performed.
+`message:` Data over which the sign verification needs to be performed.
 
-`message_length:` size of the message
+`message_length:` Size of the message
 
-`message_signature:` signature over the message sent by the signing entity. Signature is of the form 'r' concatenated with 's' (r|s).
+`message_signature:` Signature over the message sent by the signing entity. Signature is of the form 'r' concatenated with 's' (r|s).
 
-`signature_length:` size of the message_signature
+`signature_length:` Size of the message_signature
 
 `key_param1:` ECDSA key of the form Affine 'x' concatenated with Affine 'y' (X|Y)
 
-`key_param1Length:` size of the key in key_param1
+`key_param1Length:` Size of the key in key_param1
 
 `key_param2:` NULL, unused
 
-`key_param2Length:` size of the key in key_param2, unused
+`key_param2Length:` Size of the key in key_param2, unused
 
 *Return Value*
 
@@ -601,11 +601,11 @@ This function signs the `message` of size `message_len` and fills the signed dat
 
 `message:` The message over which sign is to be calculated.
 
-`message_length:` size of the message
+`message_length:` Size of the message
 
 `signature:` The buffer to fill signature with. Signature is of the form r concatenated with s (r|s).
 
-`signature_len:` size of the signature
+`signature_len:` Size of the signature
 
 *Return Value*
 
@@ -632,13 +632,13 @@ This function encrypts the `clear_text` of size `clear_text_length` with the AES
 
 *Parameters*
 
-`clear_text:` pointer to the buffer containing text to be encrypted
+`clear_text:` Pointer to the buffer containing text to be encrypted
 
-`clear_text_length:` size of clear_text
+`clear_text_length:` Size of clear_text
 
-`cipher_text:` pointer to the empty buffer to be filled after encrypting clear_text
+`cipher_text:` Pointer to the empty buffer to be filled after encrypting clear_text
 
-`cipher_length:` size of buffer pointed by cipher_text. This is IN/OUT parameter and gets filled with size of expected encrypted buffer in case cipher_text is passed as NULL with all other parameters as valid.
+`cipher_length:` Size of buffer pointed by cipher_text. This is IN/OUT parameter and gets filled with size of expected encrypted buffer in case cipher_text is passed as NULL with all other parameters as valid.
 
 `block_size:` AES block size (16 bytes)
 
@@ -646,15 +646,15 @@ This function encrypts the `clear_text` of size `clear_text_length` with the AES
 
 `key:` AES symmetric key
 
-`key_length:` size of the key
+`key_length:` Size of the key
 
-`tag:` pointer to the empty buffer to be filled after generating the Authentication Tag
+`tag:` Pointer to the empty buffer to be filled after generating the Authentication Tag
 
-`tag_length:` size of the Authentication Tag (16 bytes)
+`tag_length:` Size of the Authentication Tag (16 bytes)
 
-`aad:` pointer to the buffer containing Additional Authenticated Data (AAD)
+`aad:` Pointer to the buffer containing Additional Authenticated Data (AAD)
 
-`aad_length:` size of the Additional Authenticated Data (AAD)
+`aad_length:` Size of the Additional Authenticated Data (AAD)
 
 *Return Value*
 
@@ -754,7 +754,7 @@ In the later part of Client SDK execution, this buffer is retrieved using `crypt
 
 *Parameters*
 
-`context:` a valid pointer to store the key exchange context.
+`context:` A valid pointer to store the key exchange context.
 
 *Return Value*
 
@@ -773,7 +773,7 @@ This function tears down the key exchange context created by `crypto_hal_kex_ini
 
 *Parameters*
 
-`context:` a valid pointer of key exchange context.
+`context:` A valid pointer of key exchange context.
 
 *Return Value*
 
@@ -866,7 +866,7 @@ This function returns the shared secret created as part of key exchange protocol
 `-1` for failure
 
 ## Network Subsystem API
-Networking is a platform offering which enables Client SDK to connect to Manufacturer, Rendezvous and Owner over the network. The required functionality by the Client SDK is abstracted via a set of APIs declared in file "network/include/network_al.h". Client SDK communicates with Manufacturer, Rendezvous and Owner using REST API. It is not a constraint on the APIs, and the APIs could well be defined to communicate over any protocol.
+Networking is a platform offering which enables Client SDK to connect to Manufacturer, Rendezvous, and Owner over the network. The required functionality by the Client SDK is abstracted via a set of APIs declared in file "network/include/network_al.h". Client SDK communicates with Manufacturer, Rendezvous, and Owner using REST API. It is not a constraint on the APIs, and the APIs could well be defined to communicate over any protocol.
 
 ***NOTE:*** This section of the document specifies the internal APIs to abstract Network implementation from Client SDK and are subject to change.
 
@@ -910,8 +910,8 @@ This function sets up the connection identified by `medium` based on the `count`
 NULL|Connect to any available network interface.|NULL
 eth*|Connect to any available Ethernet interface.|NULL
 eth0…9|Connect to the specified numbered Ethernet interface.|NULL
-wifi*|Connect to any available WiFi interface.|NULL
-wifi|Connect to the WiFi SSID and password specified by params. |params[0] = SSID
+Wi-Fi*|Connect to any available Wi-Fi interface.|NULL
+Wi-Fi|Connect to the WiFi SSID and password specified by params. |params[0] = SSID
 
 ***NOTE:*** In the existing implementation, Client SDK calls this function with medium as NULL and params as NULL and initializes REST API handling context.
 
@@ -988,13 +988,13 @@ fdo_con_handle fdo_con_connect(fdo_ip_address_t *addr, uint16_t port,
 ```
 *Description*
 
-This function connects to the IP address specified in addr on the given port. If the ssl pointer is non-NULL, enable SSL on the opened socket.
+This function connects to the IP address specified in addr on the given port. If the SSL pointer is non-NULL, enable SSL on the opened socket.
 
-***NOTE:*** This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux libraries to connect to the server.
+***NOTE:*** This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux* libraries to connect to the server.
 
 *Parameters*
 
-`addr:` Server IP address. Please refer `fdo_con_dns_lookup()`
+`addr:` Server IP address. Please refer to `fdo_con_dns_lookup()`
 
 `port:` Server port to connect to
 
@@ -1002,7 +1002,7 @@ This function connects to the IP address specified in addr on the given port. If
 
 *Return Value*
 
-Connection handle for success. Please refer `fdo_con_handle`.
+Connection handle for success. Please refer to `fdo_con_handle`.
 
 `-1` for failure
 
@@ -1039,7 +1039,7 @@ int32_t fdo_con_recv_msg_header(fdo_con_handle handle,
 ```
 *Description*
 
-This function receives the message header on the specified connection handle and returns `protocol_version`, `message_type` and `msglen`. It will block until a message is available.
+This function receives the message header on the specified connection handle and returns `protocol_version`, `message_type`, and `msglen`. It will block until a message is available.
 
 ***NOTE:*** This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux* libraries to receive data from the server.
 
@@ -1047,13 +1047,13 @@ This function receives the message header on the specified connection handle and
 
 `handle:` Connection handle. Please refer to `fdo_con_connect()`
 
-`protocol_version:` Incoming protocol version. Client SDK supports 113
+`protocol_version:` Incoming protocol version. Client SDK supports 100
 
 `message_type:` Set to FDO_TYPE_ERROR in case of error. Please refer FDO_TYPE_ERROR
 
 `msglen:` Length of incoming message body
 
-`ssl:` Valid SSL context in case SSL is enabled. Please refer s`do_con_connect()`
+`ssl:` Valid SSL context in case SSL is enabled. Please refer to `fdo_con_connect()`
 
 *Return Value*
 
@@ -1134,7 +1134,7 @@ This function converts the `value` from network byte order to host byte order.
 
 *Parameters*
 
-value: Unsigned integer of size 4 bytes in network byte order
+`value:` Unsigned integer of size 4 bytes in network byte order
 
 *Return Value*
 
@@ -1151,7 +1151,7 @@ This function converts the `value` from host byte order to network byte order.
 
 *Parameters*
 
-`value:` Unasigned integer of size 4 bytes in host byte order
+`value:` Unsigned integer of size 4 bytes in host byte order
 
 *Return Value*
 
@@ -1295,9 +1295,9 @@ This function reads the data into the `buffer` of size `length` from the blob id
 
 `flags:`  Please refer fdo_sdk_blob_flags
 
-`buffer:` empty buffer to read the blob data
+`buffer:` Empty buffer to read the blob data
 
-`length:` size of buffer
+`length:` Size of buffer
 
 *Return Value*
 
