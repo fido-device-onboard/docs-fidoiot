@@ -546,7 +546,7 @@
       
         <li class="md-nav__item">
   <a href="#running-e2e-for-pri-device" class="md-nav__link">
-    Running E2E for PRI device
+    Running E2E for PRI Device
   </a>
   
 </li>
@@ -560,14 +560,14 @@
       
         <li class="md-nav__item">
   <a href="#running-e2e-demo-for-fdo-client-sdk" class="md-nav__link">
-    Running E2E demo for FDO Client-SDK.
+    Running E2E Demo for FDO Client-SDK.
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#enabling-serviceinfo-transfer" class="md-nav__link">
-    Enabling ServiceInfo transfer
+    Enabling ServiceInfo Transfer
   </a>
   
 </li>
@@ -582,7 +582,7 @@
         
           <li class="md-nav__item">
   <a href="#generating-self-signed-keys-for-httpstls-communication" class="md-nav__link">
-    Generating self-signed keys for HTTPS/TLS communication.
+    Generating Self-signed keys for HTTPS/TLS Communication.
   </a>
   
 </li>
@@ -737,7 +737,7 @@
       
         <li class="md-nav__item">
   <a href="#running-e2e-for-pri-device" class="md-nav__link">
-    Running E2E for PRI device
+    Running E2E for PRI Device
   </a>
   
 </li>
@@ -751,14 +751,14 @@
       
         <li class="md-nav__item">
   <a href="#running-e2e-demo-for-fdo-client-sdk" class="md-nav__link">
-    Running E2E demo for FDO Client-SDK.
+    Running E2E Demo for FDO Client-SDK.
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#enabling-serviceinfo-transfer" class="md-nav__link">
-    Enabling ServiceInfo transfer
+    Enabling ServiceInfo Transfer
   </a>
   
 </li>
@@ -773,7 +773,7 @@
         
           <li class="md-nav__item">
   <a href="#generating-self-signed-keys-for-httpstls-communication" class="md-nav__link">
-    Generating self-signed keys for HTTPS/TLS communication.
+    Generating Self-signed keys for HTTPS/TLS Communication.
   </a>
   
 </li>
@@ -839,12 +839,12 @@ not been implemented, and any aspect of this implementation is subject to change
 <p>For the instructions in this document, <code>&lt;fdo-pri-src&gt;</code> refers to the path of the FDO PRI folder 'pri-fidoiot'.</p>
 </div>
 <ol>
-<li>Using the maven build system to build FDO PRI source.</li>
+<li>Using the Maven build system to build FDO PRI source.</li>
 </ol>
 <pre><code>cd &lt;fdo-pri-src&gt;
 mvn clean install
 </code></pre>
-<p>2.&nbsp;Using docker container to build FDO PRI source</p>
+<p>2.&nbsp;Using Docker container to build FDO PRI source</p>
 <pre><code>cd &lt;fdo-pri-src&gt;/build
 sudo docker-compose up --build
 </code></pre>
@@ -884,8 +884,8 @@ sudo docker-compose up --build
 </figure>
 
 <h3 id="starting-the-fdo-pri-rendezvous-rv-server">Starting the FDO PRI Rendezvous (RV) Server<a class="headerlink" href="#starting-the-fdo-pri-rendezvous-rv-server" title="Permanent link">&para;</a></h3>
-<p><strong><em>RV Server is a network server or service (e.g., on the Internet) that acts as a rendezvous point between a newly powered on Device and the Owner Onboarding Service.</em></strong>   </p>
-<p>Run the below commands,on a seperate console, to start the RV server.</p>
+<p><strong><em>RV Server is a network server or service (For example, on the Internet) that acts as a rendezvous point between a newly powered on Device and the Owner Onboarding Service.</em></strong>   </p>
+<p>Run the below commands, on a seperate console, to start the RV server.</p>
 <pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/rv/
 sudo docker-compose up --build
 </code></pre>
@@ -916,7 +916,7 @@ sudo docker-compose up --build
 <li><a href="https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md">Read more</a> about starting PRI services.</li>
 </ul>
 </div>
-<h2 id="running-e2e-for-pri-device">Running E2E for PRI device<a class="headerlink" href="#running-e2e-for-pri-device" title="Permanent link">&para;</a></h2>
+<h2 id="running-e2e-for-pri-device">Running E2E for PRI Device<a class="headerlink" href="#running-e2e-for-pri-device" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
 <p><a href="#starting-fdo-server-side-containers">Start FDO Service Containers</a>.</p>
@@ -941,18 +941,18 @@ java -jar device.jar
 </ul>
 </p>
 </div>
-<p>3.&nbsp;Voucher Extension &amp; TO0 for PRI device</p>
+<p>3.&nbsp;Voucher Extension &amp; TO0 for PRI Device</p>
 <figure>
   <img src="../../images/slide3.png"/>
   <figcaption>Voucher extension</figcaption>
 </figure>
 
-<p><strong><em>During TO0, The FDO Owner identifies itself to Rendezvous Server. Establishes the mapping of GUID to the Owner IP address. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob.'</em></strong></p>
+<p><strong><em>During TO0, the FDO Owner identifies itself to Rendezvous Server, establishes the mapping of GUID to the Owner IP address. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob.'</em></strong></p>
 <pre><code>curl -D - --digest -u apiUser:MfgApiPass123 -XGET http://localhost:8039/api/v1/vouchers/0 -o voucher
 
 curl -D - --digest -u apiUser:OwnerApiPass123 --header "Content-Type: application/cbor" --data-binary @voucher http://localhost:8042/api/v1/owner/vouchers/
 </code></pre>
-<p><strong>Make sure you are getting status <code>200 OK</code> for the curl calls. If you are facing issue with <code>localhost</code> curl calls, try with ip address instead of localhost.</strong></p>
+<p><strong>Make sure you are getting status <code>200 OK</code> for the curl calls. If you are facing issue with <code>localhost</code> curl calls, try with IP address instead of localhost.</strong></p>
 <p>Wait for TO0 finished for <guid> message in the Owner console. This generally takes a few minutes to complete.</p>
 <p>Expect the following message on successful TO0 completion.</p>
 <pre><code>TO0 Response Wait for &lt;guid&gt; : 3600
@@ -962,12 +962,12 @@ TO0 Client finished for GUID &lt;guid&gt;
 <p class="admonition-title">Note<ul>
 <li><a href="#keystore-management">Keystore Management</a> needs to be taken care, if PRI Rendezvous server and PRI Owner server is not running on the same machine.</li>
 <li><strong>You can enable ServiceInfo at this stage.</strong> <a href="#enabling-serviceinfo-transfer">Follow the instructions</a> to enable ServiceInfo.</li>
-<li>In the above commands, if the return value is <strong>500</strong>, replace localhost with the ip address of the machine</li>
+<li>In the above commands, if the return value is <strong>500</strong>, replace localhost with the IP address of the machine.</li>
 </ul>
 </p>
 </div>
 <p>4.&nbsp;TO1 and TO2</p>
-<p><strong><em>During T01, Device identifies itself to the Rendezvous Server. Obtains mapping to connect to the Owner’s IP address. During T02, The Device contacts Owner and establishes trust and then performs Ownership Transfer.</em></strong></p>
+<p><strong><em>During T01, Device identifies itself to the Rendezvous Server. Obtains mapping to connect to the Owner’s IP address. During T02, the Device contacts Owner and establishes trust and then performs Ownership Transfer.</em></strong></p>
 <pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/device
 java -jar device.jar
 </code></pre>
@@ -995,7 +995,7 @@ java -jar device.jar
 ./build.sh
 </code></pre>
 <p>The build script generates artifacts and stores them in <code>./build/</code> directory.</p>
-<h2 id="running-e2e-demo-for-fdo-client-sdk">Running E2E demo for FDO Client-SDK.<a class="headerlink" href="#running-e2e-demo-for-fdo-client-sdk" title="Permanent link">&para;</a></h2>
+<h2 id="running-e2e-demo-for-fdo-client-sdk">Running E2E Demo for FDO Client-SDK.<a class="headerlink" href="#running-e2e-demo-for-fdo-client-sdk" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
 <p><a href="#starting-fdo-server-side-containers">Start FDO Service Containers</a>.</p>
@@ -1015,13 +1015,13 @@ java -jar device.jar
 <li><a href="https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/setup.md#7-http-proxy-configuration-optional">Configuring Client-SDK device</a> for Proxy Network.</li>
 <li>Follow instructions in the <a href="https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/setup.md#3-setting-the-manufacturer-network-address">documentation</a>, to update Manufacturer's address.</li>
 </ul>
-<p>3.&nbsp;Voucher Extension for Client-SDK device</p>
+<p>3.&nbsp;Voucher Extension for Client-SDK Device</p>
 <pre><code>curl -D - --digest -u apiUser:MfgApiPass123 -XGET http://localhost:8039/api/v1/vouchers/abcdef -o voucher
 
 curl -D - --digest -u apiUser:OwnerApiPass123 --header &quot;Content-Type: application/cbor&quot; --data-binary @voucher http://localhost:8042/api/v1/owner/vouchers/
 </code></pre>
-<p><strong>Make sure you are getting status <code>200 OK</code> for the curl calls. If you are facing issue with <code>localhost</code> curl calls, try with ip address instead of localhost.</strong></p>
-<p>Wait for TO0 finished for <guid> message on the Owner console.</p>
+<p><strong>Make sure you are getting status <code>200 OK</code> for the curl calls. If you are facing issue with <code>localhost</code> curl calls, try with IP address instead of localhost.</strong></p>
+<p>Wait for TO0 to finish for <guid> message on the Owner console.</p>
 <p>Expect the following message on successful TO0 completion.</p>
 <pre><code>TO0 Response Wait for &lt;guid&gt; : 3600
 TO0 Client finished for GUID &lt;guid&gt;
@@ -1044,7 +1044,7 @@ TO0 Client finished for GUID &lt;guid&gt;
 @FIDO Device Onboard Complete@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 </code></pre>
-<h2 id="enabling-serviceinfo-transfer">Enabling ServiceInfo transfer<a class="headerlink" href="#enabling-serviceinfo-transfer" title="Permanent link">&para;</a></h2>
+<h2 id="enabling-serviceinfo-transfer">Enabling ServiceInfo Transfer<a class="headerlink" href="#enabling-serviceinfo-transfer" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Activating ServiceInfo Module.<pre><code>$ curl --location --digest -u apiUser:OwnerApiPass123 --request PUT 'http://localhost:8042/api/v1/device/svi?module=fdo_sys&amp;var=active&amp;priority=0&amp;bytes=F5' --header 'Content-Type: application/octet-stream'
 </code></pre>
@@ -1091,7 +1091,7 @@ You can skip step 3, if you are just transferring a payload.</p>
 </p>
 </div>
 <h2 id="keystore-management">Keystore Management<a class="headerlink" href="#keystore-management" title="Permanent link">&para;</a></h2>
-<h3 id="generating-self-signed-keys-for-httpstls-communication">Generating self-signed keys for HTTPS/TLS communication.<a class="headerlink" href="#generating-self-signed-keys-for-httpstls-communication" title="Permanent link">&para;</a></h3>
+<h3 id="generating-self-signed-keys-for-httpstls-communication">Generating Self-signed keys for HTTPS/TLS Communication.<a class="headerlink" href="#generating-self-signed-keys-for-httpstls-communication" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
 <p>Generate key and certificate.</p>
@@ -1111,7 +1111,7 @@ You can skip step 3, if you are just transferring a payload.</p>
   echo '[san]'; \
   echo 'subjectAltName=DNS:localhost,IP:&lt;ip-address&gt;')
 </code></pre>
-<p>Update <code>&lt;ip-address&gt;</code> with the ip address of machine running the FDO service.</p>
+<p>Update <code>&lt;ip-address&gt;</code> with the IP address of machine running the FDO service.</p>
 </li>
 <li>
 <p>Generate Keystore using fresh key and certificate.</p>
@@ -1132,7 +1132,7 @@ You can skip step 3, if you are just transferring a payload.</p>
 <ul>
 <li><a href="https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md#generating-key-pair">Read more</a> about key generation.</li>
 <li>You can update the key type, by modifying the <code>-newkey</code> attribute during the key generation stage.</li>
-<li>You can add multiple ip addresses in the <code>subjectAltName</code> attribute.</li>
+<li>You can add multiple IP addresses in the <code>subjectAltName</code> attribute.</li>
 </ul>
                 
               
