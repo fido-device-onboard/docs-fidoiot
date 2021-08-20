@@ -1,0 +1,3167 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for FIDO Device Onboard Project">
+      
+      
+        <link rel="canonical" href="https://secure-device-onboard.github.io/docs-fidoiot/client-sdk/client-sdk-porting-guide/">
+      
+      
+        <meta name="author" content="FIDO Device Onboard Contributers">
+      
+      <link rel="shortcut icon" href="../../images/securedeviceonboard-icon-color.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.12">
+    
+    
+      
+        <title>Client SDK Porting Guide - FIDO Device Onboard</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4dd2dd8d.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../css/version-select.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#porting-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://secure-device-onboard.github.io/docs-fidoiot/" title="FIDO Device Onboard" class="md-header-nav__button md-logo" aria-label="FIDO Device Onboard">
+      
+  <img src="../../images/securedeviceonboard-icon-color.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            FIDO Device Onboard
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Client SDK Porting Guide
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../.." class="md-tabs__link">
+          Home
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../pri/pri-introduction/" class="md-tabs__link">
+          PRI
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../client-sdk-design/" class="md-tabs__link md-tabs__link--active">
+          Client SDK
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../implementation-references/getting-started-guide/" class="md-tabs__link">
+          Implementation Reference
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://secure-device-onboard.github.io/docs-fidoiot/" title="FIDO Device Onboard" class="md-nav__button md-logo" aria-label="FIDO Device Onboard">
+      
+  <img src="../../images/securedeviceonboard-icon-color.png" alt="logo">
+
+    </a>
+    FIDO Device Onboard
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      Home
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Home" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        <span class="md-nav__icon md-icon"></span>
+        Home
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/" title="Reference" class="md-nav__link">
+      Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../community/" title="Community" class="md-nav__link">
+      Community
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../releases/" title="Releases" class="md-nav__link">
+      Releases
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../security-best-practices/" title="Security Best Practices" class="md-nav__link">
+      Security Best Practices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../installation/" title="Installation Guide" class="md-nav__link">
+      Installation Guide
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol-specification/" title="Protocol Specification" class="md-nav__link">
+      Protocol Specification
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      PRI
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="PRI" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        PRI
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../pri/pri-introduction/" title="Protocol Reference Implementation" class="md-nav__link">
+      Protocol Reference Implementation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Client SDK
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Client SDK" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Client SDK
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../client-sdk-design/" title="Client SDK Design" class="md-nav__link">
+      Client SDK Design
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../client-sdk-reference-guide/" title="Client SDK Introduction" class="md-nav__link">
+      Client SDK Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../client-sdk-api-reference/" title="Client SDK API Reference" class="md-nav__link">
+      Client SDK API Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Client SDK Porting Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="Client SDK Porting Guide" class="md-nav__link md-nav__link--active">
+      Client SDK Porting Guide
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#porting-guide" class="md-nav__link">
+    Porting Guide
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution-architecture" class="md-nav__link">
+    Solution Architecture
+  </a>
+  
+    <nav class="md-nav" aria-label="Solution Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-structure" class="md-nav__link">
+    Code Structure
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-system" class="md-nav__link">
+    Build System
+  </a>
+  
+    <nav class="md-nav" aria-label="Build System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cli_inputcmake-erstwhile-basemk" class="md-nav__link">
+    cli_input.cmake (erstwhile base.mk)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blob_pathcmake" class="md-nav__link">
+    blob_path.cmake
+  </a>
+  
+    <nav class="md-nav" aria-label="blob_path.cmake">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_cred_normal-normalblob" class="md-nav__link">
+    FDO_CRED_NORMAL - Normal.blob
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#platform_ivhmac_keyaes_key" class="md-nav__link">
+    PLATFORM_(IV/HMAC_KEY/AES_KEY)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manufacturer_addr" class="md-nav__link">
+    MANUFACTURER_ADDR
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max_serviceinfo_sz_file" class="md-nav__link">
+    MAX_SERVICEINFO_SZ_FILE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ecdsa_privkey" class="md-nav__link">
+    ECDSA_PRIVKEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_cred_securemfg" class="md-nav__link">
+    FDO_CRED_(SECURE/MFG)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extensioncmake-erstwhile-cryptoconf" class="md-nav__link">
+    extension.cmake (erstwhile crypto.conf)
+  </a>
+  
+    <nav class="md-nav" aria-label="extension.cmake (erstwhile crypto.conf)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supported-configurations" class="md-nav__link">
+    Supported Configurations
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#client-sdk-constants" class="md-nav__link">
+    Client SDK Constants
+  </a>
+  
+    <nav class="md-nav" aria-label="Client SDK Constants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sdk_error" class="md-nav__link">
+    fdo_sdk_error
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sdk_status" class="md-nav__link">
+    fdo_sdk_status
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sdk_device_state" class="md-nav__link">
+    fdo_sdk_device_state
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#client-sdk-functions" class="md-nav__link">
+    Client SDK Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Client SDK Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sdk_init" class="md-nav__link">
+    fdo_sdk_init()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sdk_run" class="md-nav__link">
+    fdo_sdk_run()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sdk_resale" class="md-nav__link">
+    fdo_sdk_resale()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sdk_get_status" class="md-nav__link">
+    fdo_sdk_get_status()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crypto-subsystem-api" class="md-nav__link">
+    Crypto Subsystem API
+  </a>
+  
+    <nav class="md-nav" aria-label="Crypto Subsystem API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    Constants
+  </a>
+  
+    <nav class="md-nav" aria-label="Constants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_crypto_hash_type" class="md-nav__link">
+    FDO_CRYPTO_HASH_TYPE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_crypto_hmac_type" class="md-nav__link">
+    FDO_CRYPTO_HMAC_TYPE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_crypto_pub_key_encoding" class="md-nav__link">
+    FDO_CRYPTO_PUB_KEY_ENCODING
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_crypto_pub_key_algo" class="md-nav__link">
+    FDO_CRYPTO_PUB_KEY_ALGO
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structures" class="md-nav__link">
+    Structures
+  </a>
+  
+    <nav class="md-nav" aria-label="Structures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_byte_array_t" class="md-nav__link">
+    fdo_byte_array_t
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initialization-and-exit-functions" class="md-nav__link">
+    Initialization and Exit Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Initialization and Exit Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crypto_init" class="md-nav__link">
+    crypto_init()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crypto_close" class="md-nav__link">
+    crypto_close()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#random-number-functions" class="md-nav__link">
+    Random Number Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Random Number Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#random_init" class="md-nav__link">
+    random_init()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#random_close" class="md-nav__link">
+    random_close()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_random_bytes" class="md-nav__link">
+    crypto_hal_random_bytes()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-digest-and-mac-functions" class="md-nav__link">
+    Message Digest and MAC Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Message Digest and MAC Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_hash" class="md-nav__link">
+    crypto_hal_hash()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_hmac" class="md-nav__link">
+    crypto_hal_hmac()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asymmetric-functions" class="md-nav__link">
+    Asymmetric Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Asymmetric Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_sig_verify" class="md-nav__link">
+    crypto_hal_sig_verify()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_ecdsa_sign" class="md-nav__link">
+    crypto_hal_ecdsa_sign()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symmetric-cipher-functions" class="md-nav__link">
+    Symmetric Cipher Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Symmetric Cipher Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_aes_encrypt" class="md-nav__link">
+    crypto_hal_aes_encrypt()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_aes_decrypt" class="md-nav__link">
+    crypto_hal_aes_decrypt()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#certificate-signing-request" class="md-nav__link">
+    Certificate Signing Request
+  </a>
+  
+    <nav class="md-nav" aria-label="Certificate Signing Request">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_get_device_csr" class="md-nav__link">
+    crypto_hal_get_device_csr()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-exchange-functions" class="md-nav__link">
+    Key Exchange Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Exchange Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_kex_init" class="md-nav__link">
+    crypto_hal_kex_init()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_kex_close" class="md-nav__link">
+    crypto_hal_kex_close()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_get_device_random" class="md-nav__link">
+    crypto_hal_get_device_random()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_set_peer_random" class="md-nav__link">
+    crypto_hal_set_peer_random()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_get_secret" class="md-nav__link">
+    crypto_hal_get_secret()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-subsystem-api" class="md-nav__link">
+    Network Subsystem API
+  </a>
+  
+    <nav class="md-nav" aria-label="Network Subsystem API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constants_1" class="md-nav__link">
+    Constants
+  </a>
+  
+    <nav class="md-nav" aria-label="Constants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ipv4_addr_len" class="md-nav__link">
+    IPV4_ADDR_LEN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_type_error" class="md-nav__link">
+    FDO_TYPE_ERROR
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-types" class="md-nav__link">
+    Data Types
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_ip_address_t" class="md-nav__link">
+    fdo_ip_address_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_con_handle" class="md-nav__link">
+    fdo_con_handle
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connection-management-functions" class="md-nav__link">
+    Connection Management Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Connection Management Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_con_setup" class="md-nav__link">
+    fdo_con_setup()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_con_teardown" class="md-nav__link">
+    fdo_con_teardown()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_con_dns_lookup" class="md-nav__link">
+    fdo_con_dns_lookup()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_con_connect" class="md-nav__link">
+    fdo_con_connect()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_con_disconnect" class="md-nav__link">
+    fdo_con_disconnect()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connection-data-management-functions" class="md-nav__link">
+    Connection Data Management Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Connection Data Management Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_con_recv_msg_header" class="md-nav__link">
+    fdo_con_recv_msg_header()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_con_recv_msg_body" class="md-nav__link">
+    fdo_con_recv_msg_body()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_con_send_message" class="md-nav__link">
+    fdo_con_send_message()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-generic-functions" class="md-nav__link">
+    Network Generic Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Network Generic Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_net_to_host_long" class="md-nav__link">
+    fdo_net_to_host_long()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_host_to_net_long" class="md-nav__link">
+    fdo_host_to_net_long()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_printable_to_net" class="md-nav__link">
+    fdo_printable_to_net()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#legacy-functions" class="md-nav__link">
+    Legacy Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Legacy Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_device_model" class="md-nav__link">
+    get_device_model()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_device_serial_number" class="md-nav__link">
+    get_device_serial_number()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_random" class="md-nav__link">
+    fdo_random()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sleep" class="md-nav__link">
+    fdo_sleep()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storage-subsystem-api" class="md-nav__link">
+    Storage Subsystem API
+  </a>
+  
+    <nav class="md-nav" aria-label="Storage Subsystem API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constants_2" class="md-nav__link">
+    Constants
+  </a>
+  
+    <nav class="md-nav" aria-label="Constants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sdk_blob_flags" class="md-nav__link">
+    fdo_sdk_blob_flags
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-types_1" class="md-nav__link">
+    Data Types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blob-functions" class="md-nav__link">
+    Blob Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Blob Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_blob_read" class="md-nav__link">
+    fdo_blob_read()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_blob_write" class="md-nav__link">
+    fdo_blob_write()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_blob_size" class="md-nav__link">
+    fdo_blob_size()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Implementation Reference
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Implementation Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Implementation Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../implementation-references/getting-started-guide/" title="Getting Started Guide" class="md-nav__link">
+      Getting Started Guide
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../implementation-references/serviceinfo-sys-module/" title="ServiceInfo System Module" class="md-nav__link">
+      ServiceInfo System Module
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../implementation-references/device-mfg-info/" title="DeviceMfgInfo Specification" class="md-nav__link">
+      DeviceMfgInfo Specification
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../implementation-references/manufacturer-guide/" title="Manufacturer Guide" class="md-nav__link">
+      Manufacturer Guide
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../implementation-references/dms-integration-guide/" title="DMS Integration Guide" class="md-nav__link">
+      DMS Integration Guide
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../implementation-references/proxy-settings/" title="Proxy Setup Guide" class="md-nav__link">
+      Proxy Setup Guide
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#porting-guide" class="md-nav__link">
+    Porting Guide
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution-architecture" class="md-nav__link">
+    Solution Architecture
+  </a>
+  
+    <nav class="md-nav" aria-label="Solution Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-structure" class="md-nav__link">
+    Code Structure
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-system" class="md-nav__link">
+    Build System
+  </a>
+  
+    <nav class="md-nav" aria-label="Build System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cli_inputcmake-erstwhile-basemk" class="md-nav__link">
+    cli_input.cmake (erstwhile base.mk)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blob_pathcmake" class="md-nav__link">
+    blob_path.cmake
+  </a>
+  
+    <nav class="md-nav" aria-label="blob_path.cmake">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_cred_normal-normalblob" class="md-nav__link">
+    FDO_CRED_NORMAL - Normal.blob
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#platform_ivhmac_keyaes_key" class="md-nav__link">
+    PLATFORM_(IV/HMAC_KEY/AES_KEY)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manufacturer_addr" class="md-nav__link">
+    MANUFACTURER_ADDR
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max_serviceinfo_sz_file" class="md-nav__link">
+    MAX_SERVICEINFO_SZ_FILE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ecdsa_privkey" class="md-nav__link">
+    ECDSA_PRIVKEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_cred_securemfg" class="md-nav__link">
+    FDO_CRED_(SECURE/MFG)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extensioncmake-erstwhile-cryptoconf" class="md-nav__link">
+    extension.cmake (erstwhile crypto.conf)
+  </a>
+  
+    <nav class="md-nav" aria-label="extension.cmake (erstwhile crypto.conf)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supported-configurations" class="md-nav__link">
+    Supported Configurations
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#client-sdk-constants" class="md-nav__link">
+    Client SDK Constants
+  </a>
+  
+    <nav class="md-nav" aria-label="Client SDK Constants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sdk_error" class="md-nav__link">
+    fdo_sdk_error
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sdk_status" class="md-nav__link">
+    fdo_sdk_status
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sdk_device_state" class="md-nav__link">
+    fdo_sdk_device_state
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#client-sdk-functions" class="md-nav__link">
+    Client SDK Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Client SDK Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sdk_init" class="md-nav__link">
+    fdo_sdk_init()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sdk_run" class="md-nav__link">
+    fdo_sdk_run()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sdk_resale" class="md-nav__link">
+    fdo_sdk_resale()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sdk_get_status" class="md-nav__link">
+    fdo_sdk_get_status()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crypto-subsystem-api" class="md-nav__link">
+    Crypto Subsystem API
+  </a>
+  
+    <nav class="md-nav" aria-label="Crypto Subsystem API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    Constants
+  </a>
+  
+    <nav class="md-nav" aria-label="Constants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_crypto_hash_type" class="md-nav__link">
+    FDO_CRYPTO_HASH_TYPE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_crypto_hmac_type" class="md-nav__link">
+    FDO_CRYPTO_HMAC_TYPE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_crypto_pub_key_encoding" class="md-nav__link">
+    FDO_CRYPTO_PUB_KEY_ENCODING
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_crypto_pub_key_algo" class="md-nav__link">
+    FDO_CRYPTO_PUB_KEY_ALGO
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structures" class="md-nav__link">
+    Structures
+  </a>
+  
+    <nav class="md-nav" aria-label="Structures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_byte_array_t" class="md-nav__link">
+    fdo_byte_array_t
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initialization-and-exit-functions" class="md-nav__link">
+    Initialization and Exit Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Initialization and Exit Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crypto_init" class="md-nav__link">
+    crypto_init()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crypto_close" class="md-nav__link">
+    crypto_close()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#random-number-functions" class="md-nav__link">
+    Random Number Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Random Number Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#random_init" class="md-nav__link">
+    random_init()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#random_close" class="md-nav__link">
+    random_close()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_random_bytes" class="md-nav__link">
+    crypto_hal_random_bytes()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-digest-and-mac-functions" class="md-nav__link">
+    Message Digest and MAC Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Message Digest and MAC Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_hash" class="md-nav__link">
+    crypto_hal_hash()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_hmac" class="md-nav__link">
+    crypto_hal_hmac()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asymmetric-functions" class="md-nav__link">
+    Asymmetric Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Asymmetric Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_sig_verify" class="md-nav__link">
+    crypto_hal_sig_verify()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_ecdsa_sign" class="md-nav__link">
+    crypto_hal_ecdsa_sign()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#symmetric-cipher-functions" class="md-nav__link">
+    Symmetric Cipher Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Symmetric Cipher Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_aes_encrypt" class="md-nav__link">
+    crypto_hal_aes_encrypt()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_aes_decrypt" class="md-nav__link">
+    crypto_hal_aes_decrypt()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#certificate-signing-request" class="md-nav__link">
+    Certificate Signing Request
+  </a>
+  
+    <nav class="md-nav" aria-label="Certificate Signing Request">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_get_device_csr" class="md-nav__link">
+    crypto_hal_get_device_csr()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-exchange-functions" class="md-nav__link">
+    Key Exchange Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Exchange Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_kex_init" class="md-nav__link">
+    crypto_hal_kex_init()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_kex_close" class="md-nav__link">
+    crypto_hal_kex_close()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_get_device_random" class="md-nav__link">
+    crypto_hal_get_device_random()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_set_peer_random" class="md-nav__link">
+    crypto_hal_set_peer_random()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crypto_hal_get_secret" class="md-nav__link">
+    crypto_hal_get_secret()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-subsystem-api" class="md-nav__link">
+    Network Subsystem API
+  </a>
+  
+    <nav class="md-nav" aria-label="Network Subsystem API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constants_1" class="md-nav__link">
+    Constants
+  </a>
+  
+    <nav class="md-nav" aria-label="Constants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ipv4_addr_len" class="md-nav__link">
+    IPV4_ADDR_LEN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_type_error" class="md-nav__link">
+    FDO_TYPE_ERROR
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-types" class="md-nav__link">
+    Data Types
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_ip_address_t" class="md-nav__link">
+    fdo_ip_address_t
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_con_handle" class="md-nav__link">
+    fdo_con_handle
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connection-management-functions" class="md-nav__link">
+    Connection Management Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Connection Management Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_con_setup" class="md-nav__link">
+    fdo_con_setup()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_con_teardown" class="md-nav__link">
+    fdo_con_teardown()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_con_dns_lookup" class="md-nav__link">
+    fdo_con_dns_lookup()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_con_connect" class="md-nav__link">
+    fdo_con_connect()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_con_disconnect" class="md-nav__link">
+    fdo_con_disconnect()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connection-data-management-functions" class="md-nav__link">
+    Connection Data Management Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Connection Data Management Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_con_recv_msg_header" class="md-nav__link">
+    fdo_con_recv_msg_header()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_con_recv_msg_body" class="md-nav__link">
+    fdo_con_recv_msg_body()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_con_send_message" class="md-nav__link">
+    fdo_con_send_message()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-generic-functions" class="md-nav__link">
+    Network Generic Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Network Generic Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_net_to_host_long" class="md-nav__link">
+    fdo_net_to_host_long()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_host_to_net_long" class="md-nav__link">
+    fdo_host_to_net_long()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_printable_to_net" class="md-nav__link">
+    fdo_printable_to_net()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#legacy-functions" class="md-nav__link">
+    Legacy Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Legacy Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_device_model" class="md-nav__link">
+    get_device_model()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_device_serial_number" class="md-nav__link">
+    get_device_serial_number()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_random" class="md-nav__link">
+    fdo_random()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sleep" class="md-nav__link">
+    fdo_sleep()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storage-subsystem-api" class="md-nav__link">
+    Storage Subsystem API
+  </a>
+  
+    <nav class="md-nav" aria-label="Storage Subsystem API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constants_2" class="md-nav__link">
+    Constants
+  </a>
+  
+    <nav class="md-nav" aria-label="Constants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sdk_blob_flags" class="md-nav__link">
+    fdo_sdk_blob_flags
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-types_1" class="md-nav__link">
+    Data Types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blob-functions" class="md-nav__link">
+    Blob Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Blob Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_blob_read" class="md-nav__link">
+    fdo_blob_read()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_blob_write" class="md-nav__link">
+    fdo_blob_write()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_blob_size" class="md-nav__link">
+    fdo_blob_size()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  
+                
+                
+                  <h1>Client SDK Porting Guide</h1>
+                
+                <h2 id="porting-guide">Porting Guide<a class="headerlink" href="#porting-guide" title="Permanent link">&para;</a></h2>
+<p>This document provides a guide to porting the Client SDK to new platforms.</p>
+<h2 id="solution-architecture">Solution Architecture<a class="headerlink" href="#solution-architecture" title="Permanent link">&para;</a></h2>
+<p><img alt="FDO Client Architecture Block Diagram" src="../img/4-software-architecture.png" /></p>
+<p>The Client SDK reference solution is comprised of 3 layers:</p>
+<ol>
+<li><strong>Application</strong>: The reference application which triggers the Device Initialization and Ownership Transfer State Machine.</li>
+<li><strong>Library</strong>: The Device Initialization and Ownership Transfer Protocol implementation for FIDO Device Onboard Proposed Standard.</li>
+<li><strong>Platform</strong>: Platform-specific implementation.</li>
+</ol>
+<p>The Platform layer is itself comprised of three modules: Crypto, Network, and Storage:</p>
+<ol>
+<li>
+<p><strong>Crypto</strong>: Implementation of Cryptographic requirements of Ownership Transfer Protocol. This also abstracts the “Platform” specific crypto methods from the “Library”. So, the crypto implementation is divided into:</p>
+<ul>
+<li>Library specific implementation: There is no impact of adding new platform</li>
+<li>Platform specific implementation: The impact of adding new platform is detailed in Crypto Subsystem API section below.</li>
+</ul>
+</li>
+<li>
+<p><strong>Network</strong>: Implementation of Networking. This abstracts the “Platform” specific networking functionality from “Library”. The impact of adding new platform is detailed in the Network Subsystem API section below.</p>
+</li>
+<li><strong>Storage</strong>: Implementation of Secure Storage. This abstracts the “Platform” specific storage methods from “Library”. The impact of adding new platform is detailed in the Storage Subsystem API section below.
+ </li>
+</ol>
+<h3 id="code-structure">Code Structure<a class="headerlink" href="#code-structure" title="Permanent link">&para;</a></h3>
+<p>The Client SDK reference implementation source code is organized as follows (folders that are discussed in this porting guide are indicated with "*"):</p>
+<pre><code>├── app  - - - - - - Reference Application
+├── crypto*  - - - - Crypto Subsystem
+├── cmake* - - - - - cmake sub files
+├── data - - - - - - Filesystem place to store blob like keys, network info.
+├── device_modules - ServiceInfo Modules
+├── docs - - - - - - Documents
+├── include  - - - - Client SDK APIs
+├── lib  - - - - - - The core protocol implementation
+├── mbedos - - - - - mbedos based Client SDK implementation
+├── network* - - - - Network subsystem
+├── NOTICES  - - - - License specific information
+├── storage* - - - - Storage Subsystem
+└── utils  - - - - - Reference files for setting up TPM, flashing and others.
+</code></pre>
+<h3 id="build-system">Build System<a class="headerlink" href="#build-system" title="Permanent link">&para;</a></h3>
+<p>The build system uses cmake. This section explains the most prominent configurations in build system. The reference application is tightly coupled with the build system, storage, and crypto APIs. The intent of this section is to cover those specific bindings to make the solution easy to traverse.</p>
+<pre><code>├── app
+│   └── CMakeLists.txt
+├── cmake
+│   ├── blob_path.cmake
+│   ├── cli_input.cmake
+│   ├── extension.cmake
+│   └── pristine.cmake
+├── CMakeLists.txt
+├── crypto
+│   └── CMakeLists.txt
+├── device_modules
+│   └── CMakeLists.txt
+├── lib
+│   └── CMakeLists.txt
+├── mbedos
+│   └── CMakeLists.txt
+├── network
+│   └── CMakeLists.txt
+└── storage
+    └── CMakeLists.txt
+</code></pre>
+<h4 id="cli_inputcmake-erstwhile-basemk">cli_input.cmake (erstwhile base.mk)<a class="headerlink" href="#cli_inputcmake-erstwhile-basemk" title="Permanent link">&para;</a></h4>
+<p>The base.mk was used to define the build flags as a top-level configuration Makefile. The cli_input.cmake still retains that property, however, the blob specific configuration is moved to blob_path.cmake.</p>
+<p>The following specifies the default build configuration which can be overridden in invocation of cmake.</p>
+<pre><code>set (TARGET_OS linux)
+set (CSTD c99)
+set (TLS openssl)
+set (DA ecdsa384)
+set (AES_MODE gcm)
+set (BUILD debug)
+set (TARGET_OS linux)
+set (HTTPPROXY true)
+set (PROXY_DISCOVERY false)
+set (OPTIMIZE 1)
+set (DA_FILE der)
+set (CRYPTO_HW false)
+set (ARCH x86)
+set (RETRY true)
+set (unit-test false)
+set (STORAGE true)
+set (BOARD NUCLEO_F767ZI)
+set (BLOB_PATH .)
+set (TPM2_TCTI_TYPE tabrmd)
+set (RESALE true)
+set (REUSE true)
+</code></pre>
+<h4 id="blob_pathcmake">blob_path.cmake<a class="headerlink" href="#blob_pathcmake" title="Permanent link">&para;</a></h4>
+<p>The blob specific paths are set with this cmake file. A new variable BLOB_PATH is introduced to customize the placement of blobs in the filesystem.</p>
+<pre><code>client_sdk_compile_definitions(
+    -DSERIAL_FILE=\&quot;${BLOB_PATH}/data/manufacturer_sn.bin\&quot;
+    -DMODEL_FILE=\&quot;${BLOB_PATH}/data/manufacturer_mod.bin\&quot;
+    -DPLATFORM_IV=\&quot;${BLOB_PATH}/data/platform_iv.bin\&quot;
+    -DPLATFORM_HMAC_KEY=\&quot;${BLOB_PATH}/data/platform_hmac_key.bin\&quot;
+    -DPLATFORM_AES_KEY=\&quot;${BLOB_PATH}/data/platform_aes_key.bin\&quot;
+    -DEPID_PRIVKEY=\&quot;${BLOB_PATH}/data/epidprivkey.dat\&quot;
+    -DFDO_CRED=\&quot;${BLOB_PATH}/data/PMDeviceCredentials.bin\&quot;
+    -DMANUFACTURER_ADDR=\&quot;${BLOB_PATH}/data/manufacturer_addr.bin\&quot;
+    -DMAX_SERVICEINFO_SZ_FILE=\&quot;${BLOB_PATH}/data/max_serviceinfo_sz.bin\&quot;
+    )
+
+client_sdk_compile_definitions(
+    -DFDO_CACERT=\&quot;${BLOB_PATH}/data/cacert.bin\&quot;
+    -DFDO_PUBKEY=\&quot;${BLOB_PATH}/data/pubkey.dat\&quot;
+    -DFDO_SIGRL=\&quot;${BLOB_PATH}/data/sigrl.dat\&quot;
+    -DFDO_CRED_SECURE=\&quot;${BLOB_PATH}/data/Secure.blob\&quot;
+    -DFDO_CRED_MFG=\&quot;${BLOB_PATH}/data/Mfg.blob\&quot;
+    -DFDO_CRED_NORMAL=\&quot;${BLOB_PATH}/data/Normal.blob\&quot;
+    )
+</code></pre>
+<h5 id="fdo_cred_normal-normalblob">FDO_CRED_NORMAL - Normal.blob<a class="headerlink" href="#fdo_cred_normal-normalblob" title="Permanent link">&para;</a></h5>
+<p>The Client SDK or Device lifecycle is maintained in this blob. This data is stored as Authenticated Data meaning that HMAC256 is calculated over this data and stored back.</p>
+<p><strong><em>NOTE:</em></strong> This is part of custom storage implementation in reference solution. Please refer to Storage Subsystem API for details required for implementation on custom platform. The Application may use APIs listed in Storage Subsystem API, to manipulate blobs, so, the blobs remain consistent as expected by Client SDK. However, the APIs mentioned in the above said section are internal APIs and it is up to the application developer to reuse them.</p>
+<p>The application, before starting the state machine by calling <code>fdo_sdk_init()</code> generates the HMAC over this data and stores it back along with the data.
+This is initialized to the following value to indicate that the device is in manufactured state. It also allows the reference application to perform multiple cycles of FIDO Device Onboard operation.</p>
+<pre><code>blob_path.cmake:
+file(WRITE ${BLOB_PATH}/data/Normal.blob &quot;{\&quot;ST\&quot;:1}&quot;)
+</code></pre>
+<h5 id="platform_ivhmac_keyaes_key">PLATFORM_(IV/HMAC_KEY/AES_KEY)<a class="headerlink" href="#platform_ivhmac_keyaes_key" title="Permanent link">&para;</a></h5>
+<p>The purpose of these defines is to specify the location where the reference solution stores the following information:</p>
+<ul>
+<li><strong>PLATFORM_IV:</strong> Initialization Vector used in Authenticated Encryption of Secure Blobs. The Secure Blobs are internal to Client SDK and are not controlled by the application.</li>
+<li><strong>PLATFORM_HMAC_KEY:</strong> HMAC key to authenticate Normal.blob or any other internal blob which only needs Authenticated read.</li>
+<li><strong>PLATFORM_AES_KEY:</strong> AES key to Authenticate Encrypt the Secure Blobs. The Secure Blobs are internal to Client SDK and are not controlled by the application.</li>
+</ul>
+<p><strong><em>NOTE:</em></strong> These flags are not necessary for the platforms which have their own Secure Storage mechanisms. The platform may be able to store all blobs using Authenticated Encryption including Normal.blob. Client SDK always uses <code>fdo_blob_read()</code> to read the data, so, the underlying detail is already abstracted. In the reference solution, it is expected that these files exist physically although without any content. The content gets generated on an as-needed basis.</p>
+<h5 id="manufacturer_addr">MANUFACTURER_ADDR<a class="headerlink" href="#manufacturer_addr" title="Permanent link">&para;</a></h5>
+<p>Client SDK uses the location defined in the specified file to connect to Manufacturer Server to perform Device Initialization. The format for the Manufacturer Address is of the form: <code>{http,https}://{DNS,IP}:port</code>. The following rules apply while setting the value and all of these are mandatory:</p>
+<ul>
+<li>The transport protocol value must be either http or https (case-sensitive). Any other value will result in an error.</li>
+<li>Either one of DNS or IP Address can be provided. The maximum value of DNS is 100 characters and must only contain alphanumeric characters (0-9A-za-z), hyphens (-) and dot (.).</li>
+<li>The port should be an integer between (1-65535).</li>
+<li>The URL separators :// and : should be present at appropriate indices as per the indices of the above values.</li>
+</ul>
+<h5 id="max_serviceinfo_sz_file">MAX_SERVICEINFO_SZ_FILE<a class="headerlink" href="#max_serviceinfo_sz_file" title="Permanent link">&para;</a></h5>
+<p>Client SDK uses the value contained in the file path as defined by this flag, to decide the maximum ServiceInfo size the Device can process. The value must lie between 256 and 8192 (both inclusive). If the set value is less than 256, the value would default to 256. Similarly, if the value is greater than 8192, the value would default to 8192.</p>
+<h5 id="ecdsa_privkey">ECDSA_PRIVKEY<a class="headerlink" href="#ecdsa_privkey" title="Permanent link">&para;</a></h5>
+<p>This specifies the ECDSA private key to be used as a device identity. Two options are possible:</p>
+<ul>
+<li>The key could be pre-created like the reference application.</li>
+<li>If the device supports secure storage, then the key can be generated within the device and stored using secure storage APIs</li>
+</ul>
+<p><strong><em>NOTE:</em></strong> This section is not a recommendation, but specifies some of the possibilities that exist.</p>
+<h5 id="fdo_cred_securemfg">FDO_CRED_(SECURE/MFG)<a class="headerlink" href="#fdo_cred_securemfg" title="Permanent link">&para;</a></h5>
+<p>These defines are used internally by Client SDK:</p>
+<ul>
+<li>
+<p><strong>FDO_CRED_SECURE:</strong> This define specifies the location of the device secret. This blob is Authenticated Encrypted in the reference solution.</p>
+</li>
+<li>
+<p><strong>FDO_CRED_MFG:</strong> This define specifies the location of Manufacturer data. This blob is stored with Authenticated information.</p>
+</li>
+</ul>
+<h4 id="extensioncmake-erstwhile-cryptoconf">extension.cmake (erstwhile crypto.conf)<a class="headerlink" href="#extensioncmake-erstwhile-cryptoconf" title="Permanent link">&para;</a></h4>
+<p>This cmake file consists mostly of build configuration from crypto.conf but is not limited to it.</p>
+<h5 id="supported-configurations">Supported Configurations<a class="headerlink" href="#supported-configurations" title="Permanent link">&para;</a></h5>
+<p>The following content is retained from crypto.conf for readability.</p>
+<pre><code>### Device Attestation validation
+SUPPORTED_DA = ecdsa256 ecdsa384 tpm20_ecdsa256
+
+### AES mode for secure channel
+SUPPORTED_AES_MODE = gcm ccm
+</code></pre>
+<ul>
+<li><strong>SUPPORTED_DA:</strong> This specifies the supported Device Attestation algorithms which device uses to prove its identity to Rendezvous Server and Owner. This automatically configures the Key Exchange algorithm (ECDH256/ECDH384) that is used to generate the shared secret and the AES Mode, to use higher crypto in the source.</li>
+</ul>
+<p><strong><em>NOTE:</em></strong> tpm20_ecdsa256 isn’t a separate algorithm, it uses ecdsa256 as Device Attestation, but uses TPM2.0 to generate keys and store data.</p>
+<p><strong><em>NOTE:</em></strong> The Public Key Encoding supported in COSEX509.</p>
+<ul>
+<li><strong>SUPPORTED_AES_MODE:</strong> This specifies the AES mode of encryption supported by device. The device supports GCM and CCM. The following configurations are supported as per the Device Attestation algorithm: A128GCM, A256GCM, AES-CCM-64-128-128, and AES-CCM-64-128-256.</li>
+</ul>
+<h3 id="client-sdk-constants">Client SDK Constants<a class="headerlink" href="#client-sdk-constants" title="Permanent link">&para;</a></h3>
+<h4 id="fdo_sdk_error">fdo_sdk_error<a class="headerlink" href="#fdo_sdk_error" title="Permanent link">&para;</a></h4>
+<pre><code>typedef enum {
+    FDO_RV_TIMEOUT = 1,
+    FDO_CONN_TIMEOUT,
+    FDO_DI_ERROR,
+    FDO_TO1_ERROR,
+    FDO_TO2_ERROR
+} fdo_sdk_error;
+</code></pre>
+<p>The usage of this enum is detailed in fdo_sdk_init()</p>
+<h4 id="fdo_sdk_status">fdo_sdk_status<a class="headerlink" href="#fdo_sdk_status" title="Permanent link">&para;</a></h4>
+<pre><code>typedef enum {
+    FDO_SUCCESS,
+    FDO_INVALID_PATH,
+    FDO_CONFIG_NOT_FOUND,
+    FDO_INVALID_STATE,
+    FDO_RESALE_NOT_SUPPORTED,
+    FDO_RESALE_NOT_READY,
+    FDO_WARNING,
+    FDO_ERROR,
+    FDO_ABORT
+} fdo_sdk_status;
+</code></pre>
+<p>The usage of this enum is detailed in <code>fdo_sdk_init()</code></p>
+<h4 id="fdo_sdk_device_state">fdo_sdk_device_state<a class="headerlink" href="#fdo_sdk_device_state" title="Permanent link">&para;</a></h4>
+<pre><code>typedef enum {
+    FDO_STATE_PRE_DI = 2,
+    FDO_STATE_PRE_TO1,
+    FDO_STATE_IDLE,
+    FDO_STATE_RESALE,
+    FDO_STATE_ERROR
+} fdo_sdk_device_state;
+</code></pre>
+<p>The usage of this enum is detailed in <code>fdo_sdk_get_status()</code></p>
+<h3 id="client-sdk-functions">Client SDK Functions<a class="headerlink" href="#client-sdk-functions" title="Permanent link">&para;</a></h3>
+<p>The application resides in the app directory of the reference solution. The application uses the APIs specified in include/fdo.h to trigger the Ownership transfer state machine. The following lists the APIs which the application uses to perform Device Initialization or start Ownership Transfer Protocol.</p>
+<h4 id="fdo_sdk_init">fdo_sdk_init()<a class="headerlink" href="#fdo_sdk_init" title="Permanent link">&para;</a></h4>
+<pre><code>fdo_sdk_status fdo_sdk_init(fdo_sdk_errorCB error_handling_callback,
+                            uint32_t num_modules,
+                            fdo_sdk_service_info_module *module_information);
+typedef int (*fdo_sdk_errorCB)(fdo_sdk_status type, fdo_sdk_error error_code);
+</code></pre>
+<p><em>Description</em></p>
+<p>This function initializes the Client SDK data structures. It allows the application to control the error handling of the Client SDK state machine by setting error_handling_callback. Client SDK calls error_handling_callback to propagate the error_code(fdo_sdk_error) back to the application with Client SDK internal status fdo_sdk_status(fdo_sdk_status). The application may handle the error and return the appropriate action to be taken by Client SDK further.</p>
+<p><strong><em>NOTE:</em></strong> The reference application allows the Client SDK to retry for 5 times before calling abort.</p>
+<p>The Client SDK allows the owner to download the required Device Management System agents via ServiceInfo mechanism; the num_modules and module_information registers the ServiceInfo modules with the Client SDK.</p>
+<p><em>Parameters</em></p>
+<p><code>error_handling_callback:</code> It is of type fdo_sdk_errorCB</p>
+<p><code>num_modules:</code> Number of ServiceInfo modules to register.</p>
+<p><code>module_information:</code> Array of ServiceInfo modules registration information</p>
+<p><em>Return Value</em></p>
+<p><code>FDO_SUCCESS</code> for success.</p>
+<p>Greater than <code>FDO_SUCCESS</code> for failure (refer to fdo_sdk_status)</p>
+<h4 id="fdo_sdk_run">fdo_sdk_run()<a class="headerlink" href="#fdo_sdk_run" title="Permanent link">&para;</a></h4>
+<p><code>fdo_sdk_status fdo_sdk_run(void);</code></p>
+<p><em>Description</em></p>
+<p>This function triggers either the Device Initialize state machine or Ownership Transfer Protocol state machine depending on the device status stored in Normal.blob.</p>
+<p><strong><em>NOTE:</em></strong> The first successful execution of the reference application performs Device Initialization. The second execution begins to perform Ownership Transfer Protocol.</p>
+<p><em>Parameters</em></p>
+<p>None</p>
+<p><em>Return Value</em></p>
+<p><code>FDO_SUCCESS</code> for success.</p>
+<p>Greater than <code>FDO_SUCCESS</code> for failure (refer to fdo_sdk_status)</p>
+<h4 id="fdo_sdk_resale">fdo_sdk_resale()<a class="headerlink" href="#fdo_sdk_resale" title="Permanent link">&para;</a></h4>
+<p><code>fdo_sdk_status fdo_sdk_resale(void);</code></p>
+<p><em>Description</em></p>
+<p>This function triggers the device resale.</p>
+<p><em>Parameters</em></p>
+<p>None</p>
+<p><em>Return Value</em></p>
+<p><code>FDO_SUCCESS</code> for success.</p>
+<p>Greater than <code>FDO_SUCCESS</code> for failure (refer to fdo_sdk_status)</p>
+<h4 id="fdo_sdk_get_status">fdo_sdk_get_status()<a class="headerlink" href="#fdo_sdk_get_status" title="Permanent link">&para;</a></h4>
+<p><code>fdo_sdk_device_state fdo_sdk_get_status(void);</code></p>
+<p><em>Description</em></p>
+<p>This function returns the current state of the device.</p>
+<p><em>Parameters</em></p>
+<p>None</p>
+<p><em>Return Value</em></p>
+<p>Please refer fdo_sdk_status:</p>
+<p><code>FDO_STATE_PRE_DI:</code> Device is ready for DI</p>
+<p><code>FDO_STATE_PRE_TO1:</code> Device is ready for Ownership transfer</p>
+<p><code>FDO_STATE_IDLE:</code> Device's ownership transfer done</p>
+<p><code>FDO_STATE_RESALE:</code> Device is ready for ownership transfer</p>
+<p><code>FDO_STATE_ERROR:</code> Error in getting device status</p>
+<h2 id="crypto-subsystem-api">Crypto Subsystem API<a class="headerlink" href="#crypto-subsystem-api" title="Permanent link">&para;</a></h2>
+<p>Cryptography support is a platform offering which enables Client SDK to generate random number, perform encryption, signing, sign verification, and so on. The required functionality by the Client SDK is abstracted via a set of APIs declared in file "crypto/include/fdoCryptoHal.h" and "crypto/include/base64.h"</p>
+<p><strong><em>NOTE:</em></strong> This section of the document specifies the internal APIs to abstract Crypto implementation from Client SDK and are subject to change.</p>
+<h3 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h3>
+<h4 id="fdo_crypto_hash_type">FDO_CRYPTO_HASH_TYPE<a class="headerlink" href="#fdo_crypto_hash_type" title="Permanent link">&para;</a></h4>
+<pre><code>#define FDO_CRYPTO_HASH_TYPE_SHA_256  -16
+#define FDO_CRYPTO_HASH_TYPE_SHA_384  -43
+</code></pre>
+<p>The usage of this define is detailed in <code>crypto_hal_hash()</code>.</p>
+<h4 id="fdo_crypto_hmac_type">FDO_CRYPTO_HMAC_TYPE<a class="headerlink" href="#fdo_crypto_hmac_type" title="Permanent link">&para;</a></h4>
+<pre><code>#define FDO_CRYPTO_HMAC_TYPE_SHA_256 5
+#define FDO_CRYPTO_HMAC_TYPE_SHA_384 6
+</code></pre>
+<p>The usage of this define is detailed in <code>crypto_hal_hmac()</code>.</p>
+<h4 id="fdo_crypto_pub_key_encoding">FDO_CRYPTO_PUB_KEY_ENCODING<a class="headerlink" href="#fdo_crypto_pub_key_encoding" title="Permanent link">&para;</a></h4>
+<pre><code>#define FDO_CRYPTO_PUB_KEY_ENCODING_COSEX509    2
+</code></pre>
+<p>The usage of this define is detailed in <code>crypto_hal_sig_verify()</code>.</p>
+<h4 id="fdo_crypto_pub_key_algo">FDO_CRYPTO_PUB_KEY_ALGO<a class="headerlink" href="#fdo_crypto_pub_key_algo" title="Permanent link">&para;</a></h4>
+<pre><code>#define FDO_CRYPTO_PUB_KEY_ALGO_ECDSAp256 -7
+#define FDO_CRYPTO_PUB_KEY_ALGO_ECDSAp384 -35
+</code></pre>
+<p>The usage of this define is detailed in <code>crypto_hal_sig_verify()</code>.</p>
+<h3 id="structures">Structures<a class="headerlink" href="#structures" title="Permanent link">&para;</a></h3>
+<h4 id="fdo_byte_array_t">fdo_byte_array_t<a class="headerlink" href="#fdo_byte_array_t" title="Permanent link">&para;</a></h4>
+<pre><code>typedef struct {
+        size_t byte_sz;
+        uint8_t * bytes;
+} fdo_bits_t;
+typedef fdo_bits_t fdo_byte_array_t;
+</code></pre>
+<p>The usage is detailed in <code>crypto_hal_get_device_csr()</code>.</p>
+<h3 id="initialization-and-exit-functions">Initialization and Exit Functions<a class="headerlink" href="#initialization-and-exit-functions" title="Permanent link">&para;</a></h3>
+<h4 id="crypto_init">crypto_init()<a class="headerlink" href="#crypto_init" title="Permanent link">&para;</a></h4>
+<p><code>int32_t crypto_init(void)</code></p>
+<p><em>Description</em></p>
+<p>This function initializes and enables the crypto services to be used by Client SDK.</p>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to a custom platform. For guidance in assessing the secure random number generation requirements for your device, refer to the Client SDK Security Implications document.</p>
+<p><em>Parameters</em></p>
+<p>None</p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h4 id="crypto_close">crypto_close()<a class="headerlink" href="#crypto_close" title="Permanent link">&para;</a></h4>
+<p><code>int32_t crypto_close(void)</code></p>
+<p><em>Description</em></p>
+<p>This function tears down any initialization done to enable crypto services to Client SDK.</p>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as it tears down the initialization done in <code>crypto_init()</code>. Also, the crypto tear down could be different for custom platforms.</p>
+<p><em>Parameters</em></p>
+<p>None</p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h3 id="random-number-functions">Random Number Functions<a class="headerlink" href="#random-number-functions" title="Permanent link">&para;</a></h3>
+<h4 id="random_init">random_init()<a class="headerlink" href="#random_init" title="Permanent link">&para;</a></h4>
+<p><code>int random_init(void)</code></p>
+<p><em>Description</em></p>
+<p>This function initializes the random number generator functionality.</p>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to a custom platform. For guidance in assessing the secure random number generation requirements for your device, refer to the Client SDK Security Implications document.</p>
+<p><em>Parameters</em></p>
+<p>None</p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h4 id="random_close">random_close()<a class="headerlink" href="#random_close" title="Permanent link">&para;</a></h4>
+<p><code>int random_close(void)</code></p>
+<p><em>Description</em></p>
+<p>This function releases the random number context. After this call, the random number cannot be retrieved from a call to <code>crypto_hal_random_bytes()</code></p>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as it tears down the initialization done to setup random number generator which may be different in custom platform</p>
+<p><em>Parameters</em></p>
+<p>None</p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h4 id="crypto_hal_random_bytes">crypto_hal_random_bytes()<a class="headerlink" href="#crypto_hal_random_bytes" title="Permanent link">&para;</a></h4>
+<p><code>int32_t crypto_hal_random_bytes(uint8_t *random_buffer, size_t num_bytes)</code></p>
+<p><em>Description</em></p>
+<p>This function fills the random_buffer with the random number of size num_bytes.</p>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
+<p><em>Parameters</em></p>
+<p><code>random_buffer:</code> Pointer to memory to receive random number</p>
+<p><code>num_bytes:</code> Size of memory pointed by random_buffer indicating the bytes of random number requested.</p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h3 id="message-digest-and-mac-functions">Message Digest and MAC Functions<a class="headerlink" href="#message-digest-and-mac-functions" title="Permanent link">&para;</a></h3>
+<h4 id="crypto_hal_hash">crypto_hal_hash()<a class="headerlink" href="#crypto_hal_hash" title="Permanent link">&para;</a></h4>
+<pre><code>int32_t crypto_hal_hash(uint8_t hash_type, const uint8_t *buffer,
+                         size_t buffer_length, uint8_t *output,
+                         size_t output_length)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function hashes the contents of the memory pointed to by buffer of size <code>buffer_length</code> with <code>hash_type</code> algorithm and fills the memory pointed to by <code>output</code> of size <code>output_length</code> with generated hash.</p>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
+<p><em>Parameters</em></p>
+<p><code>hash_type:</code> This function must support all the hash algorithms identifiers mentioned in FDO_CRYPTO_HASH_TYPE except FDO_CRYPTO_HASH_TYPE_SHA_512 (optional). Client SDK uses FDO_CRYPTO_HASH_TYPE_USED to decide at compile time which hash_type to use - either FDO_CRYPTO_HASH_TYPE_SHA_256 or FDO_CRYPTO_HASH_TYPE_SHA_384.</p>
+<p><code>buffer:</code> A valid pointer to a memory containing data to be hashed</p>
+<p><code>buffer_length:</code> Size of memory pointed to by buffer</p>
+<p><code>output:</code> A valid pointer to a memory which will be filled by hash</p>
+<p><code>output_length:</code> Size of the memory pointed to by output. It must be able to contain the generated Hash.</p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h4 id="crypto_hal_hmac">crypto_hal_hmac()<a class="headerlink" href="#crypto_hal_hmac" title="Permanent link">&para;</a></h4>
+<pre><code>int32_t crypto_hal_hmac(uint8_t hmac_type, const uint8_t *buffer,
+                        size_t buffer_length, uint8_t *output,
+                        size_t output_length, const uint8_t *key,
+                        size_t key_length)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function HMACs the contents of the memory pointed to by buffer of size <code>buffer_length</code> using <code>key</code> of size <code>key_length</code>, with <code>hmac_type</code> algorithm and fills the memory pointed to by <code>output</code> of size <code>output_length</code> with generated HMAC.</p>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
+<p><em>Parameters</em></p>
+<p><code>hmac_type</code>: This function must support all the HMAC algorithms identifiers mentioned in FDO_CRYPTO_HMAC_TYPE except FDO_CRYPTO_HMAC_TYPE_SHA_512 (optional).  Client SDK uses FDO_CRYPTO_HMAC_TYPE_USED to decide at compile time which hmac_type to use - either FDO_CRYPTO_HMAC_TYPE_SHA_256 or FDO_CRYPTO_HMAC_TYPE_SHA_384.</p>
+<p><code>buffer:</code> A valid pointer to a memory containing data to be HMACed.</p>
+<p><code>buffer_length:</code> Size of memory pointed to by buffer</p>
+<p><code>output:</code> A valid pointer to a memory which will be filled by HMACed data.</p>
+<p><code>output_length:</code> Size of the memory pointed to by output. It must be able to contain the generated HMAC.</p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h3 id="asymmetric-functions">Asymmetric Functions<a class="headerlink" href="#asymmetric-functions" title="Permanent link">&para;</a></h3>
+<h4 id="crypto_hal_sig_verify">crypto_hal_sig_verify()<a class="headerlink" href="#crypto_hal_sig_verify" title="Permanent link">&para;</a></h4>
+<pre><code>int32_t crypto_hal_sig_verify(uint8_t key_encoding, uint8_t key_algorithm,
+                              const uint8_t *message, uint32_t message_length,
+                              const uint8_t *message_signature,
+                              uint32_t signature_length,
+                              const uint8_t *key_param1,
+                              uint32_t key_param1Length,
+                              const uint8_t *key_param2,
+                              uint32_t key_param2Length)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function verifies the ECDSA signature pointed by <code>message_signature</code> of size <code>message_length</code> on the data pointed by <code>message</code> of size <code>message_length</code> with the key material <code>key_param1</code> and <code>key_param2</code> interpreted according to <code>key_encoding</code>.</p>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
+<p><em>Parameters</em></p>
+<p><code>key_encoding:</code> FDO_CRYPTO_PUB_KEY_ENCODING_COSEX509 encoding is used for ECDSA. Please refer FDO_CRYPTO_PUB_KEY_ENCODING</p>
+<p><code>key_algorithm:</code> FDO_CRYPTO_PUB_KEY_ALGO_(ECDSAp256/ECDSAp384) is used for ECDSA. Please refer FDO_CRYPTO_PUB_KEY_ALGO</p>
+<p><code>message:</code> Data over which the sign verification needs to be performed.</p>
+<p><code>message_length:</code> Size of the message</p>
+<p><code>message_signature:</code> Signature over the message sent by the signing entity. Signature is of the form 'r' concatenated with 's' (r|s).</p>
+<p><code>signature_length:</code> Size of the message_signature</p>
+<p><code>key_param1:</code> ECDSA key of the form Affine 'x' concatenated with Affine 'y' (X|Y)</p>
+<p><code>key_param1Length:</code> Size of the key in key_param1</p>
+<p><code>key_param2:</code> NULL, unused</p>
+<p><code>key_param2Length:</code> Size of the key in key_param2, unused</p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h4 id="crypto_hal_ecdsa_sign">crypto_hal_ecdsa_sign()<a class="headerlink" href="#crypto_hal_ecdsa_sign" title="Permanent link">&para;</a></h4>
+<pre><code>int32_t crypto_hal_ecdsa_sign(const uint8_t *message, size_t message_len,
+                       unsigned char *signature, size_t *signature_len)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function signs the <code>message</code> of size <code>message_len</code> and fills the signed data in <code>signature</code> of size <code>signature_len</code>.</p>
+<ul>
+<li>
+<p>Algorithm is based on the compile time flags ECDSA256_DA and ECDSA384_DA.</p>
+</li>
+<li>
+<p>Signing Key is loaded from filesystem stored at location ECDSA_PRIVKEY.</p>
+</li>
+<li>
+<p>Signature Length is allocated by Client SDK based on internal define ECDSA_SIGNATURE_MAX_LEN.</p>
+</li>
+</ul>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
+<p><em>Parameters</em></p>
+<p><code>message:</code> The message over which sign is to be calculated.</p>
+<p><code>message_length:</code> Size of the message</p>
+<p><code>signature:</code> The buffer to fill signature with. Signature is of the form r concatenated with s (r|s).</p>
+<p><code>signature_len:</code> Size of the signature</p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h3 id="symmetric-cipher-functions">Symmetric Cipher Functions<a class="headerlink" href="#symmetric-cipher-functions" title="Permanent link">&para;</a></h3>
+<h4 id="crypto_hal_aes_encrypt">crypto_hal_aes_encrypt()<a class="headerlink" href="#crypto_hal_aes_encrypt" title="Permanent link">&para;</a></h4>
+<pre><code>int32_t crypto_hal_aes_encrypt(const uint8_t *clear_text,
+                               uint32_t clear_text_length, uint8_t *cipher_text,
+                               uint32_t *cipher_length, size_t block_size,
+                               const uint8_t *iv, const uint8_t *key,
+                               uint32_t key_length, uint8_t *tag, size_t tag_length,
+                               const uint8_t *aad, size_t aad_length)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function encrypts the <code>clear_text</code> of size <code>clear_text_length</code> with the AES algorithm using <code>key</code> of size <code>key_length</code> and fills the <code>cipher_text</code> with encrypted content of size <code>cipher_length</code>.</p>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
+<p><em>Parameters</em></p>
+<p><code>clear_text:</code> Pointer to the buffer containing text to be encrypted</p>
+<p><code>clear_text_length:</code> Size of clear_text</p>
+<p><code>cipher_text:</code> Pointer to the empty buffer to be filled after encrypting clear_text</p>
+<p><code>cipher_length:</code> Size of buffer pointed by cipher_text. This is IN/OUT parameter and gets filled with size of expected encrypted buffer in case cipher_text is passed as NULL with all other parameters as valid.</p>
+<p><code>block_size:</code> AES block size (16 bytes)</p>
+<p><code>iv</code>: Initialization Vector of size 12 bytes for AES-GCM and 7 bytes for AES-CCM.</p>
+<p><code>key:</code> AES symmetric key</p>
+<p><code>key_length:</code> Size of the key</p>
+<p><code>tag:</code> Pointer to the empty buffer to be filled after generating the Authentication Tag</p>
+<p><code>tag_length:</code> Size of the Authentication Tag (16 bytes)</p>
+<p><code>aad:</code> Pointer to the buffer containing Additional Authenticated Data (AAD)</p>
+<p><code>aad_length:</code> Size of the Additional Authenticated Data (AAD)</p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h4 id="crypto_hal_aes_decrypt">crypto_hal_aes_decrypt()<a class="headerlink" href="#crypto_hal_aes_decrypt" title="Permanent link">&para;</a></h4>
+<pre><code>int32_t crypto_hal_aes_decrypt(uint8_t *clear_text, uint32_t *clear_text_length,
+                               const uint8_t *cipher_text,
+                               uint32_t cipher_length, size_t block_size,
+                               const uint8_t *iv, const uint8_t *key,
+                               uint32_t key_length, uint8_t *tag, size_t tag_length,
+                               const uint8_t *aad, size_t aad_length)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function decrypts the <code>cipher_text</code> of size <code>cipher_length</code> with the AES algorithm using <code>key</code> of size <code>key_length</code> and fills the <code>clear_text</code> with unencrypted content of length <code>clear_text_length</code>.</p>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
+<p><em>Parameters</em></p>
+<p><code>clear_text:</code> Pointer to the empty buffer to be filled with unencrypted text</p>
+<p><code>clear_text_length:</code> Size of clear_text. This is IN/OUT parameter and gets filled with size of expected unencrypted buffer in case clear_text is passed as NULL with all other parameters as valid.</p>
+<p><code>cipher_text:</code> Pointer to the buffer containing text to be decrypted.</p>
+<p><code>cipher_length:</code> Size of cipher_text.</p>
+<p><code>block_size:</code> AES block size (16 bytes)</p>
+<p><code>iv:</code> Initialization Vector of size 12 bytes for AES-GCM and 7 bytes for AES-CCM.</p>
+<p><code>key:</code> AES symmetric key</p>
+<p><code>key_length:</code> Size of the key</p>
+<p><code>tag:</code> Pointer to the buffer containing Authentication Tag to be verified</p>
+<p><code>tag_length:</code> Size of the Authentication Tag (16 bytes)</p>
+<p><code>aad:</code> Pointer to the buffer containing Additional Authenticated Data (AAD)</p>
+<p><code>aad_length:</code> Size of the Additional Authenticated Data (AAD)</p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h3 id="certificate-signing-request">Certificate Signing Request<a class="headerlink" href="#certificate-signing-request" title="Permanent link">&para;</a></h3>
+<h4 id="crypto_hal_get_device_csr">crypto_hal_get_device_csr()<a class="headerlink" href="#crypto_hal_get_device_csr" title="Permanent link">&para;</a></h4>
+<pre><code>int32_t crypto_hal_get_device_csr(fdo_byte_array_t **csr);
+</code></pre>
+<p><em>Description</em></p>
+<p>This function fills the Client SDK byte array <code>csr</code> with the Certificate Signing Request (CSR) data.</p>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses the standard mbedTLS/openSSL APIs</p>
+<p><em>Parameters</em></p>
+<p><code>csr:</code> FDO byte array. Please refer fdo_byte_array_t. The usage of the structure is as below:
+  - byte_sz: size of the buffer in bytes pointed by bytes
+  - bytes: pointer to a stream of bytes
+This array is allocated by using fdo_byte_array_alloc(size_of_buffer) function.</p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h3 id="key-exchange-functions">Key Exchange Functions<a class="headerlink" href="#key-exchange-functions" title="Permanent link">&para;</a></h3>
+<h4 id="crypto_hal_kex_init">crypto_hal_kex_init()<a class="headerlink" href="#crypto_hal_kex_init" title="Permanent link">&para;</a></h4>
+<pre><code>int32_t crypto_hal_kex_init(void **context)
+</code></pre>
+<p><em>Description</em></p>
+<p>Client SDK uses ECDH algorithm to perform key exchange for creating a secure channel between Device and Owner. The configurations are mentioned in Crypto Configuration. The Device is considered as entity B in Key Exchange and the Owner is considered as entity A.</p>
+<p><strong>ECDH:</strong> This function creates an ECDH key pair. It then appends a random number with the public part of the generated key pair to generate a stream of bytes known as Device Random as mentioned below.
+<code>ByteArray[blen(Qx), Qx, blen(Qy), Qy, blen(DeviceRandom), Random Number]</code></p>
+<p>The random number as mentioned above is of size 16 bytes (ECDH256) or 48 bytes (ECDH384).
+In the later part of Client SDK execution, this buffer is retrieved using <code>crypto_hal_get_device_random()</code> and sent to the owner for generating the shared secret.</p>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
+<p><em>Parameters</em></p>
+<p><code>context:</code> A valid pointer to store the key exchange context.</p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h4 id="crypto_hal_kex_close">crypto_hal_kex_close()<a class="headerlink" href="#crypto_hal_kex_close" title="Permanent link">&para;</a></h4>
+<p><code>int32_t crypto_hal_kex_close(void \*\*context)</code></p>
+<p><em>Description</em></p>
+<p>This function tears down the key exchange context created by <code>crypto_hal_kex_init()</code>.</p>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
+<p><em>Parameters</em></p>
+<p><code>context:</code> A valid pointer of key exchange context.</p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h4 id="crypto_hal_get_device_random">crypto_hal_get_device_random()<a class="headerlink" href="#crypto_hal_get_device_random" title="Permanent link">&para;</a></h4>
+<pre><code>int32_t crypto_hal_get_device_random(void *context, uint8_t *dev_rand_value,
+                                     uint32_t *dev_rand_length)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function fills the buffer pointed to by dev_rand_value of size dev_rand_length with the Device Random Value. The Device Random value is generated differently for different algorithms. Currently, only <code>ECDH</code> algorithm is supported in this release.</p>
+<p><strong>ECDH:</strong> The buffer generated in <code>crypto_hal_kex_init()</code> is the Device Random.</p>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs or internal data structures which can be reused.</p>
+<p><em>Parameters</em></p>
+<p><code>context:</code> A valid pointer of key exchange context.</p>
+<p><code>dev_rand_value:</code> A valid pointer to an empty buffer. If this parameter is passed as NULL, then this function returns the size of the Device Random in dev_rand_length.</p>
+<p><code>dev_rand_length:</code> The size of the buffer pointed by dev_rand_value.</p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h4 id="crypto_hal_set_peer_random">crypto_hal_set_peer_random()<a class="headerlink" href="#crypto_hal_set_peer_random" title="Permanent link">&para;</a></h4>
+<pre><code>int32_t crypto_hal_set_peer_random(void *context,
+                                   const uint8_t *peer_rand_value,
+                                   uint32_t peer_rand_length)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function updates the key exchange context with <code>peer_rand_value</code> of size <code>peer_rand_length</code>. This function uses this information to generate shared secret. Currently, only <code>ECDH</code> algorithm is supported in this release.</p>
+<p><strong>ECDH:</strong> The Owner sends the data in a similar buffer layout as device sends it. Please see <code>crypto_hal_kex_init()</code> for the device Key Exchange buffer layout.
+<code>ByteArray[blen(Ax), Ax, blen(Ay), Ay, blen(OwnerRandom), OwnerRandom]</code></p>
+<p>This function fills the point Qp with the Owner Information and generates an ECDH key pair. The shared secret is generated as:
+<code>Shx ||DeviceRandom||OwnerRandom</code></p>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
+<p><em>Parameters</em></p>
+<p><code>context:</code> A valid pointer of key exchange context.</p>
+<p><code>peer_rand_value:</code> A valid pointer to Owner data for generating shared secret.</p>
+<p><code>peer_rand_length:</code> The size of the buffer pointed by peer_rand_value.</p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h4 id="crypto_hal_get_secret">crypto_hal_get_secret()<a class="headerlink" href="#crypto_hal_get_secret" title="Permanent link">&para;</a></h4>
+<pre><code>int32_t crypto_hal_get_secret(void *context, uint8_t *secret,
+                              uint32_t *secret_length)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function returns the shared secret created as part of key exchange protocol by <code>crypto_hal_set_peer_random()</code>.</p>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses the internal structure members which gets filled in Key Exchange protocol.</p>
+<p><em>Parameters</em></p>
+<p><code>context:</code> A valid pointer of key exchange context.</p>
+<p><code>secret:</code> A valid pointer to an empty buffer. If this parameter is passed as NULL, then this function returns the size of the secret in secret_length.</p>
+<p><code>secret_length:</code> The size of the buffer pointed by secret.</p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h2 id="network-subsystem-api">Network Subsystem API<a class="headerlink" href="#network-subsystem-api" title="Permanent link">&para;</a></h2>
+<p>Networking is a platform offering which enables Client SDK to connect to Manufacturer, Rendezvous, and Owner over the network. The required functionality by the Client SDK is abstracted via a set of APIs declared in file "network/include/network_al.h". Client SDK communicates with Manufacturer, Rendezvous, and Owner using REST API. It is not a constraint on the APIs, and the APIs could well be defined to communicate over any protocol.</p>
+<p><strong><em>NOTE:</em></strong> This section of the document specifies the internal APIs to abstract Network implementation from Client SDK and are subject to change.</p>
+<h3 id="constants_1">Constants<a class="headerlink" href="#constants_1" title="Permanent link">&para;</a></h3>
+<h4 id="ipv4_addr_len">IPV4_ADDR_LEN<a class="headerlink" href="#ipv4_addr_len" title="Permanent link">&para;</a></h4>
+<p><code>#define IPV4_ADDR_LEN 4</code></p>
+<p>The Client SDK uses this define for IPv4 IP address. For usage, please refer <code>fdo_con_dns_lookup()</code></p>
+<h4 id="fdo_type_error">FDO_TYPE_ERROR<a class="headerlink" href="#fdo_type_error" title="Permanent link">&para;</a></h4>
+<p><code>#define FDO_TYPE_ERROR 255</code></p>
+<p>The Client SDK uses this to indicates an error. For usage, please refer <code>fdo_con_recv_msg_header()</code></p>
+<h3 id="data-types">Data Types<a class="headerlink" href="#data-types" title="Permanent link">&para;</a></h3>
+<h4 id="fdo_ip_address_t">fdo_ip_address_t<a class="headerlink" href="#fdo_ip_address_t" title="Permanent link">&para;</a></h4>
+<p>This defines the IP address structure used to pass IP address information within Client SDK. The usage of the structure is detailed in <code>fdo_con_dns_lookup()</code></p>
+<pre><code>typedef struct {
+        uint8_t length;
+        uint8_t addr[16];
+} fdo_ip_address_t;
+</code></pre>
+<h4 id="fdo_con_handle">fdo_con_handle<a class="headerlink" href="#fdo_con_handle" title="Permanent link">&para;</a></h4>
+<p><code>fdo_con_handle</code> is specific to the underlying network library. In software distributions supporting POSIX, fdo_con_handle can be an int or any implementation specific datatype. For Client SDK, this is opaque data type, and it will not use its internal members.</p>
+<h3 id="connection-management-functions">Connection Management Functions<a class="headerlink" href="#connection-management-functions" title="Permanent link">&para;</a></h3>
+<h4 id="fdo_con_setup">fdo_con_setup()<a class="headerlink" href="#fdo_con_setup" title="Permanent link">&para;</a></h4>
+<pre><code>int32_t fdo_con_setup(char *medium, char **params, uint32_t count)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function sets up the connection identified by <code>medium</code> based on the <code>count</code> number of <code>params</code>. It is expected that this call will block until the interface has been established and is stable. It may be called multiple times, and if in subsequent calls to this function, the medium value changes, the existing connection must be terminated, and a new connection must be created on new medium. If the medium is the same as used in existing connection, this function must continue to retain the previous setup connection.</p>
+<table>
+<thead>
+<tr>
+<th align="center"><strong>Medium</strong></th>
+<th align="center"><strong>Meaning</strong></th>
+<th align="center"><strong>params</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">NULL</td>
+<td align="center">Connect to any available network interface.</td>
+<td align="center">NULL</td>
+</tr>
+<tr>
+<td align="center">eth*</td>
+<td align="center">Connect to any available Ethernet interface.</td>
+<td align="center">NULL</td>
+</tr>
+<tr>
+<td align="center">eth0…9</td>
+<td align="center">Connect to the specified numbered Ethernet interface.</td>
+<td align="center">NULL</td>
+</tr>
+<tr>
+<td align="center">Wi-Fi*</td>
+<td align="center">Connect to any available Wi-Fi interface.</td>
+<td align="center">NULL</td>
+</tr>
+<tr>
+<td align="center">Wi-Fi</td>
+<td align="center">Connect to the WiFi SSID and password specified by params.</td>
+<td align="center">params[0] = SSID</td>
+</tr>
+</tbody>
+</table>
+<p><strong><em>NOTE:</em></strong> In the existing implementation, Client SDK calls this function with medium as NULL and params as NULL and initializes REST API handling context.</p>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation initializes REST context which is used to communicate with Manufacturer/Rendezvous/Owner Server</p>
+<p><em>Parameters</em></p>
+<p><code>medium:</code> Refer above table</p>
+<p><code>params:</code> NULL or an array of NULL terminated ASCII strings required to connect to medium.</p>
+<p><code>count:</code> 0 or number of NULL terminated ASCII strings in params</p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h4 id="fdo_con_teardown">fdo_con_teardown()<a class="headerlink" href="#fdo_con_teardown" title="Permanent link">&para;</a></h4>
+<pre><code>int32_t fdo_con_teardown(void)
+
+</code></pre>
+<p><em>Description</em></p>
+<p>This function shuts down the connection established by the function described in <code>fdo_con_setup()</code></p>
+<p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation tears down the REST context created in <code>fdo_con_setup()</code></p>
+<p><em>Parameters</em></p>
+<p>None</p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h4 id="fdo_con_dns_lookup">fdo_con_dns_lookup()<a class="headerlink" href="#fdo_con_dns_lookup" title="Permanent link">&para;</a></h4>
+<pre><code>int32_t fdo_con_dns_lookup(const char *url, fdo_ip_address_t **ip_list,
+                           uint32_t *ip_list_size)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function performs a DNS lookup for the specified host identified by the <code>url</code> and return a list of IP addresses in the <code>ip_list</code>.</p>
+<p><strong><em>NOTE:</em></strong> This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux* libraries to perform Domain Name resolution.</p>
+<p><em>Parameters</em></p>
+<p><code>url:</code> NULL terminated string like “192.168.0.1” or “example@noname.com”</p>
+<p><code>ip_list:</code> Refer fdo_ip_address_t for the structure declaration. The usage of this structure is as follows:</p>
+<ul>
+<li>
+<p><code>length:</code> The value should be 4 for IPv4 and 16 for IPv6 addresses</p>
+</li>
+<li>
+<p><code>addr:</code> Specifies the IP address in network byte order</p>
+</li>
+</ul>
+<p><code>ip_list_size:</code> Specifies the number of IP addresses in the ip_list.</p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h4 id="fdo_con_connect">fdo_con_connect()<a class="headerlink" href="#fdo_con_connect" title="Permanent link">&para;</a></h4>
+<pre><code>fdo_con_handle fdo_con_connect(fdo_ip_address_t *addr, uint16_t port,
+                               void **ssl)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function connects to the IP address specified in addr on the given port. If the SSL pointer is non-NULL, enable SSL on the opened socket.</p>
+<p><strong><em>NOTE:</em></strong> This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux* libraries to connect to the server.</p>
+<p><em>Parameters</em></p>
+<p><code>addr:</code> Server IP address. Please refer to <code>fdo_con_dns_lookup()</code></p>
+<p><code>port:</code> Server port to connect to</p>
+<p><code>ssl:</code> NULL or valid pointer to receive the SSL context in case SSL is enabled</p>
+<p><em>Return Value</em></p>
+<p>Connection handle for success. Please refer to <code>fdo_con_handle</code>.</p>
+<p><code>-1</code> for failure</p>
+<h4 id="fdo_con_disconnect">fdo_con_disconnect()<a class="headerlink" href="#fdo_con_disconnect" title="Permanent link">&para;</a></h4>
+<pre><code>int32_t fdo_con_disconnect(fdo_con_handle handle, void *ssl)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function terminates the connection associated with handle.</p>
+<p><strong><em>NOTE:</em></strong> This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux libraries to disconnect from the server.</p>
+<p><em>Parameters</em></p>
+<p><code>handle:</code> Valid connection handle. Please refer to <code>fdo_con_connect()</code></p>
+<p><code>ssl:</code> NULL or valid pointer in case, SSL connection was established. Please refer to <code>fdo_con_connect()</code></p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h3 id="connection-data-management-functions">Connection Data Management Functions<a class="headerlink" href="#connection-data-management-functions" title="Permanent link">&para;</a></h3>
+<h4 id="fdo_con_recv_msg_header">fdo_con_recv_msg_header()<a class="headerlink" href="#fdo_con_recv_msg_header" title="Permanent link">&para;</a></h4>
+<pre><code>int32_t fdo_con_recv_msg_header(fdo_con_handle handle,
+                                uint32_t *protocol_version,
+                                uint32_t *message_type, uint32_t *msglen,
+                                void *ssl)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function receives the message header on the specified connection handle and returns <code>protocol_version</code>, <code>message_type</code>, and <code>msglen</code>. It will block until a message is available.</p>
+<p><strong><em>NOTE:</em></strong> This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux* libraries to receive data from the server.</p>
+<p><em>Parameters</em></p>
+<p><code>handle:</code> Connection handle. Please refer to <code>fdo_con_connect()</code></p>
+<p><code>protocol_version:</code> Incoming protocol version. Client SDK supports 100</p>
+<p><code>message_type:</code> Set to FDO_TYPE_ERROR in case of error. Please refer FDO_TYPE_ERROR</p>
+<p><code>msglen:</code> Length of incoming message body</p>
+<p><code>ssl:</code> Valid SSL context in case SSL is enabled. Please refer to <code>fdo_con_connect()</code></p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h4 id="fdo_con_recv_msg_body">fdo_con_recv_msg_body()<a class="headerlink" href="#fdo_con_recv_msg_body" title="Permanent link">&para;</a></h4>
+<pre><code>int32_t fdo_con_recv_msg_body(fdo_con_handle handle, uint8_t *buf,
+                              size_t length, void *ssl)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function receives the message body on the connection specified by <code>handle</code> in the provided memory pointed to by <code>buf</code> of size <code>length</code>. The message received corresponds to the message header received in the immediate preceding call to <code>fdo_con_recv_msg_header()</code>. This function blocks unless the specified length of data is received.</p>
+<p><strong><em>NOTE:</em></strong> This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux* libraries to receive data from the server.</p>
+<p><em>Parameters</em></p>
+<p><code>handle:</code> Connection handle. Please refer to <code>fdo_con_connect()</code></p>
+<p><code>buf:</code> Pointer to the empty buffer for receiving the message</p>
+<p><code>length:</code> Size of buf and equal to returned from fdo_con_recv_msg_header().</p>
+<p><code>ssl:</code> Valid SSL context in case SSL is enabled. Please refer to <code>fdo_con_connect()</code></p>
+<p><em>Return Value</em></p>
+<p>Number of bytes for success</p>
+<p><code>-1</code> for failure</p>
+<h4 id="fdo_con_send_message">fdo_con_send_message()<a class="headerlink" href="#fdo_con_send_message" title="Permanent link">&para;</a></h4>
+<pre><code>int32_t fdo_con_send_message(fdo_con_handle handle, uint32_t protocol_version,
+                             uint32_t message_type, const uint8_t *buf,
+                             size_t length, void *ssl)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function sends the data pointed by <code>buf</code> of size <code>length</code> over the connection specified by <code>handle</code> with <code>protocol_version</code> and <code>message_type</code> as metadata.</p>
+<p><strong><em>NOTE:</em></strong> This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux libraries to send data to the server.</p>
+<p><em>Parameters</em></p>
+<p><code>handle:</code> Connection handle. Please refer to <code>fdo_con_connect()</code></p>
+<p><code>protocol_version:</code> Client SDK supports 113</p>
+<p><code>message_type:</code> Client SDK state machine specific. To be used as is</p>
+<p><code>buf:</code> Pointer to the buffer containing the message to be sent</p>
+<p><code>length:</code> Size of buf</p>
+<p><code>ssl:</code> Valid SSL context in case SSL is enabled. Please refer to <code>fdo_con_connect()</code></p>
+<p><em>Return Value</em></p>
+<p><code>0</code> for success</p>
+<p><code>-1</code> for failure</p>
+<h3 id="network-generic-functions">Network Generic Functions<a class="headerlink" href="#network-generic-functions" title="Permanent link">&para;</a></h3>
+<h4 id="fdo_net_to_host_long">fdo_net_to_host_long()<a class="headerlink" href="#fdo_net_to_host_long" title="Permanent link">&para;</a></h4>
+<pre><code>uint32_t fdo_net_to_host_long(uint32_t value)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function converts the <code>value</code> from network byte order to host byte order.</p>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as the reference implementation to perform the functionality.</p>
+<p><em>Parameters</em></p>
+<p><code>value:</code> Unsigned integer of size 4 bytes in network byte order</p>
+<p><em>Return Value</em></p>
+<p>Unsigned integer of size 4 bytes converted to host byte order</p>
+<h4 id="fdo_host_to_net_long">fdo_host_to_net_long()<a class="headerlink" href="#fdo_host_to_net_long" title="Permanent link">&para;</a></h4>
+<p><code>uint32_t fdo_host_to_net_long(uint32_t value)</code></p>
+<p><em>Description</em></p>
+<p>This function converts the <code>value</code> from host byte order to network byte order.</p>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as the reference implementation to perform the functionality.</p>
+<p><em>Parameters</em></p>
+<p><code>value:</code> Unsigned integer of size 4 bytes in host byte order</p>
+<p><em>Return Value</em></p>
+<p>Unsigned integer of size 4 bytes converted to network byte order</p>
+<h4 id="fdo_printable_to_net">fdo_printable_to_net()<a class="headerlink" href="#fdo_printable_to_net" title="Permanent link">&para;</a></h4>
+<pre><code>int32_t fdo_printable_to_net(const char *src, void *addr)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function converts the IP address in ASCII string pointed to by <code>src</code> to network byte order and stores the result in <code>addr</code>.</p>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as the reference implementation to perform the functionality.</p>
+<p><em>Parameters</em></p>
+<p><code>src:</code> Points to a character string containing an IPv4 network address in dotted-decimal format</p>
+<p><code>addr:</code> Output buffer to receive IPV4 network address in network byte order</p>
+<p><em>Return Value</em></p>
+<p><code>1</code> for success</p>
+<p><code>-1</code> for failure</p>
+<p><code>0</code> if input format is invalid</p>
+<h3 id="legacy-functions">Legacy Functions<a class="headerlink" href="#legacy-functions" title="Permanent link">&para;</a></h3>
+<h4 id="get_device_model">get_device_model()<a class="headerlink" href="#get_device_model" title="Permanent link">&para;</a></h4>
+<pre><code>const char *get_device_model(void)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function either statically or dynamically generates a device model string.</p>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as the reference implementation returns a hard-coded string.</p>
+<p><em>Parameters</em></p>
+<p>None</p>
+<p><em>Return Value</em></p>
+<p>NULL terminated ASCII string</p>
+<h4 id="get_device_serial_number">get_device_serial_number()<a class="headerlink" href="#get_device_serial_number" title="Permanent link">&para;</a></h4>
+<pre><code>const char *get_device_serial_number(void)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function either statically or dynamically generates a device serial number string.</p>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as the reference implementation returns a hard-coded string.</p>
+<p><em>Parameters</em></p>
+<p>None</p>
+<p><em>Return Value</em></p>
+<p>NULL terminated ASCII string</p>
+<h4 id="fdo_random">fdo_random()<a class="headerlink" href="#fdo_random" title="Permanent link">&para;</a></h4>
+<pre><code>int fdo_random(void)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function generates a random number</p>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as the reference implementation uses Linux libraries to perform the functionality.</p>
+<p><em>Parameters</em></p>
+<p>None</p>
+<p><em>Return Value</em></p>
+<p>A random number</p>
+<h4 id="fdo_sleep">fdo_sleep()<a class="headerlink" href="#fdo_sleep" title="Permanent link">&para;</a></h4>
+<pre><code>void fdo_sleep(int sec)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function introduces the delay for <code>sec</code> number of seconds</p>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as the reference implementation uses Linux libraries to perform the functionality.</p>
+<h2 id="storage-subsystem-api">Storage Subsystem API<a class="headerlink" href="#storage-subsystem-api" title="Permanent link">&para;</a></h2>
+<p>Storage is a platform offering which enables Client SDK to store the credentials, state of the Client device on the storage medium. The required functionality by the Client SDK is abstracted via a set of APIs declared in file "storage/include/storage_al.h".</p>
+<p><strong><em>NOTE:</em></strong> This section of the document specifies the internal APIs to abstract Storage implementation from Client SDK and are subject to change.</p>
+<h3 id="constants_2">Constants<a class="headerlink" href="#constants_2" title="Permanent link">&para;</a></h3>
+<h4 id="fdo_sdk_blob_flags">fdo_sdk_blob_flags<a class="headerlink" href="#fdo_sdk_blob_flags" title="Permanent link">&para;</a></h4>
+<p>This enum defines the supported storage hierarchy by the API</p>
+<pre><code>typedef enum {
+        FDO_SDK_SECURE_DATA = 1,
+        FDO_SDK_NORMAL_DATA = 2,
+        FDO_SDK_OTP_DATA = 4,
+        FDO_SDK_RAW_DATA = 8
+} fdo_sdk_blob_flags;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Enum</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FDO_SDK_SECURE_DATA</td>
+<td>This flag indicates to the storage API that the data is Authenticated Encrypted. As an example, the algorithm used could be AES-GCM or AES + HMAC to support this mode</td>
+</tr>
+<tr>
+<td>FDO_SDK_NORMAL_DATA</td>
+<td>This flag indicates to the storage API that the data contains Authentication information. As an example, the data is stored along with its HMAC</td>
+</tr>
+<tr>
+<td>FDO_SDK_OTP_DATA</td>
+<td>This flag indicates to the storage API that the data resides in One Time Programmable memory, so, essentially, only 1 write is possible.</td>
+</tr>
+<tr>
+<td>FDO_SDK_RAW_DATA</td>
+<td>This flag indicates to the storage API that the data is plaintext</td>
+</tr>
+</tbody>
+</table>
+<h3 id="data-types_1">Data Types<a class="headerlink" href="#data-types_1" title="Permanent link">&para;</a></h3>
+<p>There are no specific data types for Storage APIs</p>
+<h3 id="blob-functions">Blob Functions<a class="headerlink" href="#blob-functions" title="Permanent link">&para;</a></h3>
+<h4 id="fdo_blob_read">fdo_blob_read()<a class="headerlink" href="#fdo_blob_read" title="Permanent link">&para;</a></h4>
+<pre><code>int32_t fdo_blob_read(const char *blob_name, fdo_sdk_blob_flags flags,
+                      uint8_t *buffer, uint32_t length)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function reads the data into the <code>buffer</code> of size <code>length</code> from the blob identified by <code>blob_name</code> whose storage properties match with the <code>flags</code>. Before reading the data from blob into the <code>buffer</code>, it is recommended to use <code>fdo_blob_size()</code> to allocate the exact length of <code>buffer</code>.</p>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to a custom platform. For guidance in assessing the secure storage requirements for your device, refer to the Client SDK Security Implications document.</p>
+<p><em>Parameters</em></p>
+<p><code>blob_name:</code> NULL terminated string identifying the existing blob</p>
+<p><code>flags:</code>  Please refer fdo_sdk_blob_flags</p>
+<p><code>buffer:</code> Empty buffer to read the blob data</p>
+<p><code>length:</code> Size of buffer</p>
+<p><em>Return Value</em></p>
+<p>Number of bytes read for success</p>
+<p><code>-1</code> for failure</p>
+<h4 id="fdo_blob_write">fdo_blob_write()<a class="headerlink" href="#fdo_blob_write" title="Permanent link">&para;</a></h4>
+<pre><code>int32_t fdo_blob_write(const char *blob_name, fdo_sdk_blob_flags flags,
+                       const uint8_t *buffer, uint32_t length)
+</code></pre>
+<p><em>Description</em></p>
+<p>This function writes the data from <code>buffer</code> of size <code>length</code> to the blob identified by <code>blob_name</code> whose storage properties are identified with the <code>flags</code>. This function must create the blob if it doesn’t exist, otherwise, overwrite the blob.</p>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to a custom platform. For guidance in assessing the secure storage requirements for your device, refer to the Client SDK Security Implications document.</p>
+<p><em>Parameters</em></p>
+<p><code>blob_name:</code> NULL terminated string identifying the blob to be created</p>
+<p><code>flags:</code>  Please refer fdo_sdk_blob_flags</p>
+<p><code>buffer:</code> Data to be stored in the blob</p>
+<p><code>length:</code> Size of the data to be stored into the blob</p>
+<p><em>Return Value</em></p>
+<p>Number of bytes written for success</p>
+<p><code>-1</code> for failure</p>
+<h4 id="fdo_blob_size">fdo_blob_size()<a class="headerlink" href="#fdo_blob_size" title="Permanent link">&para;</a></h4>
+<pre><code>size_t fdo_blob_size(const char *blob_name, fdo_sdk_blob_flags flags)
+</code></pre>
+<p><em>Description</em>
+This function returns the size of blob identified by <code>blob_name</code> whose storage properties match with the <code>flags</code>. This should be used before fdo_blob_read()</p>
+<p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to a custom platform. For guidance in assessing the secure storage requirements for your device, refer to the Client SDK Security Implications document.</p>
+<p><em>Parameters</em></p>
+<p><code>blob_name:</code> NULL terminated string identifying the existing blob</p>
+<p><code>flags:</code>  Please refer fdo_sdk_blob_flags</p>
+<p><em>Return Value</em></p>
+<p>Blob size for success</p>
+<p><code>file size</code> on success</p>
+<p><code>0</code> if file does not exist or in case of failure</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../client-sdk-api-reference/" title="Client SDK API Reference" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Client SDK API Reference
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../../implementation-references/getting-started-guide/" title="Getting Started Guide" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Getting Started Guide
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.3636a4ec.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../js/version-select.js"></script>
+      
+    
+  </body>
+</html>

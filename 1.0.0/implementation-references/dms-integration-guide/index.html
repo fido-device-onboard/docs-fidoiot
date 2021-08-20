@@ -1,0 +1,763 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for FIDO Device Onboard Project">
+      
+      
+        <link rel="canonical" href="https://secure-device-onboard.github.io/docs-fidoiot/implementation-references/dms-integration-guide/">
+      
+      
+        <meta name="author" content="FIDO Device Onboard Contributers">
+      
+      <link rel="shortcut icon" href="../../images/securedeviceonboard-icon-color.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.12">
+    
+    
+      
+        <title>DMS Integration Guide - FIDO Device Onboard</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4dd2dd8d.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../css/version-select.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://secure-device-onboard.github.io/docs-fidoiot/" title="FIDO Device Onboard" class="md-header-nav__button md-logo" aria-label="FIDO Device Onboard">
+      
+  <img src="../../images/securedeviceonboard-icon-color.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            FIDO Device Onboard
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              DMS Integration Guide
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../.." class="md-tabs__link">
+          Home
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../pri/pri-introduction/" class="md-tabs__link">
+          PRI
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../client-sdk/client-sdk-design/" class="md-tabs__link">
+          Client SDK
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../getting-started-guide/" class="md-tabs__link md-tabs__link--active">
+          Implementation Reference
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://secure-device-onboard.github.io/docs-fidoiot/" title="FIDO Device Onboard" class="md-nav__button md-logo" aria-label="FIDO Device Onboard">
+      
+  <img src="../../images/securedeviceonboard-icon-color.png" alt="logo">
+
+    </a>
+    FIDO Device Onboard
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      Home
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Home" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        <span class="md-nav__icon md-icon"></span>
+        Home
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/" title="Reference" class="md-nav__link">
+      Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../community/" title="Community" class="md-nav__link">
+      Community
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../releases/" title="Releases" class="md-nav__link">
+      Releases
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../security-best-practices/" title="Security Best Practices" class="md-nav__link">
+      Security Best Practices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../installation/" title="Installation Guide" class="md-nav__link">
+      Installation Guide
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol-specification/" title="Protocol Specification" class="md-nav__link">
+      Protocol Specification
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      PRI
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="PRI" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        PRI
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../pri/pri-introduction/" title="Protocol Reference Implementation" class="md-nav__link">
+      Protocol Reference Implementation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Client SDK
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Client SDK" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Client SDK
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../client-sdk/client-sdk-design/" title="Client SDK Design" class="md-nav__link">
+      Client SDK Design
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../client-sdk/client-sdk-reference-guide/" title="Client SDK Introduction" class="md-nav__link">
+      Client SDK Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../client-sdk/client-sdk-api-reference/" title="Client SDK API Reference" class="md-nav__link">
+      Client SDK API Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../client-sdk/client-sdk-porting-guide/" title="Client SDK Porting Guide" class="md-nav__link">
+      Client SDK Porting Guide
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Implementation Reference
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Implementation Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Implementation Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../getting-started-guide/" title="Getting Started Guide" class="md-nav__link">
+      Getting Started Guide
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../serviceinfo-sys-module/" title="ServiceInfo System Module" class="md-nav__link">
+      ServiceInfo System Module
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../device-mfg-info/" title="DeviceMfgInfo Specification" class="md-nav__link">
+      DeviceMfgInfo Specification
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../manufacturer-guide/" title="Manufacturer Guide" class="md-nav__link">
+      Manufacturer Guide
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        DMS Integration Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="DMS Integration Guide" class="md-nav__link md-nav__link--active">
+      DMS Integration Guide
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#terminology" class="md-nav__link">
+    Terminology
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../proxy-settings/" title="Proxy Setup Guide" class="md-nav__link">
+      Proxy Setup Guide
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#terminology" class="md-nav__link">
+    Terminology
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  
+                
+                
+                <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>FIDO Device Onboard (FDO) enhances the out-of-the-box setup and provisioning experience for connected IoT devices. The FIDO Device Onboard project provides the manufacturer component sample for manufacturers (OEMs, ODMs, or 3rd party integrators) to enable FDO on their devices. This document details how a manufacturer can use this tool to produce an FDO-enabled device.</p>
+<h3 id="terminology">Terminology<a class="headerlink" href="#terminology" title="Permanent link">&para;</a></h3>
+<p>Refer to the FIDO Device Onboard <a href="../../reference.md">Reference page</a>.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>To Integrate FIDO Device Onboard (FDO)-services into a Device Management Service (DMS), a DMS must host an Owner service, manage owner cryptographic keys, ingest ownership vouchers from a supply chain, and provide onboarding and onboarding solution in the form of service info instructions. </p>
+<p>For details on how to setup and initialize the Owner Service Component Sample see the Readme included with this sample as part of the FDO software [Owner Component Readme] (https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/owner/README.md).</p>
+<h3 id="owner-component-sample">Owner Component Sample<a class="headerlink" href="#owner-component-sample" title="Permanent link">&para;</a></h3>
+<p>The main function of the Owner component sample is to serve as a TO2 protocol server. The owner component sample runs as a web service and makes use of the FDO H2 database for configuration and storage of ownership vouchers. All configuration and data for the owner is stored in this H2 database and property or environment files. </p>
+<h3 id="all-in-one-aio-component-sample">All-in-One (AIO) Component Sample<a class="headerlink" href="#all-in-one-aio-component-sample" title="Permanent link">&para;</a></h3>
+<p>In addition to the owner component, the All-in-one component can be used to host Owner, Rendezvous, and Manufacturing services all in one service.  This makes deploying and testing of FDO easier.</p>
+<h2 id="evaluation-deployment">Evaluation Deployment<a class="headerlink" href="#evaluation-deployment" title="Permanent link">&para;</a></h2>
+<p>The evaluation deployment is useful for development, test, and enabling purposes. The evaluation deployment can fully initialize a device to the same extent as the production deployment but does not require any integration with business systems.</p>
+<h1 id="dms-integration-using-service-info">DMS Integration using Service Info<a class="headerlink" href="#dms-integration-using-service-info" title="Permanent link">&para;</a></h1>
+<p>Owner component service info can integrate with a DMS by providing the following:</p>
+<p>-A script to download the agent used to connect to the DMS</p>
+<p>-The Agent Credentials to download (for example, certificates or one time tokens)</p>
+<p>-Any connection information such as scope ID, URL, or tenant information.</p>
+<p><strong><em>NOTE</em></strong>: Service info is always encrypted even if http protocol is being used for To2 Protocol.</p>
+<h1 id="dms-credential-creation">DMS Credential Creation<a class="headerlink" href="#dms-credential-creation" title="Permanent link">&para;</a></h1>
+<p>DMS credentials can be created at the time of ownership voucher injection or when the device is running the To2 protocol.</p>
+<h3 id="to-do">To Do:<a class="headerlink" href="#to-do" title="Permanent link">&para;</a></h3>
+<p>Setup local Azure CLI</p>
+<h3 id="httpsdocsmicrosoftcomen-uscliazurerun-azure-cli-docker">https://docs.microsoft.com/en-us/cli/azure/run-azure-cli-docker<a class="headerlink" href="#httpsdocsmicrosoftcomen-uscliazurerun-azure-cli-docker" title="Permanent link">&para;</a></h3>
+<h3 id="httpsdocsmicrosoftcomen-usrestapiiothubdevicecreatefileuploadsasuri">https://docs.microsoft.com/en-us/rest/api/iothub/device/createfileuploadsasuri<a class="headerlink" href="#httpsdocsmicrosoftcomen-usrestapiiothubdevicecreatefileuploadsasuri" title="Permanent link">&para;</a></h3>
+<p>Create a bash to create a device with on Azure using the bash script
+Use the device uuid as the name</p>
+<p>Steps:
+1.  Run CLI docker
+      a.    https://docs.microsoft.com/en-us/cli/azure/run-azure-cli-docker
+      b.    “docker run -it -v ${HOME}/.ssh:/root/.ssh -v ~/Desktop/dev/Azure:/home mcr.microsoft.com/azure-cli”
+2.  Log in to Azure account
+      a.    “az login”
+      b.    https://microsoft.com/devicelogin
+3.  Create a device place holder
+      a.    https://docs.microsoft.com/en-us/azure/iot-edge/how-to-manual-provision-symmetric-key?view=iotedge-2018-06&amp;tabs=azure-cli%2Clinux
+      b.    “az iot hub device-identity create --device-id [Device-name] --hub-name [hub-name] --edge-enabled”
+      i.    Device-Name: UUID
+      ii.   Hub-name: FDO-Edge
+      c.    List of all devices registered
+      i.    “az iot hub device-identity list --hub-name [hub name]”
+      d.    Save the connection string
+      i.    az iot hub device-identity show-connection-string --device-id [device id] --hub-name [hub name]</p>
+<h3 id="dps">DPS:<a class="headerlink" href="#dps" title="Permanent link">&para;</a></h3>
+<h4 id="device-name-demo-dps">Device-Name: DEMO-DPS<a class="headerlink" href="#device-name-demo-dps" title="Permanent link">&para;</a></h4>
+<h4 id="primary-sha1-fingerprint8fe4f67b59533fec6c3b6a2fd2ba658863f45bd5">primary:  SHA1 Fingerprint=8FE4F67B59533FEC6C3B6A2FD2BA658863F45BD5<a class="headerlink" href="#primary-sha1-fingerprint8fe4f67b59533fec6c3b6a2fd2ba658863f45bd5" title="Permanent link">&para;</a></h4>
+<h4 id="secondary-sha1-fingerprint68ffffb9703ecba49b273a417e4166253f3c7ee2">secondary: SHA1 Fingerprint=68FFFFB9703ECBA49B273A417E4166253F3C7EE2<a class="headerlink" href="#secondary-sha1-fingerprint68ffffb9703ecba49b273a417e4166253f3c7ee2" title="Permanent link">&para;</a></h4>
+<h4 id="azurecertssh">Azure/certs.sh<a class="headerlink" href="#azurecertssh" title="Permanent link">&para;</a></h4>
+<h3 id="device">Device:<a class="headerlink" href="#device" title="Permanent link">&para;</a></h3>
+<h4 id="usingfdo-install-iot-edge-containers-on-the-target-device">UsingFDO: Install Iot-edge containers on the target device<a class="headerlink" href="#usingfdo-install-iot-edge-containers-on-the-target-device" title="Permanent link">&para;</a></h4>
+<h4 id="usingfdo-inject-the-connection-string-into-config-file">UsingFDO: Inject the Connection String into config file<a class="headerlink" href="#usingfdo-inject-the-connection-string-into-config-file" title="Permanent link">&para;</a></h4>
+<h4 id="usingfdo-restart-iotg-containers">UsingFDO: Restart IOTG containers<a class="headerlink" href="#usingfdo-restart-iotg-containers" title="Permanent link">&para;</a></h4>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../manufacturer-guide/" title="Manufacturer Guide" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Manufacturer Guide
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../proxy-settings/" title="Proxy Setup Guide" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Proxy Setup Guide
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.3636a4ec.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../js/version-select.js"></script>
+      
+    
+  </body>
+</html>

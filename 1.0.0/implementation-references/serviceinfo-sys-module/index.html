@@ -1,0 +1,1083 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for FIDO Device Onboard Project">
+      
+      
+        <link rel="canonical" href="https://secure-device-onboard.github.io/docs-fidoiot/implementation-references/serviceinfo-sys-module/">
+      
+      
+        <meta name="author" content="FIDO Device Onboard Contributers">
+      
+      <link rel="shortcut icon" href="../../images/securedeviceonboard-icon-color.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.12">
+    
+    
+      
+        <title>ServiceInfo System Module - FIDO Device Onboard</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4dd2dd8d.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../css/version-select.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#fdo_sys-module-definition" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://secure-device-onboard.github.io/docs-fidoiot/" title="FIDO Device Onboard" class="md-header-nav__button md-logo" aria-label="FIDO Device Onboard">
+      
+  <img src="../../images/securedeviceonboard-icon-color.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            FIDO Device Onboard
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              ServiceInfo System Module
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../.." class="md-tabs__link">
+          Home
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../pri/pri-introduction/" class="md-tabs__link">
+          PRI
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../client-sdk/client-sdk-design/" class="md-tabs__link">
+          Client SDK
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../getting-started-guide/" class="md-tabs__link md-tabs__link--active">
+          Implementation Reference
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://secure-device-onboard.github.io/docs-fidoiot/" title="FIDO Device Onboard" class="md-nav__button md-logo" aria-label="FIDO Device Onboard">
+      
+  <img src="../../images/securedeviceonboard-icon-color.png" alt="logo">
+
+    </a>
+    FIDO Device Onboard
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      Home
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Home" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        <span class="md-nav__icon md-icon"></span>
+        Home
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/" title="Reference" class="md-nav__link">
+      Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../community/" title="Community" class="md-nav__link">
+      Community
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../releases/" title="Releases" class="md-nav__link">
+      Releases
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../security-best-practices/" title="Security Best Practices" class="md-nav__link">
+      Security Best Practices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../installation/" title="Installation Guide" class="md-nav__link">
+      Installation Guide
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol-specification/" title="Protocol Specification" class="md-nav__link">
+      Protocol Specification
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      PRI
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="PRI" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        PRI
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../pri/pri-introduction/" title="Protocol Reference Implementation" class="md-nav__link">
+      Protocol Reference Implementation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Client SDK
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Client SDK" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Client SDK
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../client-sdk/client-sdk-design/" title="Client SDK Design" class="md-nav__link">
+      Client SDK Design
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../client-sdk/client-sdk-reference-guide/" title="Client SDK Introduction" class="md-nav__link">
+      Client SDK Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../client-sdk/client-sdk-api-reference/" title="Client SDK API Reference" class="md-nav__link">
+      Client SDK API Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../client-sdk/client-sdk-porting-guide/" title="Client SDK Porting Guide" class="md-nav__link">
+      Client SDK Porting Guide
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Implementation Reference
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Implementation Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Implementation Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../getting-started-guide/" title="Getting Started Guide" class="md-nav__link">
+      Getting Started Guide
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        ServiceInfo System Module
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="ServiceInfo System Module" class="md-nav__link md-nav__link--active">
+      ServiceInfo System Module
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fdo_sys-module-definition" class="md-nav__link">
+    fdo_sys Module Definition
+  </a>
+  
+    <nav class="md-nav" aria-label="fdo_sys Module Definition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sysexec-message" class="md-nav__link">
+    fdo_sys:exec Message
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sysfiledesc-message" class="md-nav__link">
+    fdo_sys:filedesc Message
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_syswrite-message" class="md-nav__link">
+    fdo_sys:write Message
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deviceserviceinfo-devmod" class="md-nav__link">
+    DeviceServiceInfo (devmod)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ownerserviceinfo" class="md-nav__link">
+    OwnerServiceInfo
+  </a>
+  
+    <nav class="md-nav" aria-label="OwnerServiceInfo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sysactive" class="md-nav__link">
+    fdo_sys:active
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sysfiledesc" class="md-nav__link">
+    fdo_sys:filedesc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_syswrite" class="md-nav__link">
+    fdo_sys:write
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sysexec" class="md-nav__link">
+    fdo_sys:exec
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ismore-flag" class="md-nav__link">
+    ismore Flag
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../device-mfg-info/" title="DeviceMfgInfo Specification" class="md-nav__link">
+      DeviceMfgInfo Specification
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../manufacturer-guide/" title="Manufacturer Guide" class="md-nav__link">
+      Manufacturer Guide
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dms-integration-guide/" title="DMS Integration Guide" class="md-nav__link">
+      DMS Integration Guide
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../proxy-settings/" title="Proxy Setup Guide" class="md-nav__link">
+      Proxy Setup Guide
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fdo_sys-module-definition" class="md-nav__link">
+    fdo_sys Module Definition
+  </a>
+  
+    <nav class="md-nav" aria-label="fdo_sys Module Definition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sysexec-message" class="md-nav__link">
+    fdo_sys:exec Message
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sysfiledesc-message" class="md-nav__link">
+    fdo_sys:filedesc Message
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_syswrite-message" class="md-nav__link">
+    fdo_sys:write Message
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deviceserviceinfo-devmod" class="md-nav__link">
+    DeviceServiceInfo (devmod)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ownerserviceinfo" class="md-nav__link">
+    OwnerServiceInfo
+  </a>
+  
+    <nav class="md-nav" aria-label="OwnerServiceInfo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sysactive" class="md-nav__link">
+    fdo_sys:active
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sysfiledesc" class="md-nav__link">
+    fdo_sys:filedesc
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_syswrite" class="md-nav__link">
+    fdo_sys:write
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fdo_sysexec" class="md-nav__link">
+    fdo_sys:exec
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ismore-flag" class="md-nav__link">
+    ismore Flag
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  
+                
+                
+                  <h1>ServiceInfo System Module</h1>
+                
+                <p>This section defines the “system” module (fdo_sys) specification which provides basic onboarding services
+for FDO capable devices. A module is a set of key-value pairs; they define the onboarding operations
+that can be performed on a given FDO device. Module key-value pairs are exchanged between the device
+and it’s owning Device Management Service. It is up to the owning management service and the
+device to interpret the key-value pairs in accordance with the module specification.</p>
+<h2 id="fdo_sys-module-definition">fdo_sys Module Definition<a class="headerlink" href="#fdo_sys-module-definition" title="Permanent link">&para;</a></h2>
+<p>The system module defines basic onboarding operations such as downloading content and executing
+commands. The following table describes key-value pairs for the system module.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Key Name</strong></th>
+<th><strong>Value</strong></th>
+<th><strong>Meaning</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fdo_sys:active</td>
+<td>CBOR Bool</td>
+<td>True to activate the fdo_sys module.</td>
+</tr>
+<tr>
+<td>fdo_sys:exec</td>
+<td>CBOR Array of String values</td>
+<td>The command is put as array elements. The command performs a system call.</td>
+</tr>
+<tr>
+<td>fdo_sys:filedesc</td>
+<td>CBOR String</td>
+<td>Describes a path to a file that will be used in subsequent file operations.</td>
+</tr>
+<tr>
+<td>fdo_sys:write</td>
+<td>CBOR BSTR</td>
+<td>Appends a block of data to the current file description.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fdo_sysexec-message">fdo_sys:exec Message<a class="headerlink" href="#fdo_sysexec-message" title="Permanent link">&para;</a></h3>
+<p>The fdo_sys:exec command performs a system call on the device. The value of this command is a
+CBOR Array of String values. The first string in the array is the command to execute and the
+remaining strings are the arguments to the command. It is expected that it would use “exec”
+(system call) or similar API to execute the command on the device.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JSON* (readable description)</td>
+<td>["/bin/sh","startup.sh"]</td>
+</tr>
+<tr>
+<td>CBOR</td>
+<td><code>82</code> # array(2) <br> <code>67</code> # text(7) <br> <code>2F62696E2F7368</code> # "/bin/sh" <br> <code>6A</code> # text(10) <br> <code>737461727475702E7368</code> # "startup.sh"</td>
+</tr>
+<tr>
+<td>C example</td>
+<td>execvp(“/bin/sh”,(char* []) {“shartup.sh”})</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fdo_sysfiledesc-message">fdo_sys:filedesc Message<a class="headerlink" href="#fdo_sysfiledesc-message" title="Permanent link">&para;</a></h3>
+<p>The fdo_sys:filedesc message describes the path to a file the will be used as a part of the
+onboarding process. A zero-length file is expected to exist on the local file system after this
+command is received. If the described file already exists, it is truncated to zero length, otherwise
+a zero-length file is created. The permissions for the created file is set to read/write
+for the user account the module is running under. File permissions can subsequently be modified with
+the fdo_sys:exec command if needed. If a path is not included as a part of the file name, the
+file is created under current working directory of the module. All subsequent fdo_sys:write
+operations will append to this file. If another fdo_sys:filedesc message is received, all subsequent
+fdo_sys:write messages will start appending to the file specified by the fdo_sys:filedesc message.</p>
+<h3 id="fdo_syswrite-message">fdo_sys:write Message<a class="headerlink" href="#fdo_syswrite-message" title="Permanent link">&para;</a></h3>
+<p>The fdo_sys:write message provides an array of bytes that gets appended to the file described by
+the last fdo_sys:filedesc message. If this message is sent without being preceded by
+fdo_sys:filedesc, then a message <code>255: INVALID_MESSAGE_ERROR</code> will be thrown and TO2 will not be
+completed. Once a fdo_sys:filedesc message has been received, many fdo_sys:write messages can
+follow.</p>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>Below are examples of the fdo_sys messages encoded as CBOR. The JSON examples are just human
+readable definitions while the actual messages are always CBOR. The encoding includes the entire
+TO2.OwnerServiceInfo message include the isMore and isDone flags.</p>
+<p>Device should advertise it supports fdo_sys.</p>
+<p><strong><em>NOTE</em></strong>: This example just includes the module list key value pairs and not all the required values for the devmod.</p>
+<h3 id="deviceserviceinfo-devmod">DeviceServiceInfo (devmod)<a class="headerlink" href="#deviceserviceinfo-devmod" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Diagnostic Notation (not used by protocol)</td>
+<td>[false, [[["devmod:active", "true"], ["devmod:nummodules", 1], ["devmod:modules", [1, 1, "fdo_sys"]]]]]</td>
+</tr>
+<tr>
+<td>CBOR</td>
+<td><code>82</code> # array(2) <br> <code>F4</code> # primitive(20) - IsMoreSeviceInfo <br> <code>81</code> # array(1) - ServiceInfo <br> <code>83</code> # array(3) - ServiceInfo Key-Value Array <br> <code>82</code> # array(2) - ServiceInfo Key-Value Pair 1 <br> <code>6D</code> # text(13) <br> <code>6465766D6F643A616374697665</code> # "devmod:active" <br> <code>64</code> # text(4) <br> <code>74727565</code> # "true" <br> <code>82</code> # array(2) - ServiceInfo Key-Value Pair 2 <br> <code>71</code> # text(17) <br> <code>6465766D6F643A6E756D6D6F64756C6573</code> # "devmod:nummodules" <br> <code>01</code> # unsigned(1) <br> <code>82</code> # array(2) - ServiceInfo Key-Value Pair 3 <br> <code>6E</code> # text(14) <br> <code>6465766D6F643A6D6F64756C6573</code> # "devmod:modules" <br> <code>83</code> # array(3) <br> <code>01</code> # unsigned(1) - Module Index <br> <code>01</code> # unsigned(1) - Number of modules <br> <code>67</code> # text(7) <br> <code>66646F5F737973</code> # "fdo_sys"</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ownerserviceinfo">OwnerServiceInfo<a class="headerlink" href="#ownerserviceinfo" title="Permanent link">&para;</a></h3>
+<h4 id="fdo_sysactive">fdo_sys:active<a class="headerlink" href="#fdo_sysactive" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Diagnostic Notation (not used by protocol)</td>
+<td>[true, false, [[["fdo_sys:active", true]]]]</td>
+</tr>
+<tr>
+<td>CBOR</td>
+<td><code>83</code> # array(3) <br> <code>F5</code> # primitive(21) - IsMoreSeviceInfo <br> <code>F4</code> # primitive(20) - IsDone <br> <code>81</code> # array(1) - ServiceInfo <br> <code>81</code> # array(1) - ServiceInfo Key-Value Array <br> <code>82</code> # array(2) - ServiceInfo Key-Value Pair <br> <code>6E</code> # text(14) <br> <code>66646F5F7379733A616374697665</code> # "fdo_sys:active" <br> <code>F5</code> # primitive(21)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fdo_sysfiledesc">fdo_sys:filedesc<a class="headerlink" href="#fdo_sysfiledesc" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Diagnostic Notation (not used by protocol)</td>
+<td>[true, false, [[["fdo_sys:filedesc", "startup.bat"]]]]</td>
+</tr>
+<tr>
+<td>CBOR</td>
+<td><code>83</code> # array(3) <br> <code>F5</code> # primitive(21) - IsMoreSeviceInfo <br> <code>F4</code> # primitive(20) - IsDone <br> <code>81</code> # array(1) - ServiceInfo <br> <code>81</code> # array(1) - ServiceInfo Key-Value Array <br> <code>82</code> # array(2) - ServiceInfo Key-Value Pair <br> <code>70</code> # text(16) <br> <code>66646F5F7379733A66696C6564657363</code> # "fdo_sys:filedesc" <br> <code>6B</code> # text(11) <br> <code>737461727475702E626174</code> # "startup.bat"</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fdo_syswrite">fdo_sys:write<a class="headerlink" href="#fdo_syswrite" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Diagnostic Notation (not used by protocol)</td>
+<td>[true, false, [[["fdo_sys:write", h'4045…']]]]</td>
+</tr>
+<tr>
+<td>CBOR</td>
+<td><code>83</code> # array(3) <br> <code>F5</code> # primitive(21) - IsMoreSeviceInfo <br> <code>F4</code> # primitive(20) - IsDone <br> <code>81</code> # array(1) - ServiceInfo <br> <code>81</code> # array(1) - ServiceInfo Key-Value Array <br> <code>82</code> # array(2) - ServiceInfo Key-Value Pair <br> <code>6D</code> # text(13) <br> <code>66646F5F7379733A7772697465</code> # "fdo_sys:write" <br> <code>59 0116</code> # bytes(278) <br> <code>4045..</code> # "@E" -rest of 278 byte file</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fdo_sysexec">fdo_sys:exec<a class="headerlink" href="#fdo_sysexec" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Diagnostic Notation (not used by protocol)</td>
+<td>[false, true, [[["fdo_sys:exec", ["cmd", "/c", "startup.bat"]]]]</td>
+</tr>
+<tr>
+<td>CBOR</td>
+<td><code>83</code> # array(3) <br> <code>F4</code> # primitive(20) - IsMoreSeviceInfo <br> <code>F5</code> # primitive(21) - IsDone <br> <code>81</code> # array(1) - ServiceInfo <br> <code>81</code> # array(1) - ServiceInfo Key-Value Array <br> <code>82</code> # array(2) - ServiceInfo Key-Value Pair <br> <code>6C</code> # text(12) <br> <code>66646F5F7379733A65786563</code> # "fdo_sys:exec" <br> <code>83</code> # array(3) <br> <code>63</code> # text(3) <br> <code>636D64</code> # "cmd" <br> <code>62</code> # text(2) <br> <code>2F63</code> # "/c" <br> <code>6B</code> # text(11) <br> <code>737461727475702E626174</code> # "startup.bat"</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ismore-flag">ismore Flag<a class="headerlink" href="#ismore-flag" title="Permanent link">&para;</a></h4>
+<p>The 'ismore' more should be true is if the message being sent is not a complete processable message.  All fdo_sys messages are complete messages, so the 'ismore' flag will always be true in this case.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../getting-started-guide/" title="Getting Started Guide" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Getting Started Guide
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../device-mfg-info/" title="DeviceMfgInfo Specification" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                DeviceMfgInfo Specification
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.3636a4ec.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../js/version-select.js"></script>
+      
+    
+  </body>
+</html>

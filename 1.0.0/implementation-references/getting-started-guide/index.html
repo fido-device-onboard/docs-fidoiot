@@ -1,0 +1,1190 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for FIDO Device Onboard Project">
+      
+      
+        <link rel="canonical" href="https://secure-device-onboard.github.io/docs-fidoiot/implementation-references/getting-started-guide/">
+      
+      
+        <meta name="author" content="FIDO Device Onboard Contributers">
+      
+      <link rel="shortcut icon" href="../../images/securedeviceonboard-icon-color.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.12">
+    
+    
+      
+        <title>Getting Started Guide - FIDO Device Onboard</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4dd2dd8d.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../css/version-select.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#getting-started-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://secure-device-onboard.github.io/docs-fidoiot/" title="FIDO Device Onboard" class="md-header-nav__button md-logo" aria-label="FIDO Device Onboard">
+      
+  <img src="../../images/securedeviceonboard-icon-color.png" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            FIDO Device Onboard
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Getting Started Guide
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../.." class="md-tabs__link">
+          Home
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../pri/pri-introduction/" class="md-tabs__link">
+          PRI
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../client-sdk/client-sdk-design/" class="md-tabs__link">
+          Client SDK
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="./" class="md-tabs__link md-tabs__link--active">
+          Implementation Reference
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://secure-device-onboard.github.io/docs-fidoiot/" title="FIDO Device Onboard" class="md-nav__button md-logo" aria-label="FIDO Device Onboard">
+      
+  <img src="../../images/securedeviceonboard-icon-color.png" alt="logo">
+
+    </a>
+    FIDO Device Onboard
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      Home
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Home" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        <span class="md-nav__icon md-icon"></span>
+        Home
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/" title="Reference" class="md-nav__link">
+      Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../community/" title="Community" class="md-nav__link">
+      Community
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../releases/" title="Releases" class="md-nav__link">
+      Releases
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../security-best-practices/" title="Security Best Practices" class="md-nav__link">
+      Security Best Practices
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../installation/" title="Installation Guide" class="md-nav__link">
+      Installation Guide
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../protocol-specification/" title="Protocol Specification" class="md-nav__link">
+      Protocol Specification
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      PRI
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="PRI" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        PRI
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../pri/pri-introduction/" title="Protocol Reference Implementation" class="md-nav__link">
+      Protocol Reference Implementation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Client SDK
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Client SDK" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Client SDK
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../client-sdk/client-sdk-design/" title="Client SDK Design" class="md-nav__link">
+      Client SDK Design
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../client-sdk/client-sdk-reference-guide/" title="Client SDK Introduction" class="md-nav__link">
+      Client SDK Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../client-sdk/client-sdk-api-reference/" title="Client SDK API Reference" class="md-nav__link">
+      Client SDK API Reference
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../client-sdk/client-sdk-porting-guide/" title="Client SDK Porting Guide" class="md-nav__link">
+      Client SDK Porting Guide
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Implementation Reference
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Implementation Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Implementation Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Getting Started Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="Getting Started Guide" class="md-nav__link md-nav__link--active">
+      Getting Started Guide
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#building-fdo-pri-source" class="md-nav__link">
+    Building FDO PRI Source
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#starting-fdo-server-side-containers" class="md-nav__link">
+    Starting FDO Server-side Containers
+  </a>
+  
+    <nav class="md-nav" aria-label="Starting FDO Server-side Containers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-generation-for-fdo-server-side-containers" class="md-nav__link">
+    Key Generation for FDO Server-side Containers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#starting-the-fdo-pri-manufacturer-server" class="md-nav__link">
+    Starting the FDO PRI Manufacturer Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#starting-the-fdo-pri-rendezvous-rv-server" class="md-nav__link">
+    Starting the FDO PRI Rendezvous (RV) Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#starting-the-fdo-pri-owner-server" class="md-nav__link">
+    Starting the FDO PRI Owner Server
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-e2e-for-pri-device" class="md-nav__link">
+    Running E2E for PRI Device
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-client-sdk-source" class="md-nav__link">
+    Building Client-SDK Source
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-e2e-demo-for-fdo-client-sdk" class="md-nav__link">
+    Running E2E demo for FDO Client-SDK
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enabling-serviceinfo-transfer" class="md-nav__link">
+    Enabling ServiceInfo Transfer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keystore-management" class="md-nav__link">
+    Keystore Management
+  </a>
+  
+    <nav class="md-nav" aria-label="Keystore Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generating-self-signed-keys-for-httpstls-communication" class="md-nav__link">
+    Generating Self-signed keys for HTTPS/TLS Communication.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../serviceinfo-sys-module/" title="ServiceInfo System Module" class="md-nav__link">
+      ServiceInfo System Module
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../device-mfg-info/" title="DeviceMfgInfo Specification" class="md-nav__link">
+      DeviceMfgInfo Specification
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../manufacturer-guide/" title="Manufacturer Guide" class="md-nav__link">
+      Manufacturer Guide
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dms-integration-guide/" title="DMS Integration Guide" class="md-nav__link">
+      DMS Integration Guide
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../proxy-settings/" title="Proxy Setup Guide" class="md-nav__link">
+      Proxy Setup Guide
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#building-fdo-pri-source" class="md-nav__link">
+    Building FDO PRI Source
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#starting-fdo-server-side-containers" class="md-nav__link">
+    Starting FDO Server-side Containers
+  </a>
+  
+    <nav class="md-nav" aria-label="Starting FDO Server-side Containers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-generation-for-fdo-server-side-containers" class="md-nav__link">
+    Key Generation for FDO Server-side Containers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#starting-the-fdo-pri-manufacturer-server" class="md-nav__link">
+    Starting the FDO PRI Manufacturer Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#starting-the-fdo-pri-rendezvous-rv-server" class="md-nav__link">
+    Starting the FDO PRI Rendezvous (RV) Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#starting-the-fdo-pri-owner-server" class="md-nav__link">
+    Starting the FDO PRI Owner Server
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-e2e-for-pri-device" class="md-nav__link">
+    Running E2E for PRI Device
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-client-sdk-source" class="md-nav__link">
+    Building Client-SDK Source
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-e2e-demo-for-fdo-client-sdk" class="md-nav__link">
+    Running E2E demo for FDO Client-SDK
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enabling-serviceinfo-transfer" class="md-nav__link">
+    Enabling ServiceInfo Transfer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keystore-management" class="md-nav__link">
+    Keystore Management
+  </a>
+  
+    <nav class="md-nav" aria-label="Keystore Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generating-self-signed-keys-for-httpstls-communication" class="md-nav__link">
+    Generating Self-signed keys for HTTPS/TLS Communication.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  
+                
+                
+                <p><strong><em>NOTE</em></strong>: This is a preliminary implementation of the <a href="https://fidoalliance.org/specs/FDO/fido-device-onboard-v1.0-ps-20210323/">FIDO Device Onboard Spec</a> published by the FIDO Alliance.
+The implementation is experimental and incomplete, and is not ready for use in any production capacity. Some cryptographic algorithms and encoding formats have
+not been implemented, and any aspect of this implementation is subject to change.</p>
+<h1 id="getting-started-guide">Getting Started Guide<a class="headerlink" href="#getting-started-guide" title="Permanent link">&para;</a></h1>
+<figure>
+  <img src="../../images/securedeviceonboard-icon-color.png" width="250" />
+</figure>
+
+<p><strong><em>FDO (FIDO device onboard) provides a fast and more secure way to onboard a device to any device management system. A unique feature of FDO is the ability for the device owner to select the IoT platform at a late stage in the device life cycle. The secrets or configuration data may also be created or chosen at this late stage.</em></strong></p>
+<p>This document provides a quick walk through the E2E flow. Included in this guide:</p>
+<ul>
+<li><a href="#building-fdo-pri-source">Building FDO PRI Source</a></li>
+<li><a href="#starting-fdo-server-side-containers">Starting FDO Service Containers</a></li>
+<li><a href="#running-e2e-for-pri-device">Running E2E for PRI device</a></li>
+<li><a href="#building-client-sdk-source">Building Client-SDK Source</a></li>
+<li><a href="#running-e2e-demo-for-fdo-client-sdk">Running E2E for Client-SDK device</a></li>
+<li><a href="#enabling-serviceinfo-transfer">Enabling ServiceInfo</a></li>
+<li><a href="#keystore-management">Keystore Management</a></li>
+</ul>
+<h2 id="building-fdo-pri-source">Building FDO PRI Source<a class="headerlink" href="#building-fdo-pri-source" title="Permanent link">&para;</a></h2>
+<p><strong><em>NOTES:</em></strong>
+      - Check the <a href="https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/#system-requirements">System Requirements</a>
+      - If working behind a proxy, ensure to <a href="https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo#configuring-proxies">set proper proxy</a> variables.
+      - <a href="https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/">Follow the steps</a> to setup Docker* environment.
+      - <a href="https://github.com/secure-device-onboard/pri-fidoiot#building-fdo-pri-source">Read more</a> about PRI source building.
+      - <a href="../../implementation-references/proxy-settings/">Follow the steps</a> to set the right proxy settings. (Includes documentation for system wide proxy configuration)</p>
+<p>1.&nbsp; Clone the PRI-fidoiot repository</p>
+<pre><code>git clone https://github.com/secure-device-onboard/pri-fidoiot.git
+</code></pre>
+<p>2.&nbsp; Build PRI-fidoiot:</p>
+<p>FDO PRI source can be built in two ways:</p>
+<p><strong><em>NOTE:</em></strong>
+      For the instructions in this document, <code>&lt;fdo-pri-src&gt;</code> refers to the path of the FDO PRI folder 'pri-fidoiot'.</p>
+<ol>
+<li>Using the Maven build system to build FDO PRI source.</li>
+</ol>
+<pre><code>cd &lt;fdo-pri-src&gt;
+mvn clean install
+</code></pre>
+<p>2.&nbsp;Using Docker container to build FDO PRI source</p>
+<pre><code>cd &lt;fdo-pri-src&gt;/build
+sudo docker-compose up --build
+</code></pre>
+<p>The build stage generates artifacts and stores them in <code>component-samples/demo</code> directory.</p>
+<p><strong><em>NOTE:</em></strong> During the build stage, the following error messages may be displayed on the console. These error messages
+are a result of the discrepancy of logging levels during the build stage and can be ignored.</p>
+<pre><code>[ERROR] Picked up _JAVA_OPTIONS: -Dhttp.proxyHost= -Dhttp.proxyPort= -Dhttps.proxyHost= -Dhttps.proxyPort=
+[ERROR] WARNING: An illegal reflective access operation has occurred
+[ERROR] WARNING: Illegal reflective access by org.apache.catalina.loader.WebappClassLoaderBase to field java.io.ObjectStreamClass$Caches.localDescs
+[ERROR] WARNING: Please consider reporting this to the maintainers of org.apache.catalina.loader.WebappClassLoaderBase
+[ERROR] WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+[ERROR] WARNING: All illegal access operations will be denied in a future release
+</code></pre>
+<h2 id="starting-fdo-server-side-containers">Starting FDO Server-side Containers<a class="headerlink" href="#starting-fdo-server-side-containers" title="Permanent link">&para;</a></h2>
+<figure>
+  <img src="../../images/entities.png" align="left"/>
+  <figcaption> FIDO Device Onboard Entities and Entity Interconnection </figcaption>
+</figure>
+
+<h3 id="key-generation-for-fdo-server-side-containers">Key Generation for FDO Server-side Containers<a class="headerlink" href="#key-generation-for-fdo-server-side-containers" title="Permanent link">&para;</a></h3>
+<p>Run the below commands to generate all the required keys for the Server-side containers.</p>
+<pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/scripts/
+bash keys_gen.sh .
+cp -r creds/* ../
+</code></pre>
+<p>All the generated keys are now copied to the respective components.</p>
+<h3 id="starting-the-fdo-pri-manufacturer-server">Starting the FDO PRI Manufacturer Server<a class="headerlink" href="#starting-the-fdo-pri-manufacturer-server" title="Permanent link">&para;</a></h3>
+<p><strong><em>FDO Manufacturer is an application that runs in the factory, which implements the initial communications with the Device, as part of the Device Initialize Protocol (DI). The manufacturer creates an Ownership Voucher based on the credentials received during DI and extends the voucher to the respective owner.</em></strong>    </p>
+<p>Run the below commands, in a separate console, to start the Manufacturer.</p>
+<pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/manufacturer/
+sudo docker-compose up --build
+</code></pre>
+<p>Once the Manufacturer has successfully started, the following output is displayed</p>
+<figure>
+  <img src="../../images/manufacturer.png" align="left"/>
+  <figcaption> Manufacturer getting started </figcaption>
+</figure>
+
+<h3 id="starting-the-fdo-pri-rendezvous-rv-server">Starting the FDO PRI Rendezvous (RV) Server<a class="headerlink" href="#starting-the-fdo-pri-rendezvous-rv-server" title="Permanent link">&para;</a></h3>
+<p><strong><em>RV Server is a network server or service (For example, on the Internet) that acts as a rendezvous point between a newly powered on Device and the Owner Onboarding Service.</em></strong>   </p>
+<p>Run the below commands, on a seperate console, to start the RV server.</p>
+<pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/rv/
+sudo docker-compose up --build
+</code></pre>
+<p>Once the RV instance has successfully started, the following output is displayed</p>
+<figure>
+  <img src="../../images/rv.png" align="left"/>
+  <figcaption> RV getting started </figcaption>
+</figure>
+
+<h3 id="starting-the-fdo-pri-owner-server">Starting the FDO PRI Owner Server<a class="headerlink" href="#starting-the-fdo-pri-owner-server" title="Permanent link">&para;</a></h3>
+<p><strong><em>Owner is an entity that is able to prove ownership to the Device using an Ownership Voucher and a private key for the last entry of the Ownership Voucher. Owner supports the transfer of Serviceinfo to the Device.</em></strong>   </p>
+<p>Run the below commands, on a separate console, to start the Owner Server.</p>
+<pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/owner/
+sudo docker-compose up --build
+</code></pre>
+<p>Once the Owner instance has successfully started, the following output is displayed</p>
+<figure>
+  <img src="../../images/owner.png" align="left"/>
+  <figcaption> Owner getting started </figcaption>
+</figure>
+
+<p><strong><em>NOTE:</em></strong>
+      - Proper <a href="#keystore-management">keystore management</a> to be considered before using the services in production environment.
+      - To0scheduling interval property can be modified in the component-sample/demo/owner/owner.env.
+      Update <code>owner_to0_scheduling_interval=30</code>
+      - <a href="https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md">Read more</a> about starting PRI services.</p>
+<h2 id="running-e2e-for-pri-device">Running E2E for PRI Device<a class="headerlink" href="#running-e2e-for-pri-device" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><a href="#starting-fdo-server-side-containers">Start FDO Service Containers</a>.</p>
+</li>
+<li>
+<p>Start Device Initialization (DI)</p>
+</li>
+</ol>
+<p><strong><em>DI includes the insertion of FDO credentials into device during the manufacturing process and creation of ownership voucher.</em></strong> <br />
+   On a new console, key in the following commands</p>
+<pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/device
+java -jar device.jar
+</code></pre>
+<p>Expect the following line on successful DI completion.</p>
+<pre><code>DI complete, GUID is &lt;guid&gt;
+</code></pre>
+<p><strong><em>NOTE:</em></strong>
+        - Additional arguments for <a href="https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-the-device-service">configuring PRI device</a>.
+        - Configuring PRI device for <a href="https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-device-for-httpstls-communication">HTTPS/TLS communication</a>.
+        - <a href="https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/device/README.md">Read more</a> about Device Intialization.</p>
+<p>3.&nbsp;Voucher Extension &amp; TO0 for PRI Device</p>
+<figure>
+  <img src="../../images/slide3.png"/>
+  <figcaption>Voucher extension</figcaption>
+</figure>
+
+<p><strong><em>During TO0, the FDO Owner identifies itself to Rendezvous Server, establishes the mapping of GUID to the Owner IP address. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob.'</em></strong></p>
+<pre><code>curl -D - --digest -u apiUser:MfgApiPass123 -XGET http://localhost:8039/api/v1/vouchers/0 -o voucher
+
+curl -D - --digest -u apiUser:OwnerApiPass123 --header "Content-Type: application/cbor" --data-binary @voucher http://localhost:8042/api/v1/owner/vouchers/
+</code></pre>
+<p><strong>Make sure you are getting status <code>200 OK</code> for the curl calls. If you are facing issue with <code>localhost</code> curl calls, try with IP address instead of localhost.</strong></p>
+<p>Wait for TO0 finished for <guid> message in the Owner console. This generally takes a few minutes to complete.</p>
+<p>Expect the following message on successful TO0 completion.</p>
+<pre><code>TO0 Response Wait for &lt;guid&gt; : 3600
+TO0 Client finished for GUID &lt;guid&gt;
+</code></pre>
+<p><strong><em>NOTE:</em></strong>
+        - <a href="#keystore-management">Keystore Management</a> needs to be taken care, if PRI Rendezvous server and PRI Owner server is not running on the same machine.
+        - <strong>You can enable ServiceInfo at this stage.</strong> <a href="#enabling-serviceinfo-transfer">Follow the instructions</a> to enable ServiceInfo.
+        - In the above commands, if the return value is <strong>500</strong>, replace localhost with the IP address of the machine.</p>
+<p>4.&nbsp;TO1 and TO2</p>
+<p><strong><em>During T01, Device identifies itself to the Rendezvous Server. Obtains mapping to connect to the Owner’s IP address. During T02, the Device contacts Owner and establishes trust and then performs Ownership Transfer.</em></strong></p>
+<pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/device
+java -jar device.jar
+</code></pre>
+<p>Wait for TO2 protocol completed message and Device is onboarded Successfully.</p>
+<p>Expect the following message on successful TO2 completion.</p>
+<pre><code>TO2 complete, GUID is d43c6dc6...
+</code></pre>
+<h2 id="building-client-sdk-source">Building Client-SDK Source<a class="headerlink" href="#building-client-sdk-source" title="Permanent link">&para;</a></h2>
+<p>FDO Client-SDK source can be build by:</p>
+<ol>
+<li>
+<p>Follow instructions in the <a href="https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/linux.md">documentation</a> to install dependencies.</p>
+</li>
+<li>
+<p>Clone the repository</p>
+<p><code>git clone https://github.com/secure-device-onboard/client-sdk-fidoiot.git</code></p>
+</li>
+</ol>
+<p><strong><em>NOTE:</em></strong>
+For the instructions in this document, <code>&lt;client-sdk-src&gt;</code> refers to the path of the FDO Client-SDK source folder 'client-sdk-fidoiot'.</p>
+<p>3.&nbsp; Execute build.sh script</p>
+<pre><code>cd &lt;client-sdk-src&gt;
+./build.sh
+</code></pre>
+<p>The build script generates artifacts and stores them in <code>./build/</code> directory.</p>
+<h2 id="running-e2e-demo-for-fdo-client-sdk">Running E2E demo for FDO Client-SDK<a class="headerlink" href="#running-e2e-demo-for-fdo-client-sdk" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><a href="#starting-fdo-server-side-containers">Start FDO Service Containers</a>.</p>
+</li>
+<li>
+<p>Start Device Initialization (DI)</p>
+</li>
+</ol>
+<pre><code>cd &lt;client-sdk-src&gt;
+./build/linux-client
+</code></pre>
+<p><strong><em>NOTE:</em></strong>
+- <a href="https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/linux.md#7-running-the-application-">Read more</a> on Client-SDK Device Initialization.
+- <a href="https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/setup.md#7-http-proxy-configuration-optional">Configuring Client-SDK device</a> for Proxy Network.
+- Follow instructions in the <a href="https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/setup.md#3-setting-the-manufacturer-network-address">documentation</a>, to update Manufacturer's address.</p>
+<p>3.&nbsp;Voucher Extension for Client-SDK Device</p>
+<pre><code>curl -D - --digest -u apiUser:MfgApiPass123 -XGET http://localhost:8039/api/v1/vouchers/abcdef -o voucher
+
+curl -D - --digest -u apiUser:OwnerApiPass123 --header &quot;Content-Type: application/cbor&quot; --data-binary @voucher http://localhost:8042/api/v1/owner/vouchers/
+</code></pre>
+<p><strong>Make sure you are getting status <code>200 OK</code> for the curl calls. If you are facing issue with <code>localhost</code> curl calls, try with IP address instead of localhost.</strong></p>
+<p>Wait for TO0 to finish for <guid> message on the Owner console.</p>
+<p>Expect the following message on successful TO0 completion.</p>
+<pre><code>TO0 Response Wait for &lt;guid&gt; : 3600
+TO0 Client finished for GUID &lt;guid&gt;
+</code></pre>
+<p><strong><em>NOTE:</em></strong>
+- <a href="#keystore-management">Keystore Management</a> needs to be taken care, if PRI Rendezvous server and PRI Owner server is not running on the same machine.
+- <strong>You can enable ServiceInfo at this stage.</strong> <a href="#enabling-serviceinfo-transfer">Follow the instructions</a> to enable ServiceInfo.</p>
+<p>4.&nbsp;TO1 and TO2</p>
+<pre><code>cd &lt;client-sdk-src&gt;
+./build/linux-client
+</code></pre>
+<p>Wait for TO2 protocol completed message</p>
+<p>Expect the following message on successful TO completion.</p>
+<pre><code>Device onboarded successfully.
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@FIDO Device Onboard Complete@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+</code></pre>
+<h2 id="enabling-serviceinfo-transfer">Enabling ServiceInfo Transfer<a class="headerlink" href="#enabling-serviceinfo-transfer" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Activating ServiceInfo Module.<pre><code>$ curl --location --digest -u apiUser:OwnerApiPass123 --request PUT 'http://localhost:8042/api/v1/device/svi?module=fdo_sys&amp;var=active&amp;priority=0&amp;bytes=F5' --header 'Content-Type: application/octet-stream'
+</code></pre>
+</li>
+</ol>
+<p>In this example, we are activating fdo_sys module.
+   http://localhost:8042 can be changed with the IP address of the owner.</p>
+<p>&nbsp;2. Transferring payload or executable resource for a specific type of device.</p>
+<ul>
+<li>Create a sample linux64.sh shell script.<pre><code>    #!/bin/bash
+    wget https://raw.githubusercontent.com/secure-device-onboard/pri-fidoiot/master/SECURITY.md
+    filename=SECURITY.md
+    cksum_tx=2749598590
+    cksum_rx=$(cksum $filename | cut -d ' ' -f 1)
+    if [ $cksum_tx -eq $cksum_rx  ]; then
+      echo "Device onboarded successfully."
+      echo "Device onboarded successfully." &gt; result.txt
+    else
+      echo "ServiceInfo file transmission failed."
+      echo "ServiceInfo file transmission failed." &gt; result.txt
+    fi
+</code></pre>
+</li>
+</ul>
+<p>This script downloads the SECURITY.md file and checks the integrity of file against the pre-computed checksum value.</p>
+<ul>
+<li>
+<p>Curl command to transfer executable resource.</p>
+<pre><code>    $ curl --location --digest -u apiUser:OwnerApiPass123 --request PUT 'http://localhost:8042/api/v1/device/svi?module=fdo_sys&amp;var=filedesc&amp;priority=1&amp;filename=linux64.sh&amp;device=FDO-Pri-Device' --header 'Content-Type: application/octet-stream' --data-binary '@path-to-executable/linux64.sh'
+</code></pre>
+</li>
+<li>
+<p>for Client-SDK devices, update device parameter to <code>Intel-FDO-Linux</code>. Eg:</p>
+<pre><code>    $ curl --location --digest -u apiUser:OwnerApiPass123 --request PUT 'http://localhost:8042/api/v1/device/svi?module=fdo_sys&amp;var=filedesc&amp;priority=1&amp;filename=linux64.sh&amp;device=Intel-FDO-Linux' --header 'Content-Type: application/octet-stream' --data-binary '@path-to-executable/linux64.sh'
+</code></pre>
+</li>
+</ul>
+<p>&nbsp;3. Curl command to add exec command on the transferred script</p>
+<pre><code>        $ curl --location --digest -u apiUser:OwnerApiPass123 --request PUT 'http://localhost:8042/api/v1/device/svi?module=fdo_sys&amp;var=exec&amp;guid=&lt;guid-of-device&gt;&amp;priority=2&amp;bytes=82672F62696E2F73686A6C696E757836342E7368' --header 'Content-Type: application/octet-stream'
+</code></pre>
+<p><strong><em>NOTE:</em></strong>
+        bytes parameter is the cbor equivalent of ./linux64.sh.
+        You can skip step 3, if you are just transferring a payload.</p>
+<h2 id="keystore-management">Keystore Management<a class="headerlink" href="#keystore-management" title="Permanent link">&para;</a></h2>
+<h3 id="generating-self-signed-keys-for-httpstls-communication">Generating Self-signed keys for HTTPS/TLS Communication.<a class="headerlink" href="#generating-self-signed-keys-for-httpstls-communication" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Generate key and certificate.</p>
+<pre><code>openssl req \
+-x509 \
+-newkey rsa:2048 \
+-sha256 \
+-days 3560 \
+-nodes \
+-keyout tls.key \
+-out tls.crt \
+-subj '/CN=fdo' \
+-extensions san \
+-config &lt;( \
+  echo '[req]'; \
+  echo 'distinguished_name=req'; \
+  echo '[san]'; \
+  echo 'subjectAltName=DNS:localhost,IP:&lt;ip-address&gt;')
+</code></pre>
+<p>Update <code>&lt;ip-address&gt;</code> with the IP address of machine running the FDO service.</p>
+</li>
+<li>
+<p>Generate Keystore using fresh key and certificate.</p>
+<p><code>openssl pkcs12 -export -in tls.crt -inkey tls.key -out ssl.p12</code></p>
+<ul>
+<li>Copy the <code>ssl.p12</code> file into <code>component-samples/demo/&lt;component&gt;/certs/</code> folder.</li>
+<li>Update the respective <code>.env</code> file with proper keystore credentials.</li>
+</ul>
+</li>
+<li>
+<p>Adding generated certificate into the truststore.</p>
+<p><code>keytool -import -alias fdo -file tls.crt -storetype PKCS12 -keystore truststore</code></p>
+</li>
+</ol>
+<p><strong><em>NOTE:</em></strong>
+- <a href="https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md#generating-key-pair">Read more</a> about key generation.
+- You can update the key type, by modifying the <code>-newkey</code> attribute during the key generation stage.
+- You can add multiple IP addresses in the <code>subjectAltName</code> attribute.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../../client-sdk/client-sdk-porting-guide/" title="Client SDK Porting Guide" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Client SDK Porting Guide
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../serviceinfo-sys-module/" title="ServiceInfo System Module" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                ServiceInfo System Module
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.3636a4ec.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../js/version-select.js"></script>
+      
+    
+  </body>
+</html>
