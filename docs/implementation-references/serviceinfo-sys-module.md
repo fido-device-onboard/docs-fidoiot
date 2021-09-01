@@ -31,7 +31,7 @@ remaining strings are the arguments to the command. It is expected that it would
 ### fdo_sys:filedesc Message
 
 The fdo_sys:filedesc message describes the path to a file the will be used as a part of the
-on-boarding process. A zero-length file is expected to exist on the local file system after this
+onboarding process. A zero-length file is expected to exist on the local file system after this
 command is received. If the described file already exists, it is truncated to zero length, otherwise
 a zero-length file is created. The permissions for the created file is set to read/write
 for the user account the module is running under. File permissions can subsequently be modified with
@@ -44,7 +44,7 @@ fdo_sys:write messages will start appending to the file specified by the fdo_sys
 
 The fdo_sys:write message provides an array of bytes that gets appended to the file described by
 the last fdo_sys:filedesc message. If this message is sent without being preceded by
-fdo_sys:filedesc, then an message `255: INVALID_MESSAGE_ERROR` will be thrown and TO2 will not be
+fdo_sys:filedesc, then a message `255: INVALID_MESSAGE_ERROR` will be thrown and TO2 will not be
 completed. Once a fdo_sys:filedesc message has been received, many fdo_sys:write messages can
 follow.
 
@@ -90,7 +90,7 @@ Device should advertise it supports fdo_sys.
 | Diagnostic Notation (not used by protocol) | [false, true, [[["fdo_sys:exec", ["cmd", "/c", "startup.bat"]]]] |
 | CBOR | `83` # array(3) <br> `F4` # primitive(20) - IsMoreSeviceInfo <br> `F5` # primitive(21) - IsDone <br> `81` # array(1) - ServiceInfo <br> `81` # array(1) - ServiceInfo Key-Value Array <br> `82` # array(2) - ServiceInfo Key-Value Pair <br> `6C` # text(12) <br> `66646F5F7379733A65786563` # "fdo_sys:exec" <br> `83` # array(3) <br> `63` # text(3) <br> `636D64` # "cmd" <br> `62` # text(2) <br> `2F63` # "/c" <br> `6B` # text(11) <br> `737461727475702E626174` # "startup.bat" |
 
-#### ismore flag
+#### ismore Flag
 
 The 'ismore' more should be true is if the message being sent is not a complete processable message.  All fdo_sys messages are complete messages, so the 'ismore' flag will always be true in this case.
 

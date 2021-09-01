@@ -6,3 +6,4 @@ implementations for FIDO Device Onboard specification.
 Following snapshots are available for different releases of FIDO Device Onboard implementations.
 
 * [latest](https://secure-device-onboard.github.io/docs-fidoiot/latest)
+* [1.0](https://secure-device-onboard.github.io/docs-fidoiot/1.0.0)
