@@ -1,5 +1,7 @@
 # Getting Started Guide
 
+The FDO project provides an implementation of the [FIDO Device Onboard Specification](https://fidoalliance.org/specs/FDO/fido-device-onboard-v1.0-ps-20210323/) by the FIDO Alliance.
+
 <figure>
   <img src="../../images/securedeviceonboard-icon-color.png" width="250" />
 </figure>
@@ -9,6 +11,7 @@
 This document provides a quick walk through the E2E flow. Included in this guide:
 
 - [Building FDO PRI Source](#building-fdo-pri-source)
+- [Quick Overview of FDO](#quick-overview-of-fdo)
 - [Starting FDO Service Containers](#starting-fdo-server-side-containers)
 - [Running E2E for PRI device](#running-e2e-for-pri-device)
 - [Building Client-SDK Source](#building-client-sdk-source)
@@ -18,12 +21,11 @@ This document provides a quick walk through the E2E flow. Included in this guide
 
 ## Building FDO PRI Source
 
-***NOTES:***
-      - Check the [System Requirements](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/#system-requirements)
-      - If working behind a proxy, ensure to [set proper proxy](https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo#configuring-proxies) variables.
-      - [Follow the steps](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/) to setup Docker* environment.
-      - [Read more](https://github.com/secure-device-onboard/pri-fidoiot#building-fdo-pri-source) about PRI source building.
-      - [Follow the steps](../../implementation-references/proxy-settings/) to set the right proxy settings. (Includes documentation for system wide proxy configuration)
+- Check the [System Requirements](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/#system-requirements)
+- If working behind a proxy, ensure to [set proper proxy](https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo#configuring-proxies) variables.
+- [Follow the steps](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/) to setup Docker* environment.
+- [Read more](https://github.com/secure-device-onboard/pri-fidoiot#building-fdo-pri-source) about PRI source building.
+- [Follow the steps](../../implementation-references/proxy-settings/) to set the right proxy settings. (Includes documentation for system wide proxy configuration)
 
 1.&nbsp; Clone the PRI-fidoiot repository
 ```
@@ -64,6 +66,46 @@ are a result of the discrepancy of logging levels during the build stage and can
 [ERROR] WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
 [ERROR] WARNING: All illegal access operations will be denied in a future release
 ```
+
+## Quick Overview of FDO
+
+FDO contains 3 major server-side components and 1 client-side component.
+The server-side components include Manufacturer, RV & Owner Service.
+The client-side includes device implementation in Java (PRI) or C (Client-sdk-fidoiot).
+
+FDO consists of four sets of protocols messages namely DI, TO0, TO1 & TO2.
+
+1. DI (Device Initialization protocol)
+
+    - Between Device & Manufacturer (msg/10-13).
+    - Initiated by device and device contacts Manufacturer Service.
+    - Includes creation & insertion of FDO credentials into newly manufactured device. Credential includes rvInfo which is used by device to connect with RV during T01 protocol
+    - Customers can take ownership of device after DI by extending the Ownership voucher to a particular customer.
+
+
+2. TO0 (Transfer of Ownership 0 Protocol)
+
+    - Between Owner & Rendezvous (RV) server (msg 20-23).
+    - Initiated by Owner once it receives Ownership voucher and Owner contacts RV server.
+    - TO0 creates a mapping of GUID with owner address and is stored in RV server's DB.
+    - Basically it creates a mapping like GUID=>OwnerAddress
+    - OwnerAddress can be DNS/IP or combination of both.
+
+
+3. T01 (Transfer of Ownership 1 Protocol)
+
+    - Between Device & Rendezvous (RV) server (msg 30-33).
+    - Initiated by Device and contacts RV server using the rvInfo directives collected DI.
+    - During T01, Device identifies itself to RV server and collects the respective mapping of Owner address based on its GUID. This mapping was stored in RV during TO0.
+    - Finally, Device can contact Owner using the collected OwnerAddress during TO2.
+
+
+4. T02 (Transfer of Ownership 2 Protocol)
+
+    - Between Device & Owner Server (msg 60-71)
+    - Initiated by Device using the OwnerAddress collected during TO1.
+    - Device contacts Owner Server and establishes trust and then performs Ownership Transfer.
+    - During T02, Owner can transfer ServiceInfo modules to the device. These modules can include executable scripts, file payloads and much more.
 
 ## Starting FDO Server-side Containers
 
@@ -145,6 +187,8 @@ Once the Owner instance has successfully started, the following output is displa
 
 2. Start Device Initialization (DI)
 
+   During DI, device contacts manufacturer.
+
    ***DI includes the insertion of FDO credentials into device during the manufacturing process and creation of ownership voucher.***   
    On a new console, key in the following commands
 
@@ -159,6 +203,8 @@ Expect the following line on successful DI completion.
 DI complete, GUID is <guid>
 ```
 
+After completion of DI, the FDO credentials are stored into `credential.bin` file. The credentials file include `rvinfo` from manufacturer, which is later used by device to contact RV server, once it is powered on at the client side. Finally, the initialized device is boxed and sold to customers.
+
 ***NOTE:***
         - Additional arguments for [configuring PRI device](https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-the-device-service).
         - Configuring PRI device for [HTTPS/TLS communication](https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-device-for-httpstls-communication).
@@ -172,12 +218,15 @@ DI complete, GUID is <guid>
   <figcaption>Voucher extension</figcaption>
 </figure>
 
+Here, the initial curl call is to collect the Ownership voucher from Manufacturer server and the final curl call is to upload the collected voucher to Owner. Using the received voucher, Owner initiates TO0 with RV Server using the rvAddress present in Voucher.
 ***During TO0, the FDO Owner identifies itself to Rendezvous Server, establishes the mapping of GUID to the Owner IP address. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob.'***
 
+Make sure to replace `generated-password` with `api_password` property present in `component-samples/demo/<component>/creds.env` file.
 
-    curl -D - --digest -u apiUser:MfgApiPass123 -XGET http://localhost:8039/api/v1/vouchers/0 -o voucher
 
-    curl -D - --digest -u apiUser:OwnerApiPass123 --header "Content-Type: application/cbor" --data-binary @voucher http://localhost:8042/api/v1/owner/vouchers/
+    curl -D - --digest -u apiUser:generated-password -XGET http://localhost:8039/api/v1/vouchers/0 -o voucher
+
+    curl -D - --digest -u apiUser:generated-password --header "Content-Type: application/cbor" --data-binary @voucher http://localhost:8042/api/v1/owner/vouchers/
 
 **Make sure you are getting status `200 OK` for the curl calls. If you are facing issue with `localhost` curl calls, try with IP address instead of localhost.**
 
@@ -190,6 +239,8 @@ TO0 Response Wait for <guid> : 3600
 TO0 Client finished for GUID <guid>
 ```
 
+After the completion of TO0, RV Server having an entry in a table that associates the Device GUID with the Owner Address. During T01, the device collects this OwnerAddress from RV and uses this OwnerAddress to contact Owner for TO2 and completes onboarding.
+
 ***NOTE:***
         - [Keystore Management](#keystore-management) needs to be taken care, if PRI Rendezvous server and PRI Owner server is not running on the same machine.
         - **You can enable ServiceInfo at this stage.** [Follow the instructions](#enabling-serviceinfo-transfer) to enable ServiceInfo.
@@ -199,6 +250,7 @@ TO0 Client finished for GUID <guid>
 
 ***During T01, Device identifies itself to the Rendezvous Server. Obtains mapping to connect to the Owner’s IP address. During T02, the Device contacts Owner and establishes trust and then performs Ownership Transfer.***
 
+During T02,  Owner can transfer ServiceInfo modules to the device. These modules can include executable scripts, file payloads. [Read more](#enabling-serviceinfo-transfer) about serviceInfo transfers.
 
 ```
 cd <fdo-pri-src>/component-samples/demo/device
