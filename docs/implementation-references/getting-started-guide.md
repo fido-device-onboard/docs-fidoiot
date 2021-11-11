@@ -8,18 +8,61 @@ The FDO project provides an implementation of the [FIDO Device Onboard Specifica
    </center>
 </figure>
 
-***FDO (FIDO device onboard) provides a fast and more secure way to onboard a device to any device management system. A unique feature of FDO is the ability for the device owner to select the IoT platform at a late stage in the device life cycle. The secrets or configuration data may also be created or chosen at this late stage.***
+***FDO (FIDO device onboard) provides a fast and more secure way to onboard a device to any device management system. A unique feature of FDO is the ability for the device owner to select the IoT platform at a later stage in the device life cycle. The secrets or configuration data may also be created or chosen at this later stage.***
 
 This document provides a quick walk through the E2E flow. Included in this guide:
 
-- [Building FDO PRI Source](#building-fdo-pri-source)
 - [Quick Overview of FDO](#quick-overview-of-fdo)
+- [Building FDO PRI Source](#building-fdo-pri-source)
 - [Starting FDO Service Containers](#starting-fdo-server-side-containers)
 - [Running E2E for PRI device](#running-e2e-for-pri-device)
 - [Building Client-SDK Source](#building-client-sdk-source)
 - [Running E2E for Client-SDK device](#running-e2e-demo-for-fdo-client-sdk)
 - [Enabling ServiceInfo](#enabling-serviceinfo-transfer)
 - [Keystore Management](#keystore-management)
+
+
+## Quick Overview of FDO
+
+FDO contains 3 major server-side components and 1 client-side component.
+The server-side components include Manufacturer, RV & Owner Service.
+The client-side includes device implementation in Java (PRI) or C (Client-sdk-fidoiot).
+
+FDO consists of four sets of protocols namely **DI, TO0, TO1 & TO2**.
+
+1. **DI (Device Initialization protocol)**
+
+    - Between Device & Manufacturer (**msg 10-13**).
+    - Initiated by device and device contacts Manufacturer Service.
+    - Includes creation & insertion of FDO credentials into newly manufactured device. Credential includes RVInfo which is used by device to connect with RV during T01 protocol
+    - Customers can take ownership of device after DI by extending the Ownership voucher to a particular customer.
+    - Ownership voucher is a credential file, passed through the supply chain, that allows an Owner to verify the Device and gives the Device a mechanism to verify the Owner.
+
+
+2. **TO0 (Transfer of Ownership 0 Protocol)**
+
+    - Between Owner & Rendezvous (RV) server (**msg 20-23**).
+    - Initiated by Owner once it receives Ownership voucher and Owner contacts RV server.
+    - TO0 creates a mapping between GUID and owner address and is stored in RV server's database.
+    - Basically it creates a mapping like GUID=>OwnerAddress
+    - OwnerAddress can be DNS/IP or combination of both.
+
+
+3. **T01 (Transfer of Ownership 1 Protocol)**
+
+    - Between Device & Rendezvous (RV) server (**msg 30-33**).
+    - Initiated by Device. The Device contacts RV server using the rvInfo directives collected during DI.
+    - During T01, Device identifies itself to RV server and collects the respective mapping of Owner address based on its GUID. This mapping was stored in RV during TO0.
+    - The Device can use the collected OwnerAddress to contact Owner during TO2.
+
+
+4. **T02 (Transfer of Ownership 2 Protocol)**
+
+    - Between Device & Owner Server (**msg 60-71**)
+    - Initiated by Device using the OwnerAddress collected during TO1.
+    - Device contacts Owner Server and establishes trust and then performs Ownership Transfer.
+    - During T02, Owner can transfer ServiceInfo modules to the device. These modules can include executable scripts, file payloads and much more.
+
 
 ## Building FDO PRI Source
 
@@ -70,45 +113,6 @@ The build stage generates artifacts and stores them in `component-samples/demo` 
             [ERROR] WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
             [ERROR] WARNING: All illegal access operations will be denied in a future release
 
-## Quick Overview of FDO
-
-FDO contains 3 major server-side components and 1 client-side component.
-The server-side components include Manufacturer, RV & Owner Service.
-The client-side includes device implementation in Java (PRI) or C (Client-sdk-fidoiot).
-
-FDO consists of four sets of protocols namely **DI, TO0, TO1 & TO2**.
-
-1. **DI (Device Initialization protocol)**
-
-    - Between Device & Manufacturer (**msg 10-13**).
-    - Initiated by device and device contacts Manufacturer Service.
-    - Includes creation & insertion of FDO credentials into newly manufactured device. Credential includes rvInfo which is used by device to connect with RV during T01 protocol
-    - Customers can take ownership of device after DI by extending the Ownership voucher to a particular customer.
-
-
-2. **TO0 (Transfer of Ownership 0 Protocol)**
-
-    - Between Owner & Rendezvous (RV) server (**msg 20-23**).
-    - Initiated by Owner once it receives Ownership voucher and Owner contacts RV server.
-    - TO0 creates a mapping of GUID with owner address and is stored in RV server's DB.
-    - Basically it creates a mapping like GUID=>OwnerAddress
-    - OwnerAddress can be DNS/IP or combination of both.
-
-
-3. **T01 (Transfer of Ownership 1 Protocol)**
-
-    - Between Device & Rendezvous (RV) server (**msg 30-33**).
-    - Initiated by Device and contacts RV server using the rvInfo directives collected DI.
-    - During T01, Device identifies itself to RV server and collects the respective mapping of Owner address based on its GUID. This mapping was stored in RV during TO0.
-    - Finally, Device can contact Owner using the collected OwnerAddress during TO2.
-
-
-4. **T02 (Transfer of Ownership 2 Protocol)**
-
-    - Between Device & Owner Server (**msg 60-71**)
-    - Initiated by Device using the OwnerAddress collected during TO1.
-    - Device contacts Owner Server and establishes trust and then performs Ownership Transfer.
-    - During T02, Owner can transfer ServiceInfo modules to the device. These modules can include executable scripts, file payloads and much more.
 
 ## Starting FDO Server-side Containers
 
@@ -213,7 +217,7 @@ Expect the following line on successful DI completion.
 DI complete, GUID is <guid>
 ```
 
-**After completion of DI, the FDO credentials are stored into `credential.bin` file. The credentials file include `rvinfo` from manufacturer, which is later used by device to contact RV server, once it is powered on at the client side. Finally, the initialized device is boxed and sold to customers.**
+**After completion of DI, the FDO credentials are stored into `credential.bin` file. The credentials file includes `rvinfo` from manufacturer, which is later used by device to contact RV server, once it is powered on at the client side. The initialized device is then boxed and sold to customers.**
 
 !!!Additional_Configurations
         - Additional arguments for [configuring PRI device](https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-the-device-service).
@@ -231,7 +235,7 @@ DI complete, GUID is <guid>
 </figure>
 <br>
 
-**During TO0, the FDO Owner identifies itself to Rendezvous Server, establishes the mapping of GUID to the Owner IP address. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob.'**
+**During TO0, the FDO Owner identifies itself to Rendezvous Server and establishes the mapping between GUID and Owneraddress. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob.'**
 
 ```
 curl -D - --digest -u apiUser:generated-password -XGET http://localhost:8039/api/v1/vouchers/0 -o voucher
