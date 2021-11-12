@@ -235,7 +235,7 @@ DI complete, GUID is <guid>
 </figure>
 <br>
 
-**During TO0, the FDO Owner identifies itself to Rendezvous Server and establishes the mapping between GUID and Owneraddress. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob.'**
+**During TO0, the FDO Owner identifies itself to Rendezvous Server and establishes the mapping between GUID and Owneraddress. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob'. [Follow](https://github.com/secure-device-onboard/pri-fidoiot#ownership-voucher-creation) the given steps to access database table.**
 
 ```
 curl -D - --digest -u apiUser:generated-password -XGET http://localhost:8039/api/v1/vouchers/0 -o voucher
@@ -261,7 +261,7 @@ TO0 Response Wait for <guid> : 3600
 TO0 Client finished for GUID <guid>
 ```
 
-**After the completion of TO0, RV Server having an entry in a table that associates the Device GUID with the Owner Address. During T01, the device collects this OwnerAddress from RV and uses this OwnerAddress to contact Owner for TO2 and completes onboarding.**
+**After the completion of TO0, RV Server will have an entry in a table that associates the Device GUID with the Owner Address.**
 
 !!!NOTE
         - [Keystore Management](#keystore-management) needs to be taken care, if PRI Rendezvous server and PRI Owner server is not running on the same machine.
