@@ -1,6 +1,12 @@
 # Getting Started Guide
 
-The FDO project provides an implementation of the [FIDO Device Onboard Specification](https://fidoalliance.org/specs/FDO/fido-device-onboard-v1.0-ps-20210323/) by the FIDO Alliance.
+<style>
+.wy-nav-content {
+    max-width: 76% !important;
+}
+</style>
+
+The FDO project provides a reference implementation of the [FDO v1.1 Review Draft](https://fidoalliance.org/specs/FDO/FIDO-Device-Onboard-RD-v1.1-20211214/FIDO-device-onboard-spec-v1.1-rd-20211214.html/) by the FIDO Alliance.
 
 <figure markdown="1">
    <center>
@@ -68,8 +74,9 @@ FDO consists of four sets of protocols namely **DI, TO0, TO1 & TO2**.
 
 !!!Requirements
     - Check the [System Requirements](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/#system-requirements)
-    - If working behind a proxy, ensure to [set proper proxy](https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo#configuring-proxies) variables.
-    - [Follow the steps](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/) to setup Docker* environment.
+    - If working behind a proxy, ensure to [set proper proxy](proxy-settings.md) variables.
+    - [Follow the steps](https://docs.docker.com/engine/install/ubuntu/) to setup Docker* environment.
+    - [Follow the steps](installation/#running-the-docker-behind-a-proxy) to setup Docker* proxy.
     - [Follow the steps](../../implementation-references/proxy-settings/) to set the right proxy settings. (Includes documentation for system wide proxy configuration)
 
 1.&nbsp; Clone the PRI-fidoiot repository
@@ -192,8 +199,8 @@ Once the Owner instance has successfully started, the following output is displa
 
 !!!NOTES
       - Proper [keystore management](#keystore-management) to be considered before using the services in production environment.
-      - To0scheduling interval property can be modified in the component-sample/demo/owner/owner.env.
-      Update `owner_to0_scheduling_interval=30`
+      - To0scheduling interval property can be modified in the component-sample/demo/owner/service.yml.
+      Update to0-scheduler: `interval: 120`
       - [Read more](https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md) about starting PRI services.
 
 ## Running E2E for PRI Device
@@ -206,6 +213,9 @@ Once the Owner instance has successfully started, the following output is displa
 
    On a new console, key in the following commands
 
+!!!NOTES
+    Make sure that `di-url` is set to the correct address in `service.yml` of device. The default `di-url` value for standalone manufacturer is `http://localhost:8039`.
+
 ```
 cd <fdo-pri-src>/component-samples/demo/device
 java -jar device.jar
@@ -217,7 +227,7 @@ Expect the following line on successful DI completion.
 DI complete, GUID is <guid>
 ```
 
-**After completion of DI, the FDO credentials are stored into `credential.bin` file. The credentials file includes `rvinfo` from manufacturer, which is later used by device to contact RV server, once it is powered on at the client side. The initialized device is then boxed and sold to customers.**
+**After completion of DI, the FDO credentials are stored into `credentials.bin` file. The credentials file includes `rvinfo` from manufacturer, which is later used by device to contact RV server, once it is powered on at the client side. The initialized device is then boxed and sold to customers.**
 
 !!!Additional_Configurations
         - Additional arguments for [configuring PRI device](https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-the-device-service).
@@ -237,17 +247,33 @@ DI complete, GUID is <guid>
 
 **During TO0, the FDO Owner identifies itself to Rendezvous Server and establishes the mapping between GUID and Owneraddress. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob'. [Follow](https://github.com/secure-device-onboard/pri-fidoiot#ownership-voucher-creation) the given steps to access database table.**
 
-```
-curl -D - --digest -u apiUser:generated-password -XGET http://localhost:8039/api/v1/vouchers/0 -o voucher
+Execute the following script to initiate TO0.
 
-curl -D - --digest -u apiUser:generated-password --header "Content-Type: application/cbor" --data-binary @voucher http://localhost:8042/api/v1/owner/vouchers/
+```
+cd <fdo-pri-src>/component-samples/demo/scripts
+bash extend_upload.sh -s serial_no
+```
+
+or 
+
+Following the steps to manually initiate the T00.
+
+```
+curl -D - --digest -u ${api_user}:${owner_api_passwd} --location --request GET "http://${owner_ip}:${onr_port}/api/v1/certificate?alias=${attestation_type}" -H 'Content-Type: text/plain' -o owner_cert.txt
+
+curl -D - --digest -u ${api_user}:${mfg_api_passwd} --location --request POST "http://${mfg_ip}:${mfg_port}/api/v1/mfg/vouchers/${serial_no}" --header 'Content-Type: text/plain' --data-raw  "<content-of-owner_cert>" -o ${serial_no}_voucher.txt)
+
+curl -D - --digest -u ${api_user}:${onr_api_passwd} --location --request POST "http://${onr_ip}:${onr_port}/api/v1/owner/vouchers/" --header 'Content-Type: text/plain' --data-raw "$extended_voucher" -o ${serial_no}_guid.txt)
+
+curl -D - --digest -u ${api_user}:${onr_api_passwd} --location --request GET "http://${onr_ip}:${onr_port}/api/v1/to0/${device_guid}" --header 'Content-Type: text/plain')
+
 ```
 
 !!!Warning
-    Make sure to replace `generated-password` with `api_password` property present in `component-samples/demo/<component>/creds.env` file.
+    Make sure to replace `generated-password` with `api_password` property present in `component-samples/demo/<component>/service.env` file.
 
 
-Here, the initial curl call is to **collect the Ownership voucher** from Manufacturer server and the final curl call is to **upload the collected voucher** to Owner. Using the received voucher, Owner initiates TO0 with RV Server using the rvAddress present in Voucher.
+Here, the initial two curl calls are to **collect the Ownership voucher** from Manufacturer server and the final two curl calls are to **upload the collected voucher** to Owner. Using the received voucher, Owner initiates TO0 with RV Server using the rvAddress present in Voucher.
 
 !!!Warning
     Make sure you are getting status `200 OK` for the curl calls. If you are facing issue with `localhost` curl calls, try with IP address instead of localhost.**
@@ -257,7 +283,6 @@ Wait for TO0 finished for <guid> message in the Owner console. This generally ta
 Expect the following message on successful TO0 completion.
 
 ```
-TO0 Response Wait for <guid> : 3600
 TO0 Client finished for GUID <guid>
 ```
 
@@ -283,7 +308,7 @@ Wait for TO2 protocol completed message and Device is onboarded Successfully.
 Expect the following message on successful TO2 completion.
 
 ```
-TO2 complete, GUID is d43c6dc6...
+TO2 completed successfully.
 ```
 
 ## Building Client-SDK Source
@@ -337,9 +362,14 @@ cd <client-sdk-src>
 **During TO0, the FDO Owner identifies itself to Rendezvous Server, establishes the mapping of GUID to the Owner IP address. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob.'**
 
 ```
-curl -D - --digest -u apiUser:MfgApiPass123 -XGET http://localhost:8039/api/v1/vouchers/abcdef -o voucher
+curl -D - --digest -u ${api_user}:${owner_api_passwd} --location --request GET "http://${owner_ip}:${onr_port}/api/v1/certificate?alias=${attestation_type}" -H 'Content-Type: text/plain' -o owner_cert.txt
 
-curl -D - --digest -u apiUser:OwnerApiPass123 --header "Content-Type: application/cbor" --data-binary @voucher http://localhost:8042/api/v1/owner/vouchers/
+curl -D - --digest -u ${api_user}:${mfg_api_passwd} --location --request POST "http://${mfg_ip}:${mfg_port}/api/v1/mfg/vouchers/abcdef" --header 'Content-Type: text/plain' --data-raw  "<content-of-owner_cert>" -o voucher.txt)
+
+curl -D - --digest -u ${api_user}:${onr_api_passwd} --location --request POST "http://${onr_ip}:${onr_port}/api/v1/owner/vouchers/" --header 'Content-Type: text/plain' --data-raw "$extended_voucher" -o ${serial_no}_guid.txt)
+
+curl -D - --digest -u ${api_user}:${onr_api_passwd} --location --request GET "http://${onr_ip}:${onr_port}/api/v1/to0/${device_guid}" --header 'Content-Type: text/plain')
+
 ```
 
 !!!Warning
@@ -356,7 +386,6 @@ Wait for TO0 to finish for <guid> message on the Owner console.
 Expect the following message on successful TO0 completion.
 
 ```
-TO0 Response Wait for <guid> : 3600
 TO0 Client finished for GUID <guid>
 ```
 
@@ -388,15 +417,6 @@ Device onboarded successfully.
 
 ## Enabling ServiceInfo Transfer
 
-1. Activating ServiceInfo Module.
-
-        $ curl --location --digest -u apiUser:OwnerApiPass123 --request PUT 'http://localhost:8042/api/v1/device/svi?module=fdo_sys&var=active&priority=0&bytes=F5' --header 'Content-Type: application/octet-stream'
-
-   In this example, we are activating fdo_sys module.
-   http://localhost:8042 can be changed with the IP address of the owner.
-
-
-&nbsp;2. Transferring payload or executable resource for a specific type of device.
 
 - Create a sample linux64.sh shell script.
 
@@ -415,22 +435,13 @@ Device onboarded successfully.
 
    This script downloads the SECURITY.md file and checks the integrity of file against the pre-computed checksum value.
 
--  Curl command to transfer executable resource.
+-  cURL command to transfer executable resource.
 
-            $ curl --location --digest -u apiUser:OwnerApiPass123 --request PUT 'http://localhost:8042/api/v1/device/svi?module=fdo_sys&var=filedesc&priority=1&filename=linux64.sh&device=FDO-Pri-Device' --header 'Content-Type: application/octet-stream' --data-binary '@path-to-executable/linux64.sh'
+            $ curl --location --digest -u apiUser: --location --request POST 'http://localhost:8080/api/v1/owner/resource?filename=linux64.sh' --header 'Content-Type: text/plain' --data-binary '@path-to-executable/linux64.sh'
 
-- for Client-SDK devices, update device parameter to `Intel-FDO-Linux`. Eg:
+- cURL command to update ServiceInfo instructions. Eg:
 
-            $ curl --location --digest -u apiUser:OwnerApiPass123 --request PUT 'http://localhost:8042/api/v1/device/svi?module=fdo_sys&var=filedesc&priority=1&filename=linux64.sh&device=Intel-FDO-Linux' --header 'Content-Type: application/octet-stream' --data-binary '@path-to-executable/linux64.sh'
-
-
-&nbsp;3. Curl command to add exec command on the transferred script
-
-            $ curl --location --digest -u apiUser:OwnerApiPass123 --request PUT 'http://localhost:8042/api/v1/device/svi?module=fdo_sys&var=exec&guid=<guid-of-device>&priority=2&bytes=82672F62696E2F73686A6C696E757836342E7368' --header 'Content-Type: application/octet-stream'
-
-***NOTE:***
-        bytes parameter is the cbor equivalent of ./linux64.sh.
-        You can skip step 3, if you are just transferring a payload.
+            $ curl -D - --digest -u apiUser: --location --request POST 'http://localhost:8080/api/v1/owner/svi' --header 'Content-Type: text/plain' --data-raw '[{\"filedesc\" : \"payload.bin\",\"resource\" : \"payload.bin\"},{\"filedesc\" : \"linux64.sh\",\"resource\" : \"linux64.sh\"},{\"exec\" : [\"/bin/bash\",\"linux64.sh\"]}]'
 
 ## Keystore Management
 
