@@ -14,7 +14,7 @@ site_url: 'https://secure-device-onboard.github.io/docs-fidoiot/'
 copyright: 'Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license'
 
 theme:
-  name: 'material'
+  name: 'readthedocs'
   logo: 'images/securedeviceonboard-icon-color.png'
   extra:
   search:
