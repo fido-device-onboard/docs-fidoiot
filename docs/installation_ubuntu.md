@@ -1,12 +1,12 @@
 
-# Installation Guide
-This document can be used as a quick start guide to setup the development environment. Please review the system requirements listed below before moving forward with the SDO installation and deployment.
+# Installation Guide (Ubuntu)
+This document can be used as a quick start guide to setup the development environment. Please review the system requirements listed below before moving forward with the FDO installation and deployment.
 
 ## System Requirements
 
 | Component | Recommended |
 |------- |------|
-| Operating System | Ubuntu\* 20.04 / Windows\* 10 |
+| Operating System | Ubuntu\* 20.04 |
 | Docker* Engine | 18.09 |
 | Docker* Compose | 1.21.2 |
 | Maven* | 3.5.4 |
@@ -96,7 +96,7 @@ sudo systemctl restart docker
 ```
 sudo systemctl show --property Environment docker
 ```
-7 . SDO Docker* FAQs
+7 . FDO Docker* FAQs
 
   1. Docker* Time Synchronization Issue while building Ubuntu* 20 docker image from an Ubuntu* 18 machine. [Refer](https://github.com/secure-device-onboard/all-in-one-demo/issues/62)
 
