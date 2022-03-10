@@ -1,3 +1,9 @@
+<style>
+.wy-nav-content {
+    max-width: 100% !important;
+}
+</style>
+
 The FDO project is developing an implementation of the [FIDO Device Onboard Specification](https://fidoalliance.org/specs/FDO/fido-device-onboard-v1.0-ps-20210323/) by the FIDO Alliance.
 
 The [FDO PRI](https://github.com/secure-device-onboard/pri-fidoiot) is a reference implementation of the FDO Specification, and also implements the service modules required to exercise the complete system: Device, Manufacturer, Rendezvous Server, and Owner.
