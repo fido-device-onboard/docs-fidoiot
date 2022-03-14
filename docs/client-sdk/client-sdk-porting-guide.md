@@ -1,3 +1,4 @@
+
 ## Porting Guide
 This document provides a guide to porting the Client SDK to new platforms.
 
@@ -184,7 +185,7 @@ SUPPORTED_AES_MODE = gcm ccm
 
 ***NOTE:*** tpm20_ecdsa256 isn’t a separate algorithm, it uses ecdsa256 as Device Attestation, but uses TPM2.0 to generate keys and store data.
 
-***NOTE:*** The Public Key Encoding supported in COSEX509.
+***NOTE:*** The Public Key Encoding supported in X509.
 
   * **SUPPORTED_AES_MODE:** This specifies the AES mode of encryption supported by device. The device supports GCM and CCM. The following configurations are supported as per the Device Attestation algorithm: A128GCM, A256GCM, AES-CCM-64-128-128, and AES-CCM-64-128-256.
 
@@ -346,14 +347,14 @@ The usage of this define is detailed in `crypto_hal_hmac()`.
 
 #### FDO_CRYPTO_PUB_KEY_ENCODING
 ```
-#define FDO_CRYPTO_PUB_KEY_ENCODING_COSEX509    2
+#define FDO_CRYPTO_PUB_KEY_ENCODING_X509 1
 ```
 The usage of this define is detailed in `crypto_hal_sig_verify()`.
 
 #### FDO_CRYPTO_PUB_KEY_ALGO
 ```
-#define FDO_CRYPTO_PUB_KEY_ALGO_ECDSAp256 -7
-#define FDO_CRYPTO_PUB_KEY_ALGO_ECDSAp384 -35
+#define FDO_CRYPTO_PUB_KEY_ALGO_ECDSAp256 10
+#define FDO_CRYPTO_PUB_KEY_ALGO_ECDSAp384 11
 ```
 The usage of this define is detailed in `crypto_hal_sig_verify()`.
 
@@ -554,7 +555,7 @@ This function verifies the ECDSA signature pointed by `message_signature` of siz
 
 *Parameters*
 
-`key_encoding:` FDO_CRYPTO_PUB_KEY_ENCODING_COSEX509 encoding is used for ECDSA. Please refer FDO_CRYPTO_PUB_KEY_ENCODING
+`key_encoding:` FDO_CRYPTO_PUB_KEY_ENCODING_X509 encoding is used for ECDSA. Please refer FDO_CRYPTO_PUB_KEY_ENCODING
 
 `key_algorithm:` FDO_CRYPTO_PUB_KEY_ALGO_(ECDSAp256/ECDSAp384) is used for ECDSA. Please refer FDO_CRYPTO_PUB_KEY_ALGO
 
