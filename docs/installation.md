@@ -79,7 +79,7 @@ sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-c
 ```
 sudo chmod +x /usr/bin/docker-compose
 ```
-3 . To ensure that the required version is installed, run ` docker-compose --version` command
+3 . To ensure that the required version is installed, run ` docker-compose --version` command.
 
 ## Other Development Tools
 
@@ -105,7 +105,7 @@ sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -
 
 Ensure that the system time is correct, else you will receive the certificate expiration error.
 
-Change Google* domain according to your location.
+Change the Google* domain according to your location.
 
 ## References
 
