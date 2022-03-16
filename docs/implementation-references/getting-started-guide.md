@@ -31,10 +31,10 @@ This document provides a quick walk through the E2E flow. Included in this guide
 ## Quick Overview of FDO
 
 FDO contains 3 major server-side components and 1 client-side component.
-The server-side components include Manufacturer, RV & Owner Service.
+The server-side components include Manufacturer, RV, and Owner Service.
 The client-side includes device implementation in Java (PRI) or C (Client-sdk-fidoiot).
 
-FDO consists of four sets of protocols namely **DI, TO0, TO1 & TO2**.
+FDO consists of four sets of protocols namely **DI, TO0, TO1, & TO2**.
 
 1. **DI (Device Initialization protocol)**
 
@@ -67,7 +67,7 @@ FDO consists of four sets of protocols namely **DI, TO0, TO1 & TO2**.
     - Between Device & Owner Server (**msg 60-71**)
     - Initiated by Device using the OwnerAddress collected during TO1.
     - Device contacts Owner Server and establishes trust and then performs Ownership Transfer.
-    - During T02, Owner can transfer ServiceInfo modules to the device. These modules can include executable scripts, file payloads and much more.
+    - During T02, Owner can transfer ServiceInfo modules to the device. These modules can include executable scripts, file payloads, and much more.
 
 
 ## Building FDO PRI Source
@@ -335,7 +335,7 @@ cd <client-sdk-src>
 
 The build script generates artifacts and stores them in `./build/` directory.
 
-## Running E2E demo for FDO Client-SDK
+## Running E2E Demo for FDO Client-SDK
 
 ##### 1. [Start FDO Service Containers](#starting-fdo-server-side-containers).
 
