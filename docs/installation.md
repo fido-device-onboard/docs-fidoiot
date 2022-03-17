@@ -1,12 +1,12 @@
 
-# Installation Guide (Ubuntu)
+# Installation Guide
 This document can be used as a quick start guide to setup the development environment. Please review the system requirements listed below before moving forward with the FDO installation and deployment.
 
 ## System Requirements
 
 | Component | Recommended |
 |------- |------|
-| Operating System | Ubuntu\* 20.04 |
+| Operating System | Ubuntu\* 20.04 / Windows\* 10 |
 | Docker* Engine | 18.09 |
 | Docker* Compose | 1.21.2 |
 | Maven* | 3.5.4 |
@@ -14,42 +14,8 @@ This document can be used as a quick start guide to setup the development enviro
 | Haveged | - |
 
 ## Docker* Installation
-1 . Removing the older versions of Docker*. If these are installed, uninstall them:
-```
-sudo apt-get remove docker docker-engine docker.io containerd runc
-```
-2 . Update the `apt` package index and install packages to allow `apt` to use a repository over HTTPS:
-```
- sudo apt-get update
- sudo apt-get install \
-      apt-transport-https \
-      ca-certificates \
-      curl \
-      gnupg \
-      lsb-release
-```
 
-***NOTE:*** If you are working behind a proxy, ensure to set proper proxy variables.
-
-3 . Add official GPG key for Docker*:
-```
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-```
-4 . Use the following command to set up the **stable** repository.
-```
-echo \
-  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-```
-5 . Update the `apt` package index and install the Docker* Engine 18.09
-```
-sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io
-```
-6 . Verify that Docker* Engine is installed correctly by running the `hello-world` image.
-```
-sudo docker run hello-world
-```
+[Follow the steps](https://docs.docker.com/engine/install/ubuntu/) to setup Docker* environment.
 
 ### Running the Docker* Behind a Proxy
 

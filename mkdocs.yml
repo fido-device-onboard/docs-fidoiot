@@ -37,7 +37,7 @@ nav:
     - Community: community.md
     - Releases: releases.md
     - Security Best Practices: security-best-practices.md
-    - Installation Guide (Ubuntu): installation_ubuntu.md
+    - Installation Guide: installation.md
     - Installation Guide (RHEL): installation_rhel.md
     - Protocol Specification: protocol-specification.md
   - PRI:
