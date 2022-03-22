@@ -31,15 +31,15 @@ This document provides a quick walk through the E2E flow. Included in this guide
 ## Quick Overview of FDO
 
 FDO contains 3 major server-side components and 1 client-side component.
-The server-side components include Manufacturer, RV & Owner Service.
+The server-side components include Manufacturer, RV, and Owner Service.
 The client-side includes device implementation in Java (PRI) or C (Client-sdk-fidoiot).
 
-FDO consists of four sets of protocols namely **DI, TO0, TO1 & TO2**.
+FDO consists of four sets of protocols namely **DI, TO0, TO1, and TO2**.
 
 1. **DI (Device Initialization protocol)**
 
     - Between Device & Manufacturer (**msg 10-13**).
-    - Initiated by device and device contacts Manufacturer Service.
+    - Initiated by Device and device contacts Manufacturer Service.
     - Includes creation & insertion of FDO credentials into newly manufactured device. Credential includes RVInfo which is used by device to connect with RV during T01 protocol
     - Customers can take ownership of device after DI by extending the Ownership voucher to a particular customer.
     - Ownership voucher is a credential file, passed through the supply chain, that allows an Owner to verify the Device and gives the Device a mechanism to verify the Owner.
@@ -67,14 +67,14 @@ FDO consists of four sets of protocols namely **DI, TO0, TO1 & TO2**.
     - Between Device & Owner Server (**msg 60-71**)
     - Initiated by Device using the OwnerAddress collected during TO1.
     - Device contacts Owner Server and establishes trust and then performs Ownership Transfer.
-    - During T02, Owner can transfer ServiceInfo modules to the device. These modules can include executable scripts, file payloads and much more.
+    - During T02, Owner can transfer ServiceInfo modules to the device. These modules can include executable scripts, file payloads, and much more.
 
 
 ## Building FDO PRI Source
 
 !!!Requirements
     - Check the [System Requirements](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/#system-requirements)
-    - If working behind a proxy, ensure to [set proper proxy](proxy-settings.md) variables.
+    - When working behind a proxy, ensure to [set proper proxy](proxy-settings.md) variables.
     - [Follow the steps](https://docs.docker.com/engine/install/ubuntu/) to setup Docker* environment.
     - [Follow the steps](installation/#running-the-docker-behind-a-proxy) to setup Docker* proxy.
     - [Follow the steps](../../implementation-references/proxy-settings/) to set the right proxy settings. (Includes documentation for system wide proxy configuration)
@@ -335,7 +335,7 @@ cd <client-sdk-src>
 
 The build script generates artifacts and stores them in `./build/` directory.
 
-## Running E2E demo for FDO Client-SDK
+## Running E2E Demo for FDO Client-SDK
 
 ##### 1. [Start FDO Service Containers](#starting-fdo-server-side-containers).
 
