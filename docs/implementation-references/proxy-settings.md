@@ -1,8 +1,8 @@
 # Proxy Settings for Running FDO
 
-This document lists the different proxy settings that need to be set. 
+This document lists the different proxy settings that needs to be set. 
 
-## Script to automate proxy setup.
+## Script to Automate Proxy Setup
 
 ```shell
 #!/bin/bash
@@ -124,7 +124,7 @@ echo "Restart the session for proxies to take effect."
 
 ## In .bashrc
 
-Add this line 
+Add this line: 
 
 ```
 export _JAVA_OPTIONS="-Dhttp.proxyHost=<proxy host> -Dhttp.proxyPort=<port> -Dhttps.proxyHost=<proxy host> -Dhttps.proxyPort=<port>"
@@ -167,7 +167,7 @@ http://maven.apache.org/xsd/settings-1.0.0.xsd">
 
 ## In Dockerfile 
 
-After successful PRI build, add the proxy settings to the Dockerfile file in the path <fdo-pri-src>/component-samples/demo/<rv/owner/manufacturer>
+After successful PRI build, add the proxy settings to the Dockerfile file in the path <fdo-pri-src>/component-samples/demo/<rv/owner/manufacturer> .
 
 ```
 ENV http_proxy <proxy host>:<port>
@@ -177,4 +177,4 @@ ENV https_proxy <proxy host>:<port>
 
 ## Proxy Settings for Docker* 
 
-Follow the proxy settings detailed [here](#https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/) 
+Follow the proxy settings detailed [here](#https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/). 
