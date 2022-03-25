@@ -2,7 +2,7 @@
 
 This document lists the different proxy settings that need to be set. 
 
-## Script to automate proxy setup.
+## Script to Automate Proxy Setup
 
 ```shell
 #!/bin/bash
@@ -45,7 +45,7 @@ http_proxy_port=$(echo $http_proxy | awk -F':' {'print $3'} | tr -d '/')
 https_proxy_host=$(echo $https_proxy | awk -F':' {'print $2'} | tr -d '/')
 https_proxy_port=$(echo $https_proxy | awk -F':' {'print $3'} | tr -d '/')
 
-_JAVA_OPTIONS="-Dhttp.proxyHost=$http_proxy_host -Dhttp.proxyPort=$http_proxy_port -Dhttps.proxyHost=$https_proxy_host -Dhttps.proxyPort=$https_proxy_port -Dhttp.nonProxyHosts=localhost|127.0.0.1|*.intel.com|$sys_ip_addr"
+_JAVA_OPTIONS="-Dhttp.proxyHost=$http_proxy_host -Dhttp.proxyPort=$http_proxy_port -Dhttps.proxyHost=$https_proxy_host -Dhttps.proxyPort=$https_proxy_port -Dhttp.nonProxyHosts=localhost|127.0.0.1|*.mycompany.com|$sys_ip_addr"
 
 # OS-Level Proxy Settings
 
@@ -105,8 +105,8 @@ if [ -x "$(command -v docker)" ]; then
    echo "        \"default\":" >> config.json
    echo "        {" >> config.json
    echo "            \"httpProxy\": \"$http_proxy\"," >> config.json
-   echo "            \"httpsProxy\": \"$https_proxy\"" >> config.json
-   echo "            \"noProxy\": \"*.iind.intel.com,127.0.0.1,localhost,$sys_ip_addr\"" >> config.json
+   echo "            \"httpsProxy\": \"$https_proxy\"," >> config.json
+   echo "            \"noProxy\": \"*.mycompany.com,127.0.0.1,localhost,$sys_ip_addr\"" >> config.json
    echo "        }" >> config.json
    echo "    }" >> config.json
    echo "}" >> config.json
@@ -124,7 +124,7 @@ echo "Restart the session for proxies to take effect."
 
 ## In .bashrc
 
-Add this line 
+Add this line: 
 
 ```
 export _JAVA_OPTIONS="-Dhttp.proxyHost=<proxy host> -Dhttp.proxyPort=<port> -Dhttps.proxyHost=<proxy host> -Dhttps.proxyPort=<port>"
@@ -167,7 +167,7 @@ http://maven.apache.org/xsd/settings-1.0.0.xsd">
 
 ## In Dockerfile 
 
-After successful PRI build, add the proxy settings to the Dockerfile file in the path <fdo-pri-src>/component-samples/demo/<rv/owner/manufacturer>
+After successful PRI build, add the proxy settings to the Dockerfile file in the path <fdo-pri-src>/component-samples/demo/<rv/owner/manufacturer>.
 
 ```
 ENV http_proxy <proxy host>:<port>
@@ -177,4 +177,4 @@ ENV https_proxy <proxy host>:<port>
 
 ## Proxy Settings for Docker* 
 
-Follow the proxy settings detailed [here](#https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/) 
+Follow the proxy settings detailed [here](#https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/). 
