@@ -1,86 +1,224 @@
-***NOTE***: This is a preliminary implementation of the [FIDO Device Onboard Spec](https://fidoalliance.org/specs/FDO/fido-device-onboard-v1.0-ps-20210323/) published by the FIDO Alliance.
-The implementation is experimental and incomplete, and is not ready for use in any production capacity. Some cryptographic algorithms and encoding formats have
-not been implemented, and any aspect of this implementation is subject to change.
-
 # Getting Started Guide
 
-Quick walk through the E2E flow, so you can get started. Included in this guide:
+<style>
+.wy-nav-content {
+    max-width: 76% !important;
+}
+</style>
 
+The FDO project provides a reference implementation of the [FDO v1.1 Review Draft](https://fidoalliance.org/specs/FDO/FIDO-Device-Onboard-RD-v1.1-20211214/FIDO-device-onboard-spec-v1.1-rd-20211214.html/) by the FIDO Alliance.
+
+<figure markdown="1">
+   <center>
+        <img src="../../images/securedeviceonboard-icon-color.png" width="40%" />
+   </center>
+</figure>
+
+***FDO (FIDO device onboard) provides a fast and more secure way to onboard a device to any device management system. A unique feature of FDO is the ability for the device owner to select the IoT platform at a later stage in the device life cycle. The secrets or configuration data may also be created or chosen at this later stage.***
+
+This document provides a quick walk through the E2E flow. Included in this guide:
+
+- [Quick Overview of FDO](#quick-overview-of-fdo)
 - [Building FDO PRI Source](#building-fdo-pri-source)
-- [Starting FDO Service Containers](#starting-fdo-service-containers)
+- [Starting FDO Service Containers](#starting-fdo-server-side-containers)
 - [Running E2E for PRI device](#running-e2e-for-pri-device)
 - [Building Client-SDK Source](#building-client-sdk-source)
-- [Running E2E for Client-SDK device](#running-e2e-for-client-sdk-device)
+- [Running E2E for Client-SDK device](#running-e2e-demo-for-fdo-client-sdk)
 - [Enabling ServiceInfo](#enabling-serviceinfo-transfer)
 - [Keystore Management](#keystore-management)
 
+
+## Quick Overview of FDO
+
+FDO contains 3 major server-side components and 1 client-side component.
+The server-side components include Manufacturer, RV & Owner Service.
+The client-side includes device implementation in Java (PRI) or C (Client-sdk-fidoiot).
+
+FDO consists of four sets of protocols namely **DI, TO0, TO1 & TO2**.
+
+1. **DI (Device Initialization protocol)**
+
+    - Between Device & Manufacturer (**msg 10-13**).
+    - Initiated by device and device contacts Manufacturer Service.
+    - Includes creation & insertion of FDO credentials into newly manufactured device. Credential includes RVInfo which is used by device to connect with RV during T01 protocol
+    - Customers can take ownership of device after DI by extending the Ownership voucher to a particular customer.
+    - Ownership voucher is a credential file, passed through the supply chain, that allows an Owner to verify the Device and gives the Device a mechanism to verify the Owner.
+
+
+2. **TO0 (Transfer of Ownership 0 Protocol)**
+
+    - Between Owner & Rendezvous (RV) server (**msg 20-23**).
+    - Initiated by Owner once it receives Ownership voucher and Owner contacts RV server.
+    - TO0 creates a mapping between GUID and owner address and is stored in RV server's database.
+    - Basically it creates a mapping like GUID=>OwnerAddress
+    - OwnerAddress can be DNS/IP or combination of both.
+
+
+3. **T01 (Transfer of Ownership 1 Protocol)**
+
+    - Between Device & Rendezvous (RV) server (**msg 30-33**).
+    - Initiated by Device. The Device contacts RV server using the rvInfo directives collected during DI.
+    - During T01, Device identifies itself to RV server and collects the respective mapping of Owner address based on its GUID. This mapping was stored in RV during TO0.
+    - The Device can use the collected OwnerAddress to contact Owner during TO2.
+
+
+4. **T02 (Transfer of Ownership 2 Protocol)**
+
+    - Between Device & Owner Server (**msg 60-71**)
+    - Initiated by Device using the OwnerAddress collected during TO1.
+    - Device contacts Owner Server and establishes trust and then performs Ownership Transfer.
+    - During T02, Owner can transfer ServiceInfo modules to the device. These modules can include executable scripts, file payloads and much more.
+
+
 ## Building FDO PRI Source
 
-!!! NOTE
+!!!Requirements
+    - Check the [System Requirements](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/#system-requirements)
+    - If working behind a proxy, ensure to [set proper proxy](proxy-settings.md) variables.
+    - [Follow the steps](https://docs.docker.com/engine/install/ubuntu/) to setup Docker* environment.
+    - [Follow the steps](installation/#running-the-docker-behind-a-proxy) to setup Docker* proxy.
+    - [Follow the steps](../../implementation-references/proxy-settings/) to set the right proxy settings. (Includes documentation for system wide proxy configuration)
+
+1.&nbsp; Clone the PRI-fidoiot repository
+```
+git clone https://github.com/secure-device-onboard/pri-fidoiot.git
+```
+
+2.&nbsp; Build PRI-fidoiot:
+
+!!!NOTES
     For the instructions in this document, `<fdo-pri-src>` refers to the path of the FDO PRI folder 'pri-fidoiot'.
+    [Read more](https://github.com/secure-device-onboard/pri-fidoiot#building-fdo-pri-source) about PRI source building.
 
-FDO PRI source can be built in two ways:
+FDO PRI source can be **built in two ways**:
 
-1. Using the maven build system to build FDO PRI source.
-
-```
-$ cd <fdo-pri-src>
-$ mvn clean install
-```
-
-2.&nbsp;Using docker container to build FDO PRI source
+1. Using the **Maven build system** to build FDO PRI source.
 
 ```
-$ cd <fdo-pri-src>/build
-$ sudo docker-compose up --build
+cd <fdo-pri-src>
+mvn clean install
+```
+
+2.&nbsp;Using **Docker container** to build FDO PRI source
+
+```
+cd <fdo-pri-src>/build
+sudo docker-compose up --build
 ```
 
 The build stage generates artifacts and stores them in `component-samples/demo` directory.
 
-!!! NOTE
-    - If working behind a proxy,ensure to set proper proxy variables.
-    - [Follow the steps](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/) to setup Docker* environment.
-    - [Read more](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/) about PRI source building.
+!!!WARNING
 
-## Starting FDO Service Containers
+    During the build stage, the following error messages may be displayed on the console. These error messages
+    are a result of the discrepancy of logging levels during the build stage and can be ignored.
+
+            [ERROR] Picked up _JAVA_OPTIONS: -Dhttp.proxyHost= -Dhttp.proxyPort= -Dhttps.proxyHost= -Dhttps.proxyPort=
+            [ERROR] WARNING: An illegal reflective access operation has occurred
+            [ERROR] WARNING: Illegal reflective access by org.apache.catalina.loader.WebappClassLoaderBase to field java.io.ObjectStreamClass$Caches.localDescs
+            [ERROR] WARNING: Please consider reporting this to the maintainers of org.apache.catalina.loader.WebappClassLoaderBase
+            [ERROR] WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+            [ERROR] WARNING: All illegal access operations will be denied in a future release
+
+
+## Starting FDO Server-side Containers
+
+<figure>
+  <center>
+  <img src="../../images/entities.png"/>
+  <figcaption> FIDO Device Onboard Entities and Entity Interconnection </figcaption>
+  </center>
+</figure>
+<br>
+
+### Key Generation for FDO Server-side Containers
+
+Run the below commands to generate all the required keys for the Server-side containers.
+
+```
+cd <fdo-pri-src>/component-samples/demo/scripts/
+bash keys_gen.sh .
+cp -r creds/* ../
+```
+
+All the generated keys are now copied to the respective components.
 
 ### Starting the FDO PRI Manufacturer Server
 
+***FDO Manufacturer is an application that runs in the factory, which implements the initial communications with the Device, as part of the Device Initialize Protocol (DI). The manufacturer creates an Ownership Voucher based on the credentials received during DI and extends the voucher to the respective owner.***    
+
+Run the below commands, in a separate console, to start the Manufacturer.
+
 ```
-$ cd <fdo-pri-src>/component-samples/demo/manufacturer/
-$ sudo docker-compose up --build
-```
+cd <fdo-pri-src>/component-samples/demo/manufacturer/
+sudo docker-compose up --build
+```   
+Once the Manufacturer has successfully started, the following output is displayed
+<figure>
+  <center>
+  <img src="../../images/manufacturer.png"/>
+  <figcaption> Manufacturer getting started </figcaption>
+  </center>
+</figure>
 
 ### Starting the FDO PRI Rendezvous (RV) Server
 
+***RV Server is a network server or service (For example, on the Internet) that acts as a rendezvous point between a newly powered on Device and the Owner Onboarding Service.***   
+
+Run the below commands, on a seperate console, to start the RV server.
+
 ```
-$ cd <fdo-pri-src>/component-samples/demo/rv/
-$ sudo docker-compose up --build
+cd <fdo-pri-src>/component-samples/demo/rv/
+sudo docker-compose up --build
 ```
+Once the RV instance has successfully started, the following output is displayed
+<figure>
+  <center>
+  <img src="../../images/rv.png"/>
+  <figcaption>RV getting started </figcaption>
+  </center>
+</figure>
 
 ###Starting the FDO PRI Owner Server
 
-```
-$ cd <fdo-pri-src>/component-samples/demo/owner/
-$ sudo docker-compose up --build
-```
+***Owner is an entity that is able to prove ownership to the Device using an Ownership Voucher and a private key for the last entry of the Ownership Voucher. Owner supports the transfer of Serviceinfo to the Device.***   
 
-!!!NOTE
-    - Proper [keystore management](#keystore-management) to be considered before using the services in production environment.
-    - To0scheduling interval property can be modified in the component-sample/demo/owner/owner.env.
-      Update `owner_to0_scheduling_interval=30`
-    - [Read more](https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md) about starting PRI services.
-
-## Running E2E for PRI device
-
-1. Follow the above [instructions](#starting-fdo-service-containers) to start FDO Service Containers.
-
-
-2. Start Device Initialization (DI)
+Run the below commands, on a separate console, to start the Owner Server.
 
 ```
-$ cd <fdo-pri-src>/component-samples/demo/device
-$ java -jar device.jar
+cd <fdo-pri-src>/component-samples/demo/owner/
+sudo docker-compose up --build
+```
+Once the Owner instance has successfully started, the following output is displayed
+<figure>
+ <center>
+  <img src="../../images/owner.png"/>
+  <figcaption> Owner getting started </figcaption>
+ </center>
+</figure>
+
+!!!NOTES
+      - Proper [keystore management](#keystore-management) to be considered before using the services in production environment.
+      - To0scheduling interval property can be modified in the component-sample/demo/owner/service.yml.
+      Update to0-scheduler: `interval: 120`
+      - [Read more](https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md) about starting PRI services.
+
+## Running E2E for PRI Device
+
+1. #####[Start FDO Service Containers](#starting-fdo-server-side-containers).
+
+2. #####Start Device Initialization (DI)
+
+   **When DI is initiated, device contacts manufacturer. DI includes the insertion of FDO credentials into device during the manufacturing process and creation of ownership voucher.**
+
+   On a new console, key in the following commands
+
+!!!NOTES
+    Make sure that `di-url` is set to the correct address in `service.yml` of device. The default `di-url` value for standalone manufacturer is `http://localhost:8039`.
+
+```
+cd <fdo-pri-src>/component-samples/demo/device
+java -jar device.jar
 ```
 
 Expect the following line on successful DI completion.
@@ -89,108 +227,181 @@ Expect the following line on successful DI completion.
 DI complete, GUID is <guid>
 ```
 
-!!! NOTE
-    - Additional arguments for [configuring PRI device](https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-the-device-service).
-    - Configuring PRI device for [HTTPS/TLS communication](https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md).
-    - [Read more](https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/device/README.md) about Device Intialization.
+**After completion of DI, the FDO credentials are stored into `credentials.bin` file. The credentials file includes `rvinfo` from manufacturer, which is later used by device to contact RV server, once it is powered on at the client side. The initialized device is then boxed and sold to customers.**
+
+!!!Additional_Configurations
+        - Additional arguments for [configuring PRI device](https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-the-device-service).
+        - Configuring PRI device for [HTTPS/TLS communication](https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-device-for-httpstls-communication).
+        - [Read more](https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/device/README.md) about Device Intialization.
 
 
-3.&nbsp;Voucher Extension for PRI device
+#####Voucher Extension & TO0 for PRI Device
 
-    $ curl -D - --digest -u apiUser:MfgApiPass123 -XGET http://localhost:8039/api/v1/vouchers/0 -o voucher
+<figure>
+  <center>
+  <img src="../../images/slide3.png"/>
+  <figcaption>Voucher extension</figcaption>
+  </center>
+</figure>
+<br>
 
-    $ curl -D - --digest -u apiUser:OwnerApiPass123 --header "Content-Type: application/cbor" --data-binary @voucher http://localhost:8042/api/v1/owner/vouchers/
+**During TO0, the FDO Owner identifies itself to Rendezvous Server and establishes the mapping between GUID and Owneraddress. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob'. [Follow](https://github.com/secure-device-onboard/pri-fidoiot#ownership-voucher-creation) the given steps to access database table.**
 
-Wait for TO0 finished for <guid> message in the Owner console.
+Execute the following script to initiate TO0.
+
+```
+cd <fdo-pri-src>/component-samples/demo/scripts
+bash extend_upload.sh -s serial_no
+```
+
+or 
+
+Following the steps to manually initiate the T00.
+
+```
+curl -D - --digest -u ${api_user}:${owner_api_passwd} --location --request GET "http://${owner_ip}:${onr_port}/api/v1/certificate?alias=${attestation_type}" -H 'Content-Type: text/plain' -o owner_cert.txt
+
+curl -D - --digest -u ${api_user}:${mfg_api_passwd} --location --request POST "http://${mfg_ip}:${mfg_port}/api/v1/mfg/vouchers/${serial_no}" --header 'Content-Type: text/plain' --data-raw  "<content-of-owner_cert>" -o ${serial_no}_voucher.txt)
+
+curl -D - --digest -u ${api_user}:${onr_api_passwd} --location --request POST "http://${onr_ip}:${onr_port}/api/v1/owner/vouchers/" --header 'Content-Type: text/plain' --data-raw "$extended_voucher" -o ${serial_no}_guid.txt)
+
+curl -D - --digest -u ${api_user}:${onr_api_passwd} --location --request GET "http://${onr_ip}:${onr_port}/api/v1/to0/${device_guid}" --header 'Content-Type: text/plain')
+
+```
+
+!!!Warning
+    Make sure to replace `generated-password` with `api_password` property present in `component-samples/demo/<component>/service.env` file.
+
+
+Here, the initial two curl calls are to **collect the Ownership voucher** from Manufacturer server and the final two curl calls are to **upload the collected voucher** to Owner. Using the received voucher, Owner initiates TO0 with RV Server using the rvAddress present in Voucher.
+
+!!!Warning
+    Make sure you are getting status `200 OK` for the curl calls. If you are facing issue with `localhost` curl calls, try with IP address instead of localhost.**
+
+Wait for TO0 finished for <guid> message in the Owner console. This generally takes a few minutes to complete.
 
 Expect the following message on successful TO0 completion.
 
 ```
-TO0 Response Wait for <guid> : 3600
 TO0 Client finished for GUID <guid>
 ```
 
-!!! NOTE
-    - [Keystore Management](#keystore-management) needs to be taken care, if PRI Rendezvous server and PRI Owner server is not running on the same machine.
-    - **You can enable ServiceInfo at this stage.** [Follow the instructions](#enabling-serviceinfo-transfer) to enable ServiceInfo.
+**After the completion of TO0, RV Server will have an entry in a table that associates the Device GUID with the Owner Address.**
 
-4.&nbsp;TO1 and TO2
-   ```
-   $ cd <fdo-pri-src>/component-samples/demo/device
-   $ java -jar device.jar
-   ```
+!!!NOTE
+        - [Keystore Management](#keystore-management) needs to be taken care, if PRI Rendezvous server and PRI Owner server is not running on the same machine.
+        - **You can enable ServiceInfo at this stage.** [Follow the instructions](#enabling-serviceinfo-transfer) to enable ServiceInfo.
 
-Wait for TO2 protocol completed message and Device is Onboarded Successfully.
+####TO1 and TO2
 
-Expect the following message on successful TO completion.
+**During T01, Device identifies itself to the Rendezvous Server. Obtains mapping to connect to the Owner’s IP address. During T02, the Device contacts Owner and establishes trust and then performs Ownership Transfer.**
+
+During T02,  Owner can transfer ServiceInfo modules to the device. These modules can include executable scripts, file payloads. [Read more](#enabling-serviceinfo-transfer) about serviceInfo transfers.
 
 ```
-TO2 complete, GUID is d43c6dc6...
+cd <fdo-pri-src>/component-samples/demo/device
+java -jar device.jar
+```
+
+Wait for TO2 protocol completed message and Device is onboarded Successfully.
+
+Expect the following message on successful TO2 completion.
+
+```
+TO2 completed successfully.
 ```
 
 ## Building Client-SDK Source
-
-!!! NOTE
-    For the instructions in this document, `<client-sdk-src>` refers to the path of the FDO Client-SDK source folder 'client-sdk-fidoiot'.
 
 FDO Client-SDK source can be build by:
 
 1. Follow instructions in the [documentation](https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/linux.md) to install dependencies.
 
+2. Clone the repository
 
-2. Execute build.sh script
+    ```
+    git clone https://github.com/secure-device-onboard/client-sdk-fidoiot.git
+    ```
+
+!!!NOTE
+    For the instructions in this document, `<client-sdk-src>` refers to the path of the FDO Client-SDK source folder 'client-sdk-fidoiot'.
+
+3.&nbsp; Execute build.sh script
 
 ```
-$ cd <client-sdk-src>
-$ ./build.sh
+cd <client-sdk-src>
+./build.sh
 ```
 
 The build script generates artifacts and stores them in `./build/` directory.
 
-## Running E2E demo for FDO Client-SDK.
+## Running E2E demo for FDO Client-SDK
 
-1. Follow the [instructions](#starting-fdo-service-containers) to start FDO Service Containers.
+##### 1. [Start FDO Service Containers](#starting-fdo-server-side-containers).
 
 
-2. Start Device Initialization (DI)
+##### 2. Start Device Initialization (DI)
+
+**When DI is initiated, device contacts manufacturer. DI includes the insertion of FDO credentials into device during the manufacturing process and creation of ownership voucher.**
+
+On a new console, key in the following commands
 
 ```
-$ cd <client-sdk-src>
-$ ./build/linux-client
+cd <client-sdk-src>
+./build/linux-client
 ```
 
-!!! NOTE
+!!!Additional_configurations
     - [Read more](https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/linux.md#7-running-the-application-) on Client-SDK Device Initialization.
     - [Configuring Client-SDK device](https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/setup.md#7-http-proxy-configuration-optional) for Proxy Network.
     - Follow instructions in the [documentation](https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/setup.md#3-setting-the-manufacturer-network-address), to update Manufacturer's address.
 
 
-3.&nbsp;Voucher Extension for Client-SDK device
+##### Voucher Extension for Client-SDK Device
+
+**During TO0, the FDO Owner identifies itself to Rendezvous Server, establishes the mapping of GUID to the Owner IP address. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob.'**
 
 ```
-$ curl -D - --digest -u apiUser:MfgApiPass123 -XGET http://localhost:8039/api/v1/vouchers/abcdef -o voucher
+curl -D - --digest -u ${api_user}:${owner_api_passwd} --location --request GET "http://${owner_ip}:${onr_port}/api/v1/certificate?alias=${attestation_type}" -H 'Content-Type: text/plain' -o owner_cert.txt
 
-$ curl -D - --digest -u apiUser:OwnerApiPass123 --header "Content-Type: application/cbor" --data-binary @voucher http://localhost:8042/api/v1/owner/vouchers/
+curl -D - --digest -u ${api_user}:${mfg_api_passwd} --location --request POST "http://${mfg_ip}:${mfg_port}/api/v1/mfg/vouchers/abcdef" --header 'Content-Type: text/plain' --data-raw  "<content-of-owner_cert>" -o voucher.txt)
+
+curl -D - --digest -u ${api_user}:${onr_api_passwd} --location --request POST "http://${onr_ip}:${onr_port}/api/v1/owner/vouchers/" --header 'Content-Type: text/plain' --data-raw "$extended_voucher" -o ${serial_no}_guid.txt)
+
+curl -D - --digest -u ${api_user}:${onr_api_passwd} --location --request GET "http://${onr_ip}:${onr_port}/api/v1/to0/${device_guid}" --header 'Content-Type: text/plain')
+
 ```
 
-Wait for TO0 finished for <guid> message on the Owner console.
+!!!Warning
+    Make sure to replace `generated-password` with `api_password` property present in `component-samples/demo/<component>/creds.env` file.
+
+
+Here, the initial curl call is to **collect the Ownership voucher** from Manufacturer server and the final curl call is to **upload the collected voucher** to Owner. Using the received voucher, Owner initiates TO0 with RV Server using the rvAddress present in Voucher.
+
+!!!Warning
+    Make sure you are getting status `200 OK` for the curl calls. If you are facing issue with `localhost` curl calls, try with IP address instead of localhost.**
+
+Wait for TO0 to finish for <guid> message on the Owner console.
 
 Expect the following message on successful TO0 completion.
 
 ```
-TO0 Response Wait for <guid> : 3600
 TO0 Client finished for GUID <guid>
 ```
 
-!!! NOTE
+!!!NOTES
     - [Keystore Management](#keystore-management) needs to be taken care, if PRI Rendezvous server and PRI Owner server is not running on the same machine.
     - **You can enable ServiceInfo at this stage.** [Follow the instructions](#enabling-serviceinfo-transfer) to enable ServiceInfo.
 
-4.&nbsp;TO1 and TO2
+##### TO1 and TO2
+
+**During T01, Device identifies itself to the Rendezvous Server. Obtains mapping to connect to the Owner’s IP address. During T02, the Device contacts Owner and establishes trust and then performs Ownership Transfer.**
+
+During T02,  Owner can transfer ServiceInfo modules to the device. These modules can include executable scripts, file payloads. [Read more](#enabling-serviceinfo-transfer) about serviceInfo transfers.
 
 ```
-$ cd <client-sdk-src>
-$ ./build/linux-client
+cd <client-sdk-src>
+./build/linux-client
 ```
 
 Wait for TO2 protocol completed message
@@ -204,20 +415,10 @@ Device onboarded successfully.
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ```
 
-## Enabling ServiceInfo transfer
+## Enabling ServiceInfo Transfer
 
 
-1. Activating ServiceInfo Module.
-
-        $ curl --location --digest -u apiUser:OwnerApiPass123 --request PUT 'http://localhost:8042/api/v1/device/svi?module=fdo_sys&var=active&priority=0&bytes=F5' --header 'Content-Type: application/octet-stream'
-
-    In this example, we are activating fdo_sys module.
-    http://localhost:8042 can be changed with the IP address of the owner.
-
-
-2. Transferring payload or executable resource for a specific type of device.
-
-    - Create a sample linux64.sh shell script.
+- Create a sample linux64.sh shell script.
 
             #!/bin/bash
             wget https://raw.githubusercontent.com/secure-device-onboard/pri-fidoiot/master/SECURITY.md
@@ -232,28 +433,19 @@ Device onboarded successfully.
               echo "ServiceInfo file transmission failed." > result.txt
             fi
 
-    This script downloads the SECURITY.md file and checks the integrity of file against the pre-computed checksum value.
+   This script downloads the SECURITY.md file and checks the integrity of file against the pre-computed checksum value.
 
-    -  Curl command to transfer executable resource.
+-  cURL command to transfer executable resource.
 
-            $ curl --location --digest -u apiUser:OwnerApiPass123 --request PUT 'http://localhost:8042/api/v1/device/svi?module=fdo_sys&var=filedesc&priority=1&filename=linux64.sh&device=FDO-Pri-Device' --header 'Content-Type: application/octet-stream' --data-binary '@path-to-executable/linux64.sh'
+            $ curl --location --digest -u apiUser: --location --request POST 'http://localhost:8080/api/v1/owner/resource?filename=linux64.sh' --header 'Content-Type: text/plain' --data-binary '@path-to-executable/linux64.sh'
 
-    - for Client-SDK devices, update device parameter to `Intel-FDO-Linux`. Eg:
+- cURL command to update ServiceInfo instructions. Eg:
 
-            $ curl --location --digest -u apiUser:OwnerApiPass123 --request PUT 'http://localhost:8042/api/v1/device/svi?module=fdo_sys&var=filedesc&priority=1&filename=linux64.sh&device=Intel-FDO-Linux' --header 'Content-Type: application/octet-stream' --data-binary '@path-to-executable/linux64.sh'
-
-
-3. Curl command to add exec command on the transferred script
-
-            $ curl --location --digest -u apiUser:OwnerApiPass123 --request PUT 'http://localhost:8042/api/v1/device/svi?module=fdo_sys&var=exec&guid=<guid-of-device>&priority=2&bytes=82672F62696E2F73686A6C696E757836342E7368' --header 'Content-Type: application/octet-stream'
-
-    !!! NOTE
-        bytes parameter is the cbor equivalent of ./linux64.sh.
-        You can skip step 3, if you are just transferring a payload.
+            $ curl -D - --digest -u apiUser: --location --request POST 'http://localhost:8080/api/v1/owner/svi' --header 'Content-Type: text/plain' --data-raw '[{\"filedesc\" : \"payload.bin\",\"resource\" : \"payload.bin\"},{\"filedesc\" : \"linux64.sh\",\"resource\" : \"linux64.sh\"},{\"exec\" : [\"/bin/bash\",\"linux64.sh\"]}]'
 
 ## Keystore Management
 
-### Generating self-signed keys for HTTPS/TLS communication.
+### Generating Self-signed keys for HTTPS/TLS Communication.
 
 1. Generate key and certificate.
 
@@ -274,7 +466,7 @@ Device onboarded successfully.
           echo 'subjectAltName=DNS:localhost,IP:<ip-address>')
 
 
-    Update `<ip-address>` with the ip address of machine running the FDO service.
+    Update `<ip-address>` with the IP address of machine running the FDO service.
 
 
 2. Generate Keystore using fresh key and certificate.
@@ -292,7 +484,7 @@ Device onboarded successfully.
     keytool -import -alias fdo -file tls.crt -storetype PKCS12 -keystore truststore
     ```
 
-!!!NOTE
+!!!NOTES
     - [Read more](https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md#generating-key-pair) about key generation.
     - You can update the key type, by modifying the `-newkey` attribute during the key generation stage.
-    - You can add multiple ip addresses in the `subjectAltName` attribute.
+    - You can add multiple IP addresses in the `subjectAltName` attribute.

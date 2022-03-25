@@ -10,45 +10,14 @@ This document can be used as a quick start guide to setup the development enviro
 | Docker* Engine | 18.09 |
 | Docker* Compose | 1.21.2 |
 | Maven* | 3.5.4 |
+| Java | 11 |
+| Haveged | - |
 
 ## Docker* Installation
-1 . Removing the older versions of Docker*. If these are installed, uninstall them:
-```
-sudo apt-get remove docker docker-engine docker.io containerd runc
-```
-2 . Update the `apt` package index and install packages to allow `apt` to use a repository over HTTPS:
-```
- sudo apt-get update
- sudo apt-get install \
-      apt-transport-https \
-      ca-certificates \
-      curl \
-      gnupg-agent \
-      software-properties-common
-```
 
-!!! NOTE
-    If you are working behind a proxy, ensure to set proper proxy variables.
+[Follow the steps](https://docs.docker.com/engine/install/ubuntu/) to setup Docker* environment.
 
-3 . Add official GPG key for Docker*:
-```
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-```
-4 . Use the following command to set up the **stable** repository.
-```
-sudo add-apt-repository \ "deb [arch=amd64] https://download.docker.com/linux/ubuntu \ $(lsb_release -cs) \ stable"
-```
-5 . Update the `apt` package index and install the Docker* Engine 18.09
-```
-sudo apt-get update
-sudo apt-get install docker-ce=5:18.09.9~3-0~ubuntu-bionic docker-ce-cli=5:18.09.9~3-0~ubuntu-bionic containerd.io
-```
-6 . Verify that Docker* Engine is installed correctly by running the `hello-world` image.
-```
-sudo docker run hello-world
-```
-
-### Running the Docker* behind a proxy
+### Running the Docker* Behind a Proxy
 
 To run the Docker* system behind a proxy server, the configuration is done by the following steps:
 
@@ -69,7 +38,7 @@ Environment="HTTP_PROXY=<Proxy IP/URL:Port>"
 Environment="HTTPS_PROXY=<Proxy IP/URL:Port>"
 ```
 
-4 . Next, create a directory named **_.docker_** in the user home path (**~/**) and a create a file named **_config.json_** if not present, add the following content.
+4 . Next, create a directory named **_.docker_** in the user home path (**~/**) and create a file named **_config.json_** if not present, add the following content.
 ```
 {
     "proxies":
@@ -124,7 +93,12 @@ sudo apt install openjdk-11-jdk-headless
 sudo apt install maven
 ```
 
-3 . To set the correct system time
+3 . To install Haveged
+```
+sudo apt install haveged
+```
+
+## To Set Correct System Time
 ```
 sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
 ```
@@ -140,3 +114,5 @@ Change Google* domain according to your location.
 [Docker-compose-installation](https://docs.docker.com/compose/install/)
 
 [Setting-proxy-for-docker](https://docs.docker.com/network/proxy/)
+
+_*_ represents proprietary software products. FDO claims no rights over the mentioned software products. Use them at your own discretion.
