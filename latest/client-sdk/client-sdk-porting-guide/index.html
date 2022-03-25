@@ -303,7 +303,7 @@ SUPPORTED_AES_MODE = gcm ccm
 <li><strong>SUPPORTED_DA:</strong> This specifies the supported Device Attestation algorithms which device uses to prove its identity to Rendezvous Server and Owner. This automatically configures the Key Exchange algorithm (ECDH256/ECDH384) that is used to generate the shared secret and the AES Mode, to use higher crypto in the source.</li>
 </ul>
 <p><strong><em>NOTE:</em></strong> tpm20_ecdsa256 isn’t a separate algorithm, it uses ecdsa256 as Device Attestation, but uses TPM2.0 to generate keys and store data.</p>
-<p><strong><em>NOTE:</em></strong> The Public Key Encoding supported in COSEX509.</p>
+<p><strong><em>NOTE:</em></strong> The Public Key Encoding supported in X509.</p>
 <ul>
 <li><strong>SUPPORTED_AES_MODE:</strong> This specifies the AES mode of encryption supported by device. The device supports GCM and CCM. The following configurations are supported as per the Device Attestation algorithm: A128GCM, A256GCM, AES-CCM-64-128-128, and AES-CCM-64-128-256.</li>
 </ul>
@@ -408,12 +408,12 @@ typedef int (*fdo_sdk_errorCB)(fdo_sdk_status type, fdo_sdk_error error_code);
 </code></pre>
 <p>The usage of this define is detailed in <code>crypto_hal_hmac()</code>.</p>
 <h4 id="fdo_crypto_pub_key_encoding">FDO_CRYPTO_PUB_KEY_ENCODING<a class="headerlink" href="#fdo_crypto_pub_key_encoding" title="Permanent link">&para;</a></h4>
-<pre><code>#define FDO_CRYPTO_PUB_KEY_ENCODING_COSEX509    2
+<pre><code>#define FDO_CRYPTO_PUB_KEY_ENCODING_X509 1
 </code></pre>
 <p>The usage of this define is detailed in <code>crypto_hal_sig_verify()</code>.</p>
 <h4 id="fdo_crypto_pub_key_algo">FDO_CRYPTO_PUB_KEY_ALGO<a class="headerlink" href="#fdo_crypto_pub_key_algo" title="Permanent link">&para;</a></h4>
-<pre><code>#define FDO_CRYPTO_PUB_KEY_ALGO_ECDSAp256 -7
-#define FDO_CRYPTO_PUB_KEY_ALGO_ECDSAp384 -35
+<pre><code>#define FDO_CRYPTO_PUB_KEY_ALGO_ECDSAp256 10
+#define FDO_CRYPTO_PUB_KEY_ALGO_ECDSAp384 11
 </code></pre>
 <p>The usage of this define is detailed in <code>crypto_hal_sig_verify()</code>.</p>
 <h3 id="structures">Structures<a class="headerlink" href="#structures" title="Permanent link">&para;</a></h3>
@@ -529,7 +529,7 @@ typedef fdo_bits_t fdo_byte_array_t;
 <p>This function verifies the ECDSA signature pointed by <code>message_signature</code> of size <code>message_length</code> on the data pointed by <code>message</code> of size <code>message_length</code> with the key material <code>key_param1</code> and <code>key_param2</code> interpreted according to <code>key_encoding</code>.</p>
 <p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
 <p><em>Parameters</em></p>
-<p><code>key_encoding:</code> FDO_CRYPTO_PUB_KEY_ENCODING_COSEX509 encoding is used for ECDSA. Please refer FDO_CRYPTO_PUB_KEY_ENCODING</p>
+<p><code>key_encoding:</code> FDO_CRYPTO_PUB_KEY_ENCODING_X509 encoding is used for ECDSA. Please refer FDO_CRYPTO_PUB_KEY_ENCODING</p>
 <p><code>key_algorithm:</code> FDO_CRYPTO_PUB_KEY_ALGO_(ECDSAp256/ECDSAp384) is used for ECDSA. Please refer FDO_CRYPTO_PUB_KEY_ALGO</p>
 <p><code>message:</code> Data over which the sign verification needs to be performed.</p>
 <p><code>message_length:</code> Size of the message</p>
