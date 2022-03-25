@@ -117,7 +117,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#building-client-sdk-source">Building Client-SDK Source</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#running-e2e-demo-for-fdo-client-sdk">Running E2E demo for FDO Client-SDK</a>
+    <li class="toctree-l2"><a class="reference internal" href="#running-e2e-demo-for-fdo-client-sdk">Running E2E Demo for FDO Client-SDK</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#1-start-fdo-service-containers">1. Start FDO Service Containers.</a>
     </li>
@@ -193,7 +193,7 @@
 }
 </style>
 
-<p>The FDO project provides a reference implementation of the <a href="https://fidoalliance.org/specs/FDO/FIDO-Device-Onboard-RD-v1.1-20211214/FIDO-device-onboard-spec-v1.1-rd-20211214.html/">FDO v1.1 Review Draft</a> by the FIDO Alliance.</p>
+<p>The FDO project provides a reference implementation of the <a href="https://fidoalliance.org/specs/FDO/FIDO-Device-Onboard-RD-v1.1-20211214">FIDO specification</a> by the FIDO Alliance.</p>
 <figure markdown="1">
    <center>
         <img src="../../images/securedeviceonboard-icon-color.png" width="40%" />
@@ -214,15 +214,15 @@
 </ul>
 <h2 id="quick-overview-of-fdo">Quick Overview of FDO<a class="headerlink" href="#quick-overview-of-fdo" title="Permanent link">&para;</a></h2>
 <p>FDO contains 3 major server-side components and 1 client-side component.
-The server-side components include Manufacturer, RV &amp; Owner Service.
+The server-side components include Manufacturer, RV, and Owner Service.
 The client-side includes device implementation in Java (PRI) or C (Client-sdk-fidoiot).</p>
-<p>FDO consists of four sets of protocols namely <strong>DI, TO0, TO1 &amp; TO2</strong>.</p>
+<p>FDO consists of four sets of protocols namely <strong>DI, TO0, TO1, and TO2</strong>.</p>
 <ol>
 <li>
 <p><strong>DI (Device Initialization protocol)</strong></p>
 <ul>
 <li>Between Device &amp; Manufacturer (<strong>msg 10-13</strong>).</li>
-<li>Initiated by device and device contacts Manufacturer Service.</li>
+<li>Initiated by Device and Device contacts Manufacturer Service.</li>
 <li>Includes creation &amp; insertion of FDO credentials into newly manufactured device. Credential includes RVInfo which is used by device to connect with RV during T01 protocol</li>
 <li>Customers can take ownership of device after DI by extending the Ownership voucher to a particular customer.</li>
 <li>Ownership voucher is a credential file, passed through the supply chain, that allows an Owner to verify the Device and gives the Device a mechanism to verify the Owner.</li>
@@ -253,7 +253,7 @@ The client-side includes device implementation in Java (PRI) or C (Client-sdk-fi
 <li>Between Device &amp; Owner Server (<strong>msg 60-71</strong>)</li>
 <li>Initiated by Device using the OwnerAddress collected during TO1.</li>
 <li>Device contacts Owner Server and establishes trust and then performs Ownership Transfer.</li>
-<li>During T02, Owner can transfer ServiceInfo modules to the device. These modules can include executable scripts, file payloads and much more.</li>
+<li>During T02, Owner can transfer ServiceInfo modules to the device. These modules can include executable scripts, file payloads, and much more.</li>
 </ul>
 </li>
 </ol>
@@ -262,9 +262,9 @@ The client-side includes device implementation in Java (PRI) or C (Client-sdk-fi
 <p class="admonition-title">Requirements</p>
 <ul>
 <li>Check the <a href="https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/#system-requirements">System Requirements</a></li>
-<li>If working behind a proxy, ensure to <a href="../proxy-settings/">set proper proxy</a> variables.</li>
+<li>When working behind a proxy, ensure to <a href="https://secure-device-onboard.github.io/docs-fidoiot/latest/implementation-references/proxy-settings/">set proper proxy</a> variables.</li>
 <li><a href="https://docs.docker.com/engine/install/ubuntu/">Follow the steps</a> to setup Docker* environment.</li>
-<li><a href="installation/#running-the-docker-behind-a-proxy">Follow the steps</a> to setup Docker* proxy.</li>
+<li><a href="https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/#running-the-docker-behind-a-proxy">Follow the steps</a> to setup Docker* proxy.</li>
 <li><a href="../../implementation-references/proxy-settings/">Follow the steps</a> to set the right proxy settings. (Includes documentation for system wide proxy configuration)</li>
 </ul>
 </div>
@@ -289,8 +289,8 @@ mvn clean install
 sudo docker-compose up --build
 </code></pre>
 <p>The build stage generates artifacts and stores them in <code>component-samples/demo</code> directory.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
+<div class="admonition notes">
+<p class="admonition-title">Notes</p>
 <p>During the build stage, the following error messages may be displayed on the console. These error messages
 are a result of the discrepancy of logging levels during the build stage and can be ignored.</p>
 <pre><code>    [ERROR] Picked up _JAVA_OPTIONS: -Dhttp.proxyHost= -Dhttp.proxyPort= -Dhttps.proxyHost= -Dhttps.proxyPort=
@@ -472,7 +472,7 @@ java -jar device.jar
 ./build.sh
 </code></pre>
 <p>The build script generates artifacts and stores them in <code>./build/</code> directory.</p>
-<h2 id="running-e2e-demo-for-fdo-client-sdk">Running E2E demo for FDO Client-SDK<a class="headerlink" href="#running-e2e-demo-for-fdo-client-sdk" title="Permanent link">&para;</a></h2>
+<h2 id="running-e2e-demo-for-fdo-client-sdk">Running E2E Demo for FDO Client-SDK<a class="headerlink" href="#running-e2e-demo-for-fdo-client-sdk" title="Permanent link">&para;</a></h2>
 <h5 id="1-start-fdo-service-containers">1. <a href="#starting-fdo-server-side-containers">Start FDO Service Containers</a>.<a class="headerlink" href="#1-start-fdo-service-containers" title="Permanent link">&para;</a></h5>
 <h5 id="2-start-device-initialization-di">2. Start Device Initialization (DI)<a class="headerlink" href="#2-start-device-initialization-di" title="Permanent link">&para;</a></h5>
 <p><strong>When DI is initiated, device contacts manufacturer. DI includes the insertion of FDO credentials into device during the manufacturing process and creation of ownership voucher.</strong></p>

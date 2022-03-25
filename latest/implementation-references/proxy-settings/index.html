@@ -97,7 +97,7 @@
                     </li>
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">Proxy Setup Guide</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#script-to-automate-proxy-setup">Script to automate proxy setup.</a>
+    <li class="toctree-l2"><a class="reference internal" href="#script-to-automate-proxy-setup">Script to Automate Proxy Setup</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#in-bashrc">In .bashrc</a>
     </li>
@@ -148,7 +148,7 @@
               
                 <h1 id="proxy-settings-for-running-fdo">Proxy Settings for Running FDO<a class="headerlink" href="#proxy-settings-for-running-fdo" title="Permanent link">&para;</a></h1>
 <p>This document lists the different proxy settings that need to be set. </p>
-<h2 id="script-to-automate-proxy-setup">Script to automate proxy setup.<a class="headerlink" href="#script-to-automate-proxy-setup" title="Permanent link">&para;</a></h2>
+<h2 id="script-to-automate-proxy-setup">Script to Automate Proxy Setup<a class="headerlink" href="#script-to-automate-proxy-setup" title="Permanent link">&para;</a></h2>
 <pre><code class="language-shell">#!/bin/bash
 #
 # USAGE:
@@ -189,7 +189,7 @@ http_proxy_port=$(echo $http_proxy | awk -F':' {'print $3'} | tr -d '/')
 https_proxy_host=$(echo $https_proxy | awk -F':' {'print $2'} | tr -d '/')
 https_proxy_port=$(echo $https_proxy | awk -F':' {'print $3'} | tr -d '/')
 
-_JAVA_OPTIONS=&quot;-Dhttp.proxyHost=$http_proxy_host -Dhttp.proxyPort=$http_proxy_port -Dhttps.proxyHost=$https_proxy_host -Dhttps.proxyPort=$https_proxy_port -Dhttp.nonProxyHosts=localhost|127.0.0.1|*.intel.com|$sys_ip_addr&quot;
+_JAVA_OPTIONS=&quot;-Dhttp.proxyHost=$http_proxy_host -Dhttp.proxyPort=$http_proxy_port -Dhttps.proxyHost=$https_proxy_host -Dhttps.proxyPort=$https_proxy_port -Dhttp.nonProxyHosts=localhost|127.0.0.1|*.mycompany.com|$sys_ip_addr&quot;
 
 # OS-Level Proxy Settings
 
@@ -249,8 +249,8 @@ if [ -x &quot;$(command -v docker)&quot; ]; then
    echo &quot;        \&quot;default\&quot;:&quot; &gt;&gt; config.json
    echo &quot;        {&quot; &gt;&gt; config.json
    echo &quot;            \&quot;httpProxy\&quot;: \&quot;$http_proxy\&quot;,&quot; &gt;&gt; config.json
-   echo &quot;            \&quot;httpsProxy\&quot;: \&quot;$https_proxy\&quot;&quot; &gt;&gt; config.json
-   echo &quot;            \&quot;noProxy\&quot;: \&quot;*.iind.intel.com,127.0.0.1,localhost,$sys_ip_addr\&quot;&quot; &gt;&gt; config.json
+   echo &quot;            \&quot;httpsProxy\&quot;: \&quot;$https_proxy\&quot;,&quot; &gt;&gt; config.json
+   echo &quot;            \&quot;noProxy\&quot;: \&quot;*.mycompany.com,127.0.0.1,localhost,$sys_ip_addr\&quot;&quot; &gt;&gt; config.json
    echo &quot;        }&quot; &gt;&gt; config.json
    echo &quot;    }&quot; &gt;&gt; config.json
    echo &quot;}&quot; &gt;&gt; config.json
@@ -266,7 +266,7 @@ fi
 echo &quot;Restart the session for proxies to take effect.&quot;
 </code></pre>
 <h2 id="in-bashrc">In .bashrc<a class="headerlink" href="#in-bashrc" title="Permanent link">&para;</a></h2>
-<p>Add this line </p>
+<p>Add this line: </p>
 <pre><code>export _JAVA_OPTIONS=&quot;-Dhttp.proxyHost=&lt;proxy host&gt; -Dhttp.proxyPort=&lt;port&gt; -Dhttps.proxyHost=&lt;proxy host&gt; -Dhttps.proxyPort=&lt;port&gt;&quot;
 </code></pre>
 <h2 id="maven-settingsxml">Maven settings.xml<a class="headerlink" href="#maven-settingsxml" title="Permanent link">&para;</a></h2>
@@ -301,13 +301,13 @@ http://maven.apache.org/xsd/settings-1.0.0.xsd&quot;&gt;
 &lt;/settings&gt;
 </code></pre>
 <h2 id="in-dockerfile">In Dockerfile<a class="headerlink" href="#in-dockerfile" title="Permanent link">&para;</a></h2>
-<p>After successful PRI build, add the proxy settings to the Dockerfile file in the path <fdo-pri-src>/component-samples/demo/<rv/owner/manufacturer></p>
+<p>After successful PRI build, add the proxy settings to the Dockerfile file in the path <fdo-pri-src>/component-samples/demo/<rv/owner/manufacturer>.</p>
 <pre><code>ENV http_proxy &lt;proxy host&gt;:&lt;port&gt;
 ENV https_proxy &lt;proxy host&gt;:&lt;port&gt;
 
 </code></pre>
 <h2 id="proxy-settings-for-docker">Proxy Settings for Docker*<a class="headerlink" href="#proxy-settings-for-docker" title="Permanent link">&para;</a></h2>
-<p>Follow the proxy settings detailed <a href="#https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/">here</a> </p>
+<p>Follow the proxy settings detailed <a href="#https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/">here</a>. </p>
               
             </div>
           </div>
