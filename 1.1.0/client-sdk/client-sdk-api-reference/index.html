@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="FIDO Device Onboard Contributers">
+  <link rel="canonical" href="https://secure-device-onboard.github.io/docs-fidoiot/1.1.0/client-sdk/client-sdk-api-reference/">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Client SDK API Reference - FIDO Device Onboard</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="../../css/version-select.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Client SDK API Reference";
+    var mkdocs_page_input_path = "client-sdk/client-sdk-api-reference.md";
+    var mkdocs_page_url = "/docs-fidoiot/1.1.0/client-sdk/client-sdk-api-reference/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> FIDO Device Onboard</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <p class="caption"><span class="caption-text">Home</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../reference/">Reference</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../community/">Community</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../releases/">Releases</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../security-best-practices/">Security Best Practices</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../installation_rhel/">Installation Guide (RHEL)</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../protocol-specification/">Protocol Specification</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">PRI</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../pri/pri-introduction/">Protocol Reference Implementation</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Client SDK</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../client-sdk-design/">Client SDK Design</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../client-sdk-reference-guide/">Client SDK Introduction</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Client SDK API Reference</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../client-sdk-porting-guide/">Client SDK Porting Guide</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Implementation Reference</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/getting-started-guide/">Getting Started Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/serviceinfo-sys-module/">ServiceInfo System Module</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/device-mfg-info/">DeviceMfgInfo Specification</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/manufacturer-guide/">Manufacturer Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/dms-integration-guide/">DMS Integration Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/proxy-settings/">Proxy Setup Guide</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">FIDO Device Onboard</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Client SDK &raquo;</li>
+        
+      
+    
+    <li>Client SDK API Reference</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="fido-device-onboard-fdo-client-sdk-api-reference">FIDO Device Onboard (FDO) Client SDK API Reference<a class="headerlink" href="#fido-device-onboard-fdo-client-sdk-api-reference" title="Permanent link">&para;</a></h2>
+<p>This section describes the APIs provided by the FDO Client SDK as well as public data structures required to support them.</p>
+<h2 id="data-structures">Data Structures<a class="headerlink" href="#data-structures" title="Permanent link">&para;</a></h2>
+<p>These structures are defined in the FDO Client SDK header file and used by various SDK APIs.</p>
+<h3 id="generic-api-return-status">Generic API Return Status<a class="headerlink" href="#generic-api-return-status" title="Permanent link">&para;</a></h3>
+<p>This type is returned by all APIs and indicates whether the API call succeeded or failed.</p>
+<p><em><strong>Syntax</strong></em></p>
+<pre><code>typedef enum {
+    FDO_SUCCESS = 0,
+    FDO_INVALID_PATH,
+    FDO_CONFIG_NOT_FOUND,
+    FDO_INVALID_STATE,
+    FDO_RESALE_NOT_SUPPORTED,
+    FDO_RESALE_NOT_READY,
+    FDO_WARNING,
+    FDO_ERROR,
+    FDO_ABORT
+} fdoSdkStatus;
+</code></pre>
+<p><em><strong>Members</strong></em></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FDO_SUCCESS</strong></td>
+<td>The API call succeeded.</td>
+</tr>
+<tr>
+<td><strong>FDO_INVALID_PATH</strong></td>
+<td>A path or address specified was not found or not accessible.</td>
+</tr>
+<tr>
+<td><strong>FDO_CONFIG_NOT_FOUND</strong></td>
+<td>An expected configuration file was not found or not accessible.</td>
+</tr>
+<tr>
+<td><strong>FDO_INVALID_STATE</strong></td>
+<td>The SDK is in an invalid state to perform the requested operation.</td>
+</tr>
+<tr>
+<td><strong>FDO_RESALE_NOT_SUPPORTED</strong></td>
+<td>This configuration of the SDK does not support the Resale Protocol.</td>
+</tr>
+<tr>
+<td><strong>FDO_RESALE_NOT_READY</strong></td>
+<td>The SDK is not in a state to execute the Resale Protocol. This error will occur when the Resale API (fdoSdkResale) is called when device ownership transfer has not yet been completed successfully.</td>
+</tr>
+<tr>
+<td><strong>FDO_WARNING</strong></td>
+<td>This value is used in the SDK error callback to notify the Application that a transient failure occurred. See Error Handling Callback for details.</td>
+</tr>
+<tr>
+<td><strong>FDO_ERROR</strong></td>
+<td>The API call did not succeed. We might extend this later (TBD) to allow returning of specific error types as positive values (for example, memory allocation failure, communications failure, and so on).</td>
+</tr>
+<tr>
+<td><strong>FDO_ABORT</strong></td>
+<td>This value is returned by the error callback function to prevent the SDK from continuing the transfer of ownership protocol if an error occurred. Details are provided in Error Handling Callback.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fdo-device-status">FDO Device Status<a class="headerlink" href="#fdo-device-status" title="Permanent link">&para;</a></h3>
+<p>This type indicates the current FDO protocol status of the device.</p>
+<p><em><strong>Syntax</strong></em></p>
+<pre><code>typedef enum {
+    FDO_STATE_PRE_DI = 2,
+    FDO_STATE_PRE_TO1,
+    FDO_STATE_IDLE,
+    FDO_STATE_RESALE,
+    FDO_STATE_ERROR
+} fdoSdkDeviceStatus;
+</code></pre>
+<p><em><strong>Members</strong></em></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FDO_STATE_PRE_DI</strong></td>
+<td>The SDK is in the pre-Device Initialization state. It is ready to run the DI protocol which can be initiated by calling the <code>fdoSdkRun()</code> API.</td>
+</tr>
+<tr>
+<td><strong>FDO_STATE_PRE_TO1</strong></td>
+<td>The SDK has completed the DI stage and is ready for Device onboarding. The SDK will run the TO1 protocol if the <code>fdoSdkRun()</code> API is called.</td>
+</tr>
+<tr>
+<td><strong>FDO_STATE_IDLE</strong></td>
+<td>The SDK has completed ownership transfer and is in the idle state. Calling <code>fdoSdkRun()</code> will have no effect. The Application may only call the <code>fdoSdkResale()</code> API to initiate the Resale protocol at his point.</td>
+</tr>
+<tr>
+<td><strong>FDO_STATE_RESALE</strong></td>
+<td>The SDK has is now ready for resale. Calling <code>fdoSdkRun()</code> will run the TO1 &amp; TO2 protocols, to carry out onboarding to the new (post-resale) device owner.</td>
+</tr>
+<tr>
+<td><strong>FDO_STATE_ERROR</strong></td>
+<td>This API failed due to an internal error.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fdo-sdk-error-values">FDO SDK Error Values<a class="headerlink" href="#fdo-sdk-error-values" title="Permanent link">&para;</a></h3>
+<p>This type is passed from the SDK to the Application when an error occurs and indicates details of the error. It is used by the error callback – see Error Handling Callback.</p>
+<p><em><strong>Syntax</strong></em></p>
+<pre><code>typedef enum {
+    FDO_RV_TIMEOUT = 1,
+    FDO_CONN_TIMEOUT,
+    FDO_DI_ERROR,
+    FDO_TO1_ERROR,
+    FDO_TO2_ERROR
+} fdoSdkError;
+</code></pre>
+<p><em><strong>Members</strong></em></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FDO_RV_TIMEOUT</strong></td>
+<td>A timeout occurred when trying to contact the Rendezvous Server.</td>
+</tr>
+<tr>
+<td><strong>FDO_CONN_TIMEOUT</strong></td>
+<td>A connection to either the Rendezvous or Owner Server timed out.</td>
+</tr>
+<tr>
+<td><strong>FDO_DI_ERROR</strong></td>
+<td>A generic error occurred during the DI stage.</td>
+</tr>
+<tr>
+<td><strong>FDO_TO1_ERROR</strong></td>
+<td>A generic error occurred during the TO1 protocol stage.</td>
+</tr>
+<tr>
+<td><strong>FDO_TO2_ERROR</strong></td>
+<td>A generic error occurred during the TO2 protocol stage.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fdo-service-callback-type">FDO Service Callback Type<a class="headerlink" href="#fdo-service-callback-type" title="Permanent link">&para;</a></h3>
+<p>This type value indicates the type of function the module callback must perform. These values are used by the ServiceInfo Module Callback function.</p>
+<p><em><strong>Syntax</strong></em></p>
+<pre><code>typedef enum {
+    FDO_SI_START,
+    FDO_SI_GET_DSI,
+    FDO_SI_SET_OSI,
+    FDO_SI_END,
+    FDO_SI_FAILURE
+} fdo_sdk_si_type;
+</code></pre>
+<p><em><strong>Members</strong></em></p>
+<p>Below are the parameters of the ServiceInfo Module Callback function described in ServiceInfo Module Callback function.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FDO_SI_START</strong></td>
+<td>This value indicates that the SDK is starting ServiceInfo rounds. The module may perform pre-preparation operations at this time. The count and si parameters will be NULL.</td>
+</tr>
+<tr>
+<td><strong>FDO_SI_GET_DSI</strong></td>
+<td>This is a legacy value that shall be removed in a future release.</td>
+</tr>
+<tr>
+<td><strong>FDO_SI_SET_OSI</strong></td>
+<td>This value indicates that the SDK is providing a valid Owner ServiceInfo key-value pair to the module and it must process the provide Owner ServiceInfo information. The count parameter is a progressively increasing index value of the provided Owner ServiceInfo.</td>
+</tr>
+<tr>
+<td><strong>FDO_SI_END</strong></td>
+<td>This value indicates that the SDK has completed all ServiceInfo rounds and the module can perform cleanup or final operations if required (like saving a file to disk, and so on).</td>
+</tr>
+<tr>
+<td><strong>FDO_SI_FAILURE</strong></td>
+<td>This value indicates that an error occurred and the SDK is aborting or abandoning this ServiceInfo round. The module must ignore all the information it has received thus far (if any) and reset to its initial state.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="owner-serviceinfo-module-callback">Owner ServiceInfo Module Callback<a class="headerlink" href="#owner-serviceinfo-module-callback" title="Permanent link">&para;</a></h3>
+<p>This type is a pointer to a callback function that is used to process Owner ServiceInfo messages received from the Owner Server for a specific ServiceInfo module.</p>
+<p>It takes a pointer to the structure <code>fdor_t</code> whose internal buffer contains the entire message as received in TO2.OwnerServiceInfo (Type 69) with the current position set to the ServiceInfoVal, as well as the ServiceInfoKey (module message). The module must read the ServiceInfoVal from <code>fdor_t</code>, process it as per the ServiceInfoKey, and advance the <code>fdor_t</code> internal buffer to the next valid CBOR entry (currently being done internally in few methods). The module must treat the received <code>fdor_t</code> as a read-only structure, and must never modify it, except advancing to the next CBOR entry.</p>
+<p>This callback function is invoked in the context of the executing onboarding protocol hence, although there is no fixed timeline, the module must complete execution in the shortest possible time.</p>
+<p><em><strong>Syntax</strong></em></p>
+<pre><code>typedef int (*fdo_sdk_owner_service_infoCB)(
+    fdo_sdk_si_type  type,
+    fdor_t           *fdor,
+    char             *module_message
+);
+</code></pre>
+<p><em><strong>Parameters</strong></em></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>type</strong></td>
+<td>This indicates the type of the callback as specified in the FDO Service Callback Type section.</td>
+</tr>
+<tr>
+<td><strong>fdor</strong></td>
+<td>A pointer to <code>fdor_t</code>, currently pointing to the ServiceInfoVal to be processed.</td>
+</tr>
+<tr>
+<td><strong>module_message</strong></td>
+<td>A pointer to value of ServiceInfoKey representing the module message.</td>
+</tr>
+</tbody>
+</table>
+<p><em><strong>Return Value</strong></em></p>
+<p>The return value could be one of the following:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FDO_SI_CONTENT_ERROR</strong></td>
+<td>Indicates that the module could not process the ServiceInfo due to invalid content of either the key or value. An error will cause the onboarding protocol to fail and be retried.</td>
+</tr>
+<tr>
+<td><strong>FDO_SI_INTERNAL_ERROR</strong></td>
+<td>Indicates that the module could not process the ServiceInfo due to an internal error. An error will cause the onboarding protocol to fail and be retried.</td>
+</tr>
+<tr>
+<td><strong>FDO_SI_SUCCESS</strong></td>
+<td>Indicates that the module was able to successfully process the ServiceInfo (or ignored it successfully).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="serviceinfo-module-description">ServiceInfo Module Description<a class="headerlink" href="#serviceinfo-module-description" title="Permanent link">&para;</a></h3>
+<p>This structure describes a ServiceInfo module that implements module functionality. Supported modules are known to the Application ahead of time and each module must have one ServiceInfo Module entry, which is passed to the SDK in the <code>fdoSdkInit()</code> API.</p>
+<p><em><strong>Syntax</strong></em></p>
+<pre><code>typedef struct {
+    bool                active;
+    char                moduleName[16];
+    fdo_sdk_owner_service_infoCB serviceInfoCallback;
+} fdoSdkServiceInfoModule;
+</code></pre>
+<p><em><strong>Members</strong></em></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>active</strong></td>
+<td>A bool value denoting whether the ServiceInfo module is currently active(true) or inactive(false). This value is maintained by the SDK and should not be tampered with by the module during ServiceInfo processing.</td>
+</tr>
+<tr>
+<td><strong>moduleName</strong></td>
+<td>The symbolic name of the ServiceInfo Module. This should be a NULL terminated string, no larger than 15 characters.</td>
+</tr>
+<tr>
+<td><strong>serviceInfoCallback</strong></td>
+<td>This callback function will be invoked by the SDK to pass Owner ServiceInfo to the module. This callback will be executed in the context of the onboarding protocol. See ServiceInfo Module Callback.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="error-handling-callback">Error Handling Callback<a class="headerlink" href="#error-handling-callback" title="Permanent link">&para;</a></h3>
+<p>This type is a pointer to a callback function that is used to process errors during protocol execution. The Application can use information provided by this callback to perform application-specific operations. The Application can also control the execution of the protocol state machine by return different values as specified below.</p>
+<p><em><strong>Syntax</strong></em></p>
+<pre><code>typedef int (*fdoSdkErrorCB)(
+    fdoSdkStatus type,
+    fdoSdkError  errorCode
+);
+</code></pre>
+<p><em><strong>Parameters</strong></em></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>type</strong></td>
+<td>This value specifies the type of error that occurred. It will be one of the following values (other <code>fdoSdkStatus</code> values are not used here): <br> * <code>FDO_ERROR</code>: This indicates an unrecoverable error occurred. The SDK will continue with protocol restart for these types of errors but it is unlikely that the operation will succeed. It is advisable to abort the operation and retry later. <br> * <code>FDO_WARNING</code>: This indicates that a transient error occurred. The SDK will continue with protocol restart, which might fix the problem. It is advisable that the Application allows the restart to take place.</td>
+</tr>
+<tr>
+<td><strong>errorCode</strong></td>
+<td>This value indicates details of the error that occurred. See description in FDO SDK Error Values.</td>
+</tr>
+</tbody>
+</table>
+<p><em><strong>Return Value</strong></em></p>
+<p>The return value could be one of the following constants.</p>
+<p><strong><em>NOTE</em></strong>: These values are constants that are defined in the FDO SDK header file.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FDO_SUCCESS</strong></td>
+<td>Indicates that the error was handled and the SDK should continue with its recovery or restart as required.</td>
+</tr>
+<tr>
+<td><strong>FDO_ABORT</strong></td>
+<td>This causes the SDK to terminate protocol processing and return to the caller (such as, the <code>fdoSdkRun()</code> API returns). The Application can re-invoke this API later to re-initiate the FDO onboarding process.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sdk-api-functions">SDK API Functions<a class="headerlink" href="#sdk-api-functions" title="Permanent link">&para;</a></h2>
+<p>The following functions are provided by the SDK and defined in the SDK API header file.</p>
+<h3 id="initialize-fdo-sdk">Initialize FDO SDK<a class="headerlink" href="#initialize-fdo-sdk" title="Permanent link">&para;</a></h3>
+<p>The Application must invoke this API before any other APIs since this API initializes all internal data and state of the SDK.</p>
+<p><em><strong>Syntax</strong></em></p>
+<pre><code>fdoSdkStatus fdoSdkInit(
+    fdoSdkErrorCB    *errorHandlingCallback,
+    uint32_t          numModules,
+    fdoSdkModuleInfo *moduleInformation,
+);
+</code></pre>
+<p><em><strong>Parameters</strong></em></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>errorHandlingCallback</strong></td>
+<td>This is the Application’s error handling function and will be called by the SDK when an error is encountered. This value can be <code>NULL</code> in which case, errors will not be reported to the Application, and the SDK will take the appropriate recovery and/or restart action as required. <br> <strong><em>NOTE</em></strong>: Passing <code>NULL</code> might cause the SDK to remain in an infinite loop until the onboarding process completes successfully.</td>
+</tr>
+<tr>
+<td><strong>numModules</strong></td>
+<td>Number of ServiceInfo modules contained in the following <code>moduleInformation</code> list parameter. If no Application-specific modules are available, this value should be zero.</td>
+</tr>
+<tr>
+<td><strong>moduleInformation</strong></td>
+<td>Service Module Information description for each available ServiceInfo module as described in ServiceInfo Module Description. If no Application-specific modules are available, this value should be <code>NULL</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><em><strong>Return Value</strong></em></p>
+<p>This function returns success or an error code as defined in Generic API Return Status.</p>
+<h3 id="get-current-fdo-sdk-status">Get Current FDO SDK Status<a class="headerlink" href="#get-current-fdo-sdk-status" title="Permanent link">&para;</a></h3>
+<p>This function returns the current state of the FDO SDK. It may only be called after the SDK has been initialized using the <code>fdoSdkInit()</code> API.</p>
+<p><em><strong>Syntax</strong></em></p>
+<pre><code>fdoSdkDeviceState fdoSdkGetStatus(void);
+</code></pre>
+<p><em><strong>Return Value</strong></em></p>
+<p>This function returns a value of type <code>fdoSdkDeviceStatus</code> as described in FDO Device Status.</p>
+<h3 id="execute-fdo-sdk-onboarding-protocol">Execute FDO SDK Onboarding Protocol<a class="headerlink" href="#execute-fdo-sdk-onboarding-protocol" title="Permanent link">&para;</a></h3>
+<p>The Application invokes this API to begin the onboarding process that is, TO1. The onboarding process has completed successfully when this function returns <code>FDO_SUCCESS</code>. If this API returns an error, the Application may retry the onboarding process by calling this API again immediately or after a sleep/reset cycle as determined by the use case.
+The SDK will invoke the Application error callback if an error occurs in this phase. Additionally, module-specific callbacks will be invoked when ServiceInfo is received from the Owner Server during the TO2 stage. These callbacks are invoked in the context of the callers thread and the callbacks must not call any SDK APIs since the SDK is not yet re-entrant.</p>
+<p><em><strong>Syntax</strong></em>
+<code>fdoSdkStatus fdoSdkRun(void);</code></p>
+<p><em><strong>Return Value</strong></em></p>
+<p>This function returns success or an error code as defined in Generic API Return Status.</p>
+<h3 id="prepare-the-fdo-sdk-for-resale">Prepare the FDO SDK for Resale<a class="headerlink" href="#prepare-the-fdo-sdk-for-resale" title="Permanent link">&para;</a></h3>
+<p>The Application invokes this API to prepare the device for resale. The SDK marks internal state to pre-TO1 and returns. After preparing the SDK for resale, a subsequent call to the <code>fdoSdkRun()</code> API will cause the SDK to perform the TO1 stage again, with new owner credentials that were updated at the end of the previous TO2 protocol stage.</p>
+<p><em><strong>Syntax</strong></em></p>
+<pre><code>fdoSdkStatus fdoSdkResale(void);
+</code></pre>
+<p><em><strong>Return Value</strong></em></p>
+<p>This function returns success or an error code as defined in Generic API Return Status</p>
+<h2 id="fdo-concise-binary-object-representation-cbor-encoderdecoder-apis">FDO Concise Binary Object Representation (CBOR) encoder/decoder APIs<a class="headerlink" href="#fdo-concise-binary-object-representation-cbor-encoderdecoder-apis" title="Permanent link">&para;</a></h2>
+<p>Client SDK uses APIS provided in the header file <code>fdoblockio.h</code> to handle CBOR operations (encode/decode). The API implementations wrap and internally uses the APIs provided by Intel TinyCBOR* library. The structure for writer (encoder) and reader (decoder) are given below:</p>
+<h3 id="fdo-writer-cbor-encoder">FDO Writer (CBOR Encoder)<a class="headerlink" href="#fdo-writer-cbor-encoder" title="Permanent link">&para;</a></h3>
+<p>It is responsible for encoding the buffer inside <code>fdo_block_t</code> into CBOR-encoded stream. Internally, it uses wraps TinyCBOR's <code>CborEncoder</code> into a doubly-linked-list type structure, that is used to manage CBOR container-specific operations (CBOR map/array).</p>
+<p>The user must perform following operations in sequence to use the FDO Writer struct <code>fdow_t</code>:</p>
+<ul>
+<li>
+<p>Allocate memory for <code>fdow_t</code> structure</p>
+</li>
+<li>
+<p>Invoke <code>fdow_init()</code> to fill the allocated memory with 0's</p>
+</li>
+<li>
+<p>Invoke <code>fdo_block_alloc()</code> or <code>fdo_block_alloc_with_size()</code> to allocate memory for <code>fdow_t.b</code></p>
+</li>
+<li>
+<p>Invoke <code>fdow_encoder_init()</code> to initialize the TinyCBOR's <code>CborEncoder</code> with the previously allocated buffer <code>fdow_t.b</code>.</p>
+</li>
+</ul>
+<p><em><strong>Syntax</strong></em></p>
+<pre><code>typedef struct _FDOW_s {
+    fdo_block_t b;
+    int msg_type;
+    fdow_cbor_encoder_t *current;
+} fdow_t;
+
+typedef struct _FDOW_CBOR_ENCODER {
+    CborEncoder cbor_encoder;
+    struct _FDOW_CBOR_ENCODER *next;
+    struct _FDOW_CBOR_ENCODER *previous;
+} fdow_cbor_encoder_t;
+</code></pre>
+<p><em><strong>Members</strong></em></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>b</strong></td>
+<td>The <code>fdo_block_t</code> structure containing the buffer along with its size. The TinyCBOR* library uses this buffer to store the data that has been CBOR-encoded so far.</td>
+</tr>
+<tr>
+<td><strong>msg_type</strong></td>
+<td>FDO type (Type 1x/3x/6x/255)</td>
+</tr>
+<tr>
+<td><strong>current</strong></td>
+<td>A <code>fdow_cbor_encoder_t</code> structure that resembles a doubly-linked-list, containing TinyCBOR's CborEncoder.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fdo-reader-decoder-structure">FDO Reader (Decoder structure)<a class="headerlink" href="#fdo-reader-decoder-structure" title="Permanent link">&para;</a></h3>
+<p>It is responsible for decoding the CBOR-encoded buffer inside <code>fdo_block_t</code> into binary stream. Internally, it wraps TinyCBOR's <code>CborValue</code> into a doubly-linked-list type structure, that is used to manage CBOR container-specific operations (CBOR map/array).</p>
+<p>The user must perform following operations in sequence to use the FDO Reader struct <code>fdor_t</code>:</p>
+<ul>
+<li>
+<p>Allocate memory for <code>fdor_t</code> structure</p>
+</li>
+<li>
+<p>Invoke <code>fdor_init()</code> to fill the allocated memory with 0's</p>
+</li>
+<li>
+<p>Invoke <code>fdo_block_alloc()</code> or <code>fdo_block_alloc_with_size()</code> to allocate memory for <code>fdor_t.b</code></p>
+</li>
+<li>
+<p>Copy the CBOR-encoded stream into the previously allocated <code>fdor_t.b</code></p>
+</li>
+<li>
+<p>Invoke <code>fdor_parser_init()</code> to initialize the TinyCBOR's <code>CBORParser</code> with the previously allocated buffer <code>fdor_t.b</code>.</p>
+</li>
+</ul>
+<p><em><strong>Syntax</strong></em></p>
+<pre><code>typedef struct _FDOR_s {
+    fdo_block_t b;
+    int msg_type;
+    bool have_block;
+    CborParser cbor_parser;
+    fdor_cbor_decoder_t *current;
+} fdor_t;
+
+typedef struct _FDOR_CBOR_DECODER {
+    CborValue cbor_value;
+    struct _FDOR_CBOR_DECODER *next;
+    struct _FDOR_CBOR_DECODER *previous;
+} fdor_cbor_decoder_t;
+</code></pre>
+<p><em><strong>Members</strong></em></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>b</strong></td>
+<td>The <code>fdo_block_t</code> structure containing the buffer along with its size. The TinyCBOR* library reads the CBOR-encoded stream from this buffer and decodes them into binary stream.</td>
+</tr>
+<tr>
+<td><strong>msg_type</strong></td>
+<td>FDO type (Type 1x/3x/6x/255)</td>
+</tr>
+<tr>
+<td><strong>have_block</strong></td>
+<td>A bool value that represents whether the structure contains data to be decoded. Generally, used by the protocol before decoding is started.</td>
+</tr>
+<tr>
+<td><strong>cbor_parser</strong></td>
+<td>CborParser from the TinyCBOR* library.</td>
+</tr>
+<tr>
+<td><strong>current</strong></td>
+<td>The <code>fdow_cbor_decoder_t</code> structure that resembles a doubly-linked-list, containing TinyCBOR's CborValue.</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../client-sdk-porting-guide/" class="btn btn-neutral float-right" title="Client SDK Porting Guide">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../client-sdk-reference-guide/" class="btn btn-neutral" title="Client SDK Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license</p>
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../client-sdk-reference-guide/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../client-sdk-porting-guide/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+      <script src="../../js/version-select.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
