@@ -6,8 +6,8 @@ This document can be used as a quick start guide to setup the development enviro
 
 | Component | Recommended |
 |------- |------|
-| Operating System | Ubuntu\* 20.04 / Windows\* 10 |
-| Docker* Engine | 18.09 |
+| Host Operating System | Ubuntu\* (20.04, 22.04) / Windows\* 10 |
+| Docker* Engine | 20.10 |
 | Docker* Compose | 1.21.2 |
 | Maven* | 3.5.4 |
 | Java | 11 |
