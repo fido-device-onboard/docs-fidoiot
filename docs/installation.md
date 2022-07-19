@@ -1,6 +1,6 @@
 
 # Installation Guide
-This document can be used as a quick start guide to setup the development environment. Please review the system requirements listed below before moving forward with the SDO installation and deployment.
+This document can be used as a quick start guide to setup the development environment. Please review the system requirements listed below before moving forward with the FDO installation and deployment.
 
 ## System Requirements
 
@@ -62,7 +62,7 @@ sudo systemctl restart docker
 ```
 sudo systemctl show --property Environment docker
 ```
-7 . SDO Docker* FAQs
+7 . FDO Docker* FAQs
 
   1. Docker* Time Synchronization Issue while building Ubuntu* 20 docker image from an Ubuntu* 18 machine. [Refer](https://github.com/secure-device-onboard/all-in-one-demo/issues/62)
 
@@ -79,7 +79,7 @@ sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-c
 ```
 sudo chmod +x /usr/bin/docker-compose
 ```
-3 . To ensure that the required version is installed, run ` docker-compose --version` command
+3 . To ensure that the required version is installed, run ` docker-compose --version` command.
 
 ## Other Development Tools
 
@@ -105,7 +105,7 @@ sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -
 
 Ensure that the system time is correct, else you will receive the certificate expiration error.
 
-Change Google* domain according to your location.
+Change the Google* domain according to your location.
 
 ## References
 
