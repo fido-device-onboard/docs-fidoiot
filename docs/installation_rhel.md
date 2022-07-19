@@ -7,8 +7,8 @@ This document can be used as a quick start guide to setup the development enviro
 
 | Component | Recommended |
 |------- |------|
-| Operating System | RHEL* 8.4 |
-| Podman* Engine | 3.4.2|
+| Operating System | RHEL* (8.4, 8.6) |
+| Podman* Engine | supported till v4.0.2|
 | Podman* Compose | 0.1.5 |
 | Maven* | 3.8.3 |
 | Java | 11 |
