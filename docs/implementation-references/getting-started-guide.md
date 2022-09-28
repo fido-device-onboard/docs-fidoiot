@@ -148,7 +148,7 @@ The build stage generates artifacts and stores them in `component-samples/demo` 
     bash user_csr_req.sh
     ```
 
-    **NOTE**: Both Server and Client certificate are signed by the previously generated demo-CA. Moreover, we can configure the properties of Server and Client certificate by updating `web-server.conf` and `client.conf` respectively. [Learn how to configure Server and Client Certificates.](#specifying-subject-alternate-names-for-the-webhttps-self-signed-certificate)
+    **NOTE**: Both Server and Client certificates are signed by the previously generated demo-CA. Moreover, we can configure the properties of Server and Client certificates by updating `web-server.conf` and `client.conf` respectively. [Learn how to configure Server and Client Certificates.](#specifying-subject-alternate-names-for-the-webhttps-self-signed-certificate)
 
 3. Running keys_gen.sh will generate random passwords for the all http servers and creates `secrets` folder containing all the required `.pem` files of Client, CA and Server component.
 
@@ -177,7 +177,7 @@ The build stage generates artifacts and stores them in `component-samples/demo` 
 
 ### Specifying Subject alternate names for the Web/HTTPS self-signed certificate
 
-The   subject name of the self-signed certificate is defined in the  `web-server.conf` and `client.conf`.
+The subject name of the self-signed certificate is defined in the  `web-server.conf` and `client.conf`.
 
 Uncomment `subjectAltName` and allowed list of IP and DNS in `[alt_names]` section. Example:
 
@@ -345,7 +345,7 @@ bash extend_upload.sh -e mtls -c <path-to-generated-secrets> -s serial_no
 
 or 
 
-Following the steps to manually initiate the T00.
+Follow the steps to manually initiate the T00.
 
 ```
 curl -D - --digest -u ${api_user}:${owner_api_passwd} --location --request GET "http://${owner_ip}:${onr_port}/api/v1/certificate?alias=${attestation_type}" -H 'Content-Type: text/plain' -o owner_cert.txt
@@ -358,7 +358,7 @@ curl -D - --digest -u ${api_user}:${onr_api_passwd} --location --request GET "ht
 
 ```
 
-***NOTE:*** To execute `mTLS` calls instead of `DIGEST`. Replace `-D - --digest -u ${apiUser}:${api_password}` with `--cacert path-to-CA --cert path-to-client-Certificate`.
+***NOTE:*** To execute the above cURL calls with `mTLS` instead of `DIGEST` authentication. Replace `-D - --digest -u ${apiUser}:${api_password}` with `--cacert path-to-CA --cert path-to-client-Certificate`.
 
 !!!Warning
     Make sure to replace `generated-password` with `api_password` property present in `component-samples/demo/<component>/service.env` file.
