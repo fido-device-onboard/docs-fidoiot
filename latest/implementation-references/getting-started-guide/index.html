@@ -95,6 +95,10 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#key-generation-for-fdo-server-side-containers">Key Generation for FDO Server-side Containers</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#specifying-subject-alternate-names-for-the-webhttps-self-signed-certificate">Specifying Subject alternate names for the Web/HTTPS self-signed certificate</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#enable-digest-rest-endpoints">Enable DIGEST REST endpoints</a>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#starting-the-fdo-pri-manufacturer-server">Starting the FDO PRI Manufacturer Server</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#starting-the-fdo-pri-rendezvous-rv-server">Starting the FDO PRI Rendezvous (RV) Server</a>
@@ -310,12 +314,81 @@ are a result of the discrepancy of logging levels during the build stage and can
 </figure>
 <p><br></p>
 <h3 id="key-generation-for-fdo-server-side-containers">Key Generation for FDO Server-side Containers<a class="headerlink" href="#key-generation-for-fdo-server-side-containers" title="Permanent link">&para;</a></h3>
-<p>Run the below commands to generate all the required keys for the Server-side containers.</p>
-<pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/scripts/
-bash keys_gen.sh .
-cp -r creds/* ../
+<ol>
+<li>
+<p>Generating demo certificate authority KeyPair and certificate</p>
+<p><code>shell
+  bash demo-ca.sh</code></p>
+<p><strong>NOTE</strong>: Configure the properties of <code>demo-CA</code> by updating <code>root-ca.conf</code>.</p>
+</li>
+<li>
+<p>Generating Server and Client Keypair and certificates.</p>
+<p><code>shell
+bash web_csr_req.sh
+bash user_csr_req.sh</code></p>
+<p><strong>NOTE</strong>: Both Server and Client certificates are signed by the previously generated demo-CA. Moreover, we can configure the properties of Server and Client certificates by updating <code>web-server.conf</code> and <code>client.conf</code> respectively. <a href="#specifying-subject-alternate-names-for-the-webhttps-self-signed-certificate">Learn how to configure Server and Client Certificates.</a></p>
+</li>
+<li>
+<p>Running keys_gen.sh will generate random passwords for the all http servers and creates <code>secrets</code> folder containing all the required <code>.pem</code> files of Client, CA and Server component.</p>
+<p><code>$ cd &lt;fdo-pri-src&gt;/component-samples/demo/scripts
+$ ./keys_gen.sh</code></p>
+<p>A message "Key generation completed." will be displayed on the console.</p>
+<p>Credentials will be stored in the <code>secrets</code> directory within <code>&lt;fdo-pri-src&gt;/component-sample/demo/scripts</code>.</p>
+</li>
+<li>
+<p>Copy both <code>secrets/</code> and <code>service.env</code> file from  <code>&lt;fdo-pri-src&gt;/component-sample/demo/scripts</code>  folder to the individual components.</p>
+<p><strong>NOTE:</strong> Don't replace <code>service.env</code> present in the database component with generated <code>service.env</code> in <code>scripts</code> folder.</p>
+<p><code>$ cd &lt;fdo-pri-src&gt;/component-samples/demo/scripts
+$ cp -r ./secrets/. ../&lt;component&gt;
+$ cp service.env ../&lt;component&gt;</code></p>
+<p><strong>NOTE</strong>: Component refers to the individual FDO services like aio, manufacturer, rv , owner and reseller.</p>
+<p><strong>NOTE</strong>: Docker secrets are only available to swarm services, not to standalone containers. To use this feature, consider adapting your container to run as a service. Stateful containers can typically run with a scale of 1 without changing the container code.</p>
+</li>
+</ol>
+<h3 id="specifying-subject-alternate-names-for-the-webhttps-self-signed-certificate">Specifying Subject alternate names for the Web/HTTPS self-signed certificate<a class="headerlink" href="#specifying-subject-alternate-names-for-the-webhttps-self-signed-certificate" title="Permanent link">&para;</a></h3>
+<p>The subject name of the self-signed certificate is defined in the  <code>web-server.conf</code> and <code>client.conf</code>.</p>
+<p>Uncomment <code>subjectAltName</code> and allowed list of IP and DNS in <code>[alt_names]</code> section. Example:</p>
+<pre><code>#[ req_ext ]
+  subjectAltName = @alt_names
+
+[ alt_names ]
+  #Replace or add new DNS and IP entries with the ones required by the HTTPs/Web Service.
+  DNS.1 = www.example.com
+  DNS.2 = test.example.com
+  DNS.3 = mail.example.com
+  DNS.4 = www.example.net
+  IP.1 = 127.0.0.1
+  IP.2 = 200.200.200.200
+  IP.3 = 2001:DB8::1
 </code></pre>
-<p>All the generated keys are now copied to the respective components.</p>
+<p><strong>NOTE</strong>: Self-signed certificates created using the script is not recommended for use in production environments.</p>
+<h3 id="enable-digest-rest-endpoints">Enable DIGEST REST endpoints<a class="headerlink" href="#enable-digest-rest-endpoints" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Update <code>WEB-INF/web.xml</code> to support Digest authentication
+    ```
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>apis</web-resource-name>
+            <url-pattern>/api/v1/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>api</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+          <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+      </security-constraint></p>
+<p><login-config>
+      <auth-method>DIGEST</auth-method>
+  </login-config>
+<code>``
+Change</code><transport-guarantee><code>to</code>NONE<code>and</code><auth-method><code>to</code>DIGEST`.</p>
+</li>
+<li>
+<p>Update <code>{server.api.user}</code> and <code>{server.api.password}</code> in <code>demo/&lt;component&gt;/tomcat-users.xml</code> file.</p>
+</li>
+</ol>
 <h3 id="starting-the-fdo-pri-manufacturer-server">Starting the FDO PRI Manufacturer Server<a class="headerlink" href="#starting-the-fdo-pri-manufacturer-server" title="Permanent link">&para;</a></h3>
 <p><strong><em>FDO Manufacturer is an application that runs in the factory, which implements the initial communications with the Device, as part of the Device Initialize Protocol (DI). The manufacturer creates an Ownership Voucher based on the credentials received during DI and extends the voucher to the respective owner.</em></strong>    </p>
 <p>Run the below commands, in a separate console, to start the Manufacturer.</p>
@@ -388,7 +461,7 @@ java -jar device.jar
 <p>Expect the following line on successful DI completion.</p>
 <pre><code>DI complete, GUID is &lt;guid&gt;
 </code></pre>
-<p><strong>After completion of DI, the FDO credentials are stored into <code>credentials.bin</code> file. The credentials file includes <code>rvinfo</code> from manufacturer, which is later used by device to contact RV server, once it is powered on at the client side. The initialized device is then boxed and sold to customers.</strong></p>
+<p><strong>After completion of DI, the FDO credentials are stored into <code>app-data/credentials.bin</code> file. The credentials file includes <code>rvinfo</code> from manufacturer, which is later used by device to contact RV server, once it is powered on at the client side. The initialized device is then boxed and sold to customers.</strong></p>
 <div class="admonition additional_configurations">
 <p class="admonition-title">Additional_configurations<ul>
 <li>Additional arguments for <a href="https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-the-device-service">configuring PRI device</a>.</li>
@@ -410,8 +483,12 @@ java -jar device.jar
 <pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/scripts
 bash extend_upload.sh -s serial_no
 </code></pre>
+<p>if you are using mTLS authentication mode for rest endpoints:</p>
+<pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/scripts
+bash extend_upload.sh -e mtls -c &lt;path-to-generated-secrets&gt; -s serial_no
+</code></pre>
 <p>or </p>
-<p>Following the steps to manually initiate the T00.</p>
+<p>Follow the steps to manually initiate the T00.</p>
 <pre><code>curl -D - --digest -u ${api_user}:${owner_api_passwd} --location --request GET &quot;http://${owner_ip}:${onr_port}/api/v1/certificate?alias=${attestation_type}&quot; -H 'Content-Type: text/plain' -o owner_cert.txt
 
 curl -D - --digest -u ${api_user}:${mfg_api_passwd} --location --request POST &quot;http://${mfg_ip}:${mfg_port}/api/v1/mfg/vouchers/${serial_no}&quot; --header 'Content-Type: text/plain' --data-raw  &quot;&lt;content-of-owner_cert&gt;&quot; -o ${serial_no}_voucher.txt)
@@ -421,6 +498,7 @@ curl -D - --digest -u ${api_user}:${onr_api_passwd} --location --request POST &q
 curl -D - --digest -u ${api_user}:${onr_api_passwd} --location --request GET &quot;http://${onr_ip}:${onr_port}/api/v1/to0/${device_guid}&quot; --header 'Content-Type: text/plain')
 
 </code></pre>
+<p><strong><em>NOTE:</em></strong> To execute the above cURL calls with <code>mTLS</code> instead of <code>DIGEST</code> authentication. Replace <code>-D - --digest -u ${apiUser}:${api_password}</code> with <code>--cacert path-to-CA --cert path-to-client-Certificate</code>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Make sure to replace <code>generated-password</code> with <code>api_password</code> property present in <code>component-samples/demo/&lt;component&gt;/service.env</code> file.</p>
@@ -490,6 +568,15 @@ java -jar device.jar
 </div>
 <h5 id="voucher-extension-for-client-sdk-device">Voucher Extension for Client-SDK Device<a class="headerlink" href="#voucher-extension-for-client-sdk-device" title="Permanent link">&para;</a></h5>
 <p><strong>During TO0, the FDO Owner identifies itself to Rendezvous Server, establishes the mapping of GUID to the Owner IP address. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob.'</strong></p>
+<p>Execute the following script to initiate TO0.</p>
+<pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/scripts
+bash extend_upload.sh -s serial_no
+</code></pre>
+<p>if you are using mTLS authentication mode for rest endpoints:</p>
+<pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/scripts
+bash extend_upload.sh -e mtls -c &lt;path-to-generated-secrets&gt; -s serial_no
+</code></pre>
+<p>or </p>
 <pre><code>curl -D - --digest -u ${api_user}:${owner_api_passwd} --location --request GET &quot;http://${owner_ip}:${onr_port}/api/v1/certificate?alias=${attestation_type}&quot; -H 'Content-Type: text/plain' -o owner_cert.txt
 
 curl -D - --digest -u ${api_user}:${mfg_api_passwd} --location --request POST &quot;http://${mfg_ip}:${mfg_port}/api/v1/mfg/vouchers/abcdef&quot; --header 'Content-Type: text/plain' --data-raw  &quot;&lt;content-of-owner_cert&gt;&quot; -o voucher.txt)
@@ -499,6 +586,7 @@ curl -D - --digest -u ${api_user}:${onr_api_passwd} --location --request POST &q
 curl -D - --digest -u ${api_user}:${onr_api_passwd} --location --request GET &quot;http://${onr_ip}:${onr_port}/api/v1/to0/${device_guid}&quot; --header 'Content-Type: text/plain')
 
 </code></pre>
+<p><strong><em>NOTE:</em></strong> To execute <code>mTLS</code> calls instead of <code>DIGEST</code>. Replace <code>-D - --digest -u ${apiUser}:${api_password}</code> with <code>--cacert path-to-CA --cert path-to-client-Certificate</code>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Make sure to replace <code>generated-password</code> with <code>api_password</code> property present in <code>component-samples/demo/&lt;component&gt;/creds.env</code> file.</p>
