@@ -5,9 +5,22 @@ Following list provides details about all the past releases.
 
 ## Current Release
 
-* [Release v1.0.2](https://github.com/secure-device-onboard/release-fidoiot/releases/v1.0.2)
+* [Release v1.1.3](https://github.com/secure-device-onboard/release-fidoiot/releases/v1.1.3)
 
 ## Past Releases
+
+* [Release v1.1.2](https://github.com/secure-device-onboard/release-fidoiot/releases/v1.1.2)
+
+
+* [Release v1.1.1](https://github.com/secure-device-onboard/release-fidoiot/releases/v1.1.1)
+
+* [Release v1.1.0.2](https://github.com/secure-device-onboard/release-fidoiot/releases/v1.1.0.2)
+
+* [Release v1.1.0.1](https://github.com/secure-device-onboard/release-fidoiot/releases/v1.1.0.1)
+
+* [Release v1.1.0](https://github.com/secure-device-onboard/release-fidoiot/releases/v1.1.0)
+
+* [Release v1.0.2](https://github.com/secure-device-onboard/release-fidoiot/releases/v1.0.2)
 
 * [Release v1.0.1](https://github.com/secure-device-onboard/release-fidoiot/releases/v1.0.1)
 
