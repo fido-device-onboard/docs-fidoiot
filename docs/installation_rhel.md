@@ -7,9 +7,9 @@ This document can be used as a quick start guide to setup the development enviro
 
 | Component | Recommended |
 |------- |------|
-| Operating System | RHEL* (8.4, 8.6) |
-| Podman* Engine | supported till v4.0.2|
-| Podman* Compose | 0.1.5 |
+| Host Operating System | RHEL* (8.4, 8.6) |
+| Podman* Engine | v3.4.2+|
+| Podman* Compose | v1.0.3 |
 | Maven* | 3.8.3 |
 | Java | 11 |
 | Haveged | - |
@@ -26,15 +26,16 @@ sudo yum module install -y container-tools:rhel8
 
 
 ## Podman* Compose Installation
-To install a specific version of Podman\* Compose (for example **_0.1.5_**) follow these steps:
+To install a specific version of Podman\* Compose (for example **_1.0.3_**) follow these steps:
 
-1 . Download the specific version **(0.1.5)** of Podman* Compose.
+1 . Download the specific version **(1.0.3)** of Podman* Compose.
 ```
-sudo curl -o /usr/local/bin/podman-compose https://raw.githubusercontent.com/containers/podman-compose/v0.1.5/podman_compose.py
+sudo curl -o /usr/local/bin/podman-compose https://raw.githubusercontent.com/containers/podman-compose/v1.0.3/podman_compose.py
 ```
 2 . To apply executable permissions, run the following command.
 ```
 sudo chmod +x /usr/local/bin/podman-compose
+sudo ln -s /usr/local/bin/podman-compose /usr/bin/podman-compose
 ```
 
 ## Other Development Tools
