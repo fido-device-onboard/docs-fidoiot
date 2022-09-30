@@ -7,8 +7,8 @@ This document can be used as a quick start guide to setup the development enviro
 | Component | Recommended |
 |------- |------|
 | Host Operating System | Ubuntu\* (20.04, 22.04) / Debian 11.4 / Windows\* 10 |
-| Docker* Engine | 20.10 |
-| Docker* Compose | 1.21.2 |
+| Docker* Engine | 20.10.10+ |
+| Docker* Compose | 1.29.2 |
 | Maven* | 3.5.4 |
 | Java | 11 |
 | Haveged | - |
@@ -47,6 +47,7 @@ Environment="HTTPS_PROXY=<Proxy IP/URL:Port>"
         {
             "httpProxy": "<Proxy IP/URL:Port>",
             "httpsProxy": "<Proxy IP/URL:Port>"
+            "noProxy": "<Proxy IP/URL:Port>"
         }
     }
 }
