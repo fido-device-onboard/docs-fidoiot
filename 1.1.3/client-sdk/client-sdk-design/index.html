@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="FIDO Device Onboard Contributers">
+  <link rel="canonical" href="https://secure-device-onboard.github.io/docs-fidoiot/client-sdk/client-sdk-design/">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Client SDK Design - FIDO Device Onboard</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Client SDK Design";
+    var mkdocs_page_input_path = "client-sdk/client-sdk-design.md";
+    var mkdocs_page_url = "/docs-fidoiot/client-sdk/client-sdk-design/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> FIDO Device Onboard</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <p class="caption"><span class="caption-text">Home</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../reference/">Reference</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../community/">Community</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../releases/">Releases</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../security-best-practices/">Security Best Practices</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../installation_rhel/">Installation Guide (RHEL)</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../protocol-specification/">Protocol Specification</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">PRI</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../pri/pri-introduction/">Protocol Reference Implementation</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Client SDK</span></p>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Client SDK Design</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../client-sdk-reference-guide/">Client SDK Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../client-sdk-api-reference/">Client SDK API Reference</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../client-sdk-porting-guide/">Client SDK Porting Guide</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Implementation Reference</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/getting-started-guide/">Getting Started Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/serviceinfo-sys-module/">ServiceInfo System Module</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/device-mfg-info/">DeviceMfgInfo Specification</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/manufacturer-guide/">Manufacturer Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/dms-integration-guide/">DMS Integration Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/proxy-settings/">Proxy Setup Guide</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">FIDO Device Onboard</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Client SDK &raquo;</li>
+        
+      
+    
+    <li>Client SDK Design</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>This document describes the changes required in the FIDO Device Onboard (FDO) Client Software Development Kit (SDK) to support the new <a href="https://fidoalliance.org/specs/FDO/fido-device-onboard-v1.0-ps-20210323/fido-device-onboard-v1.0-ps-20210323.html">FIDO Device Onboard specification</a>.</p>
+<p>The FDO Client SDK is a portable C Code implementation of the FDO Device Onboarding (FDO) protocols, cryptographic operations, and associated functions required to support microcontroller (MCU) devices. The SDK is written in C since it is the language of choice for programming MCU devices. While the SDK is developed and tested on Linux, the core components of the SDK are isolated from Linux specifics via an abstraction layer. Well-known open source implementations of cryptographic libraries are used for crypto operations.</p>
+<p>The reader is expected to be familiar with MCUs in general – their SW &amp; HW characteristics, how they are used, typical applications, their lifecycle, etc.</p>
+<h2 id="fdo-client-sdk-design">FDO Client SDK Design<a class="headerlink" href="#fdo-client-sdk-design" title="Permanent link">&para;</a></h2>
+<p>The design is divided into different blocks of FDO specific implementation.  This document does not specify API-level design, but rather specifies the block-level and call-level design of the FDO design. The existing REST/JSON based protocols currently implemented in the Client SDK are replaced by the CBOR-based protocols described in the FIDO Device Onboard Proposed Standard.  Please refer to the FDO specification for complete details of the new draft protocols.</p>
+<p>Figure 1.   Basic Block Diagram
+<img alt="Basic Block Diagram" src="../img/Slide3.PNG" /></p>
+<h2 id="changes-to-be-made-in-client-sdk">Changes to be Made in Client SDK<a class="headerlink" href="#changes-to-be-made-in-client-sdk" title="Permanent link">&para;</a></h2>
+<p>There are a few blocks and implementations to be either fully rewritten or modified to make the Client SDK compatible with the FDO specification. Those changes are described in the following sections:</p>
+<h3 id="cbor-cose-hal-library-a1">CBOR – COSE HAL Library (A1)<a class="headerlink" href="#cbor-cose-hal-library-a1" title="Permanent link">&para;</a></h3>
+<p>This block implements the following functionality:</p>
+<ol>
+<li>CBOR Encode API – Uses the TinyCBOR library calls directly to encode data provided from upper layer to create CBOR data stream.  Data is provided back to FDO library to be sent using the network layer.</li>
+<li>CBOR Decode API – Uses TinyCBOR library calls directly to decode received CBOR encoded data from servers.  Library calls may be used recursively.</li>
+<li>CBOR COSE APIs – Implements the COSE API requirement using the Crypto HAL API calls as well as using TinyCBOR APIs calls. Refer to the FDO specification for further details on API requirements.</li>
+</ol>
+<p>Documentation for the TinyCBOR library can be found <a href="https://intel.github.io/tinycbor/current/">here</a>.  </p>
+<p>Source code for the TinyCBOR library can be found <a href="https://github.com/intel/tinycbor">here</a>.</p>
+<h3 id="protocol-message-layer-a2">Protocol Message Layer (A2)<a class="headerlink" href="#protocol-message-layer-a2" title="Permanent link">&para;</a></h3>
+<p>This layer must be adapted to the new FDO implementation. Each message API must be revisited and re-implemented as required to comply with the FDO message structure. This layer will extensively use CBOR-COSE HAL layer.</p>
+<h3 id="serviceinfo-message-handling-a3">ServiceInfo Message Handling (A3)<a class="headerlink" href="#serviceinfo-message-handling-a3" title="Permanent link">&para;</a></h3>
+<p>The FDO specification requires changes to the handling of ServiceInfo messages. Handling of ServiceInfo is done almost similar to the previous specification; however, the repeat transmit, acknowledgement, and DSI messages require full implementation in the FDO library. Unlike the current implementation, service message must be part of the FDO library rather than a separate module.</p>
+<h3 id="storage-implementation-cbor-format-a4">Storage Implementation - CBOR Format (A4)<a class="headerlink" href="#storage-implementation-cbor-format-a4" title="Permanent link">&para;</a></h3>
+<p>Currently, all manufacturer information and device secrets are stored in persistent storage in JSON format. The new FDO specification uses CBOR as the data encoding format, and so all data stored in persistent  storage must be done using CBOR encoding. This will reduce confusion and discourage the user from using multiple data storage formats.</p>
+<p>All file save and load APIs must be rewritten using CBOR-COSE APIs to replace JSON encoding and decoding.</p>
+<h3 id="fido-message-handling">Fido Message Handling<a class="headerlink" href="#fido-message-handling" title="Permanent link">&para;</a></h3>
+<p>The following is the detailed design for handling FDO CBOR messages in the Client SDK implementation. </p>
+<p>Figure 2. FDO Message Handling
+<img alt="FDO Message Handling" src="../img/Slide4.PNG" /></p>
+<ol>
+<li>CBOR–COSE HAL API Library will be used to decode and encode messages.</li>
+<li>Crypto HAL calls will be reutilized. If additional Crypto HAL APIs are required by CDDL they can be added as part of Crypto HAL layers.</li>
+</ol>
+<p>Figure 3. FDO Transmit Message Flowchart
+<img alt="FDO Transmit Message Flowchart" src="../img/Slide5.PNG" /></p>
+<p>Figure 4. FDO Receive Message Flowchart
+<img alt="FDO Receive Message Flowchart" src="../img/Slide6.PNG" /></p>
+<p>Further Client SDK porting details can be found <a href="https://github.com/secure-device-onboard/docs-fidoiot/blob/master/docs/client-sdk/client-sdk-porting-guide.md">here</a>.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../client-sdk-reference-guide/" class="btn btn-neutral float-right" title="Client SDK Introduction">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../../pri/pri-introduction/" class="btn btn-neutral" title="Protocol Reference Implementation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license</p>
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../../pri/pri-introduction/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../client-sdk-reference-guide/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

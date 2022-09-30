@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="FIDO Device Onboard Contributers">
+  <link rel="canonical" href="https://secure-device-onboard.github.io/docs-fidoiot/implementation-references/proxy-settings/">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Proxy Setup Guide - FIDO Device Onboard</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Proxy Setup Guide";
+    var mkdocs_page_input_path = "implementation-references/proxy-settings.md";
+    var mkdocs_page_url = "/docs-fidoiot/implementation-references/proxy-settings/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> FIDO Device Onboard</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <p class="caption"><span class="caption-text">Home</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../reference/">Reference</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../community/">Community</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../releases/">Releases</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../security-best-practices/">Security Best Practices</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../installation_rhel/">Installation Guide (RHEL)</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../protocol-specification/">Protocol Specification</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">PRI</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../pri/pri-introduction/">Protocol Reference Implementation</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Client SDK</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../client-sdk/client-sdk-design/">Client SDK Design</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../client-sdk/client-sdk-reference-guide/">Client SDK Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../client-sdk/client-sdk-api-reference/">Client SDK API Reference</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../client-sdk/client-sdk-porting-guide/">Client SDK Porting Guide</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Implementation Reference</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../getting-started-guide/">Getting Started Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../serviceinfo-sys-module/">ServiceInfo System Module</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../device-mfg-info/">DeviceMfgInfo Specification</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../manufacturer-guide/">Manufacturer Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../dms-integration-guide/">DMS Integration Guide</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Proxy Setup Guide</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#script-to-automate-proxy-setup">Script to Automate Proxy Setup</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#in-bashrc">In .bashrc</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#maven-settingsxml">Maven settings.xml</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#in-dockerfile">In Dockerfile</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#proxy-settings-for-docker">Proxy Settings for Docker*</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">FIDO Device Onboard</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Implementation Reference &raquo;</li>
+        
+      
+    
+    <li>Proxy Setup Guide</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="proxy-settings-for-running-fdo">Proxy Settings for Running FDO<a class="headerlink" href="#proxy-settings-for-running-fdo" title="Permanent link">&para;</a></h1>
+<p>This document lists the different proxy settings that need to be set. </p>
+<h2 id="script-to-automate-proxy-setup">Script to Automate Proxy Setup<a class="headerlink" href="#script-to-automate-proxy-setup" title="Permanent link">&para;</a></h2>
+<pre><code class="language-shell">#!/bin/bash
+#
+# USAGE:
+# sudo ./proxy_setup.sh http_proxy https_proxy ftp_proxy socks_proxy no_proxy
+#
+# SAMPLE USGAE:
+#
+# sudo ./proxy_setup.sh http://&lt;dns&gt;:911/ https://&lt;dns&gt;:912/
+#
+# NOTE:
+#
+# Parameters are optional. Supply parameters only if you want to override the default proxy values.
+# By default the IP range for no proxy includes subnetwork 244 and 247, please add the subnetwork range accordingly.
+#
+# First Param: http_proxy
+# Second Param: https_proxy
+# Third Param: ftp_proxy
+# Fourth Param: socks_proxy
+#
+
+ip_range=&quot;@@(echo 127.0.{244..247}.{1..254},)&quot; #change it according to your ip range.
+sys_ip_addr=$(ip route get 8.8.8.8 | grep -oP 'src \K[^ ]+')
+
+default_http_proxy=&quot;http://&lt;dns&gt;:911/&quot;
+default_https_proxy=&quot;http://&lt;dns&gt;:912/&quot;
+default_ftp_proxy=&quot;http://&lt;dns&gt;:911/&quot;
+default_socks_proxy=&quot;http://&lt;dns&gt;:1080/&quot;
+default_no_proxy=&quot;localhost,127.0.0.1,$ip_range&quot;
+
+http_proxy=${1:-$default_http_proxy}
+https_proxy=${2:-$default_https_proxy}
+ftp_proxy=${3:-$default_ftp_proxy}
+socks_proxy=${4:-$default_socks_proxy}
+no_proxy=${5:-$default_no_proxy}
+
+http_proxy_host=$(echo $http_proxy | awk -F':' {'print $2'} | tr -d '/')
+http_proxy_port=$(echo $http_proxy | awk -F':' {'print $3'} | tr -d '/')
+https_proxy_host=$(echo $https_proxy | awk -F':' {'print $2'} | tr -d '/')
+https_proxy_port=$(echo $https_proxy | awk -F':' {'print $3'} | tr -d '/')
+
+_JAVA_OPTIONS=&quot;-Dhttp.proxyHost=$http_proxy_host -Dhttp.proxyPort=$http_proxy_port -Dhttps.proxyHost=$https_proxy_host -Dhttps.proxyPort=$https_proxy_port -Dhttp.nonProxyHosts=localhost|127.0.0.1|*.mycompany.com|$sys_ip_addr&quot;
+
+# OS-Level Proxy Settings
+
+sed -i '/_proxy/d' /etc/environment
+sed -i '/_PROXY/d' /etc/environment
+
+echo -n &quot;http_proxy=\&quot;$http_proxy\&quot;&quot; &gt;&gt; /etc/environment
+echo &gt;&gt; /etc/environment
+echo -n &quot;https_proxy=\&quot;$https_proxy\&quot;&quot; &gt;&gt; /etc/environment
+echo &gt;&gt; /etc/environment
+echo -n &quot;ftp_proxy=\&quot;$ftp_proxy\&quot;&quot; &gt;&gt; /etc/environment
+echo &gt;&gt; /etc/environment
+echo -n &quot;socks_proxy=\&quot;$socks_proxy\&quot;&quot; &gt;&gt; /etc/environment
+echo &gt;&gt; /etc/environment
+
+# No Proxy and JAVA Proxy settings for bash shell applicable to all users
+
+echo &quot;export no_proxy=\&quot;$no_proxy\&quot;&quot; &gt;&gt; /etc/bash.bashrc
+sed -i 's/@@(echo /$(echo /'  /etc/bash.bashrc
+echo -n &quot;export _JAVA_OPTIONS=\&quot;$_JAVA_OPTIONS\&quot;&quot; &gt;&gt; /etc/bash.bashrc
+
+# Docker Proxy Settings
+
+if [ -x &quot;$(command -v docker)&quot; ]; then
+   docker --version
+   mkdir -p /etc/systemd/system/docker.service.d
+   cd /etc/systemd/system/docker.service.d
+
+   if [ -f http-proxy.conf ] ; then
+     mv http-proxy.conf http-proxy_org.conf
+     echo &quot;http-proxy.conf is backed up at location /etc/systemd/system/docker.service.d&quot;
+   fi
+
+   echo &quot;[Service]&quot; &gt;&gt; http-proxy.conf
+   echo &quot;Environment=\&quot;HTTP_PROXY=$http_proxy\&quot;&quot; &gt;&gt; http-proxy.conf
+
+   if [ -f https-proxy.conf ] ; then
+     mv https-proxy.conf https-proxy_org.conf
+     echo &quot;https-proxy.conf is backed up at location /etc/systemd/system/docker.service.d&quot;
+   fi
+
+   echo &quot;[Service]&quot; &gt;&gt; https-proxy.conf
+   echo &quot;Environment=\&quot;HTTPS_PROXY=$https_proxy\&quot;&quot; &gt;&gt; https-proxy.conf
+
+   uname=`logname`
+   mkdir -p /home/$uname/.docker
+   cd /home/$uname/.docker/
+
+   if [ -f config.json ] ; then
+     mv config.json config_org.json
+     echo &quot;config.json is backed up at location ~/.docker&quot;
+   fi
+
+   echo &quot;{&quot; &gt;&gt; config.json
+   echo &quot;    \&quot;proxies\&quot;:&quot; &gt;&gt; config.json
+   echo &quot;    {&quot; &gt;&gt; config.json
+   echo &quot;        \&quot;default\&quot;:&quot; &gt;&gt; config.json
+   echo &quot;        {&quot; &gt;&gt; config.json
+   echo &quot;            \&quot;httpProxy\&quot;: \&quot;$http_proxy\&quot;,&quot; &gt;&gt; config.json
+   echo &quot;            \&quot;httpsProxy\&quot;: \&quot;$https_proxy\&quot;,&quot; &gt;&gt; config.json
+   echo &quot;            \&quot;noProxy\&quot;: \&quot;*.mycompany.com,127.0.0.1,localhost,$sys_ip_addr\&quot;&quot; &gt;&gt; config.json
+   echo &quot;        }&quot; &gt;&gt; config.json
+   echo &quot;    }&quot; &gt;&gt; config.json
+   echo &quot;}&quot; &gt;&gt; config.json
+
+   systemctl daemon-reload
+   systemctl restart docker
+
+   systemctl show --property Environment docker --no-pager
+else
+   echo &quot;Docker is not installed.&quot;
+fi
+
+echo &quot;Restart the session for proxies to take effect.&quot;
+</code></pre>
+<h2 id="in-bashrc">In .bashrc<a class="headerlink" href="#in-bashrc" title="Permanent link">&para;</a></h2>
+<p>Add this line: </p>
+<pre><code>export _JAVA_OPTIONS=&quot;-Dhttp.proxyHost=&lt;proxy host&gt; -Dhttp.proxyPort=&lt;port&gt; -Dhttps.proxyHost=&lt;proxy host&gt; -Dhttps.proxyPort=&lt;port&gt;&quot;
+</code></pre>
+<h2 id="maven-settingsxml">Maven settings.xml<a class="headerlink" href="#maven-settingsxml" title="Permanent link">&para;</a></h2>
+<p>Create a settings.xml file in ~/.m2 folder (if it does not already exist) and add the below content. Replace with the actual proxy host and port details. </p>
+<pre><code>&lt;settings xmlns=&quot;http://maven.apache.org/SETTINGS/1.0.0&quot;
+xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+xsi:schemaLocation=&quot;http://maven.apache.org/SETTINGS/1.0.
+http://maven.apache.org/xsd/settings-1.0.0.xsd&quot;&gt;
+
+&lt;proxies&gt;
+&lt;proxy&gt;
+&lt;id&gt;http_proxy&lt;/id&gt;
+&lt;active&gt;true&lt;/active&gt;
+&lt;protocol&gt;http&lt;/protocol&gt;
+&lt;host&gt;&lt;proxy host&gt;&lt;/host&gt;
+&lt;port&gt; &lt;port&gt; &lt;/port&gt;
+&lt;username&gt;&lt;/username&gt;
+&lt;password&gt;&lt;/password&gt;
+&lt;nonProxyHosts&gt;localhost|&lt;proxy details&gt;&lt;/nonProxyHosts&gt;
+&lt;/proxy&gt;
+&lt;proxy&gt;
+&lt;id&gt;https_proxy&lt;/id&gt;
+&lt;active&gt;true&lt;/active&gt;
+&lt;protocol&gt;https&lt;/protocol&gt;
+&lt;host&gt;&lt;proxy host&gt;&lt;/host&gt;
+&lt;port&gt;&lt;port&gt;&lt;/port&gt;
+&lt;username&gt;&lt;/username&gt;
+&lt;password&gt;&lt;/password&gt;
+&lt;nonProxyHosts&gt;localhost|&lt;proxy&gt;&lt;/nonProxyHosts&gt;
+&lt;/proxy&gt;
+&lt;/proxies&gt;
+&lt;/settings&gt;
+</code></pre>
+<h2 id="in-dockerfile">In Dockerfile<a class="headerlink" href="#in-dockerfile" title="Permanent link">&para;</a></h2>
+<p>After successful PRI build, add the proxy settings to the Dockerfile file in the path <fdo-pri-src>/component-samples/demo/<rv/owner/manufacturer>.</p>
+<pre><code>ENV http_proxy &lt;proxy host&gt;:&lt;port&gt;
+ENV https_proxy &lt;proxy host&gt;:&lt;port&gt;
+
+</code></pre>
+<h2 id="proxy-settings-for-docker">Proxy Settings for Docker*<a class="headerlink" href="#proxy-settings-for-docker" title="Permanent link">&para;</a></h2>
+<p>Follow the proxy settings detailed <a href="#https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/">here</a>. </p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../dms-integration-guide/" class="btn btn-neutral" title="DMS Integration Guide"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license</p>
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../dms-integration-guide/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

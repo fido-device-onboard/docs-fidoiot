@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="FIDO Device Onboard Contributers">
+  <link rel="canonical" href="https://secure-device-onboard.github.io/docs-fidoiot/implementation-references/device-mfg-info/">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>DeviceMfgInfo Specification - FIDO Device Onboard</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "DeviceMfgInfo Specification";
+    var mkdocs_page_input_path = "implementation-references/device-mfg-info.md";
+    var mkdocs_page_url = "/docs-fidoiot/implementation-references/device-mfg-info/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> FIDO Device Onboard</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <p class="caption"><span class="caption-text">Home</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../reference/">Reference</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../community/">Community</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../releases/">Releases</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../security-best-practices/">Security Best Practices</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../installation_rhel/">Installation Guide (RHEL)</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../protocol-specification/">Protocol Specification</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">PRI</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../pri/pri-introduction/">Protocol Reference Implementation</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Client SDK</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../client-sdk/client-sdk-design/">Client SDK Design</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../client-sdk/client-sdk-reference-guide/">Client SDK Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../client-sdk/client-sdk-api-reference/">Client SDK API Reference</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../client-sdk/client-sdk-porting-guide/">Client SDK Porting Guide</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Implementation Reference</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../getting-started-guide/">Getting Started Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../serviceinfo-sys-module/">ServiceInfo System Module</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">DeviceMfgInfo Specification</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../manufacturer-guide/">Manufacturer Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../dms-integration-guide/">DMS Integration Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../proxy-settings/">Proxy Setup Guide</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">FIDO Device Onboard</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Implementation Reference &raquo;</li>
+        
+      
+    
+    <li>DeviceMfgInfo Specification</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h3 id="device-mfg-info">Device-mfg-info<a class="headerlink" href="#device-mfg-info" title="Permanent link">&para;</a></h3>
+<p>The device-mfg-info (DeviceMfgInfo) is used to convey device specific information to the manufacturer tool via message 10 (DIAppStart) of the DI protocol from the device. 
+An FDO application that runs on the device generates the DeviceMfgInfo value. Typically, the device serial number and device info are provided as input to this application. 
+The DeviceMfgInfo must be present and cannot be empty (otherwise an error will result during the DI protocol). </p>
+<p>The DeviceMfgInfo format is a CBOR encoded array consisting of the following entries:</p>
+<ul>
+<li>First entry: (integer) <code>Key type identifier</code></li>
+<li>Second entry: (string) <code>Serial number</code></li>
+<li>Third entry: (string) <code>Device Info</code></li>
+<li>Fourth entry: (bstr) <code>CSR</code> (ECC based device) or <code>device cert chain</code> (OnDie ECDSA based device)<ul>
+<li>if the device is using an ECC keypair, a CSR.</li>
+<li>if the device is OnDie ECDSA then the device cert chain</li>
+</ul>
+</li>
+<li>Fifth entry: (bstr) <code>test signature</code> (present only for OnDie ECDSA devices)</li>
+</ul>
+<p>where:  </p>
+<ul>
+<li>
+<p><code>Key type identifier</code> = 1 | 13 | 14  </p>
+<p>1 = RSA256, 13 = ECC256, 14 = ECC384  </p>
+<p>Identifies the type of owner key the device is prepared to parse, not the type of the device's key.</p>
+</li>
+<li>
+<p><code>Serial number</code> = device serial number  </p>
+<p>The serial number should uniquely identify the device and ideally, should be present on the device itself (such as, the label). It is used to correlate the device with its associated ownership voucher by manufacturers and resellers when shipping devices.  </p>
+</li>
+<li>
+<p><code>Device Info</code> = device info  </p>
+<p>Typically used to provided the device's model number. This data is not strictly required and can be empty if desired.  </p>
+</li>
+<li>
+<p><code>CSR</code> = certificate signing request.   </p>
+<p>The CSR is optional and is only required for ECC devices. The format of the CSR should be base 64-encoded public key cryptography standards (PKCS#10) in privacy-enhanced mail (PEM) format.</p>
+</li>
+<li>
+<p><code>device cert chain</code> = device cert chain   </p>
+<p>The device cert chain for OnDie ECDSA based devices.</p>
+</li>
+<li>
+<p><code>test signature</code> = test signature</p>
+<p>The signature resulting from signing of the 'Serial number' entry. This is used to validate the signing and verification mechanism during manufacturing.</p>
+</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../manufacturer-guide/" class="btn btn-neutral float-right" title="Manufacturer Guide">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../serviceinfo-sys-module/" class="btn btn-neutral" title="ServiceInfo System Module"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license</p>
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../serviceinfo-sys-module/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../manufacturer-guide/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

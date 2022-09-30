@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="FIDO Device Onboard Contributers">
+  <link rel="canonical" href="https://secure-device-onboard.github.io/docs-fidoiot/implementation-references/getting-started-guide/">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Getting Started Guide - FIDO Device Onboard</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Getting Started Guide";
+    var mkdocs_page_input_path = "implementation-references/getting-started-guide.md";
+    var mkdocs_page_url = "/docs-fidoiot/implementation-references/getting-started-guide/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> FIDO Device Onboard</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <p class="caption"><span class="caption-text">Home</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../reference/">Reference</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../community/">Community</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../releases/">Releases</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../security-best-practices/">Security Best Practices</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../installation_rhel/">Installation Guide (RHEL)</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../protocol-specification/">Protocol Specification</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">PRI</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../pri/pri-introduction/">Protocol Reference Implementation</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Client SDK</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../client-sdk/client-sdk-design/">Client SDK Design</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../client-sdk/client-sdk-reference-guide/">Client SDK Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../client-sdk/client-sdk-api-reference/">Client SDK API Reference</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../client-sdk/client-sdk-porting-guide/">Client SDK Porting Guide</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Implementation Reference</span></p>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Getting Started Guide</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#quick-overview-of-fdo">Quick Overview of FDO</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#building-fdo-pri-source">Building FDO PRI Source</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#starting-fdo-server-side-containers">Starting FDO Server-side Containers</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#key-generation-for-fdo-server-side-containers">Key Generation for FDO Server-side Containers</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#specifying-subject-alternate-names-for-the-webhttps-self-signed-certificate">Specifying Subject alternate names for the Web/HTTPS self-signed certificate</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#enable-digest-rest-endpoints">Enable DIGEST REST endpoints</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#starting-the-fdo-pri-manufacturer-server">Starting the FDO PRI Manufacturer Server</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#starting-the-fdo-pri-rendezvous-rv-server">Starting the FDO PRI Rendezvous (RV) Server</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#starting-the-fdo-pri-owner-server">Starting the FDO PRI Owner Server</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#running-e2e-for-pri-device">Running E2E for PRI Device</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#start-fdo-service-containers">Start FDO Service Containers.</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#start-device-initialization-di">Start Device Initialization (DI)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#voucher-extension-to0-for-pri-device">Voucher Extension &amp; TO0 for PRI Device</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#to1-and-to2">TO1 and TO2</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#building-client-sdk-source">Building Client-SDK Source</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#running-e2e-demo-for-fdo-client-sdk">Running E2E Demo for FDO Client-SDK</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-start-fdo-service-containers">1. Start FDO Service Containers.</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-start-device-initialization-di">2. Start Device Initialization (DI)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#voucher-extension-for-client-sdk-device">Voucher Extension for Client-SDK Device</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#to1-and-to2_1">TO1 and TO2</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#enabling-serviceinfo-transfer">Enabling ServiceInfo Transfer</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#keystore-management">Keystore Management</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#generating-self-signed-keys-for-httpstls-communication">Generating Self-signed keys for HTTPS/TLS Communication.</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../serviceinfo-sys-module/">ServiceInfo System Module</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../device-mfg-info/">DeviceMfgInfo Specification</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../manufacturer-guide/">Manufacturer Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../dms-integration-guide/">DMS Integration Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../proxy-settings/">Proxy Setup Guide</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">FIDO Device Onboard</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Implementation Reference &raquo;</li>
+        
+      
+    
+    <li>Getting Started Guide</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="getting-started-guide">Getting Started Guide<a class="headerlink" href="#getting-started-guide" title="Permanent link">&para;</a></h1>
+<style>
+.wy-nav-content {
+    max-width: 76% !important;
+}
+</style>
+
+<p>The FDO project provides a reference implementation of the <a href="https://fidoalliance.org/specs/FDO/FIDO-Device-Onboard-RD-v1.1-20211214">FIDO specification</a> by the FIDO Alliance.</p>
+<figure markdown="1">
+   <center>
+        <img src="../../images/securedeviceonboard-icon-color.png" width="40%" />
+   </center>
+</figure>
+
+<p><strong><em>FDO (FIDO device onboard) provides a fast and more secure way to onboard a device to any device management system. A unique feature of FDO is the ability for the device owner to select the IoT platform at a later stage in the device life cycle. The secrets or configuration data may also be created or chosen at this later stage.</em></strong></p>
+<p>This document provides a quick walk through the E2E flow. Included in this guide:</p>
+<ul>
+<li><a href="#quick-overview-of-fdo">Quick Overview of FDO</a></li>
+<li><a href="#building-fdo-pri-source">Building FDO PRI Source</a></li>
+<li><a href="#starting-fdo-server-side-containers">Starting FDO Service Containers</a></li>
+<li><a href="#running-e2e-for-pri-device">Running E2E for PRI device</a></li>
+<li><a href="#building-client-sdk-source">Building Client-SDK Source</a></li>
+<li><a href="#running-e2e-demo-for-fdo-client-sdk">Running E2E for Client-SDK device</a></li>
+<li><a href="#enabling-serviceinfo-transfer">Enabling ServiceInfo</a></li>
+<li><a href="#keystore-management">Keystore Management</a></li>
+</ul>
+<h2 id="quick-overview-of-fdo">Quick Overview of FDO<a class="headerlink" href="#quick-overview-of-fdo" title="Permanent link">&para;</a></h2>
+<p>FDO contains 3 major server-side components and 1 client-side component.
+The server-side components include Manufacturer, RV, and Owner Service.
+The client-side includes device implementation in Java (PRI) or C (Client-sdk-fidoiot).</p>
+<p>FDO consists of four sets of protocols namely <strong>DI, TO0, TO1, and TO2</strong>.</p>
+<ol>
+<li>
+<p><strong>DI (Device Initialization protocol)</strong></p>
+<ul>
+<li>Between Device &amp; Manufacturer (<strong>msg 10-13</strong>).</li>
+<li>Initiated by Device and Device contacts Manufacturer Service.</li>
+<li>Includes creation &amp; insertion of FDO credentials into newly manufactured device. Credential includes RVInfo which is used by device to connect with RV during T01 protocol</li>
+<li>Customers can take ownership of device after DI by extending the Ownership voucher to a particular customer.</li>
+<li>Ownership voucher is a credential file, passed through the supply chain, that allows an Owner to verify the Device and gives the Device a mechanism to verify the Owner.</li>
+</ul>
+</li>
+<li>
+<p><strong>TO0 (Transfer of Ownership 0 Protocol)</strong></p>
+<ul>
+<li>Between Owner &amp; Rendezvous (RV) server (<strong>msg 20-23</strong>).</li>
+<li>Initiated by Owner once it receives Ownership voucher and Owner contacts RV server.</li>
+<li>TO0 creates a mapping between GUID and owner address and is stored in RV server's database.</li>
+<li>Basically it creates a mapping like GUID=&gt;OwnerAddress</li>
+<li>OwnerAddress can be DNS/IP or combination of both.</li>
+</ul>
+</li>
+<li>
+<p><strong>T01 (Transfer of Ownership 1 Protocol)</strong></p>
+<ul>
+<li>Between Device &amp; Rendezvous (RV) server (<strong>msg 30-33</strong>).</li>
+<li>Initiated by Device. The Device contacts RV server using the rvInfo directives collected during DI.</li>
+<li>During T01, Device identifies itself to RV server and collects the respective mapping of Owner address based on its GUID. This mapping was stored in RV during TO0.</li>
+<li>The Device can use the collected OwnerAddress to contact Owner during TO2.</li>
+</ul>
+</li>
+<li>
+<p><strong>T02 (Transfer of Ownership 2 Protocol)</strong></p>
+<ul>
+<li>Between Device &amp; Owner Server (<strong>msg 60-71</strong>)</li>
+<li>Initiated by Device using the OwnerAddress collected during TO1.</li>
+<li>Device contacts Owner Server and establishes trust and then performs Ownership Transfer.</li>
+<li>During T02, Owner can transfer ServiceInfo modules to the device. These modules can include executable scripts, file payloads, and much more.</li>
+</ul>
+</li>
+</ol>
+<h2 id="building-fdo-pri-source">Building FDO PRI Source<a class="headerlink" href="#building-fdo-pri-source" title="Permanent link">&para;</a></h2>
+<div class="admonition requirements">
+<p class="admonition-title">Requirements</p>
+<ul>
+<li>Check the <a href="https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/#system-requirements">System Requirements</a></li>
+<li>When working behind a proxy, ensure to <a href="https://secure-device-onboard.github.io/docs-fidoiot/latest/implementation-references/proxy-settings/">set proper proxy</a> variables.</li>
+<li><a href="https://docs.docker.com/engine/install/ubuntu/">Follow the steps</a> to setup Docker* environment.</li>
+<li><a href="https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/#running-the-docker-behind-a-proxy">Follow the steps</a> to setup Docker* proxy.</li>
+<li><a href="../../implementation-references/proxy-settings/">Follow the steps</a> to set the right proxy settings. (Includes documentation for system wide proxy configuration)</li>
+</ul>
+</div>
+<p>1.&nbsp; Clone the PRI-fidoiot repository</p>
+<pre><code>git clone https://github.com/secure-device-onboard/pri-fidoiot.git
+</code></pre>
+<p>2.&nbsp; Build PRI-fidoiot:</p>
+<div class="admonition notes">
+<p class="admonition-title">Notes</p>
+<p>For the instructions in this document, <code>&lt;fdo-pri-src&gt;</code> refers to the path of the FDO PRI folder 'pri-fidoiot'.
+<a href="https://github.com/secure-device-onboard/pri-fidoiot#building-fdo-pri-source">Read more</a> about PRI source building.</p>
+</div>
+<p>FDO PRI source can be <strong>built in two ways</strong>:</p>
+<ol>
+<li>Using the <strong>Maven build system</strong> to build FDO PRI source.</li>
+</ol>
+<pre><code>cd &lt;fdo-pri-src&gt;
+mvn clean install
+</code></pre>
+<p>2.&nbsp;Using <strong>Docker container</strong> to build FDO PRI source</p>
+<pre><code>cd &lt;fdo-pri-src&gt;/build
+sudo docker-compose up --build
+</code></pre>
+<p>The build stage generates artifacts and stores them in <code>component-samples/demo</code> directory.</p>
+<div class="admonition notes">
+<p class="admonition-title">Notes</p>
+<p>During the build stage, the following error messages may be displayed on the console. These error messages
+are a result of the discrepancy of logging levels during the build stage and can be ignored.</p>
+<pre><code>    [ERROR] Picked up _JAVA_OPTIONS: -Dhttp.proxyHost= -Dhttp.proxyPort= -Dhttps.proxyHost= -Dhttps.proxyPort=
+    [ERROR] WARNING: An illegal reflective access operation has occurred
+    [ERROR] WARNING: Illegal reflective access by org.apache.catalina.loader.WebappClassLoaderBase to field java.io.ObjectStreamClass$Caches.localDescs
+    [ERROR] WARNING: Please consider reporting this to the maintainers of org.apache.catalina.loader.WebappClassLoaderBase
+    [ERROR] WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+    [ERROR] WARNING: All illegal access operations will be denied in a future release
+</code></pre>
+</div>
+<h2 id="starting-fdo-server-side-containers">Starting FDO Server-side Containers<a class="headerlink" href="#starting-fdo-server-side-containers" title="Permanent link">&para;</a></h2>
+<figure>
+  <center>
+  <img src="../../images/entities.png"/>
+  <figcaption> FIDO Device Onboard Entities and Entity Interconnection </figcaption>
+  </center>
+</figure>
+<p><br></p>
+<h3 id="key-generation-for-fdo-server-side-containers">Key Generation for FDO Server-side Containers<a class="headerlink" href="#key-generation-for-fdo-server-side-containers" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Generating demo certificate authority KeyPair and certificate</p>
+<p><code>shell
+  bash demo-ca.sh</code></p>
+<p><strong>NOTE</strong>: Configure the properties of <code>demo-CA</code> by updating <code>root-ca.conf</code>.</p>
+</li>
+<li>
+<p>Generating Server and Client Keypair and certificates.</p>
+<p><code>shell
+bash web_csr_req.sh
+bash user_csr_req.sh</code></p>
+<p><strong>NOTE</strong>: Both Server and Client certificates are signed by the previously generated demo-CA. Moreover, we can configure the properties of Server and Client certificates by updating <code>web-server.conf</code> and <code>client.conf</code> respectively. <a href="#specifying-subject-alternate-names-for-the-webhttps-self-signed-certificate">Learn how to configure Server and Client Certificates.</a></p>
+</li>
+<li>
+<p>Running keys_gen.sh will generate random passwords for the all http servers and creates <code>secrets</code> folder containing all the required <code>.pem</code> files of Client, CA and Server component.</p>
+<p><code>$ cd &lt;fdo-pri-src&gt;/component-samples/demo/scripts
+$ ./keys_gen.sh</code></p>
+<p>A message "Key generation completed." will be displayed on the console.</p>
+<p>Credentials will be stored in the <code>secrets</code> directory within <code>&lt;fdo-pri-src&gt;/component-sample/demo/scripts</code>.</p>
+</li>
+<li>
+<p>Copy both <code>secrets/</code> and <code>service.env</code> file from  <code>&lt;fdo-pri-src&gt;/component-sample/demo/scripts</code>  folder to the individual components.</p>
+<p><strong>NOTE:</strong> Don't replace <code>service.env</code> present in the database component with generated <code>service.env</code> in <code>scripts</code> folder.</p>
+<p><code>$ cd &lt;fdo-pri-src&gt;/component-samples/demo/scripts
+$ cp -r ./secrets/. ../&lt;component&gt;
+$ cp service.env ../&lt;component&gt;</code></p>
+<p><strong>NOTE</strong>: Component refers to the individual FDO services like aio, manufacturer, rv , owner and reseller.</p>
+<p><strong>NOTE</strong>: Docker secrets are only available to swarm services, not to standalone containers. To use this feature, consider adapting your container to run as a service. Stateful containers can typically run with a scale of 1 without changing the container code.</p>
+</li>
+</ol>
+<h3 id="specifying-subject-alternate-names-for-the-webhttps-self-signed-certificate">Specifying Subject alternate names for the Web/HTTPS self-signed certificate<a class="headerlink" href="#specifying-subject-alternate-names-for-the-webhttps-self-signed-certificate" title="Permanent link">&para;</a></h3>
+<p>The subject name of the self-signed certificate is defined in the  <code>web-server.conf</code> and <code>client.conf</code>.</p>
+<p>Uncomment <code>subjectAltName</code> and allowed list of IP and DNS in <code>[alt_names]</code> section. Example:</p>
+<pre><code>#[ req_ext ]
+  subjectAltName = @alt_names
+
+[ alt_names ]
+  #Replace or add new DNS and IP entries with the ones required by the HTTPs/Web Service.
+  DNS.1 = www.example.com
+  DNS.2 = test.example.com
+  DNS.3 = mail.example.com
+  DNS.4 = www.example.net
+  IP.1 = 127.0.0.1
+  IP.2 = 200.200.200.200
+  IP.3 = 2001:DB8::1
+</code></pre>
+<p><strong>NOTE</strong>: Self-signed certificates created using the script is not recommended for use in production environments.</p>
+<h3 id="enable-digest-rest-endpoints">Enable DIGEST REST endpoints<a class="headerlink" href="#enable-digest-rest-endpoints" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Update <code>WEB-INF/web.xml</code> to support Digest authentication
+    ```
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>apis</web-resource-name>
+            <url-pattern>/api/v1/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>api</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+          <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+      </security-constraint></p>
+<p><login-config>
+      <auth-method>DIGEST</auth-method>
+  </login-config>
+<code>``
+Change</code><transport-guarantee><code>to</code>NONE<code>and</code><auth-method><code>to</code>DIGEST`.</p>
+</li>
+<li>
+<p>Update <code>{server.api.user}</code> and <code>{server.api.password}</code> in <code>demo/&lt;component&gt;/tomcat-users.xml</code> file.</p>
+</li>
+</ol>
+<h3 id="starting-the-fdo-pri-manufacturer-server">Starting the FDO PRI Manufacturer Server<a class="headerlink" href="#starting-the-fdo-pri-manufacturer-server" title="Permanent link">&para;</a></h3>
+<p><strong><em>FDO Manufacturer is an application that runs in the factory, which implements the initial communications with the Device, as part of the Device Initialize Protocol (DI). The manufacturer creates an Ownership Voucher based on the credentials received during DI and extends the voucher to the respective owner.</em></strong>    </p>
+<p>Run the below commands, in a separate console, to start the Manufacturer.</p>
+<pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/manufacturer/
+sudo docker-compose up --build
+</code></pre>
+<p>Once the Manufacturer has successfully started, the following output is displayed</p>
+<figure>
+  <center>
+  <img src="../../images/manufacturer.png"/>
+  <figcaption> Manufacturer getting started </figcaption>
+  </center>
+</figure>
+
+<h3 id="starting-the-fdo-pri-rendezvous-rv-server">Starting the FDO PRI Rendezvous (RV) Server<a class="headerlink" href="#starting-the-fdo-pri-rendezvous-rv-server" title="Permanent link">&para;</a></h3>
+<p><strong><em>RV Server is a network server or service (For example, on the Internet) that acts as a rendezvous point between a newly powered on Device and the Owner Onboarding Service.</em></strong>   </p>
+<p>Run the below commands, on a seperate console, to start the RV server.</p>
+<pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/rv/
+sudo docker-compose up --build
+</code></pre>
+<p>Once the RV instance has successfully started, the following output is displayed</p>
+<figure>
+  <center>
+  <img src="../../images/rv.png"/>
+  <figcaption>RV getting started </figcaption>
+  </center>
+</figure>
+
+<h3 id="starting-the-fdo-pri-owner-server">Starting the FDO PRI Owner Server<a class="headerlink" href="#starting-the-fdo-pri-owner-server" title="Permanent link">&para;</a></h3>
+<p><strong><em>Owner is an entity that is able to prove ownership to the Device using an Ownership Voucher and a private key for the last entry of the Ownership Voucher. Owner supports the transfer of Serviceinfo to the Device.</em></strong>   </p>
+<p>Run the below commands, on a separate console, to start the Owner Server.</p>
+<pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/owner/
+sudo docker-compose up --build
+</code></pre>
+<p>Once the Owner instance has successfully started, the following output is displayed</p>
+<figure>
+ <center>
+  <img src="../../images/owner.png"/>
+  <figcaption> Owner getting started </figcaption>
+ </center>
+</figure>
+
+<div class="admonition notes">
+<p class="admonition-title">Notes</p>
+<ul>
+<li>Proper <a href="#keystore-management">keystore management</a> to be considered before using the services in production environment.</li>
+<li>To0scheduling interval property can be modified in the component-sample/demo/owner/service.yml.
+  Update to0-scheduler: <code>interval: 120</code></li>
+<li><a href="https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md">Read more</a> about starting PRI services.</li>
+</ul>
+</div>
+<h2 id="running-e2e-for-pri-device">Running E2E for PRI Device<a class="headerlink" href="#running-e2e-for-pri-device" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<h5 id="start-fdo-service-containers"><a href="#starting-fdo-server-side-containers">Start FDO Service Containers</a>.<a class="headerlink" href="#start-fdo-service-containers" title="Permanent link">&para;</a></h5>
+</li>
+<li>
+<h5 id="start-device-initialization-di">Start Device Initialization (DI)<a class="headerlink" href="#start-device-initialization-di" title="Permanent link">&para;</a></h5>
+</li>
+</ol>
+<p><strong>When DI is initiated, device contacts manufacturer. DI includes the insertion of FDO credentials into device during the manufacturing process and creation of ownership voucher.</strong></p>
+<p>On a new console, key in the following commands</p>
+<div class="admonition notes">
+<p class="admonition-title">Notes</p>
+<p>Make sure that <code>di-url</code> is set to the correct address in <code>service.yml</code> of device. The default <code>di-url</code> value for standalone manufacturer is <code>http://localhost:8039</code>.</p>
+</div>
+<pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/device
+java -jar device.jar
+</code></pre>
+<p>Expect the following line on successful DI completion.</p>
+<pre><code>DI complete, GUID is &lt;guid&gt;
+</code></pre>
+<p><strong>After completion of DI, the FDO credentials are stored into <code>app-data/credentials.bin</code> file. The credentials file includes <code>rvinfo</code> from manufacturer, which is later used by device to contact RV server, once it is powered on at the client side. The initialized device is then boxed and sold to customers.</strong></p>
+<div class="admonition additional_configurations">
+<p class="admonition-title">Additional_configurations<ul>
+<li>Additional arguments for <a href="https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-the-device-service">configuring PRI device</a>.</li>
+<li>Configuring PRI device for <a href="https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-device-for-httpstls-communication">HTTPS/TLS communication</a>.</li>
+<li><a href="https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/device/README.md">Read more</a> about Device Intialization.</li>
+</ul>
+</p>
+</div>
+<h5 id="voucher-extension-to0-for-pri-device">Voucher Extension &amp; TO0 for PRI Device<a class="headerlink" href="#voucher-extension-to0-for-pri-device" title="Permanent link">&para;</a></h5>
+<figure>
+  <center>
+  <img src="../../images/slide3.png"/>
+  <figcaption>Voucher extension</figcaption>
+  </center>
+</figure>
+<p><br></p>
+<p><strong>During TO0, the FDO Owner identifies itself to Rendezvous Server and establishes the mapping between GUID and Owneraddress. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob'. <a href="https://github.com/secure-device-onboard/pri-fidoiot#ownership-voucher-creation">Follow</a> the given steps to access database table.</strong></p>
+<p>Execute the following script to initiate TO0.</p>
+<pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/scripts
+bash extend_upload.sh -s serial_no
+</code></pre>
+<p>if you are using mTLS authentication mode for rest endpoints:</p>
+<pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/scripts
+bash extend_upload.sh -e mtls -c &lt;path-to-generated-secrets&gt; -s serial_no
+</code></pre>
+<p>or </p>
+<p>Follow the steps to manually initiate the T00.</p>
+<pre><code>curl -D - --digest -u ${api_user}:${owner_api_passwd} --location --request GET &quot;http://${owner_ip}:${onr_port}/api/v1/certificate?alias=${attestation_type}&quot; -H 'Content-Type: text/plain' -o owner_cert.txt
+
+curl -D - --digest -u ${api_user}:${mfg_api_passwd} --location --request POST &quot;http://${mfg_ip}:${mfg_port}/api/v1/mfg/vouchers/${serial_no}&quot; --header 'Content-Type: text/plain' --data-raw  &quot;&lt;content-of-owner_cert&gt;&quot; -o ${serial_no}_voucher.txt)
+
+curl -D - --digest -u ${api_user}:${onr_api_passwd} --location --request POST &quot;http://${onr_ip}:${onr_port}/api/v1/owner/vouchers/&quot; --header 'Content-Type: text/plain' --data-raw &quot;$extended_voucher&quot; -o ${serial_no}_guid.txt)
+
+curl -D - --digest -u ${api_user}:${onr_api_passwd} --location --request GET &quot;http://${onr_ip}:${onr_port}/api/v1/to0/${device_guid}&quot; --header 'Content-Type: text/plain')
+
+</code></pre>
+<p><strong><em>NOTE:</em></strong> To execute the above cURL calls with <code>mTLS</code> instead of <code>DIGEST</code> authentication. Replace <code>-D - --digest -u ${apiUser}:${api_password}</code> with <code>--cacert path-to-CA --cert path-to-client-Certificate</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Make sure to replace <code>generated-password</code> with <code>api_password</code> property present in <code>component-samples/demo/&lt;component&gt;/service.env</code> file.</p>
+</div>
+<p>Here, the initial two curl calls are to <strong>collect the Ownership voucher</strong> from Manufacturer server and the final two curl calls are to <strong>upload the collected voucher</strong> to Owner. Using the received voucher, Owner initiates TO0 with RV Server using the rvAddress present in Voucher.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Make sure you are getting status <code>200 OK</code> for the curl calls. If you are facing issue with <code>localhost</code> curl calls, try with IP address instead of localhost.**</p>
+</div>
+<p>Wait for TO0 finished for <guid> message in the Owner console. This generally takes a few minutes to complete.</p>
+<p>Expect the following message on successful TO0 completion.</p>
+<pre><code>TO0 Client finished for GUID &lt;guid&gt;
+</code></pre>
+<p><strong>After the completion of TO0, RV Server will have an entry in a table that associates the Device GUID with the Owner Address.</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note<ul>
+<li><a href="#keystore-management">Keystore Management</a> needs to be taken care, if PRI Rendezvous server and PRI Owner server is not running on the same machine.</li>
+<li><strong>You can enable ServiceInfo at this stage.</strong> <a href="#enabling-serviceinfo-transfer">Follow the instructions</a> to enable ServiceInfo.</li>
+</ul>
+</p>
+</div>
+<h4 id="to1-and-to2">TO1 and TO2<a class="headerlink" href="#to1-and-to2" title="Permanent link">&para;</a></h4>
+<p><strong>During T01, Device identifies itself to the Rendezvous Server. Obtains mapping to connect to the Owner’s IP address. During T02, the Device contacts Owner and establishes trust and then performs Ownership Transfer.</strong></p>
+<p>During T02,  Owner can transfer ServiceInfo modules to the device. These modules can include executable scripts, file payloads. <a href="#enabling-serviceinfo-transfer">Read more</a> about serviceInfo transfers.</p>
+<pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/device
+java -jar device.jar
+</code></pre>
+<p>Wait for TO2 protocol completed message and Device is onboarded Successfully.</p>
+<p>Expect the following message on successful TO2 completion.</p>
+<pre><code>TO2 completed successfully.
+</code></pre>
+<h2 id="building-client-sdk-source">Building Client-SDK Source<a class="headerlink" href="#building-client-sdk-source" title="Permanent link">&para;</a></h2>
+<p>FDO Client-SDK source can be build by:</p>
+<ol>
+<li>
+<p>Follow instructions in the <a href="https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/linux.md">documentation</a> to install dependencies.</p>
+</li>
+<li>
+<p>Clone the repository</p>
+<p><code>git clone https://github.com/secure-device-onboard/client-sdk-fidoiot.git</code></p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For the instructions in this document, <code>&lt;client-sdk-src&gt;</code> refers to the path of the FDO Client-SDK source folder 'client-sdk-fidoiot'.</p>
+</div>
+<p>3.&nbsp; Execute build.sh script</p>
+<pre><code>cd &lt;client-sdk-src&gt;
+./build.sh
+</code></pre>
+<p>The build script generates artifacts and stores them in <code>./build/</code> directory.</p>
+<h2 id="running-e2e-demo-for-fdo-client-sdk">Running E2E Demo for FDO Client-SDK<a class="headerlink" href="#running-e2e-demo-for-fdo-client-sdk" title="Permanent link">&para;</a></h2>
+<h5 id="1-start-fdo-service-containers">1. <a href="#starting-fdo-server-side-containers">Start FDO Service Containers</a>.<a class="headerlink" href="#1-start-fdo-service-containers" title="Permanent link">&para;</a></h5>
+<h5 id="2-start-device-initialization-di">2. Start Device Initialization (DI)<a class="headerlink" href="#2-start-device-initialization-di" title="Permanent link">&para;</a></h5>
+<p><strong>When DI is initiated, device contacts manufacturer. DI includes the insertion of FDO credentials into device during the manufacturing process and creation of ownership voucher.</strong></p>
+<p>On a new console, key in the following commands</p>
+<pre><code>cd &lt;client-sdk-src&gt;
+./build/linux-client
+</code></pre>
+<div class="admonition additional_configurations">
+<p class="admonition-title">Additional_configurations</p>
+<ul>
+<li><a href="https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/linux.md#7-running-the-application-">Read more</a> on Client-SDK Device Initialization.</li>
+<li><a href="https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/setup.md#7-http-proxy-configuration-optional">Configuring Client-SDK device</a> for Proxy Network.</li>
+<li>Follow instructions in the <a href="https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/setup.md#3-setting-the-manufacturer-network-address">documentation</a>, to update Manufacturer's address.</li>
+</ul>
+</div>
+<h5 id="voucher-extension-for-client-sdk-device">Voucher Extension for Client-SDK Device<a class="headerlink" href="#voucher-extension-for-client-sdk-device" title="Permanent link">&para;</a></h5>
+<p><strong>During TO0, the FDO Owner identifies itself to Rendezvous Server, establishes the mapping of GUID to the Owner IP address. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob.'</strong></p>
+<p>Execute the following script to initiate TO0.</p>
+<pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/scripts
+bash extend_upload.sh -s serial_no
+</code></pre>
+<p>if you are using mTLS authentication mode for rest endpoints:</p>
+<pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/scripts
+bash extend_upload.sh -e mtls -c &lt;path-to-generated-secrets&gt; -s serial_no
+</code></pre>
+<p>or </p>
+<pre><code>curl -D - --digest -u ${api_user}:${owner_api_passwd} --location --request GET &quot;http://${owner_ip}:${onr_port}/api/v1/certificate?alias=${attestation_type}&quot; -H 'Content-Type: text/plain' -o owner_cert.txt
+
+curl -D - --digest -u ${api_user}:${mfg_api_passwd} --location --request POST &quot;http://${mfg_ip}:${mfg_port}/api/v1/mfg/vouchers/abcdef&quot; --header 'Content-Type: text/plain' --data-raw  &quot;&lt;content-of-owner_cert&gt;&quot; -o voucher.txt)
+
+curl -D - --digest -u ${api_user}:${onr_api_passwd} --location --request POST &quot;http://${onr_ip}:${onr_port}/api/v1/owner/vouchers/&quot; --header 'Content-Type: text/plain' --data-raw &quot;$extended_voucher&quot; -o ${serial_no}_guid.txt)
+
+curl -D - --digest -u ${api_user}:${onr_api_passwd} --location --request GET &quot;http://${onr_ip}:${onr_port}/api/v1/to0/${device_guid}&quot; --header 'Content-Type: text/plain')
+
+</code></pre>
+<p><strong><em>NOTE:</em></strong> To execute <code>mTLS</code> calls instead of <code>DIGEST</code>. Replace <code>-D - --digest -u ${apiUser}:${api_password}</code> with <code>--cacert path-to-CA --cert path-to-client-Certificate</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Make sure to replace <code>generated-password</code> with <code>api_password</code> property present in <code>component-samples/demo/&lt;component&gt;/creds.env</code> file.</p>
+</div>
+<p>Here, the initial curl call is to <strong>collect the Ownership voucher</strong> from Manufacturer server and the final curl call is to <strong>upload the collected voucher</strong> to Owner. Using the received voucher, Owner initiates TO0 with RV Server using the rvAddress present in Voucher.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Make sure you are getting status <code>200 OK</code> for the curl calls. If you are facing issue with <code>localhost</code> curl calls, try with IP address instead of localhost.**</p>
+</div>
+<p>Wait for TO0 to finish for <guid> message on the Owner console.</p>
+<p>Expect the following message on successful TO0 completion.</p>
+<pre><code>TO0 Client finished for GUID &lt;guid&gt;
+</code></pre>
+<div class="admonition notes">
+<p class="admonition-title">Notes</p>
+<ul>
+<li><a href="#keystore-management">Keystore Management</a> needs to be taken care, if PRI Rendezvous server and PRI Owner server is not running on the same machine.</li>
+<li><strong>You can enable ServiceInfo at this stage.</strong> <a href="#enabling-serviceinfo-transfer">Follow the instructions</a> to enable ServiceInfo.</li>
+</ul>
+</div>
+<h5 id="to1-and-to2_1">TO1 and TO2<a class="headerlink" href="#to1-and-to2_1" title="Permanent link">&para;</a></h5>
+<p><strong>During T01, Device identifies itself to the Rendezvous Server. Obtains mapping to connect to the Owner’s IP address. During T02, the Device contacts Owner and establishes trust and then performs Ownership Transfer.</strong></p>
+<p>During T02,  Owner can transfer ServiceInfo modules to the device. These modules can include executable scripts, file payloads. <a href="#enabling-serviceinfo-transfer">Read more</a> about serviceInfo transfers.</p>
+<pre><code>cd &lt;client-sdk-src&gt;
+./build/linux-client
+</code></pre>
+<p>Wait for TO2 protocol completed message</p>
+<p>Expect the following message on successful TO completion.</p>
+<pre><code>Device onboarded successfully.
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@FIDO Device Onboard Complete@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+</code></pre>
+<h2 id="enabling-serviceinfo-transfer">Enabling ServiceInfo Transfer<a class="headerlink" href="#enabling-serviceinfo-transfer" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Create a sample linux64.sh shell script.<pre><code>    #!/bin/bash
+    wget https://raw.githubusercontent.com/secure-device-onboard/pri-fidoiot/master/SECURITY.md
+    filename=SECURITY.md
+    cksum_tx=2749598590
+    cksum_rx=$(cksum $filename | cut -d ' ' -f 1)
+    if [ $cksum_tx -eq $cksum_rx  ]; then
+      echo "Device onboarded successfully."
+      echo "Device onboarded successfully." &gt; result.txt
+    else
+      echo "ServiceInfo file transmission failed."
+      echo "ServiceInfo file transmission failed." &gt; result.txt
+    fi
+</code></pre>
+</li>
+</ul>
+<p>This script downloads the SECURITY.md file and checks the integrity of file against the pre-computed checksum value.</p>
+<ul>
+<li>
+<p>cURL command to transfer executable resource.</p>
+<pre><code>    $ curl --location --digest -u apiUser: --location --request POST 'http://localhost:8080/api/v1/owner/resource?filename=linux64.sh' --header 'Content-Type: text/plain' --data-binary '@path-to-executable/linux64.sh'
+</code></pre>
+</li>
+<li>
+<p>cURL command to update ServiceInfo instructions. Eg:</p>
+<pre><code>    $ curl -D - --digest -u apiUser: --location --request POST 'http://localhost:8080/api/v1/owner/svi' --header 'Content-Type: text/plain' --data-raw '[{\"filedesc\" : \"payload.bin\",\"resource\" : \"payload.bin\"},{\"filedesc\" : \"linux64.sh\",\"resource\" : \"linux64.sh\"},{\"exec\" : [\"/bin/bash\",\"linux64.sh\"]}]'
+</code></pre>
+</li>
+</ul>
+<h2 id="keystore-management">Keystore Management<a class="headerlink" href="#keystore-management" title="Permanent link">&para;</a></h2>
+<h3 id="generating-self-signed-keys-for-httpstls-communication">Generating Self-signed keys for HTTPS/TLS Communication.<a class="headerlink" href="#generating-self-signed-keys-for-httpstls-communication" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Generate key and certificate.</p>
+<pre><code>openssl req \
+-x509 \
+-newkey rsa:2048 \
+-sha256 \
+-days 3560 \
+-nodes \
+-keyout tls.key \
+-out tls.crt \
+-subj '/CN=fdo' \
+-extensions san \
+-config &lt;( \
+  echo '[req]'; \
+  echo 'distinguished_name=req'; \
+  echo '[san]'; \
+  echo 'subjectAltName=DNS:localhost,IP:&lt;ip-address&gt;')
+</code></pre>
+<p>Update <code>&lt;ip-address&gt;</code> with the IP address of machine running the FDO service.</p>
+</li>
+<li>
+<p>Generate Keystore using fresh key and certificate.</p>
+<p><code>openssl pkcs12 -export -in tls.crt -inkey tls.key -out ssl.p12</code></p>
+<ul>
+<li>Copy the <code>ssl.p12</code> file into <code>component-samples/demo/&lt;component&gt;/certs/</code> folder.</li>
+<li>Update the respective <code>.env</code> file with proper keystore credentials.</li>
+</ul>
+</li>
+<li>
+<p>Adding generated certificate into the truststore.</p>
+<p><code>keytool -import -alias fdo -file tls.crt -storetype PKCS12 -keystore truststore</code></p>
+</li>
+</ol>
+<div class="admonition notes">
+<p class="admonition-title">Notes</p>
+<ul>
+<li><a href="https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md#generating-key-pair">Read more</a> about key generation.</li>
+<li>You can update the key type, by modifying the <code>-newkey</code> attribute during the key generation stage.</li>
+<li>You can add multiple IP addresses in the <code>subjectAltName</code> attribute.</li>
+</ul>
+</div>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../serviceinfo-sys-module/" class="btn btn-neutral float-right" title="ServiceInfo System Module">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../../client-sdk/client-sdk-porting-guide/" class="btn btn-neutral" title="Client SDK Porting Guide"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license</p>
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../../client-sdk/client-sdk-porting-guide/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../serviceinfo-sys-module/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

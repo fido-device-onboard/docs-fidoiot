@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="FIDO Device Onboard Contributers">
+  <link rel="canonical" href="https://secure-device-onboard.github.io/docs-fidoiot/implementation-references/serviceinfo-sys-module/">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>ServiceInfo System Module - FIDO Device Onboard</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "ServiceInfo System Module";
+    var mkdocs_page_input_path = "implementation-references/serviceinfo-sys-module.md";
+    var mkdocs_page_url = "/docs-fidoiot/implementation-references/serviceinfo-sys-module/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> FIDO Device Onboard</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <p class="caption"><span class="caption-text">Home</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../reference/">Reference</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../community/">Community</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../releases/">Releases</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../security-best-practices/">Security Best Practices</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../installation_rhel/">Installation Guide (RHEL)</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../protocol-specification/">Protocol Specification</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">PRI</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../pri/pri-introduction/">Protocol Reference Implementation</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Client SDK</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../client-sdk/client-sdk-design/">Client SDK Design</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../client-sdk/client-sdk-reference-guide/">Client SDK Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../client-sdk/client-sdk-api-reference/">Client SDK API Reference</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../client-sdk/client-sdk-porting-guide/">Client SDK Porting Guide</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Implementation Reference</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../getting-started-guide/">Getting Started Guide</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">ServiceInfo System Module</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#fdo_sysexec-message">fdo_sys:exec Message</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#fdo_sysfiledesc-message">fdo_sys:filedesc Message</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#fdo_syswrite-message">fdo_sys:write Message</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../device-mfg-info/">DeviceMfgInfo Specification</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../manufacturer-guide/">Manufacturer Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../dms-integration-guide/">DMS Integration Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../proxy-settings/">Proxy Setup Guide</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">FIDO Device Onboard</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Implementation Reference &raquo;</li>
+        
+      
+    
+    <li>ServiceInfo System Module</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p>This section defines the “system” module (fdo_sys) specification which provides basic onboarding services
+for FDO capable devices. A module is a set of key-value pairs; they define the onboarding operations
+that can be performed on a given FDO device. Module key-value pairs are exchanged between the device
+and it’s owning Device Management Service. It is up to the owning management service and the
+device to interpret the key-value pairs in accordance with the module specification.</p>
+<h2 id="fdo_sys-module-definition">fdo_sys Module Definition<a class="headerlink" href="#fdo_sys-module-definition" title="Permanent link">&para;</a></h2>
+<p>The system module defines basic onboarding operations such as downloading content and executing
+commands. The following table describes key-value pairs for the system module.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Key Name</strong></th>
+<th><strong>Value</strong></th>
+<th><strong>Meaning</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fdo_sys:active</td>
+<td>CBOR Bool</td>
+<td>True to activate the fdo_sys module.</td>
+</tr>
+<tr>
+<td>fdo_sys:exec</td>
+<td>CBOR Array of String values</td>
+<td>The command is put as array elements. The command performs a system call.</td>
+</tr>
+<tr>
+<td>fdo_sys:filedesc</td>
+<td>CBOR String</td>
+<td>Describes a path to a file that will be used in subsequent file operations.</td>
+</tr>
+<tr>
+<td>fdo_sys:write</td>
+<td>CBOR BSTR</td>
+<td>Appends a block of data to the current file description.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fdo_sysexec-message">fdo_sys:exec Message<a class="headerlink" href="#fdo_sysexec-message" title="Permanent link">&para;</a></h3>
+<p>The fdo_sys:exec command performs a system call on the device. The value of this command is a
+CBOR Array of String values. The first string in the array is the command to execute and the
+remaining strings are the arguments to the command. It is expected that it would use “exec”
+(system call) or similar API to execute the command on the device.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JSON* (readable description)</td>
+<td>["/bin/sh","startup.sh"]</td>
+</tr>
+<tr>
+<td>CBOR</td>
+<td><code>82</code> # array(2) <br> <code>67</code> # text(7) <br> <code>2F62696E2F7368</code> # "/bin/sh" <br> <code>6A</code> # text(10) <br> <code>737461727475702E7368</code> # "startup.sh"</td>
+</tr>
+<tr>
+<td>C example</td>
+<td>execvp(“/bin/sh”,(char* []) {“shartup.sh”})</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fdo_sysfiledesc-message">fdo_sys:filedesc Message<a class="headerlink" href="#fdo_sysfiledesc-message" title="Permanent link">&para;</a></h3>
+<p>The fdo_sys:filedesc message describes the path to a file the will be used as a part of the
+onboarding process. A zero-length file is expected to exist on the local file system after this
+command is received. If the described file already exists, it is truncated to zero length, otherwise
+a zero-length file is created. The permissions for the created file is set to read/write
+for the user account the module is running under. File permissions can subsequently be modified with
+the fdo_sys:exec command if needed. If a path is not included as a part of the file name, the
+file is created under current working directory of the module. All subsequent fdo_sys:write
+operations will append to this file. If another fdo_sys:filedesc message is received, all subsequent
+fdo_sys:write messages will start appending to the file specified by the fdo_sys:filedesc message.</p>
+<h3 id="fdo_syswrite-message">fdo_sys:write Message<a class="headerlink" href="#fdo_syswrite-message" title="Permanent link">&para;</a></h3>
+<p>The fdo_sys:write message provides an array of bytes that gets appended to the file described by
+the last fdo_sys:filedesc message. If this message is sent without being preceded by
+fdo_sys:filedesc, then a message <code>255: INVALID_MESSAGE_ERROR</code> will be thrown and TO2 will not be
+completed. Once a fdo_sys:filedesc message has been received, many fdo_sys:write messages can
+follow.</p>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>Below are examples of the fdo_sys messages encoded as CBOR. The JSON examples are just human
+readable definitions while the actual messages are always CBOR. The encoding includes the entire
+TO2.OwnerServiceInfo message include the isMore and isDone flags.</p>
+<p>Device should advertise it supports fdo_sys.</p>
+<p><strong><em>NOTE</em></strong>: This example just includes the module list key value pairs and not all the required values for the devmod.</p>
+<h3 id="deviceserviceinfo-devmod">DeviceServiceInfo (devmod)<a class="headerlink" href="#deviceserviceinfo-devmod" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Diagnostic Notation (not used by protocol)</td>
+<td>[false, [[["devmod:active", "true"], ["devmod:nummodules", 1], ["devmod:modules", [1, 1, "fdo_sys"]]]]]</td>
+</tr>
+<tr>
+<td>CBOR</td>
+<td><code>82</code> # array(2) <br> <code>F4</code> # primitive(20) - IsMoreSeviceInfo <br> <code>81</code> # array(1) - ServiceInfo <br> <code>83</code> # array(3) - ServiceInfo Key-Value Array <br> <code>82</code> # array(2) - ServiceInfo Key-Value Pair 1 <br> <code>6D</code> # text(13) <br> <code>6465766D6F643A616374697665</code> # "devmod:active" <br> <code>64</code> # text(4) <br> <code>74727565</code> # "true" <br> <code>82</code> # array(2) - ServiceInfo Key-Value Pair 2 <br> <code>71</code> # text(17) <br> <code>6465766D6F643A6E756D6D6F64756C6573</code> # "devmod:nummodules" <br> <code>01</code> # unsigned(1) <br> <code>82</code> # array(2) - ServiceInfo Key-Value Pair 3 <br> <code>6E</code> # text(14) <br> <code>6465766D6F643A6D6F64756C6573</code> # "devmod:modules" <br> <code>83</code> # array(3) <br> <code>01</code> # unsigned(1) - Module Index <br> <code>01</code> # unsigned(1) - Number of modules <br> <code>67</code> # text(7) <br> <code>66646F5F737973</code> # "fdo_sys"</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ownerserviceinfo">OwnerServiceInfo<a class="headerlink" href="#ownerserviceinfo" title="Permanent link">&para;</a></h3>
+<h4 id="fdo_sysactive">fdo_sys:active<a class="headerlink" href="#fdo_sysactive" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Diagnostic Notation (not used by protocol)</td>
+<td>[true, false, [[["fdo_sys:active", true]]]]</td>
+</tr>
+<tr>
+<td>CBOR</td>
+<td><code>83</code> # array(3) <br> <code>F5</code> # primitive(21) - IsMoreSeviceInfo <br> <code>F4</code> # primitive(20) - IsDone <br> <code>81</code> # array(1) - ServiceInfo <br> <code>81</code> # array(1) - ServiceInfo Key-Value Array <br> <code>82</code> # array(2) - ServiceInfo Key-Value Pair <br> <code>6E</code> # text(14) <br> <code>66646F5F7379733A616374697665</code> # "fdo_sys:active" <br> <code>F5</code> # primitive(21)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fdo_sysfiledesc">fdo_sys:filedesc<a class="headerlink" href="#fdo_sysfiledesc" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Diagnostic Notation (not used by protocol)</td>
+<td>[true, false, [[["fdo_sys:filedesc", "startup.bat"]]]]</td>
+</tr>
+<tr>
+<td>CBOR</td>
+<td><code>83</code> # array(3) <br> <code>F5</code> # primitive(21) - IsMoreSeviceInfo <br> <code>F4</code> # primitive(20) - IsDone <br> <code>81</code> # array(1) - ServiceInfo <br> <code>81</code> # array(1) - ServiceInfo Key-Value Array <br> <code>82</code> # array(2) - ServiceInfo Key-Value Pair <br> <code>70</code> # text(16) <br> <code>66646F5F7379733A66696C6564657363</code> # "fdo_sys:filedesc" <br> <code>6B</code> # text(11) <br> <code>737461727475702E626174</code> # "startup.bat"</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fdo_syswrite">fdo_sys:write<a class="headerlink" href="#fdo_syswrite" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Diagnostic Notation (not used by protocol)</td>
+<td>[true, false, [[["fdo_sys:write", h'4045…']]]]</td>
+</tr>
+<tr>
+<td>CBOR</td>
+<td><code>83</code> # array(3) <br> <code>F5</code> # primitive(21) - IsMoreSeviceInfo <br> <code>F4</code> # primitive(20) - IsDone <br> <code>81</code> # array(1) - ServiceInfo <br> <code>81</code> # array(1) - ServiceInfo Key-Value Array <br> <code>82</code> # array(2) - ServiceInfo Key-Value Pair <br> <code>6D</code> # text(13) <br> <code>66646F5F7379733A7772697465</code> # "fdo_sys:write" <br> <code>59 0116</code> # bytes(278) <br> <code>4045..</code> # "@E" -rest of 278 byte file</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fdo_sysexec">fdo_sys:exec<a class="headerlink" href="#fdo_sysexec" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Diagnostic Notation (not used by protocol)</td>
+<td>[false, true, [[["fdo_sys:exec", ["cmd", "/c", "startup.bat"]]]]</td>
+</tr>
+<tr>
+<td>CBOR</td>
+<td><code>83</code> # array(3) <br> <code>F4</code> # primitive(20) - IsMoreSeviceInfo <br> <code>F5</code> # primitive(21) - IsDone <br> <code>81</code> # array(1) - ServiceInfo <br> <code>81</code> # array(1) - ServiceInfo Key-Value Array <br> <code>82</code> # array(2) - ServiceInfo Key-Value Pair <br> <code>6C</code> # text(12) <br> <code>66646F5F7379733A65786563</code> # "fdo_sys:exec" <br> <code>83</code> # array(3) <br> <code>63</code> # text(3) <br> <code>636D64</code> # "cmd" <br> <code>62</code> # text(2) <br> <code>2F63</code> # "/c" <br> <code>6B</code> # text(11) <br> <code>737461727475702E626174</code> # "startup.bat"</td>
+</tr>
+</tbody>
+</table>
+<h4 id="ismore-flag">ismore Flag<a class="headerlink" href="#ismore-flag" title="Permanent link">&para;</a></h4>
+<p>The 'ismore' more should be true is if the message being sent is not a complete processable message.  All fdo_sys messages are complete messages, so the 'ismore' flag will always be true in this case.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../device-mfg-info/" class="btn btn-neutral float-right" title="DeviceMfgInfo Specification">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../getting-started-guide/" class="btn btn-neutral" title="Getting Started Guide"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license</p>
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../getting-started-guide/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../device-mfg-info/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
