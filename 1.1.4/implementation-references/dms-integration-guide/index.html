@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="FIDO Device Onboard Contributers">
+  <link rel="canonical" href="https://secure-device-onboard.github.io/docs-fidoiot/implementation-references/dms-integration-guide/">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>DMS Integration Guide - FIDO Device Onboard</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link href="../../css/version-select.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "DMS Integration Guide";
+    var mkdocs_page_input_path = "implementation-references/dms-integration-guide.md";
+    var mkdocs_page_url = "/docs-fidoiot/implementation-references/dms-integration-guide/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> FIDO Device Onboard</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <p class="caption"><span class="caption-text">Home</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../reference/">Reference</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../community/">Community</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../releases/">Releases</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../security-best-practices/">Security Best Practices</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../installation_rhel/">Installation Guide (RHEL)</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../protocol-specification/">Protocol Specification</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">PRI</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../pri/pri-introduction/">Protocol Reference Implementation</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Client SDK</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../client-sdk/client-sdk-design/">Client SDK Design</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../client-sdk/client-sdk-reference-guide/">Client SDK Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../client-sdk/client-sdk-api-reference/">Client SDK API Reference</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../client-sdk/client-sdk-porting-guide/">Client SDK Porting Guide</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Implementation Reference</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../getting-started-guide/">Getting Started Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../serviceinfo-sys-module/">ServiceInfo System Module</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../device-mfg-info/">DeviceMfgInfo Specification</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../manufacturer-guide/">Manufacturer Guide</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">DMS Integration Guide</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#terminology">Terminology</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../proxy-settings/">Proxy Setup Guide</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">FIDO Device Onboard</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Implementation Reference &raquo;</li>
+        
+      
+    
+    <li>DMS Integration Guide</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>FIDO Device Onboard (FDO) enhances the out-of-the-box setup and provisioning experience for connected IoT devices. The FIDO Device Onboard project provides the manufacturer component sample for manufacturers (OEMs, ODMs, or 3rd party integrators) to enable FDO on their devices. This document details how a manufacturer can use this tool to produce an FDO-enabled device.</p>
+<h3 id="terminology">Terminology<a class="headerlink" href="#terminology" title="Permanent link">&para;</a></h3>
+<p>Refer to the FIDO Device Onboard <a href="../../reference.md">Reference page</a>.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>To Integrate FIDO Device Onboard (FDO)-services into a Device Management Service (DMS), a DMS must host an Owner service, manage owner cryptographic keys, ingest ownership vouchers from a supply chain, and provide onboarding and onboarding solution in the form of service info instructions. </p>
+<p>For details on how to setup and initialize the Owner Service Component Sample see the Readme included with this sample as part of the FDO software [Owner Component Readme] (https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/owner/README.md).</p>
+<h3 id="owner-component-sample">Owner Component Sample<a class="headerlink" href="#owner-component-sample" title="Permanent link">&para;</a></h3>
+<p>The main function of the Owner component sample is to serve as a TO2 protocol server. The owner component sample runs as a web service and makes use of the FDO H2 database for configuration and storage of ownership vouchers. All configuration and data for the owner is stored in this H2 database and property or environment files. </p>
+<h3 id="all-in-one-aio-component-sample">All-in-One (AIO) Component Sample<a class="headerlink" href="#all-in-one-aio-component-sample" title="Permanent link">&para;</a></h3>
+<p>In addition to the owner component, the All-in-one component can be used to host Owner, Rendezvous, and Manufacturing services all in one service.  This makes deploying and testing of FDO easier.</p>
+<h2 id="evaluation-deployment">Evaluation Deployment<a class="headerlink" href="#evaluation-deployment" title="Permanent link">&para;</a></h2>
+<p>The evaluation deployment is useful for development, test, and enabling purposes. The evaluation deployment can fully initialize a device to the same extent as the production deployment but does not require any integration with business systems.</p>
+<h1 id="dms-integration-using-service-info">DMS Integration using Service Info<a class="headerlink" href="#dms-integration-using-service-info" title="Permanent link">&para;</a></h1>
+<p>Owner component service info can integrate with a DMS by providing the following:</p>
+<p>-A script to download the agent used to connect to the DMS</p>
+<p>-The Agent Credentials to download (for example, certificates or one time tokens)</p>
+<p>-Any connection information such as scope ID, URL, or tenant information.</p>
+<p><strong><em>NOTE</em></strong>: Service info is always encrypted even if http protocol is being used for To2 Protocol.</p>
+<h1 id="dms-credential-creation">DMS Credential Creation<a class="headerlink" href="#dms-credential-creation" title="Permanent link">&para;</a></h1>
+<p>DMS credentials can be created at the time of ownership voucher injection or when the device is running the To2 protocol.</p>
+<h3 id="to-do">To Do:<a class="headerlink" href="#to-do" title="Permanent link">&para;</a></h3>
+<p>Setup local Azure CLI</p>
+<h3 id="httpsdocsmicrosoftcomen-uscliazurerun-azure-cli-docker">https://docs.microsoft.com/en-us/cli/azure/run-azure-cli-docker<a class="headerlink" href="#httpsdocsmicrosoftcomen-uscliazurerun-azure-cli-docker" title="Permanent link">&para;</a></h3>
+<h3 id="httpsdocsmicrosoftcomen-usrestapiiothubdevicecreatefileuploadsasuri">https://docs.microsoft.com/en-us/rest/api/iothub/device/createfileuploadsasuri<a class="headerlink" href="#httpsdocsmicrosoftcomen-usrestapiiothubdevicecreatefileuploadsasuri" title="Permanent link">&para;</a></h3>
+<p>Create a bash to create a device with on Azure using the bash script
+Use the device uuid as the name</p>
+<p>Steps:
+1.  Run CLI docker
+      a.    https://docs.microsoft.com/en-us/cli/azure/run-azure-cli-docker
+      b.    “docker run -it -v ${HOME}/.ssh:/root/.ssh -v ~/Desktop/dev/Azure:/home mcr.microsoft.com/azure-cli”
+2.  Log in to Azure account
+      a.    “az login”
+      b.    https://microsoft.com/devicelogin
+3.  Create a device place holder
+      a.    https://docs.microsoft.com/en-us/azure/iot-edge/how-to-manual-provision-symmetric-key?view=iotedge-2018-06&amp;tabs=azure-cli%2Clinux
+      b.    “az iot hub device-identity create --device-id [Device-name] --hub-name [hub-name] --edge-enabled”
+      i.    Device-Name: UUID
+      ii.   Hub-name: FDO-Edge
+      c.    List of all devices registered
+      i.    “az iot hub device-identity list --hub-name [hub name]”
+      d.    Save the connection string
+      i.    az iot hub device-identity show-connection-string --device-id [device id] --hub-name [hub name]</p>
+<h3 id="dps">DPS:<a class="headerlink" href="#dps" title="Permanent link">&para;</a></h3>
+<h4 id="device-name-demo-dps">Device-Name: DEMO-DPS<a class="headerlink" href="#device-name-demo-dps" title="Permanent link">&para;</a></h4>
+<h4 id="primary-sha1-fingerprint8fe4f67b59533fec6c3b6a2fd2ba658863f45bd5">primary:  SHA1 Fingerprint=8FE4F67B59533FEC6C3B6A2FD2BA658863F45BD5<a class="headerlink" href="#primary-sha1-fingerprint8fe4f67b59533fec6c3b6a2fd2ba658863f45bd5" title="Permanent link">&para;</a></h4>
+<h4 id="secondary-sha1-fingerprint68ffffb9703ecba49b273a417e4166253f3c7ee2">secondary: SHA1 Fingerprint=68FFFFB9703ECBA49B273A417E4166253F3C7EE2<a class="headerlink" href="#secondary-sha1-fingerprint68ffffb9703ecba49b273a417e4166253f3c7ee2" title="Permanent link">&para;</a></h4>
+<h4 id="azurecertssh">Azure/certs.sh<a class="headerlink" href="#azurecertssh" title="Permanent link">&para;</a></h4>
+<h3 id="device">Device:<a class="headerlink" href="#device" title="Permanent link">&para;</a></h3>
+<h4 id="usingfdo-install-iot-edge-containers-on-the-target-device">UsingFDO: Install Iot-edge containers on the target device<a class="headerlink" href="#usingfdo-install-iot-edge-containers-on-the-target-device" title="Permanent link">&para;</a></h4>
+<h4 id="usingfdo-inject-the-connection-string-into-config-file">UsingFDO: Inject the Connection String into config file<a class="headerlink" href="#usingfdo-inject-the-connection-string-into-config-file" title="Permanent link">&para;</a></h4>
+<h4 id="usingfdo-restart-iotg-containers">UsingFDO: Restart IOTG containers<a class="headerlink" href="#usingfdo-restart-iotg-containers" title="Permanent link">&para;</a></h4>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../proxy-settings/" class="btn btn-neutral float-right" title="Proxy Setup Guide">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../manufacturer-guide/" class="btn btn-neutral" title="Manufacturer Guide"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license</p>
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../manufacturer-guide/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../proxy-settings/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../js/version-select.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

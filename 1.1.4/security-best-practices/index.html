@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="FIDO Device Onboard Contributers">
+  <link rel="canonical" href="https://secure-device-onboard.github.io/docs-fidoiot/security-best-practices/">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Security Best Practices - FIDO Device Onboard</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link href="../css/version-select.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Security Best Practices";
+    var mkdocs_page_input_path = "security-best-practices.md";
+    var mkdocs_page_url = "/docs-fidoiot/security-best-practices/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> FIDO Device Onboard</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <p class="caption"><span class="caption-text">Home</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../reference/">Reference</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../community/">Community</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../releases/">Releases</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Security Best Practices</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#document-terminology">Document Terminology</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#terminology-and-assets">Terminology and Assets</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#end-to-end-flow">End-to-End Flow</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cryptographic-strength">Cryptographic Strength</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../installation_rhel/">Installation Guide (RHEL)</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../protocol-specification/">Protocol Specification</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">PRI</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../pri/pri-introduction/">Protocol Reference Implementation</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Client SDK</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../client-sdk/client-sdk-design/">Client SDK Design</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../client-sdk/client-sdk-reference-guide/">Client SDK Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../client-sdk/client-sdk-api-reference/">Client SDK API Reference</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../client-sdk/client-sdk-porting-guide/">Client SDK Porting Guide</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Implementation Reference</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../implementation-references/getting-started-guide/">Getting Started Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../implementation-references/serviceinfo-sys-module/">ServiceInfo System Module</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../implementation-references/device-mfg-info/">DeviceMfgInfo Specification</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../implementation-references/manufacturer-guide/">Manufacturer Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../implementation-references/dms-integration-guide/">DMS Integration Guide</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../implementation-references/proxy-settings/">Proxy Setup Guide</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">FIDO Device Onboard</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Home &raquo;</li>
+        
+      
+    
+    <li>Security Best Practices</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p><strong>Needs to be updated as per FDO</strong></p>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<p>This document provides recommendations and best practices for all components of Secure Device Onboard. The intended audience includes anyone enabling Secure Device Onboard, such as device manufacturers, distributors, system integrators, IoT platform management service providers, and installers. </p>
+<p>Chapter 2.0 describes security requirements and best practices that should be applied throughout the entire supply chain. </p>
+<p>Subsequent chapters describe security requirements and best practices that impact only the functionality or role of the titled chapter. Requirements that affect more than one but not all roles are listed in the chapter for each role.  </p>
+<h3 id="document-terminology">Document Terminology<a class="headerlink" href="#document-terminology" title="Permanent link">&para;</a></h3>
+<p>The document uses terminology from IETF requirements language (see RFC2119). </p>
+<ul>
+<li>
+<p>"SHALL" means that the definition is an absolute requirement of the specification.  </p>
+</li>
+<li>
+<p>"SHALL NOT" means that the definition is an absolute prohibition of the specification.  </p>
+</li>
+<li>
+<p>“SHOULD” or the adjective "RECOMMENDED" means that there may exist valid reasons in particular circumstances to ignore a particular item, but the full implications must be understood and carefully weighed before choosing a different course.  </p>
+</li>
+<li>
+<p>“SHOULD NOT” or the phrase "NOT RECOMMENDED" mean that there may exist valid reasons in particular circumstances when the particular behavior is acceptable or even useful, but the full implications should be understood and the case carefully weighed before implementing any behavior described with this label.  </p>
+</li>
+<li>
+<p>“MAY” or the adjective "OPTIONAL" means that an item is truly optional. One vendor may choose to include the item because a particular marketplace requires it or because the vendor feels that it enhances the product while another vendor may omit the same item. An implementation which does not include a particular option SHALL be prepared to interoperate with another implementation which does include the option, though perhaps with reduced functionality. In the same vein an implementation which does include a particular option SHALL be prepared to interoperate with another implementation which does not include the option (except, of course, for the feature the option provides).  </p>
+</li>
+</ul>
+<p>The terms MUST and MUST NOT are not used throughout this document. </p>
+<h3 id="terminology-and-assets">Terminology and Assets<a class="headerlink" href="#terminology-and-assets" title="Permanent link">&para;</a></h3>
+<p>Secure Device Onboard functions to cause a Secure Device Onboard Device to be onboarded to a Secure Device Onboard Owner. The Secure Device Onboard Device is typically a headless computer, such as an Internet of Things (IoT) gateway, a small computer (MCU or MCP) with sensors, sometimes called an IoT Sensor, a small computer with an actuator, or some combination of the three.  The Secure Device Onboard Owner is a controlling computer, typically in a cloud or operations center, that controls many such devices, checking their function, turning them on or off, collecting their data, or supplying them with instructions.   </p>
+<p>The “onboard” process is to take a device and provision into it secret information and associated information, so that the device can accept the remote control of the Secure Device Onboard Owner’s computer. Examples of secret information are cryptographic keys, tokens, or passwords. Examples of associated information are: cryptographic certificates, IP addresses, software data or modules.   </p>
+<p>Secure Device Onboard allows many different kinds of provisioning to happen between Secure Device Onboard Owners and Secure Device Onboard Devices. We use the term “onboard” to denote a process where Secure Device Onboard assists a customer site to provision devices for itself, rather than mandating a specific “one size fits all” provisioning process. Indeed, Secure Device Onboard permits the customer to change provisioning mechanisms while a product is in the field, allowing security measures to be tuned continuously. </p>
+<p>The Ownership Voucher acts as a “ticket” to allow the Secure Device Onboard Owner to run Secure Device Onboard successfully. It contains digital signatures that are generated by the Device Manufacturer and Supply Chain Stakeholders. </p>
+<p>The Secure Device Onboard Owner, Device, Device Manufacturer, and Supply Chain Stakeholders must protect specific assets to perform the onboarding task. It is the task of the Secure Device Onboard Device manufacturer and the Secure Device Onboard Owner to protect their own assets. The following table lists common assets, what they are used for, and why they should be protected. Protections are: </p>
+<ul>
+<li>
+<p>Confidentiality: this asset is a secret, and revealing it to an attacker can cause Secure Device
+  Onboard to fail. </p>
+</li>
+<li>
+<p>Availability: this asset must be available to allow Secure Device Onboard to function. </p>
+</li>
+<li>
+<p>Integrity: this asset must not be modified, or Secure Device Onboard will not function properly. </p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Asset</th>
+<th>Where</th>
+<th>Used For</th>
+<th>Protection Required (Confidentiality, Availability, Integrity)</th>
+<th>Why to Protect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GUID</td>
+<td>Device, Owner</td>
+<td>Identifying an Secure Device Onboard Device before it is onboarded.</td>
+<td>A, I</td>
+<td>The GUID allows a given Device to align with a given Owner, via the Ownership Voucher</td>
+</tr>
+<tr>
+<td>Intel<sup>®</sup> EPID signing key</td>
+<td>Device</td>
+<td>Proof from Device to Owner that the Device has a particular GUID.  Often used as hardware root of trust.</td>
+<td>C, A, I</td>
+<td>Device is rejected unless the EPID signature is correct and the EPID group is trusted</td>
+</tr>
+<tr>
+<td>Intel<sup>®</sup> EPID Group ID</td>
+<td>Device, Owner</td>
+<td>A (large) number that identifies EPID keys within a specific product</td>
+<td>A, I</td>
+<td>Device proves it is a member of the group using the EPID signature; Owner must confirm that the group’s associated product is acceptable</td>
+</tr>
+<tr>
+<td>Ownership Voucher Extension (OVE) key pair, private key</td>
+<td>Device Manufacturer, Supply Chain Stakeholders</td>
+<td>Intermediate signatures in OVE</td>
+<td>C, A, I</td>
+<td>Used to create a chain of signatures from manufacture to onboarding</td>
+</tr>
+<tr>
+<td>Secure Device Onboard Owner – Signing key pair, private key</td>
+<td>Owner</td>
+<td>Signing protocol operations with Rendezvous Service and Device</td>
+<td>C, A, I</td>
+<td>Used to prove Owner identity (see Secure Device Onboard Owner private key)</td>
+</tr>
+<tr>
+<td>Network between Manufacturing Station and device being initialized</td>
+<td>Manufacturer</td>
+<td>Preparing the device for Secure Device Onboard</td>
+<td>C, A, I</td>
+<td>Secure Device Onboard provisioning of initial credentials requires a trusted network environment.  Attacker can steal or modify credentials and interfere with Secure Device Onboard.</td>
+</tr>
+<tr>
+<td>Ownership Credential (contains GUID, HMAC secret and other credentials)</td>
+<td>Device</td>
+<td>GUID and other credentials that allow a Device to perform Secure Device Onboard</td>
+<td>A, I (HMAC secret: C)</td>
+<td>Removing or invalidating these credentials will prevent a Device from performing Secure Device Onboard successfully</td>
+</tr>
+<tr>
+<td>Ownership Credential: HMAC Secret</td>
+<td>Device</td>
+<td>Secret value used to ensure that that Ownership Voucher is bound to the Device. Stored in the Device during manufacturing, and never revealed.</td>
+<td>C, A, I</td>
+<td>Removing or invalidating these credentials will prevent a Device from performing Secure Device Onboard successfully</td>
+</tr>
+<tr>
+<td>Manufacturing Credential</td>
+<td>Device</td>
+<td>Additional credentials that identify the manufacturer of the Device</td>
+<td>A, I</td>
+<td>Do not affect Secure Device Onboard performance, but cause a customer confusion if modified.</td>
+</tr>
+<tr>
+<td>Ownership Voucher (contains GUID)</td>
+<td>Manufacturer à Supply Chain Stakeholders à Owner</td>
+<td>Identifies the Secure Device Onboard Owner to the Secure Device Onboard Device. Created during manufacturing, augmented by Supply Chain Stakeholders, and finally used by the Secure Device Onboard Owner</td>
+<td>A, I</td>
+<td>Acts as a “ticket” for the Secure Device Onboard Owner to take Ownership.  Secure Device Onboard will not function properly if it is lost or corrupted.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="end-to-end-flow">End-to-End Flow<a class="headerlink" href="#end-to-end-flow" title="Permanent link">&para;</a></h3>
+<p>The Secure Device Onboard end-to-end flow is illustrated in the picture below.  </p>
+<p>Figure 1.End-to-End Flow 
+<img alt="End to End Flow" src="../images/security-best-practices-slide3.PNG" /></p>
+<table>
+<thead>
+<tr>
+<th>Player</th>
+<th>Contributions</th>
+<th>Secure Device Onboard-Specific Function</th>
+<th>Security Responsibilities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ODM / OEM</td>
+<td>Manufactures Devices</td>
+<td>Enable each device with Secure Device Onboard by executing Device Initialization (DI). DI creates the initial Ownership Voucher.</td>
+<td>Create correct Secure Device Onboard credentials and store securely in Device. Associate Device with correct Ownership Voucher (For example, via the GUID)</td>
+</tr>
+<tr>
+<td>Supply Chain Stakeholders: ODM / OEM, Distributor, Reseller, System Integrator</td>
+<td>Ownership Voucher Extension</td>
+<td>Receive the Ownership Voucher from the previous supply chain stakeholder. Extend the Ownership Voucher to the next stakeholder as the device is shipped. Send the extended Ownership Voucher to the next stakeholder.</td>
+<td>Maintain its own Owner key pair (private key must be a secret!) Receive and verify the public key for the Owner key pair of the next Supply Chain Stakeholder1 Extend the Ownership Voucher to the correct public key Deliver the correct Ownership Voucher for the Device shipped</td>
+</tr>
+<tr>
+<td>Supply Chain Stakeholders: ODM / OEM, Distributor, Reseller, System Integrator</td>
+<td>Ensure integrity of physical device. This is needed because automatic provisioning mechanisms (Secure Device Onboard or other) make it easier for a rogue device that is substituted to be accepted in the network</td>
+<td>No Secure Device Onboard specific function</td>
+<td>Take measures to ensure that the correct devices are installed. Ensure that the devices have not been tampered with (open boxes, broken seals).</td>
+</tr>
+<tr>
+<td>IoT Platform Service Provider</td>
+<td>Ownership Voucher Registration</td>
+<td>Receive the Ownership Voucher from the previous supply chain stakeholder. Register the Ownership Voucher with the Intel Rendezvous Service.</td>
+<td>Verify that the Device Certificate (in case of ECDSA based device keys) in Ownership Voucher comes from a trusted source (system distributor or manufacturer). The Root CA or intermediate CA in the Device certificate should be trusted Register to the correct Rendezvous Service and provide the right host/IP address for IoT Platform during registration (TO0 protocol) Use the private key corresponding to the last public key in Ownership Voucher to sign the messages in TO0 protocol As a supply chain stakeholder: Maintain the Secure Device Onboard Owner signing key pair (private key must be a secret!)</td>
+</tr>
+<tr>
+<td>System Installer</td>
+<td>Install Device, Power On</td>
+<td>Provide Internet connectivity (natively or via helper device).</td>
+<td>Identify the deployment physical location specifics to the Owner, so the Device can be operated usefully Avoid DoS attacks on the network during Secure Device Onboard</td>
+</tr>
+<tr>
+<td>IoT Platform Service Provider</td>
+<td>Device onboarding</td>
+<td>Runs Secure Device Onboard TO2 protocol Aids in authentication with device by signing the messages with its Owner private key Sends the IoT application specific agents, data and credentials to the device using Secure Device Onboard</td>
+<td>Provision the device with the right set of application specific credentials for the IoT agent on the device to securely connect and communicate with the IoT platform Configure the firewall and other security properties of the device during onboarding Reconfigure the device with the new Owner key, GUID and Rendezvous Info Maintain the new Owner key for the device and keep the private key a secret</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cryptographic-strength">Cryptographic Strength<a class="headerlink" href="#cryptographic-strength" title="Permanent link">&para;</a></h3>
+<p>Progress in the fields of computing and cryptography have caused cryptographic strength requirements to increase over time. A cryptographic key that was deployed securely some years ago can be broken today, based on faster and more computers and better techniques. In particular, the emerging field of quantum cryptography provides new tools that can compromise cryptographic keys. </p>
+<p>Cryptography deployed in Secure Device Onboard meets or exceeds current security requirements expected for the life of this product. Customers are encouraged to track developments in quantum cryptography in order to make intelligent assessments as to their cryptographic requirements on an ongoing basis. Customers are also encouraged to watch for security notifications that indicate new emerging risks. </p>
+<h2 id="end-to-end-security-requirements">End-to-End Security Requirements<a class="headerlink" href="#end-to-end-security-requirements" title="Permanent link">&para;</a></h2>
+<p>This chapter addresses security requirements that are NOT specific to a particular component or role in the entire supply chain.  </p>
+<h3 id="key-pairs-private-key-protection">Key Pair’s Private Key Protection<a class="headerlink" href="#key-pairs-private-key-protection" title="Permanent link">&para;</a></h3>
+<p>The private keys of all key pairs shall be protected throughout the entire supply chain, from the ODM to Cloud Service Provider. At a minimum, all private keys shall be protected at rest, for example, by storing them only on an encrypted file system, hardware security modules (HSM) or a distributed storage vault.  </p>
+<p>Cryptographic keys require strong security at runtime, because they may be exposed to use by software.   </p>
+<p>The Secure Device Onboard Reseller Tool is specifically designed so that it can be deployed with sufficient security for supply chain stakeholders to protect key pair private keys.  However, the deployment must still ensure that the hardware and software are deployed safely, as below. </p>
+<h4 id="at-rest-protection">At-Rest Protection<a class="headerlink" href="#at-rest-protection" title="Permanent link">&para;</a></h4>
+<p>At-rest protection means private keys are protected on disk or in the database but held in clear text in memory to perform signing operations. Storing the key in a file system of a machine requires careful procedural controls to ensure that the entire machine is protected from physical and virtual access.  </p>
+<p>When backup procedures of the file system or database are in place, the same procedural controls shall be applied to the backup medium, especially when the medium is Internet accessible (for example, AWS<em> S3 buckets, Google Drive</em>). Backup of systems through cloud services (for example, Carbonite<em>, BackBlaze</em>) need additional considerations that might require case-by-case negotiations with the service provider. </p>
+<p>Memory isolation is therefore important to prevent leakage of keys across applications, containers, or virtual machines. </p>
+<ul>
+<li>
+<p>Private key shall never be stored in plaintext </p>
+</li>
+<li>
+<p>Private key shall only be stored on encrypted disk or databases, or in hardware security based storages such as HSM or TPM </p>
+</li>
+<li>
+<p>If the private key is stored in a file or database, its encryption should be anchored in a hardware-based root of trust, such as a trusted platform module (TPM) or crypto tokens, to prevent theft of keys not in use. </p>
+</li>
+<li>
+<p>Applications performing the signing operations should only run on dedicated systems that are not being used for general compute to reduce the risk of side-channel attacks to obtain the keys. </p>
+</li>
+<li>
+<p>The system on which the private key is stored should be physically protected from theft. </p>
+</li>
+</ul>
+<h4 id="runtime-protection">Runtime Protection<a class="headerlink" href="#runtime-protection" title="Permanent link">&para;</a></h4>
+<p>To prevent private key exposure even at runtime, it is recommended to use hardware to isolate and protect keys and key operations from other parts of the system. Crypto tokens, hardware security modules (HSMs), trusted platform modules (TPMs), or processor-assisted technologies, such as Intel<sup>®</sup> Platform Trust Technology (Intel<sup>®</sup> PTT) or Intel<sup>®</sup> Software Guard Extensions (Intel<sup>®</sup> SGX), can provide these capabilities. </p>
+<p>A secure element that is physically affixed to the platform ties keys and the platform together and makes key theft visually evident since the platform will be missing. </p>
+<p>Runtime environment (including the applications and UI) that is used to access the private key for signing operation shall be restricted to only trusted users and applications. It is highly recommended to log the usage of the key such that it can be audited later in time. </p>
+<p>Customers must take care, that such cryptographic hardware is only as secure as its deployment. Even a security token that can never export a private key can be exploited if it is physically stolen from the workplace. </p>
+<h2 id="odmoem-device-manufacturing">ODM/OEM — Device Manufacturing<a class="headerlink" href="#odmoem-device-manufacturing" title="Permanent link">&para;</a></h2>
+<p>This chapter addresses the manufacturing of devices, such as gateways or hardware appliances. </p>
+<h3 id="manufacturing-station">Manufacturing Station<a class="headerlink" href="#manufacturing-station" title="Permanent link">&para;</a></h3>
+<p>The execution of the device initialization handshake is a security sensitive operation. Due to the nature of the handshake process, trust must be provided through physical isolation such as running the manufacturing station environment on a dedicated system and connecting the device over a dedicated network.  </p>
+<p>This is also common best practice for other manufacturing operations such as initial flashing of the BIOS. </p>
+<h4 id="manufacturers-public-key">Manufacturer’s Public Key<a class="headerlink" href="#manufacturers-public-key" title="Permanent link">&para;</a></h4>
+<p>The Manufacturing Station requires holding the manufacturer’s public key. The hash of this key is provisioned in the device during manufacturing and represents the private key that is trusted by the device as an Owner (first owner). This key is also associated with the private key residing in the first instance of the Reseller Tool, typically deployed in the manufacturer’s data center. </p>
+<p>The public key shall be protected from malicious modification or replacement. </p>
+<p>During device initialization, an Ownership Voucher containing the first owner’s public key is created by the Manufacturing Station and sent to manufacturer’s Reseller Tool — the first Reseller Tool in the supply chain. The Manufacturing Station must be protected to prevent an adversary from performing a man-in-the-middle attack and obtaining the device’s true ownership voucher while the Manufacturing Station sends an incorrect but valid ownership voucher to Reseller Tool.</p>
+<p><img alt="End to End Flow" src="../images/security-best-practices-slide4.PNG" /></p>
+<p>The figure above illustrates the relationship between the Reseller Tool and Manufacturing Station. </p>
+<h4 id="secure-device-onboard-database">Secure Device Onboard Database<a class="headerlink" href="#secure-device-onboard-database" title="Permanent link">&para;</a></h4>
+<p>Secure Device Onboard database contains critical information such as the Device GUID and Rendezvous Info that is provisioned by the Manufacturer’s tool in the device during DI. In addition, it contains the Ownership Vouchers produced during manufacturing. This is not confidential information from Secure Device Onboard security perspective but have business significance. The Secure Device Onboard database shall be protected from access from unauthorized personnel and applications.  </p>
+<h4 id="device-initialization-network-di-network">Device Initialization Network (DI Network)<a class="headerlink" href="#device-initialization-network-di-network" title="Permanent link">&para;</a></h4>
+<p>The data that is exchanged between the device and manufacturing station during DI protocol shall be protected from modification. Otherwise the device and Ownership Voucher may have incorrect Secure Device Onboard data, which can cause Secure Device Onboard to fail or device to malfunction during installation. Therefore, the DI network between devices and the Manufacturing Station should be used for the sole purpose of providing the device with the software necessary to perform DI (for example, PXE boot) and the DI protocol handshake.  </p>
+<h3 id="device-manufacturing-with-intel-dal-based-platforms">Device Manufacturing with Intel<sup>®</sup> DAL<sup>®</sup>-based Platforms<a class="headerlink" href="#device-manufacturing-with-intel-dal-based-platforms" title="Permanent link">&para;</a></h3>
+<p>Hardware platforms using Intel processors such as Intel Atom<sup>®</sup> or Intel<sup>®</sup> Core™ have a secure DAL<sup>®</sup> (Dynamic Application Loader) environment which are all Intel<sup>®</sup> EPID enabled and do not require special steps to provision EPID signing keys. As they are also able to run generic operating systems such as Linux*, the device is capable of running a complete application that triggers the device initialization handshake procedure between the to-be-initialized device and a manufacturing station over a network connection. </p>
+<p>During the DI protocol, the HMAC secret is allocated within the DAL environment of the device. The HMAC used in the Ownership Voucher is generated by the device and transmitted to the Manufacturing Station. The HMAC secret is never revealed, and automatically maintained securely in the device.  </p>
+<p>Other credentials on such as GUID, manufacturer’s public key hash, Rendezvous Info are also protected in a secure storage and runtime environment provided by DAL<sup>®</sup>. This is all handled by the Secure Device Onboard DAL applet provided by Intel. </p>
+<h3 id="device-manufacturing-with-non-intel-or-non-dal-platforms">Device Manufacturing with Non-Intel or Non-DAL<sup>®</sup> Platforms<a class="headerlink" href="#device-manufacturing-with-non-intel-or-non-dal-platforms" title="Permanent link">&para;</a></h3>
+<h4 id="protection-c-a-i-of-device-ecdsa-key">Protection (C, A, I) of Device ECDSA key<a class="headerlink" href="#protection-c-a-i-of-device-ecdsa-key" title="Permanent link">&para;</a></h4>
+<p>The ECDSA key must be protected within the Device so that it can be used by the Device, but not revealed outside the Device.  Various kinds of devices have different mechanisms for performing this.  These include: </p>
+<ul>
+<li>
+<p>A secure element or TPM might store the key and perform ECDSA operations </p>
+</li>
+<li>
+<p>The device may have a secure storage area (such as RPMB protected by secure TrustZone) that is only readable on chip.  Sometimes this requires that JTAG be disabled </p>
+</li>
+<li>
+<p>The device may have a secure boot with an individual secure boot key, known only to the device.  Device secrets, such as the ECDSA key can be encrypted using the secure boot key or its derivation. </p>
+</li>
+<li>
+<p>Some combination of these concepts </p>
+</li>
+</ul>
+<p>Encryption alone does not protect the integrity of the ECDSA key.  A signature or HMAC mechanism is also needed.  Again, specific mechanisms vary by hardware design. </p>
+<h4 id="protection-c-a-i-of-hmac-secret">Protection (C, A, I) of HMAC secret<a class="headerlink" href="#protection-c-a-i-of-hmac-secret" title="Permanent link">&para;</a></h4>
+<p>HMAC secret should be protected in the same way as the Device key.  </p>
+<h4 id="protection-ai-of-other-secure-device-onboard-credentials">Protection (AI) of other Secure Device Onboard Credentials<a class="headerlink" href="#protection-ai-of-other-secure-device-onboard-credentials" title="Permanent link">&para;</a></h4>
+<p>Other Secure Device Onboard credentials provisioned on the device such as Manufacturer’s Public Key Hash, GUID and Rendezvous Info do not need to be confidential.  However, to ensure their integrity, a signature or HMAC (with a protected secret) is needed.  Encryption of the credentials may be used if convenient, but encryption by itself does not ensure integrity. </p>
+<p>These credentials must be available to the device or Secure Device Onboard will fail.  Some devices have internal flash regions that cannot be reprogrammed by an attacker, which can improve availability.  Secure elements may also have this property in their key protection areas. </p>
+<p>An OTP memory can contribute to availability and/or integrity of Secure Device Onboard credentials.  However, since OTP memory is limited in size, this might limit the ability to use Secure Device Onboard in its “resale” mode. </p>
+<p>It is acceptable for a Secure Device Onboard Device to be limited in the number of times it can run Secure Device Onboard.  In some cases, this might be done to improve device security, by removing the Secure Device Onboard credentials as an attack surface. </p>
+<h2 id="supply-chain-ownership-voucher-extension">Supply Chain — Ownership Voucher Extension<a class="headerlink" href="#supply-chain-ownership-voucher-extension" title="Permanent link">&para;</a></h2>
+<p>Supply chain members extend Ownership Vouchers. Extension means that the next logical owner’s public key is appended to the current ownership voucher and then signed with the current owner’s private key. For a chain of keys to be valid, the private key’s associated public key was appended in the same fashion by the previous owner. Each key pair in the chain is called an Ownership Voucher Extension (OVE) key pair. </p>
+<h3 id="ownership-voucher-extension-ove-environment">Ownership Voucher Extension (OVE) Environment<a class="headerlink" href="#ownership-voucher-extension-ove-environment" title="Permanent link">&para;</a></h3>
+<p>The OVE environment shall be considered sensitive and part of the business-critical infrastructure. Adequate protection such as data-center access controls, firewalling, multi-tier deployment, and DMZ isolation techniques shall be applied. </p>
+<ul>
+<li>
+<p>All RESTful API access SHALL be secured using TLS 1.2 and above. </p>
+</li>
+<li>
+<p>All RESTful API access SHOULD be secured using TLS 1.3 and above. </p>
+</li>
+<li>
+<p>All RESTful API access SHOULD be firewalled and load-balanced. </p>
+</li>
+<li>
+<p>Too many subsequent erroneous requests SHOULD lead to request throttling to reduce DoS attacks. </p>
+</li>
+<li>
+<p>Database backends SHOULD be deployed on separate servers in separate zones. </p>
+</li>
+<li>
+<p>Database connections SHOULD be secured using TLS (have “useSSL=true&amp;requireSSL=true" in the connection string). </p>
+</li>
+<li>
+<p>All implementation should use the Secure Device Onboard Reseller Tool to manage Ownership Vouchers, so that rules for Ownership Vouchers are maintained automatically: </p>
+</li>
+<li>
+<p>Ownership Voucher should be extended using the same key type and size as the original Owner public key in the Ownership Voucher header </p>
+</li>
+<li>
+<p>Supply chain stakeholders shall use Ownership Vouchers only to extend for the next Owner and shall not use them to run Secure Device Onboard TO protocols. </p>
+</li>
+</ul>
+<h3 id="key-lifetime-agreement">Key Lifetime Agreement<a class="headerlink" href="#key-lifetime-agreement" title="Permanent link">&para;</a></h3>
+<p>The lifetime of the OVE key pair used for extending an Ownership Voucher SHALL be limited to a reasonable duration or number of ownership extensions.  </p>
+<p>From a supply chain perspective, sending the OVE’s public key to the supplier (along with the order) and receiving one extended Ownership Voucher per ordered device is tightly coupled to the purchase order. The supplier knows how many Ownership Vouchers will be extended for a particular purchase order. </p>
+<p>The private key shall be kept until the device is purchased by the next owner or the device is retired. The key is needed to extend the Ownership Voucher to the next Owner. </p>
+<h2 id="service-provider-owner-implementation">Service Provider — Owner Implementation<a class="headerlink" href="#service-provider-owner-implementation" title="Permanent link">&para;</a></h2>
+<p>The Secure Device Onboard Owner Implementation is responsible for receiving the final Ownership Voucher in the supply chain and issuing the TO0 protocol to the Rendezvous Server. The owner implementation is typically tightly integrated into the IoT Platform Management service provider’s environment, therefore developed, built, and managed by the provider. It is also the point where the device is logically associated with a particular Management service account. </p>
+<p>The owner implementation runs in a secured facility such as a data center. </p>
+<h3 id="owner-key-pair-usage">Owner Key Pair Usage<a class="headerlink" href="#owner-key-pair-usage" title="Permanent link">&para;</a></h3>
+<p>The Management service administrator provides the public key to the previous entity in the supply chain. The associated private key is used during the TO0 protocol phase with the Rendezvous Server. </p>
+<p>Each service account should have individual key pairs. This allows the Management Service to differentiate incoming ownership vouchers by account and to refuse vouchers extended to the wrong account. </p>
+<p>Private keys shall be protected as mentioned in Section 2.1. If the private key is exposed, (a) adversary devices can be added to an account without authorization, (b) legitimate devices can be added to adversary accounts. </p>
+<p>Key pair retirement: Private keys have to be available for signing operations until all the associated Ownership Vouchers have been consumed using the TO2 protocol.  The Owner may cycle keys so that new Ownership Vouchers use the newer keys, but the old keys are still needed for signing (in the TO0 and TO2 protocols) until all Ownership Vouchers that reference them are processed. </p>
+<h3 id="runtime-protection-of-owner-signing-keys">Runtime Protection of Owner Signing Keys<a class="headerlink" href="#runtime-protection-of-owner-signing-keys" title="Permanent link">&para;</a></h3>
+<p>The recommendation is to protect owner signing keys using security hardware. However, in large-scale operations with a significant number of accounts, the number of available hardware-protected keys might be limited. In this case, a two-step process should be deployed.  </p>
+<p>The private key corresponding to the public key exposed to the account owner for ownership extension is protected only at rest. The ownership vouchers extended to that public key are then extended to a second public key where the corresponding private key is located in an HSM. </p>
+<p>The HSM is used to perform the signing operation for the final TO0 process. </p>
+<p>Since steps 1 and 2 are performed in temporal proximity, it is exactly known how long the private key is needed since Ownership Vouchers are never extended to the associated public key without performing TO0.  </p>
+<p>The two-step process allows simplified key management and rolling the HSM key pair at a regular basis. </p>
+<h2 id="installer-notes">Installer Notes<a class="headerlink" href="#installer-notes" title="Permanent link">&para;</a></h2>
+<p>Secure Device Onboard simplifies the onboarding process by eliminating cumbersome manual provisioning. Such form of automation, however, also creates risks of attacks based on social engineering that should be mitigated by proper installation and verification practices. </p>
+<h3 id="verification-of-authenticity-of-devices">Verification of Authenticity of Devices<a class="headerlink" href="#verification-of-authenticity-of-devices" title="Permanent link">&para;</a></h3>
+<p>Installers shall verify the origin of the devices to be installed. If a device’s origin is not known and the device was exchanged, or tampered with between manufacturing and installation, an adversary can onboard a malicious Secure Device Onboard-enabled device in a target environment without much inside knowledge of the environment. After power-up, the Secure Device Onboard-enabled device would connect to the adversary’s device management service and be under its control. </p>
+<h3 id="installation-complete-test">Installation Complete Test<a class="headerlink" href="#installation-complete-test" title="Permanent link">&para;</a></h3>
+<p>The danger of introducing a rogue device into the customer’s network is higher when automatic provisioning (including Secure Device Onboard) is used than when each device is manually configured. Under manual configuration, an attacker needs to compromise a device and a person to install it. Under automatic provisioning, the attacker needs only to compromise the device and fool a trusted person to install it. For example, the attacker can switch boxes.   </p>
+<p>After the onboarding process has completed, the installer should verify that the device is under the control of the expected device management service. For example, by evaluating that the device’s serial number shows up in the management console.  Keeping a count of systems physically installed and systems newly seen at the management console is also useful. </p>
+<p>If the device does not report an onboarding error but cannot be verified in the Management service console, the device should not be left connected. </p>
+<h3 id="network-restrictions-at-installation">Network Restrictions at Installation<a class="headerlink" href="#network-restrictions-at-installation" title="Permanent link">&para;</a></h3>
+<p>The following additional measures are useful to prevent a rogue device from successfully operating in a customer environment, and should be implemented whenever feasible: </p>
+<ul>
+<li>
+<p>Network authentication for IoT devices. Secure Device Onboard itself may be used to configure the network authentication into trusted (“non-rogue”) devices. When all devices must be authenticated to the local network in order to function, a rogue device may be unable to connect to its intended (rogue) manager and thus fail to exfiltrate data. </p>
+</li>
+<li>
+<p>Network security for IoT devices that prevents them from arbitrary connection to the Internet. In many cases, IoT devices need only connect to a few sites on the Internet (for example, for software update, device management, data upload). If network access can be restricted to these sites, a rogue device may be restricted from exfiltrating data. </p>
+</li>
+</ul>
+<p>These measures overlap in their effectiveness. In some cases, one may be easier to implement than the other. For security measures, the best policy is to implement both; a belt and suspenders back each other up from embarrassing failures. </p>
+<h2 id="iot-security-practices-implementation-notes">IoT Security Practices, Implementation Notes<a class="headerlink" href="#iot-security-practices-implementation-notes" title="Permanent link">&para;</a></h2>
+<p>Secure Device Onboard does not guarantee the security of an IoT device; it just gives a good start.  For most of the lifetime of the device, it must secure itself. Indeed, a failure in device security may also allow Secure Device Onboard security to fail. The following best practices are needed to ensure that an IoT device securely implements Secure Device Onboard. In general, these are good security practices that are always recommended. </p>
+<ul>
+<li>
+<p>Secure or Verified boot. Ensure that only the desired operating system will load, so expected OS protections are implemented as predicted. </p>
+</li>
+<li>
+<p>Secure the OS and the file system, using one of the many best practices guides available. </p>
+</li>
+<li>
+<p>Secure the Secure Device Onboard programs and data stored on the OS. </p>
+</li>
+<li>
+<p>Deploy the Secure Device Onboard Owner in a protected data-center type environment, where physical and login access is strictly controlled. </p>
+</li>
+<li>
+<p>Protect the keys for the Secure Device Onboard Owner using hardware security (HSM, TPM, and others). </p>
+</li>
+<li>
+<p>Use secure protocols to communicate with IoT devices, and using two-way authentication (from manager to IoT device and IoT device to manager). </p>
+</li>
+<li>
+<p>Use standard protocols (For example, TLS 1.3) and standard implementations, to benefit from the additional security reviews done on them </p>
+</li>
+<li>
+<p>Use the latest versions of these implementations and update them as new ones appear </p>
+</li>
+<li>
+<p>Secure programming practices must be used when implementing Secure Device Onboard components </p>
+</li>
+<li>
+<p>Care must be taken when implementing Secure Device Onboard only to implement the Secure Device Onboard protocols that are needed for this implementation. For example, do not enable the Secure Device Onboard Device protocols for an Secure Device Onboard Owner implementation. Never enable the Secure Device Onboard Device Initialize implementation other than on a Device in manufacturing. </p>
+</li>
+<li>
+<p>EPID revocation information must be updated in a timely manner by Secure Device Onboard Owners.  When the Intel® EPID verification service is used (this is the default), this happens automatically. </p>
+</li>
+<li>
+<p>Secure Device Onboard Devices with a single Trusted Computing Base (no Trusted Execution Environment) must have all the EPID keys in EPID groups only associated with the same product (for example, all keys in EPID groups for a given toaster product, or a given industrial actuator, but no groups with products mixed inside of them). This security practice is useful because Secure Device Onboard EPID authentication is by group membership. If groups contain mixed products, an attacker who penetrates a less valued target (for example, the toaster) may leverage this effort toward a more valued target (for example, a factory with industrial controllers in it). </p>
+</li>
+<li>
+<p>The exception is when Secure Device Onboard is implemented in a trusted execution environment with hardware protection of its own, that is, a separate Trusted Compute Base.  In this case, the EPID group may follow the Trusted Compute Base (TCB) for the Secure Device Onboard implementation, and the main execution environment (outside the Trusted Execution Environment) may span many products.   </p>
+</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../installation/" class="btn btn-neutral float-right" title="Installation Guide">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../releases/" class="btn btn-neutral" title="Releases"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license</p>
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../releases/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../installation/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../js/version-select.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
