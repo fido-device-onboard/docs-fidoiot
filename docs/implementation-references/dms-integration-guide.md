@@ -7,7 +7,7 @@ Refer to the FIDO Device Onboard [Reference page](../../reference.md).
 ## Overview
 To Integrate FIDO Device Onboard (FDO)-services into a Device Management Service (DMS), a DMS must host an Owner service, manage owner cryptographic keys, ingest ownership vouchers from a supply chain, and provide onboarding and onboarding solution in the form of service info instructions. 
 
-For details on how to setup and initialize the Owner Service Component Sample see the Readme included with this sample as part of the FDO software [Owner Component Readme] (https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/owner/README.md).
+For details on how to setup and initialize the Owner Service Component Sample see the Readme included with this sample as part of the FDO software [Owner Component Readme](https://github.com/fido-device-onboard/pri-fidoiot/tree/master/component-samples/demo/owner/README.md).
 
 ### Owner Component Sample
 The main function of the Owner component sample is to serve as a TO2 protocol server. The owner component sample runs as a web service and makes use of the FDO H2 database for configuration and storage of ownership vouchers. All configuration and data for the owner is stored in this H2 database and property or environment files. 

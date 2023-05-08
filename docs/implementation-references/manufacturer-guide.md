@@ -10,7 +10,7 @@ credentials in secure storage in the device and creates the initial ownership vo
 
 The manufacturer makes use of the provided tools for this process: a manufacturer component sample (which includes an embedded H2 database), and software that runs on the device to perform DI. The manufacturer component sample acts as a DI server for the devices. After running DI on the device, the resulting ownership voucher is stored in the H2 Database. At this point, the FDO security credentials have been stored in the device and the device is FDO ready. When the device is sold to a customer, the ownership voucher is extended and shipped along with the device. A complete integration and deployment of FDO in a manufacturing environment requires a fair amount of planning and effort. However, for development, test, and enabling purposes, a much simpler evaluation deployment can be done. 
 
-For details on how to setup and initialize the Manufacturer Component Sample see the Readme included with this sample as part of the FDO software [Manufacturer Component Readme] (https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/manufacturer/README.md).
+For details on how to setup and initialize the Manufacturer Component Sample see the Readme included with this sample as part of the FDO software [Manufacturer Component Readme](https://github.com/fido-device-onboard/pri-fidoiot/tree/master/component-samples/demo/manufacturer/README.md).
 
 ### Manufacturer Component Sample
 The main function of the manufacturer component sample is to serve as a DI protocol server. The manufacturer component sample runs as a web service and makes use of the FDO H2 database for configuration and storage of ownership vouchers. All configuration and data for the manufacturer is stored in this H2 database and property or environment files. 
@@ -20,7 +20,7 @@ The evaluation deployment is useful for development, test, and enabling purposes
 ### Step 1: Prepare Hardware Infrastructure
 You need to have one machine that can run the manufacturer component sample. A non-production environment has minimal requirements; the machine can run either the Linux* OS (version 20.04) or Windows\* 10 OS.
 ### Step 2: Component Sample Installation
-Install the manufacturer component sample, see [Manufacturer Component Readme](#https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/manufacturer/README.md) for details. 
+Install the manufacturer component sample, see [Manufacturer Component Readme](https://github.com/fido-device-onboard/pri-fidoiot/tree/master/component-samples/demo/manufacturer/README.md) for details. 
 ### Step 3: Test
 Set up the device to run the FDO DI protocol (refer to device specific documentation for details). Run DI on the device against the manufacturer component sample. You can use any value for the device serial no at this point. For a production scenario, see [Device Serial No](device-mfg-info.md) for details. Use the REST APIs (or a database management tool) to view and confirm the ownership voucher has been created.
 
@@ -50,4 +50,4 @@ The following are the implied requirements:
 ### Supply Chain Requirements
 FDO requires support from your supply chain partners. Specially, they will need to deploy the means to manage and extend ownership vouchers. As physical devices come into their inventory they will need to associate those devices with the respective ownership vouchers. Then as those device are resold, the vouchers will need to be extended to the next owner in the supply chain. 
 
-To support this process, there is a reseller component sample that can perform the storage and extension of ownership vouchers. See [Component Reseller] (https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/reseller) for details.
+To support this process, there is a reseller component sample that can perform the storage and extension of ownership vouchers. See [Component Reseller](https://github.com/fido-device-onboard/pri-fidoiot/tree/master/component-samples/reseller) for details.

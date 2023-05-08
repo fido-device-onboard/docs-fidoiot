@@ -65,9 +65,9 @@ sudo systemctl show --property Environment docker
 ```
 7 . FDO Docker* FAQs
 
-  1. Docker* Time Synchronization Issue while building Ubuntu* 20 docker image from an Ubuntu* 18 machine. [Refer](https://github.com/secure-device-onboard/all-in-one-demo/issues/62)
+  1. Docker* Time Synchronization Issue while building Ubuntu* 20 docker image from an Ubuntu* 18 machine. [Refer](https://github.com/fido-device-onboard/all-in-one-demo/issues/62)
 
-  2. Failure in device onboarding due to the inaccessibility of internet (while running Docker* behind a proxy network). [Refer](https://github.com/secure-device-onboard/all-in-one-demo/issues/63)
+  2. Failure in device onboarding due to the inaccessibility of internet (while running Docker* behind a proxy network). [Refer](https://github.com/fido-device-onboard/all-in-one-demo/issues/63)
 
 ## Docker* Compose Installation
 To install a specific version of Docker\* Compose (for example **_1.21.2_**) follow these steps:

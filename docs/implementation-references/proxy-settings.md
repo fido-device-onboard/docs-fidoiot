@@ -177,4 +177,4 @@ ENV https_proxy <proxy host>:<port>
 
 ## Proxy Settings for Docker* 
 
-Follow the proxy settings detailed [here](#https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/). 
+Follow the proxy settings detailed [here](https://fido-device-onboard.github.io/docs-fidoiot/latest/installation/). 
