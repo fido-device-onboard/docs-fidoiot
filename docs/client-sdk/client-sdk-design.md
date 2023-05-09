@@ -1,6 +1,6 @@
 ## Introduction
 
-This document describes the changes required in the FIDO Device Onboard (FDO) Client Software Development Kit (SDK) to support the new [FIDO Device Onboard specification](https://fidoalliance.org/specs/FDO/FIDO-Device-Onboard-PS-v1.1-20220419/).
+This document describes the changes required in the FIDO Device Onboard (FDO) Client Software Development Kit (SDK) to support the new [FIDO Device Onboard specification]([https://fidoalliance.org/specs/FDO/FIDO-Device-Onboard-PS-v1.1-20220419/](https://fidoalliance.org/specs/FDO/FIDO-Device-Onboard-PS-v1.1-20220419/FIDO-Device-Onboard-PS-v1.1-20220419.html)).
 
 The FDO Client SDK is a portable C Code implementation of the FDO Device Onboarding (FDO) protocols, cryptographic operations, and associated functions required to support microcontroller (MCU) devices. The SDK is written in C since it is the language of choice for programming MCU devices. While the SDK is developed and tested on Linux, the core components of the SDK are isolated from Linux specifics via an abstraction layer. Well-known open source implementations of cryptographic libraries are used for crypto operations.
 
