@@ -10,7 +10,7 @@ credentials in secure storage in the device and creates the initial ownership vo
 
 The manufacturer makes use of the provided tools for this process: a manufacturer component sample (which includes an embedded H2 database), and software that runs on the device to perform DI. The manufacturer component sample acts as a DI server for the devices. After running DI on the device, the resulting ownership voucher is stored in the H2 Database. At this point, the FDO security credentials have been stored in the device and the device is FDO ready. When the device is sold to a customer, the ownership voucher is extended and shipped along with the device. A complete integration and deployment of FDO in a manufacturing environment requires a fair amount of planning and effort. However, for development, test, and enabling purposes, a much simpler evaluation deployment can be done. 
 
-For details on how to setup and initialize the Manufacturer Component Sample see the Readme included with this sample as part of the FDO software [Manufacturer Component Readme] (https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/manufacturer/README.md).
+For details on how to setup and initialize the Manufacturer Component Sample see the Readme included with this sample as part of the FDO software [Manufacturer Component Readme](https://github.com/fido-device-onboard/pri-fidoiot/tree/master/component-samples/demo/manufacturer/README.md).
 
 ### Manufacturer Component Sample
 The main function of the manufacturer component sample is to serve as a DI protocol server. The manufacturer component sample runs as a web service and makes use of the FDO H2 database for configuration and storage of ownership vouchers. All configuration and data for the manufacturer is stored in this H2 database and property or environment files. 
@@ -20,7 +20,7 @@ The evaluation deployment is useful for development, test, and enabling purposes
 ### Step 1: Prepare Hardware Infrastructure
 You need to have one machine that can run the manufacturer component sample. A non-production environment has minimal requirements; the machine can run either the Linux* OS (version 20.04) or Windows\* 10 OS.
 ### Step 2: Component Sample Installation
-Install the manufacturer component sample, see [Manufacturer Component Readme](#https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/manufacturer/README.md) for details. 
+Install the manufacturer component sample, see [Manufacturer Component Readme](https://github.com/fido-device-onboard/pri-fidoiot/tree/master/component-samples/demo/manufacturer/README.md) for details. 
 ### Step 3: Test
 Set up the device to run the FDO DI protocol (refer to device specific documentation for details). Run DI on the device against the manufacturer component sample. You can use any value for the device serial no at this point. For a production scenario, see [Device Serial No](device-mfg-info.md) for details. Use the REST APIs (or a database management tool) to view and confirm the ownership voucher has been created.
 
@@ -34,7 +34,7 @@ Since a device identifier (typically, a serial number) is required for the DI pr
 FDO requires that a customer create (or make use of existing) a key pair to use for extending ownership vouchers. The public key of this pair must be provided to the manufacturer to use for extending the voucher to that customer. Your customer interactions and processes must be modified as required to support this receipt of their public key and then to import this key into the manufacturer component sample. Whether this key is delivered with each order or done before separately depends on your processes and interaction with your customers.
 Note: depending on the type of devices you manufacture, more than one type of key pair may be required (i.e. ECC384, RSA256, etc.).
 
-### Oownership Vouchers Management
+### Ownership Vouchers Management
 After a device is initialized with FDO, an initial ownership voucher is produced and stored in the database. This voucher must first be “signed” (extended) to a customer before sending to the customer. The ownership voucher management task has the following two steps: 
 1.	Assign a voucher (device) to a customer (technically, a customer public key). 
 2.	Perform voucher extension. The resulting extended voucher can then be sent to the customer.
@@ -50,4 +50,4 @@ The following are the implied requirements:
 ### Supply Chain Requirements
 FDO requires support from your supply chain partners. Specially, they will need to deploy the means to manage and extend ownership vouchers. As physical devices come into their inventory they will need to associate those devices with the respective ownership vouchers. Then as those device are resold, the vouchers will need to be extended to the next owner in the supply chain. 
 
-To support this process, there is a reseller component sample that can perform the storage and extension of ownership vouchers. See [Component Reseller] (https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/reseller) for details.
+To support this process, there is a reseller component sample that can perform the storage and extension of ownership vouchers. See [Component Reseller](https://github.com/fido-device-onboard/pri-fidoiot/tree/master/component-samples/reseller) for details.

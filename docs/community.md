@@ -1,6 +1,6 @@
 # Community
 
-Welcome to the Secure Device Onboard community. Secure Device Onboard is an open source project sponsored by [LF Edge](https://www.lfedge.org/projects/securedeviceonboard/).
+Welcome to the FIDO Device Onboard community. FIDO Device Onboard is an open source project sponsored by [LF Edge](https://www.lfedge.org/projects/fidodeviceonboard/).
 
 Community practices are documented at the [Secure Device Onboard wiki](https://wiki.lfedge.org/display/SDO/Secure+Device+Onboard).
 

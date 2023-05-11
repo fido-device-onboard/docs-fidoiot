@@ -6,7 +6,7 @@
 }
 </style>
 
-The FDO project provides a reference implementation of the [FIDO specification](https://fidoalliance.org/specs/FDO/FIDO-Device-Onboard-RD-v1.1-20211214) by the FIDO Alliance.
+The FDO project provides a reference implementation of the [FIDO specification](https://fidoalliance.org/specs/FDO/FIDO-Device-Onboard-PS-v1.1-20220419/) by the FIDO Alliance.
 
 <figure markdown="1">
    <center>
@@ -73,22 +73,22 @@ FDO consists of four sets of protocols namely **DI, TO0, TO1, and TO2**.
 ## Building FDO PRI Source
 
 !!!Requirements
-    - Check the [System Requirements](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/#system-requirements)
-    - When working behind a proxy, ensure to [set proper proxy](https://secure-device-onboard.github.io/docs-fidoiot/latest/implementation-references/proxy-settings/) variables.
+    - Check the [System Requirements](https://fido-device-onboard.github.io/docs-fidoiot/latest/installation/#system-requirements)
+    - When working behind a proxy, ensure to [set proper proxy](https://fido-device-onboard.github.io/docs-fidoiot/latest/implementation-references/proxy-settings/) variables.
     - [Follow the steps](https://docs.docker.com/engine/install/ubuntu/) to setup Docker* environment.
-    - [Follow the steps](https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/#running-the-docker-behind-a-proxy) to setup Docker* proxy.
+    - [Follow the steps](https://fido-device-onboard.github.io/docs-fidoiot/latest/installation/#running-the-docker-behind-a-proxy) to setup Docker* proxy.
     - [Follow the steps](../../implementation-references/proxy-settings/) to set the right proxy settings. (Includes documentation for system wide proxy configuration)
 
 1.&nbsp; Clone the PRI-fidoiot repository
 ```
-git clone https://github.com/secure-device-onboard/pri-fidoiot.git
+git clone https://github.com/fido-device-onboard/pri-fidoiot.git
 ```
 
 2.&nbsp; Build PRI-fidoiot:
 
 !!!NOTES
     For the instructions in this document, `<fdo-pri-src>` refers to the path of the FDO PRI folder 'pri-fidoiot'.
-    [Read more](https://github.com/secure-device-onboard/pri-fidoiot#building-fdo-pri-source) about PRI source building.
+    [Read more](https://github.com/fido-device-onboard/pri-fidoiot#building-fdo-pri-source) about PRI source building.
 
 FDO PRI source can be **built in two ways**:
 
@@ -283,7 +283,7 @@ Once the Owner instance has successfully started, the following output is displa
       - Proper [keystore management](#keystore-management) to be considered before using the services in production environment.
       - To0scheduling interval property can be modified in the component-sample/demo/owner/service.yml.
       Update to0-scheduler: `interval: 120`
-      - [Read more](https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md) about starting PRI services.
+      - [Read more](https://github.com/fido-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md) about starting PRI services.
 
 ## Running E2E for PRI Device
 
@@ -312,22 +312,22 @@ DI complete, GUID is <guid>
 **After completion of DI, the FDO credentials are stored into `app-data/credentials.bin` file. The credentials file includes `rvinfo` from manufacturer, which is later used by device to contact RV server, once it is powered on at the client side. The initialized device is then boxed and sold to customers.**
 
 !!!Additional_Configurations
-        - Additional arguments for [configuring PRI device](https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-the-device-service).
-        - Configuring PRI device for [HTTPS/TLS communication](https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-device-for-httpstls-communication).
-        - [Read more](https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/device/README.md) about Device Intialization.
+        - Additional arguments for [configuring PRI device](https://github.com/fido-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-the-device-service).
+        - Configuring PRI device for [HTTPS/TLS communication](https://github.com/fido-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-device-for-httpstls-communication).
+        - [Read more](https://github.com/fido-device-onboard/pri-fidoiot/blob/master/component-samples/demo/device/README.md) about Device Intialization.
 
 
 #####Voucher Extension & TO0 for PRI Device
 
 <figure>
   <center>
-  <img src="../../images/slide3.png"/>
+  <img src="../../images/Slide3.PNG"/>
   <figcaption>Voucher extension</figcaption>
   </center>
 </figure>
 <br>
 
-**During TO0, the FDO Owner identifies itself to Rendezvous Server and establishes the mapping between GUID and Owneraddress. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob'. [Follow](https://github.com/secure-device-onboard/pri-fidoiot#ownership-voucher-creation) the given steps to access database table.**
+**During TO0, the FDO Owner identifies itself to Rendezvous Server and establishes the mapping between GUID and Owneraddress. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob'. [Follow](https://github.com/fido-device-onboard/pri-fidoiot#ownership-voucher-creation) the given steps to access database table.**
 
 Execute the following script to initiate TO0.
 
@@ -406,12 +406,12 @@ TO2 completed successfully.
 
 FDO Client-SDK source can be build by:
 
-1. Follow instructions in the [documentation](https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/linux.md) to install dependencies.
+1. Follow instructions in the [documentation](https://github.com/fido-device-onboard/client-sdk-fidoiot/blob/master/docs/linux.md) to install dependencies.
 
 2. Clone the repository
 
     ```
-    git clone https://github.com/secure-device-onboard/client-sdk-fidoiot.git
+    git clone https://github.com/fido-device-onboard/client-sdk-fidoiot.git
     ```
 
 !!!NOTE
@@ -443,9 +443,9 @@ cd <client-sdk-src>
 ```
 
 !!!Additional_configurations
-    - [Read more](https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/linux.md#7-running-the-application-) on Client-SDK Device Initialization.
-    - [Configuring Client-SDK device](https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/setup.md#7-http-proxy-configuration-optional) for Proxy Network.
-    - Follow instructions in the [documentation](https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/setup.md#3-setting-the-manufacturer-network-address), to update Manufacturer's address.
+    - [Read more](https://github.com/fido-device-onboard/client-sdk-fidoiot/blob/master/docs/linux.md#7-running-the-application-) on Client-SDK Device Initialization.
+    - [Configuring Client-SDK device](https://github.com/fido-device-onboard/client-sdk-fidoiot/blob/master/docs/setup.md#7-http-proxy-configuration-optional) for Proxy Network.
+    - Follow instructions in the [documentation](https://github.com/fido-device-onboard/client-sdk-fidoiot/blob/master/docs/setup.md#3-setting-the-manufacturer-network-address), to update Manufacturer's address.
 
 
 ##### Voucher Extension for Client-SDK Device
@@ -530,7 +530,7 @@ Device onboarded successfully.
 - Create a sample linux64.sh shell script.
 
             #!/bin/bash
-            wget https://raw.githubusercontent.com/secure-device-onboard/pri-fidoiot/master/SECURITY.md
+            wget https://raw.githubusercontent.com/fido-device-onboard/pri-fidoiot/master/SECURITY.md
             filename=SECURITY.md
             cksum_tx=2749598590
             cksum_rx=$(cksum $filename | cut -d ' ' -f 1)
@@ -594,6 +594,6 @@ Device onboarded successfully.
     ```
 
 !!!NOTES
-    - [Read more](https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md#generating-key-pair) about key generation.
+    - [Read more](https://github.com/fido-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md#generating-key-pair) about key generation.
     - You can update the key type, by modifying the `-newkey` attribute during the key generation stage.
     - You can add multiple IP addresses in the `subjectAltName` attribute.
