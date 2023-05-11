@@ -321,7 +321,7 @@ DI complete, GUID is <guid>
 
 <figure>
   <center>
-  <img src="../../images/slide3.png"/>
+  <img src="../../images/Slide3.PNG"/>
   <figcaption>Voucher extension</figcaption>
   </center>
 </figure>

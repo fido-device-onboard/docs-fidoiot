@@ -34,7 +34,7 @@ Since a device identifier (typically, a serial number) is required for the DI pr
 FDO requires that a customer create (or make use of existing) a key pair to use for extending ownership vouchers. The public key of this pair must be provided to the manufacturer to use for extending the voucher to that customer. Your customer interactions and processes must be modified as required to support this receipt of their public key and then to import this key into the manufacturer component sample. Whether this key is delivered with each order or done before separately depends on your processes and interaction with your customers.
 Note: depending on the type of devices you manufacture, more than one type of key pair may be required (i.e. ECC384, RSA256, etc.).
 
-### Oownership Vouchers Management
+### Ownership Vouchers Management
 After a device is initialized with FDO, an initial ownership voucher is produced and stored in the database. This voucher must first be “signed” (extended) to a customer before sending to the customer. The ownership voucher management task has the following two steps: 
 1.	Assign a voucher (device) to a customer (technically, a customer public key). 
 2.	Perform voucher extension. The resulting extended voucher can then be sent to the customer.
