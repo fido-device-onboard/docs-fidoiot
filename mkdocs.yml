@@ -3,12 +3,12 @@ site_name: 'FIDO Device Onboard'
 site_description: 'Documentation for FIDO Device Onboard Project'
 site_author: 'FIDO Device Onboard Contributers'
 #change this when site goes live
-site_url: 'https://secure-device-onboard.github.io/docs-fidoiot/'
+site_url: 'https://fido-device-onboard.github.io/docs-fidoiot/'
 
 # Documentation Repository
 # Add this when the doucmentation goes live, if you want to invite the public to edit
-# repo_name: 'secure-device-onboard'
-# repo_url: 'https://github.com/secure-device-onboard'
+# repo_name: 'fido-device-onboard'
+# repo_url: 'https://github.com/fido-device-onboard'
 
 # Copyright
 copyright: 'Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license'
