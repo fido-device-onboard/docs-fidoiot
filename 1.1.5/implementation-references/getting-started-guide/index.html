@@ -197,7 +197,7 @@
 }
 </style>
 
-<p>The FDO project provides a reference implementation of the <a href="https://fidoalliance.org/specs/FDO/FIDO-Device-Onboard-RD-v1.1-20211214">FIDO specification</a> by the FIDO Alliance.</p>
+<p>The FDO project provides a reference implementation of the <a href="https://fidoalliance.org/specs/FDO/FIDO-Device-Onboard-PS-v1.1-20220419/">FIDO specification</a> by the FIDO Alliance.</p>
 <figure markdown="1">
    <center>
         <img src="../../images/securedeviceonboard-icon-color.png" width="40%" />
@@ -265,21 +265,21 @@ The client-side includes device implementation in Java (PRI) or C (Client-sdk-fi
 <div class="admonition requirements">
 <p class="admonition-title">Requirements</p>
 <ul>
-<li>Check the <a href="https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/#system-requirements">System Requirements</a></li>
-<li>When working behind a proxy, ensure to <a href="https://secure-device-onboard.github.io/docs-fidoiot/latest/implementation-references/proxy-settings/">set proper proxy</a> variables.</li>
+<li>Check the <a href="https://fido-device-onboard.github.io/docs-fidoiot/latest/installation/#system-requirements">System Requirements</a></li>
+<li>When working behind a proxy, ensure to <a href="https://fido-device-onboard.github.io/docs-fidoiot/latest/implementation-references/proxy-settings/">set proper proxy</a> variables.</li>
 <li><a href="https://docs.docker.com/engine/install/ubuntu/">Follow the steps</a> to setup Docker* environment.</li>
-<li><a href="https://secure-device-onboard.github.io/docs-fidoiot/latest/installation/#running-the-docker-behind-a-proxy">Follow the steps</a> to setup Docker* proxy.</li>
+<li><a href="https://fido-device-onboard.github.io/docs-fidoiot/latest/installation/#running-the-docker-behind-a-proxy">Follow the steps</a> to setup Docker* proxy.</li>
 <li><a href="../../implementation-references/proxy-settings/">Follow the steps</a> to set the right proxy settings. (Includes documentation for system wide proxy configuration)</li>
 </ul>
 </div>
 <p>1.&nbsp; Clone the PRI-fidoiot repository</p>
-<pre><code>git clone https://github.com/secure-device-onboard/pri-fidoiot.git
+<pre><code>git clone https://github.com/fido-device-onboard/pri-fidoiot.git
 </code></pre>
 <p>2.&nbsp; Build PRI-fidoiot:</p>
 <div class="admonition notes">
 <p class="admonition-title">Notes</p>
 <p>For the instructions in this document, <code>&lt;fdo-pri-src&gt;</code> refers to the path of the FDO PRI folder 'pri-fidoiot'.
-<a href="https://github.com/secure-device-onboard/pri-fidoiot#building-fdo-pri-source">Read more</a> about PRI source building.</p>
+<a href="https://github.com/fido-device-onboard/pri-fidoiot#building-fdo-pri-source">Read more</a> about PRI source building.</p>
 </div>
 <p>FDO PRI source can be <strong>built in two ways</strong>:</p>
 <ol>
@@ -437,7 +437,7 @@ sudo docker-compose up --build
 <li>Proper <a href="#keystore-management">keystore management</a> to be considered before using the services in production environment.</li>
 <li>To0scheduling interval property can be modified in the component-sample/demo/owner/service.yml.
   Update to0-scheduler: <code>interval: 120</code></li>
-<li><a href="https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md">Read more</a> about starting PRI services.</li>
+<li><a href="https://github.com/fido-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md">Read more</a> about starting PRI services.</li>
 </ul>
 </div>
 <h2 id="running-e2e-for-pri-device">Running E2E for PRI Device<a class="headerlink" href="#running-e2e-for-pri-device" title="Permanent link">&para;</a></h2>
@@ -464,21 +464,21 @@ java -jar device.jar
 <p><strong>After completion of DI, the FDO credentials are stored into <code>app-data/credentials.bin</code> file. The credentials file includes <code>rvinfo</code> from manufacturer, which is later used by device to contact RV server, once it is powered on at the client side. The initialized device is then boxed and sold to customers.</strong></p>
 <div class="admonition additional_configurations">
 <p class="admonition-title">Additional_configurations<ul>
-<li>Additional arguments for <a href="https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-the-device-service">configuring PRI device</a>.</li>
-<li>Configuring PRI device for <a href="https://github.com/secure-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-device-for-httpstls-communication">HTTPS/TLS communication</a>.</li>
-<li><a href="https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/device/README.md">Read more</a> about Device Intialization.</li>
+<li>Additional arguments for <a href="https://github.com/fido-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-the-device-service">configuring PRI device</a>.</li>
+<li>Configuring PRI device for <a href="https://github.com/fido-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-device-for-httpstls-communication">HTTPS/TLS communication</a>.</li>
+<li><a href="https://github.com/fido-device-onboard/pri-fidoiot/blob/master/component-samples/demo/device/README.md">Read more</a> about Device Intialization.</li>
 </ul>
 </p>
 </div>
 <h5 id="voucher-extension-to0-for-pri-device">Voucher Extension &amp; TO0 for PRI Device<a class="headerlink" href="#voucher-extension-to0-for-pri-device" title="Permanent link">&para;</a></h5>
 <figure>
   <center>
-  <img src="../../images/slide3.png"/>
+  <img src="../../images/Slide3.PNG"/>
   <figcaption>Voucher extension</figcaption>
   </center>
 </figure>
 <p><br></p>
-<p><strong>During TO0, the FDO Owner identifies itself to Rendezvous Server and establishes the mapping between GUID and Owneraddress. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob'. <a href="https://github.com/secure-device-onboard/pri-fidoiot#ownership-voucher-creation">Follow</a> the given steps to access database table.</strong></p>
+<p><strong>During TO0, the FDO Owner identifies itself to Rendezvous Server and establishes the mapping between GUID and Owneraddress. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob'. <a href="https://github.com/fido-device-onboard/pri-fidoiot#ownership-voucher-creation">Follow</a> the given steps to access database table.</strong></p>
 <p>Execute the following script to initiate TO0.</p>
 <pre><code>cd &lt;fdo-pri-src&gt;/component-samples/demo/scripts
 bash extend_upload.sh -s serial_no
@@ -534,11 +534,11 @@ java -jar device.jar
 <p>FDO Client-SDK source can be build by:</p>
 <ol>
 <li>
-<p>Follow instructions in the <a href="https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/linux.md">documentation</a> to install dependencies.</p>
+<p>Follow instructions in the <a href="https://github.com/fido-device-onboard/client-sdk-fidoiot/blob/master/docs/linux.md">documentation</a> to install dependencies.</p>
 </li>
 <li>
 <p>Clone the repository</p>
-<p><code>git clone https://github.com/secure-device-onboard/client-sdk-fidoiot.git</code></p>
+<p><code>git clone https://github.com/fido-device-onboard/client-sdk-fidoiot.git</code></p>
 </li>
 </ol>
 <div class="admonition note">
@@ -561,9 +561,9 @@ java -jar device.jar
 <div class="admonition additional_configurations">
 <p class="admonition-title">Additional_configurations</p>
 <ul>
-<li><a href="https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/linux.md#7-running-the-application-">Read more</a> on Client-SDK Device Initialization.</li>
-<li><a href="https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/setup.md#7-http-proxy-configuration-optional">Configuring Client-SDK device</a> for Proxy Network.</li>
-<li>Follow instructions in the <a href="https://github.com/secure-device-onboard/client-sdk-fidoiot/blob/master/docs/setup.md#3-setting-the-manufacturer-network-address">documentation</a>, to update Manufacturer's address.</li>
+<li><a href="https://github.com/fido-device-onboard/client-sdk-fidoiot/blob/master/docs/linux.md#7-running-the-application-">Read more</a> on Client-SDK Device Initialization.</li>
+<li><a href="https://github.com/fido-device-onboard/client-sdk-fidoiot/blob/master/docs/setup.md#7-http-proxy-configuration-optional">Configuring Client-SDK device</a> for Proxy Network.</li>
+<li>Follow instructions in the <a href="https://github.com/fido-device-onboard/client-sdk-fidoiot/blob/master/docs/setup.md#3-setting-the-manufacturer-network-address">documentation</a>, to update Manufacturer's address.</li>
 </ul>
 </div>
 <h5 id="voucher-extension-for-client-sdk-device">Voucher Extension for Client-SDK Device<a class="headerlink" href="#voucher-extension-for-client-sdk-device" title="Permanent link">&para;</a></h5>
@@ -623,7 +623,7 @@ curl -D - --digest -u ${api_user}:${onr_api_passwd} --location --request GET &qu
 <h2 id="enabling-serviceinfo-transfer">Enabling ServiceInfo Transfer<a class="headerlink" href="#enabling-serviceinfo-transfer" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Create a sample linux64.sh shell script.<pre><code>    #!/bin/bash
-    wget https://raw.githubusercontent.com/secure-device-onboard/pri-fidoiot/master/SECURITY.md
+    wget https://raw.githubusercontent.com/fido-device-onboard/pri-fidoiot/master/SECURITY.md
     filename=SECURITY.md
     cksum_tx=2749598590
     cksum_rx=$(cksum $filename | cut -d ' ' -f 1)
@@ -689,7 +689,7 @@ curl -D - --digest -u ${api_user}:${onr_api_passwd} --location --request GET &qu
 <div class="admonition notes">
 <p class="admonition-title">Notes</p>
 <ul>
-<li><a href="https://github.com/secure-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md#generating-key-pair">Read more</a> about key generation.</li>
+<li><a href="https://github.com/fido-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md#generating-key-pair">Read more</a> about key generation.</li>
 <li>You can update the key type, by modifying the <code>-newkey</code> attribute during the key generation stage.</li>
 <li>You can add multiple IP addresses in the <code>subjectAltName</code> attribute.</li>
 </ul>
