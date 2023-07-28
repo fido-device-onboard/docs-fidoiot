@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="FIDO Device Onboard Contributers">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Installation Guide - FIDO Device Onboard</title>
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Installation Guide";
+    var mkdocs_page_input_path = "installation.md";
+    var mkdocs_page_url = "/docs-fidoiot/installation/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> FIDO Device Onboard</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Home</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="..">Home</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../reference/">Reference</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../community/">Community</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../releases/">Releases</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../security-best-practices/">Security Best Practices</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Installation Guide</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#installation-guide">Installation Guide</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#system-requirements">System Requirements</a></li>
+        
+            <li><a class="toctree-l4" href="#docker-installation">Docker* Installation</a></li>
+        
+            <li><a class="toctree-l4" href="#docker-compose-installation">Docker* Compose Installation</a></li>
+        
+            <li><a class="toctree-l4" href="#other-development-tools">Other Development Tools</a></li>
+        
+            <li><a class="toctree-l4" href="#to-set-correct-system-time">To Set Correct System Time</a></li>
+        
+            <li><a class="toctree-l4" href="#references">References</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../installation_rhel/">Installation Guide (RHEL)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../protocol-specification/">Protocol Specification</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">PRI</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../pri/pri-introduction/">Protocol Reference Implementation</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Client SDK</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../client-sdk/client-sdk-design/">Client SDK Design</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../client-sdk/client-sdk-reference-guide/">Client SDK Introduction</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../client-sdk/client-sdk-api-reference/">Client SDK API Reference</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../client-sdk/client-sdk-porting-guide/">Client SDK Porting Guide</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Implementation Reference</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../implementation-references/getting-started-guide/">Getting Started Guide</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../implementation-references/serviceinfo-sys-module/">ServiceInfo System Module</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../implementation-references/device-mfg-info/">DeviceMfgInfo Specification</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../implementation-references/manufacturer-guide/">Manufacturer Guide</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../implementation-references/dms-integration-guide/">DMS Integration Guide</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../implementation-references/proxy-settings/">Proxy Setup Guide</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">FIDO Device Onboard</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Home &raquo;</li>
+        
+      
+    
+    <li>Installation Guide</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="installation-guide">Installation Guide<a class="headerlink" href="#installation-guide" title="Permanent link">&para;</a></h1>
+<p>This document can be used as a quick start guide to setup the development environment. Please review the system requirements listed below before moving forward with the FDO installation and deployment.</p>
+<h2 id="system-requirements">System Requirements<a class="headerlink" href="#system-requirements" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Recommended</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Host Operating System</td>
+<td>Ubuntu* (20.04, 22.04) / Debian 11.4 / Windows* 10</td>
+</tr>
+<tr>
+<td>Docker* Engine</td>
+<td>20.10.10+</td>
+</tr>
+<tr>
+<td>Docker* Compose</td>
+<td>1.29.2</td>
+</tr>
+<tr>
+<td>Maven*</td>
+<td>3.5.4</td>
+</tr>
+<tr>
+<td>Java</td>
+<td>11</td>
+</tr>
+<tr>
+<td>Haveged</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h2 id="docker-installation">Docker* Installation<a class="headerlink" href="#docker-installation" title="Permanent link">&para;</a></h2>
+<p><a href="https://docs.docker.com/engine/install/ubuntu/">Follow the steps</a> to setup Docker* environment.</p>
+<h3 id="running-the-docker-behind-a-proxy">Running the Docker* Behind a Proxy<a class="headerlink" href="#running-the-docker-behind-a-proxy" title="Permanent link">&para;</a></h3>
+<p>To run the Docker* system behind a proxy server, the configuration is done by the following steps:</p>
+<p>1 . Directory <code>docker.service.d</code> is to be created in systemd directory as shown below.</p>
+<pre><code>mkdir -p /etc/systemd/system/docker.service.d
+</code></pre>
+
+<p>2 . For HTTP proxy, create a file <strong><em>http-proxy.conf</em></strong> in the above created directory and add the following content to this file.</p>
+<pre><code>[Service]
+Environment=&quot;HTTP_PROXY=&lt;Proxy IP/URL:Port&gt;&quot;
+</code></pre>
+
+<p>3 . For HTTPS proxy, create a file <strong><em>https-proxy.conf</em></strong> in the above created directory and add the following content to this file.</p>
+<pre><code>[Service]
+Environment=&quot;HTTPS_PROXY=&lt;Proxy IP/URL:Port&gt;&quot;
+</code></pre>
+
+<p>4 . Next, create a directory named <strong><em>.docker</em></strong> in the user home path (<strong>~/</strong>) and create a file named <strong><em>config.json</em></strong> if not present, add the following content.</p>
+<pre><code>{
+    &quot;proxies&quot;:
+    {
+        &quot;default&quot;:
+        {
+            &quot;httpProxy&quot;: &quot;&lt;Proxy IP/URL:Port&gt;&quot;,
+            &quot;httpsProxy&quot;: &quot;&lt;Proxy IP/URL:Port&gt;&quot;
+            &quot;noProxy&quot;: &quot;&lt;Proxy IP/URL:Port&gt;&quot;
+        }
+    }
+}
+</code></pre>
+
+<p>5 . After configuring the above, the Docker* service needs to be restarted.</p>
+<pre><code>sudo systemctl daemon-reload
+sudo systemctl restart docker
+</code></pre>
+
+<p>6 . To ensure that the proxies are set successfully, run the following command</p>
+<pre><code>sudo systemctl show --property Environment docker
+</code></pre>
+
+<p>7 . FDO Docker* FAQs</p>
+<ol>
+<li>
+<p>Docker<em> Time Synchronization Issue while building Ubuntu</em> 20 docker image from an Ubuntu* 18 machine. <a href="https://github.com/fido-device-onboard/all-in-one-demo/issues/62">Refer</a></p>
+</li>
+<li>
+<p>Failure in device onboarding due to the inaccessibility of internet (while running Docker* behind a proxy network). <a href="https://github.com/fido-device-onboard/all-in-one-demo/issues/63">Refer</a></p>
+</li>
+</ol>
+<h2 id="docker-compose-installation">Docker* Compose Installation<a class="headerlink" href="#docker-compose-installation" title="Permanent link">&para;</a></h2>
+<p>To install a specific version of Docker* Compose (for example <strong><em>1.21.2</em></strong>) follow these steps:</p>
+<p>1 . Download the specific version <strong>(1.21.2)</strong> of Docker* Compose.</p>
+<pre><code>sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/bin/docker-compose
+</code></pre>
+
+<p>2 . To apply executable permissions, run the following command.</p>
+<pre><code>sudo chmod +x /usr/bin/docker-compose
+</code></pre>
+
+<p>3 . To ensure that the required version is installed, run <code>docker-compose --version</code> command.</p>
+<h2 id="other-development-tools">Other Development Tools<a class="headerlink" href="#other-development-tools" title="Permanent link">&para;</a></h2>
+<p>1 . To install OpenJDK*</p>
+<pre><code>sudo apt install openjdk-11-jdk-headless
+</code></pre>
+
+<p>2 . To install Maven*</p>
+<pre><code>sudo apt install maven
+</code></pre>
+
+<p>3 . To install Haveged</p>
+<pre><code>sudo apt install haveged
+</code></pre>
+
+<h2 id="to-set-correct-system-time">To Set Correct System Time<a class="headerlink" href="#to-set-correct-system-time" title="Permanent link">&para;</a></h2>
+<pre><code>sudo date -s &quot;$(wget -qSO- --max-redirect=0 google.com 2&gt;&amp;1 | grep Date: | cut -d' ' -f5-8)Z&quot;
+</code></pre>
+
+<p>Ensure that the system time is correct, else you will receive the certificate expiration error.</p>
+<p>Change the Google* domain according to your location.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<p><a href="https://docs.docker.com/engine/install/ubuntu/#installation-methods">Docker-installation-methods</a></p>
+<p><a href="https://docs.docker.com/compose/install/">Docker-compose-installation</a></p>
+<p><a href="https://docs.docker.com/network/proxy/">Setting-proxy-for-docker</a></p>
+<p><em>*</em> represents proprietary software products. FDO claims no rights over the mentioned software products. Use them at your own discretion.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../installation_rhel/" class="btn btn-neutral float-right" title="Installation Guide (RHEL)">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../security-best-practices/" class="btn btn-neutral" title="Security Best Practices"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../security-best-practices/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../installation_rhel/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>
