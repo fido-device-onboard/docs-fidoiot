@@ -29,6 +29,7 @@ The Client SDK reference implementation source code is organized as follows (fol
 ├── app  - - - - - - Reference Application
 ├── crypto*  - - - - Crypto Subsystem
 ├── cmake* - - - - - cmake sub files
+├── cse - - - - - - - CSE (Client Side Encryption) Subsystem
 ├── data - - - - - - Filesystem place to store blob like keys, network info.
 ├── device_modules - ServiceInfo Modules
 ├── docs - - - - - - Documents
@@ -54,6 +55,8 @@ The build system uses cmake. This section explains the most prominent configurat
 │   └── pristine.cmake
 ├── CMakeLists.txt
 ├── crypto
+│   └── CMakeLists.txt
+├── cse
 │   └── CMakeLists.txt
 ├── device_modules
 │   └── CMakeLists.txt
@@ -93,6 +96,10 @@ set (BLOB_PATH .)
 set (TPM2_TCTI_TYPE tabrmd)
 set (RESALE true)
 set (REUSE true)
+
+#for CSE
+set (CSE_SHUTDOWN true)
+set (CSE_CLEAR false)
 ```
 #### blob_path.cmake
 The blob specific paths are set with this cmake file. A new variable BLOB_PATH is introduced to customize the placement of blobs in the filesystem.
