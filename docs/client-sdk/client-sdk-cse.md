@@ -1,4 +1,4 @@
-# FIDO Device Onboard (FDO) Client SDK CSE API Reference
+# FIDO Device Onboard (FDO) Client SDK Intel® CSE API Reference
 
 This document describes the list of all the functions used by the client SDK to interact with the CSE (Converged Security Engine).
 
