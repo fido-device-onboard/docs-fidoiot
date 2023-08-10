@@ -150,7 +150,7 @@ timedatectl
 
 ## To Set Correct System Time
 
-Set System Time from Google HTTP Response Header
+1. Set System Time from Google HTTP Response Header (Method 1)
 
 ```
 sudo date -s "$(wget -qSO- --max-redirect=0 https://google.com/ 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
@@ -165,6 +165,40 @@ sudo hwclock --systohc
 Ensure that the system time is correct, else you will receive the certificate expiration error.
 
 Change the Google\* domain according to your location.
+
+2. Using NTP (Network Time Protocol) (Method 2)
+
+First, ensure that the NTP client is installed on your system. If it's not already installed, you can install it using the following command:
+
+```
+sudo apt-get update
+sudo apt-get install ntp
+```
+
+Open the NTP configuration file for editing. This file typically is located at /etc/ntp.conf. Use your preferred text editor, such as nano or vim:
+
+```
+sudo nano /etc/ntp.conf
+```
+
+Replace or add NTP servers based on your location or preference. For example:
+
+```
+server ntp.ubuntu.com
+server pool.ntp.org
+```
+
+Restart the NTP service to apply the configuration changes
+
+```
+sudo systemctl restart ntp
+```
+
+Monitor the NTP synchronization status using the following command:
+
+```
+ntpq -p
+```
 
 ## References
 
