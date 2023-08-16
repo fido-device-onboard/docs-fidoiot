@@ -29,6 +29,7 @@ The Client SDK reference implementation source code is organized as follows (fol
 ├── app  - - - - - - Reference Application
 ├── crypto*  - - - - Crypto Subsystem
 ├── cmake* - - - - - cmake sub files
+├── cse - - - - - - - CSE (Converged Security Engine) Subsystem
 ├── data - - - - - - Filesystem place to store blob like keys, network info.
 ├── device_modules - ServiceInfo Modules
 ├── docs - - - - - - Documents
@@ -55,6 +56,8 @@ The build system uses cmake. This section explains the most prominent configurat
 ├── CMakeLists.txt
 ├── crypto
 │   └── CMakeLists.txt
+├── cse
+│   └── CMakeLists.txt
 ├── device_modules
 │   └── CMakeLists.txt
 ├── lib
@@ -72,15 +75,18 @@ The base.mk was used to define the build flags as a top-level configuration Make
 
 The following specifies the default build configuration which can be overridden in invocation of cmake.
 ```
+# cmake given defaults
 set (TARGET_OS linux)
 set (CSTD c99)
 set (TLS openssl)
 set (DA ecdsa384)
 set (AES_MODE gcm)
-set (BUILD debug)
+set (BUILD release)
 set (TARGET_OS linux)
 set (HTTPPROXY true)
 set (PROXY_DISCOVERY false)
+set (SELF_SIGNED_CERTS true)
+set (SNI true)
 set (OPTIMIZE 1)
 set (DA_FILE der)
 set (CRYPTO_HW false)
@@ -93,6 +99,20 @@ set (BLOB_PATH .)
 set (TPM2_TCTI_TYPE tabrmd)
 set (RESALE true)
 set (REUSE true)
+
+#for CSE
+set (CSE_SHUTDOWN true)
+set (CSE_CLEAR false)
+
+#following are specific to only mbedos
+set (DATASTORE sd)
+set (WIFI_SSID " ")
+set (WIFI_PASS " ")
+# TO-DO : This flag is no longer being used in the source.
+# Explore use of the alternative MANUFACTURER_ADDR instead.
+set (MANUFACTURER_IP " ")
+set (MANUFACTURER_DN " ")
+
 ```
 #### blob_path.cmake
 The blob specific paths are set with this cmake file. A new variable BLOB_PATH is introduced to customize the placement of blobs in the filesystem.
