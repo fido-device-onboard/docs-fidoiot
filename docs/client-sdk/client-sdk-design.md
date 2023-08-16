@@ -43,7 +43,7 @@ Currently, all manufacturer information and device secrets are stored in persist
 
 All file save and load APIs must be rewritten using CBOR-COSE APIs to replace JSON encoding and decoding.
 
-### Fido Message Handling 
+### FIDO Message Handling 
 
 The following is the detailed design for handling FDO CBOR messages in the Client SDK implementation. 
 

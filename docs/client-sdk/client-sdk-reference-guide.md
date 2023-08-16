@@ -26,7 +26,7 @@ Like any SDK, the Client SDK is expected to be embedded within a custom implemen
 
 Figure 1.	FDO Client Block Diagram
 
-![FDO Client Block Diagram](img/1-Intel FDO Client Block Diagram.JPG)
+![FDO Client Block Diagram](img/1-Intel%20FDO%20Client%20Block%20Diagram.JPG)
 
 ***NOTE:*** FDO is an acronym for FIDO Device Onboard.
 
@@ -80,7 +80,7 @@ This SDK release requires all software components to be linked together into a s
 
 Figure 2.	Integrated Image and Execution Flow
 
-![FDO Client Block Diagram](img/2-Integrated Image and Execution Flow.JPG)
+![FDO Client Block Diagram](img/2-Integrated%20Image%20and%20Execution%20Flow.JPG)
 
 The integrated image and execution flows from system boot are shown above and each step is described below:
 
@@ -103,7 +103,7 @@ Each of these is described as follows:
 
 Figure 3.	ServiceInfo Exchanges between Device and Owner Server
 
-![FDO Client Block Diagram](img/3-ServiceInfo Exchanges between Device and Owner Server.JPG)
+![FDO Client Block Diagram](img/3-Service%20Info%20Exchanges%20between%20Device%20and%20Owner%20Server.JPG)
 
 #### Module Initialization
 For each registered module, the SDK initializes the module by calling its callback with the `FDO_SI_START` type. The module is expected to prepare to receive PSI, Device ServiceInfo, and Owner ServiceInfo calls after initialization.
