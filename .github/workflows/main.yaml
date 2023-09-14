@@ -1,0 +1,25 @@
+name: GitHub Pages
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: scm checkout
+        uses: actions/checkout@v3
+      - name: setup-python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip 
+          pip install mkdocs-material mike
+      - name: build
+        run: mkdocs build
+      - name: deploy
+        run: |
+          git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
+          git fetch --all
+          git config user.name sdo-automation
+          git config user.email sdo-automation@intel.com
+          mike deploy latest -b gh-pages-multi -p
