@@ -1,5 +1,10 @@
-name: GitHub Pages
-on: workflow_dispatch
+name: FIDO-documentation build
+on:
+  workflow_dispatch:
+  push:
+    branches: master
+  pull_request:
+    branches: [master, '*rel']
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,6 +21,7 @@ jobs:
           pip install mkdocs-material mike
       - name: build
         run: mkdocs build
+        if: github.event_name == 'pull_request'
       - name: deploy
         run: |
           git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
@@ -23,3 +29,4 @@ jobs:
           git config user.name sdo-automation
           git config user.email sdo-automation@intel.com
           mike deploy latest -b gh-pages-multi -p
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
