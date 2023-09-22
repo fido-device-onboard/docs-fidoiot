@@ -2,97 +2,97 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://fido-device-onboard.github.io/docs-fidoiot/latest/</loc>
-         <lastmod>2023-09-18</lastmod>
+         <lastmod>2023-09-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://fido-device-onboard.github.io/docs-fidoiot/latest/community/</loc>
-         <lastmod>2023-09-18</lastmod>
+         <lastmod>2023-09-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://fido-device-onboard.github.io/docs-fidoiot/latest/installation/</loc>
-         <lastmod>2023-09-18</lastmod>
+         <lastmod>2023-09-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://fido-device-onboard.github.io/docs-fidoiot/latest/installation_rhel/</loc>
-         <lastmod>2023-09-18</lastmod>
+         <lastmod>2023-09-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://fido-device-onboard.github.io/docs-fidoiot/latest/protocol-specification/</loc>
-         <lastmod>2023-09-18</lastmod>
+         <lastmod>2023-09-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://fido-device-onboard.github.io/docs-fidoiot/latest/reference/</loc>
-         <lastmod>2023-09-18</lastmod>
+         <lastmod>2023-09-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://fido-device-onboard.github.io/docs-fidoiot/latest/releases/</loc>
-         <lastmod>2023-09-18</lastmod>
+         <lastmod>2023-09-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://fido-device-onboard.github.io/docs-fidoiot/latest/security-best-practices/</loc>
-         <lastmod>2023-09-18</lastmod>
+         <lastmod>2023-09-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://fido-device-onboard.github.io/docs-fidoiot/latest/client-sdk/client-sdk-api-reference/</loc>
-         <lastmod>2023-09-18</lastmod>
+         <lastmod>2023-09-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://fido-device-onboard.github.io/docs-fidoiot/latest/client-sdk/client-sdk-design/</loc>
-         <lastmod>2023-09-18</lastmod>
+         <lastmod>2023-09-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://fido-device-onboard.github.io/docs-fidoiot/latest/client-sdk/client-sdk-porting-guide/</loc>
-         <lastmod>2023-09-18</lastmod>
+         <lastmod>2023-09-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://fido-device-onboard.github.io/docs-fidoiot/latest/client-sdk/client-sdk-reference-guide/</loc>
-         <lastmod>2023-09-18</lastmod>
+         <lastmod>2023-09-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://fido-device-onboard.github.io/docs-fidoiot/latest/implementation-references/device-mfg-info/</loc>
-         <lastmod>2023-09-18</lastmod>
+         <lastmod>2023-09-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://fido-device-onboard.github.io/docs-fidoiot/latest/implementation-references/dms-integration-guide/</loc>
-         <lastmod>2023-09-18</lastmod>
+         <lastmod>2023-09-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://fido-device-onboard.github.io/docs-fidoiot/latest/implementation-references/getting-started-guide/</loc>
-         <lastmod>2023-09-18</lastmod>
+         <lastmod>2023-09-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://fido-device-onboard.github.io/docs-fidoiot/latest/implementation-references/manufacturer-guide/</loc>
-         <lastmod>2023-09-18</lastmod>
+         <lastmod>2023-09-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://fido-device-onboard.github.io/docs-fidoiot/latest/implementation-references/proxy-settings/</loc>
-         <lastmod>2023-09-18</lastmod>
+         <lastmod>2023-09-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://fido-device-onboard.github.io/docs-fidoiot/latest/implementation-references/serviceinfo-sys-module/</loc>
-         <lastmod>2023-09-18</lastmod>
+         <lastmod>2023-09-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://fido-device-onboard.github.io/docs-fidoiot/latest/pri/pri-introduction/</loc>
-         <lastmod>2023-09-18</lastmod>
+         <lastmod>2023-09-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
