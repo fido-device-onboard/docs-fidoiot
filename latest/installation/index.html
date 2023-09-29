@@ -67,6 +67,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#other-development-tools">Other Development Tools</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#to-set-correct-system-time-zone">To Set Correct System Time Zone</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#to-set-correct-system-time">To Set Correct System Time</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#references">References</a>
@@ -233,11 +235,58 @@ sudo systemctl restart docker
 <p>3 . To install Haveged</p>
 <pre><code>sudo apt install haveged
 </code></pre>
+<h2 id="to-set-correct-system-time-zone">To Set Correct System Time Zone<a class="headerlink" href="#to-set-correct-system-time-zone" title="Permanent link">&para;</a></h2>
+<p>First it is important to setup the correct Timezone.</p>
+<ol>
+<li>Using tzdata command (Method 1)</li>
+</ol>
+<p>Open CLI and run the command</p>
+<pre><code>sudo dpkg-reconfigure tzdata
+</code></pre>
+<p>Follow the onscreen prompts to set the timezone correctly.</p>
+<ol>
+<li>Using timedatectl command (Method 2)</li>
+</ol>
+<p>To get a list of timezones, run the following command</p>
+<pre><code>timedatectl list-timezones
+</code></pre>
+<p>Select the appropriate timezone and run the following command</p>
+<pre><code>sudo timedatectl set-timezone &lt;Timezone&gt;
+</code></pre>
+<p>Now check if the timezone is set properly by running the following command</p>
+<pre><code>timedatectl
+</code></pre>
 <h2 id="to-set-correct-system-time">To Set Correct System Time<a class="headerlink" href="#to-set-correct-system-time" title="Permanent link">&para;</a></h2>
-<pre><code>sudo date -s &quot;$(wget -qSO- --max-redirect=0 google.com 2&gt;&amp;1 | grep Date: | cut -d' ' -f5-8)Z&quot;
+<ol>
+<li>Set System Time from Google HTTP Response Header (Method 1)</li>
+</ol>
+<pre><code>sudo date -s &quot;$(wget -qSO- --max-redirect=0 https://google.com/ 2&gt;&amp;1 | grep Date: | cut -d' ' -f5-8)Z&quot;
+</code></pre>
+<p>Sync the hardware clock with the system using the following command</p>
+<pre><code>sudo hwclock --systohc
 </code></pre>
 <p>Ensure that the system time is correct, else you will receive the certificate expiration error.</p>
 <p>Change the Google* domain according to your location.</p>
+<ol>
+<li>Using NTP (Network Time Protocol) (Method 2)</li>
+</ol>
+<p>First, ensure that the NTP client is installed on your system. If it's not already installed, you can install it using the following command:</p>
+<pre><code>sudo apt-get update
+sudo apt-get install ntp
+</code></pre>
+<p>Open the NTP configuration file for editing. This file typically is located at /etc/ntp.conf. Use your preferred text editor, such as nano or vim:</p>
+<pre><code>sudo nano /etc/ntp.conf
+</code></pre>
+<p>Replace or add NTP servers based on your location or preference. For example:</p>
+<pre><code>server ntp.ubuntu.com
+server pool.ntp.org
+</code></pre>
+<p>Restart the NTP service to apply the configuration changes</p>
+<pre><code>sudo systemctl restart ntp
+</code></pre>
+<p>Monitor the NTP synchronization status using the following command:</p>
+<pre><code>ntpq -p
+</code></pre>
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <p><a href="https://docs.docker.com/engine/install/ubuntu/#installation-methods">Docker-installation-methods</a></p>
 <p><a href="https://docs.docker.com/compose/install/">Docker-compose-installation</a></p>
