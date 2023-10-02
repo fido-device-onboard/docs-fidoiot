@@ -329,6 +329,10 @@ DI complete, GUID is <guid>
 
 **During TO0, the FDO Owner identifies itself to Rendezvous Server and establishes the mapping between GUID and Owneraddress. TO0 ends with RV Server having an entry in a table that associates the Device GUID with the Owner Service’s rendezvous 'blob'. [Follow](https://github.com/fido-device-onboard/pri-fidoiot#ownership-voucher-creation) the given steps to access database table.**
 
+!!!NOTE
+        - Before initiating TO0, add Owner certificate in allowed list of owners in RV server using `curl -D - --digest -u ${api_user}:{rv_api_passwd} --location --request POST "http://${rv_ip}:${rv_port}/api/v1/rv/allow" --data-raw "<content-of-owner_cert>"`
+        - Replace `-D - --digest -u ${api_user}:${rv_api_passwd}` with `--cacert path-to-CA --cert path-to-client-Certificate` for mTLS authentication
+
 Execute the following script to initiate TO0.
 
 ```
