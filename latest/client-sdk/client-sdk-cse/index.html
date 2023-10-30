@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="FIDO Device Onboard Contributers" /><link rel="canonical" href="https://fido-device-onboard.github.io/docs-fidoiot/latest/client-sdk/client-sdk-cse/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>FIDO Device Onboard (FDO) Client SDK Intel® CSE API Reference - FIDO Device Onboard</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "FIDO Device Onboard (FDO) Client SDK Intel\u00ae CSE API Reference";
+        var mkdocs_page_input_path = "client-sdk/client-sdk-cse.md";
+        var mkdocs_page_url = "/docs-fidoiot/latest/client-sdk/client-sdk-cse/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../images/securedeviceonboard-icon-color.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/">Reference</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../community/">Community</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">Releases</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../security-best-practices/">Security Best Practices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../installation_rhel/">Installation Guide (RHEL)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../protocol-specification/">Protocol Specification</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PRI</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pri/pri-introduction/">Protocol Reference Implementation</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Client SDK</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../client-sdk-design/">Client SDK Design</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../client-sdk-reference-guide/">Client SDK Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../client-sdk-api-reference/">Client SDK API Reference</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../client-sdk-porting-guide/">Client SDK Porting Guide</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Implementation Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/getting-started-guide/">Getting Started Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/serviceinfo-sys-module/">ServiceInfo System Module</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/device-mfg-info/">DeviceMfgInfo Specification</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/manufacturer-guide/">Manufacturer Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/dms-integration-guide/">DMS Integration Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/proxy-settings/">Proxy Setup Guide</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">FIDO Device Onboard</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">FIDO Device Onboard (FDO) Client SDK Intel® CSE API Reference</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="fido-device-onboard-fdo-client-sdk-intel-cse-api-reference">FIDO Device Onboard (FDO) Client SDK Intel® CSE API Reference<a class="headerlink" href="#fido-device-onboard-fdo-client-sdk-intel-cse-api-reference" title="Permanent link">&para;</a></h1>
+<p>This document describes the list of all the functions used by the client SDK to interact with the CSE (Converged Security Engine).</p>
+<!-- 1 -->
+
+<h2 id="cse_get_cert_chain">cse_get_cert_chain()<a class="headerlink" href="#cse_get_cert_chain" title="Permanent link">&para;</a></h2>
+<p>Interface to get device certificate from CSE.</p>
+<pre><code class="language-c">int32_t cse_get_cert_chain(fdo_byte_array_t **cse_cert)
+</code></pre>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>This function gets the device certificate from the CSE. It takes a pointer to a byte array as input, and returns a pointer to a byte array holding a valid device CSE certificate.</p>
+<h3 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>cse_cert</code>: Pointer to a byte array holding a valid device CSE certificate.</li>
+</ul>
+<h3 id="return-value">Return Value<a class="headerlink" href="#return-value" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>0</code>: If the device certificate is successfully retrieved from the CSE.</li>
+<li><code>-1</code>: If there is a failure during the device certificate retrieval process.'</li>
+</ul>
+<!-- 2 -->
+
+<h2 id="cse_get_cose_sig_structure">cse_get_cose_sig_structure()<a class="headerlink" href="#cse_get_cose_sig_structure" title="Permanent link">&para;</a></h2>
+<p>Interface to get COSE signature structure.</p>
+<pre><code class="language-c">int32_t cse_get_cose_sig_structure(fdo_byte_array_t **cose_sig_structure,
+                   uint8_t *data, size_t data_len)
+</code></pre>
+<h3 id="description_1">Description<a class="headerlink" href="#description_1" title="Permanent link">&para;</a></h3>
+<p>This function gets the COSE signature structure. It takes a pointer to a byte array, a pointer to a data buffer, and the size of the data buffer as input, and returns a pointer to a byte array holding a COSE signature structure.</p>
+<h3 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>cose_sig_structure</code>: Pointer to a byte array holding a COSE signature structure.</li>
+<li><code>data</code>: Pointer to a data buffer.</li>
+<li><code>data_len</code>: Size of the data buffer.</li>
+</ul>
+<h3 id="return-value_1">Return Value<a class="headerlink" href="#return-value_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>0</code>: If the COSE signature structure is successfully retrieved.</li>
+<li><code>-1</code>: If there is a failure during the COSE signature structure retrieval process.</li>
+</ul>
+<!-- 3 -->
+
+<h2 id="cse_get_test_sig">cse_get_test_sig()<a class="headerlink" href="#cse_get_test_sig" title="Permanent link">&para;</a></h2>
+<p>Interface to get test signature from CSE.</p>
+<pre><code class="language-c">int32_t cse_get_test_sig(fdo_byte_array_t **cse_signature,
+             fdo_byte_array_t **cse_maroeprefix,
+             fdo_byte_array_t *cose_sig_structure, uint8_t *data,
+             size_t data_len)
+</code></pre>
+<h3 id="description_2">Description<a class="headerlink" href="#description_2" title="Permanent link">&para;</a></h3>
+<p>This function gets the test signature from the CSE. It takes a pointer to a byte array, a pointer to a byte array, a pointer to a COSE signature structure, a pointer to a data buffer, and the size of the data buffer as input, and returns a pointer to a byte array holding a valid device CSE test signature.</p>
+<h3 id="parameters_2">Parameters<a class="headerlink" href="#parameters_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>cse_signature</code>: Pointer to a byte array holding a valid device CSE test signature.</li>
+<li><code>cse_maroeprefix</code>: Pointer to a byte array holding a valid device CSE maroeprefix.</li>
+<li><code>cose_sig_structure</code>: Pointer to a COSE signature structure.</li>
+<li><code>data</code>: Pointer to a data buffer.</li>
+<li><code>data_len</code>: Size of the data buffer.</li>
+</ul>
+<h3 id="return-value_2">Return Value<a class="headerlink" href="#return-value_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>0</code>: If the test signature is successfully retrieved.</li>
+<li><code>-1</code>: If there is a failure during the test signature retrieval process.</li>
+</ul>
+<!-- 4 -->
+
+<h2 id="cse_load_file">cse_load_file()<a class="headerlink" href="#cse_load_file" title="Permanent link">&para;</a></h2>
+<p>Loads the data from CSE storage.</p>
+<pre><code class="language-c">int32_t cse_load_file(uint32_t file_id, uint8_t *data_ptr,
+          uint32_t *data_length, uint8_t *hmac_ptr, size_t hmac_sz)
+</code></pre>
+<h3 id="description_3">Description<a class="headerlink" href="#description_3" title="Permanent link">&para;</a></h3>
+<p>This function loads the data from CSE storage. It takes a file ID, a pointer to a data buffer, a pointer to the size of the data buffer, a pointer to a HMAC buffer, and the size of the HMAC buffer as input, and returns a status for the API function.</p>
+<h3 id="parameters_3">Parameters<a class="headerlink" href="#parameters_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>file_id</code>: File ID type Device status or OVH.</li>
+<li><code>data_ptr</code>: Pointer to a data buffer.</li>
+<li><code>data_length</code>: Pointer to the size of the data buffer.</li>
+<li><code>hmac_ptr</code>: Pointer to a HMAC buffer.</li>
+<li><code>hmac_sz</code>: Size of the HMAC buffer.</li>
+</ul>
+<h3 id="return-value_3">Return Value<a class="headerlink" href="#return-value_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>0</code>: If the data is successfully loaded from CSE storage.</li>
+<li><code>-1</code>: If there is a failure during the data loading process.</li>
+</ul>
+<!-- 5 -->
+
+<h2 id="crypto_hal_ecdsa_sign_cse">crypto_hal_ecdsa_sign_cse()<a class="headerlink" href="#crypto_hal_ecdsa_sign_cse" title="Permanent link">&para;</a></h2>
+<p>Signs a message using CSE API.</p>
+<pre><code class="language-c">int32_t crypto_hal_ecdsa_sign_cse(const uint8_t *data, size_t data_len,
+                  uint8_t *message_signature,
+                  size_t message_sig_len, uint8_t *eat_maroe,
+                  size_t *maroe_length)
+</code></pre>
+<h3 id="description_4">Description<a class="headerlink" href="#description_4" title="Permanent link">&para;</a></h3>
+<p>This function signs a message using CSE API. It takes a pointer to a data buffer, the size of the data buffer, a pointer to a message signature buffer, the size of the message signature buffer, a pointer to a maroeprefix buffer, and the size of the maroeprefix buffer as input, and returns a status for the API function.</p>
+<h3 id="parameters_4">Parameters<a class="headerlink" href="#parameters_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>data</code>: Pointer to a data buffer.</li>
+<li><code>data_len</code>: Size of the data buffer.</li>
+<li><code>message_signature</code>: Pointer to a message signature buffer.</li>
+<li><code>message_sig_len</code>: Size of the message signature buffer.</li>
+<li><code>eat_maroe</code>: Pointer to a maroeprefix buffer.</li>
+<li><code>maroe_length</code>: Size of the maroeprefix buffer.</li>
+</ul>
+<h3 id="return-value_4">Return Value<a class="headerlink" href="#return-value_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>0</code>: If the message is successfully signed using CSE API.</li>
+<li><code>-1</code>: If there is a failure during the message signing process.</li>
+</ul>
+<!-- 6 -->
+
+<h2 id="crypto_hal_hmac_cse">crypto_hal_hmac_cse()<a class="headerlink" href="#crypto_hal_hmac_cse" title="Permanent link">&para;</a></h2>
+<p>Calculates HMAC on input data.</p>
+<pre><code class="language-c">int32_t crypto_hal_hmac_cse(uint8_t *buffer, size_t buffer_length,
+                uint8_t *output, size_t output_length)
+</code></pre>
+<h3 id="description_5">Description<a class="headerlink" href="#description_5" title="Permanent link">&para;</a></h3>
+<p>This function calculates HMAC on input data. It takes a pointer to an input data buffer, the size of the input data buffer, a pointer to an output data buffer, and the size of the output data buffer as input, and returns a status for the API function.</p>
+<h3 id="parameters_5">Parameters<a class="headerlink" href="#parameters_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>buffer</code>: Pointer to an input data buffer.</li>
+<li><code>buffer_length</code>: Size of the input data buffer.</li>
+<li><code>output</code>: Pointer to an output data buffer.</li>
+<li><code>output_length</code>: Size of the output data buffer.</li>
+</ul>
+<h3 id="return-value_5">Return Value<a class="headerlink" href="#return-value_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>0</code>: If the HMAC is successfully calculated on input data.</li>
+<li><code>-1</code>: If there is a failure during the HMAC calculation process.</li>
+</ul>
+<!-- 7 -->
+
+<h2 id="read_cse_device_credentials">read_cse_device_credentials()<a class="headerlink" href="#read_cse_device_credentials" title="Permanent link">&para;</a></h2>
+<p>Populates the dev_cred structure by loading the OVH and DS file data from CSE flash.</p>
+<pre><code class="language-c">bool read_cse_device_credentials(fdo_dev_cred_t *our_dev_cred)
+</code></pre>
+<h3 id="description_6">Description<a class="headerlink" href="#description_6" title="Permanent link">&para;</a></h3>
+<p>This function populates the dev_cred structure by loading the OVH and DS file data from CSE flash. It takes a pointer to the device credentials block as input, and returns a status for the API function.</p>
+<h3 id="parameters_6">Parameters<a class="headerlink" href="#parameters_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>our_dev_cred</code>: Pointer to the device credentials block.</li>
+</ul>
+<h3 id="return-value_6">Return Value<a class="headerlink" href="#return-value_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>true</code>: If the dev_cred structure is successfully populated.</li>
+<li><code>false</code>: If there is a failure during the dev_cred structure population process.</li>
+</ul>
+<!-- 8 -->
+
+<h2 id="fdo_ov_hdr_cse_load_hmac">fdo_ov_hdr_cse_load_hmac()<a class="headerlink" href="#fdo_ov_hdr_cse_load_hmac" title="Permanent link">&para;</a></h2>
+<p>Given an OwnershipVoucher header (OVHeader), proceeds to load and compares with stored OVHeader from CSE. If verification succeeds, it returns the stored HMAC.</p>
+<pre><code class="language-c">bool fdo_ov_hdr_cse_load_hmac(fdo_byte_array_t *ovheader, fdo_hash_t **hmac)
+</code></pre>
+<h3 id="description_7">Description<a class="headerlink" href="#description_7" title="Permanent link">&para;</a></h3>
+<p>This function given an OwnershipVoucher header (OVHeader), proceeds to load and compares with stored OVHeader from CSE. If verification succeeds, it returns the stored HMAC. It takes a pointer to the received CBOR-encoded OVHeader, and a pointer to the resulting HMAC as input, and returns a status for the API function.</p>
+<h3 id="parameters_7">Parameters<a class="headerlink" href="#parameters_7" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>ovheader</code>: Pointer to the received CBOR-encoded OVHeader.</li>
+<li><code>hmac</code>: Pointer to the resulting HMAC.</li>
+</ul>
+<h3 id="return-value_7">Return Value<a class="headerlink" href="#return-value_7" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>true</code>: If the HMAC was successfully loaded and verified.</li>
+<li><code>false</code>: If there is a failure during the HMAC loading and verification process.</li>
+</ul>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+      <script src="../../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

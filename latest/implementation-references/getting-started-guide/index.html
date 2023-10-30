@@ -444,12 +444,11 @@ java -jar device.jar
 </code></pre>
 <p><strong>After completion of DI, the FDO credentials are stored into <code>app-data/credentials.bin</code> file. The credentials file includes <code>rvinfo</code> from manufacturer, which is later used by device to contact RV server, once it is powered on at the client side. The initialized device is then boxed and sold to customers.</strong></p>
 <div class="admonition additional_configurations">
-<p class="admonition-title">Additional_configurations<ul>
-<li>Additional arguments for <a href="https://github.com/fido-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-the-device-service">configuring PRI device</a>.</li>
-<li>Configuring PRI device for <a href="https://github.com/fido-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-device-for-httpstls-communication">HTTPS/TLS communication</a>.</li>
-<li><a href="https://github.com/fido-device-onboard/pri-fidoiot/blob/master/component-samples/demo/device/README.md">Read more</a> about Device Intialization.</li>
-</ul>
-</p>
+<p class="admonition-title">Additional_configurations</p>
+<pre><code>- Additional arguments for [configuring PRI device](https://github.com/fido-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-the-device-service).
+- Configuring PRI device for [HTTPS/TLS communication](https://github.com/fido-device-onboard/pri-fidoiot/tree/master/component-samples/demo/device#configuring-device-for-httpstls-communication).
+- [Read more](https://github.com/fido-device-onboard/pri-fidoiot/blob/master/component-samples/demo/device/README.md) about Device Intialization.
+</code></pre>
 </div>
 <h5 id="voucher-extension-to0-for-pri-device">Voucher Extension &amp; TO0 for PRI Device<a class="headerlink" href="#voucher-extension-to0-for-pri-device" title="Permanent link">&para;</a></h5>
 <figure>
@@ -495,11 +494,10 @@ curl -D - --digest -u ${api_user}:${onr_api_passwd} --location --request GET &qu
 </code></pre>
 <p><strong>After the completion of TO0, RV Server will have an entry in a table that associates the Device GUID with the Owner Address.</strong></p>
 <div class="admonition note">
-<p class="admonition-title">Note<ul>
-<li><a href="#keystore-management">Keystore Management</a> needs to be taken care, if PRI Rendezvous server and PRI Owner server is not running on the same machine.</li>
-<li><strong>You can enable ServiceInfo at this stage.</strong> <a href="#enabling-serviceinfo-transfer">Follow the instructions</a> to enable ServiceInfo.</li>
-</ul>
-</p>
+<p class="admonition-title">Note</p>
+<pre><code>- [Keystore Management](#keystore-management) needs to be taken care, if PRI Rendezvous server and PRI Owner server is not running on the same machine.
+- **You can enable ServiceInfo at this stage.** [Follow the instructions](#enabling-serviceinfo-transfer) to enable ServiceInfo.
+</code></pre>
 </div>
 <h4 id="to1-and-to2">TO1 and TO2<a class="headerlink" href="#to1-and-to2" title="Permanent link">&para;</a></h4>
 <p><strong>During T01, Device identifies itself to the Rendezvous Server. Obtains mapping to connect to the Owner’s IP address. During T02, the Device contacts Owner and establishes trust and then performs Ownership Transfer.</strong></p>

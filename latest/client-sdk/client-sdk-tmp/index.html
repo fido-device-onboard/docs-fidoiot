@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="FIDO Device Onboard Contributers" /><link rel="canonical" href="https://fido-device-onboard.github.io/docs-fidoiot/latest/client-sdk/client-sdk-tmp/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>FIDO Device Onboard (FDO) Client SDK TPM API Reference - FIDO Device Onboard</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "FIDO Device Onboard (FDO) Client SDK TPM API Reference";
+        var mkdocs_page_input_path = "client-sdk/client-sdk-tmp.md";
+        var mkdocs_page_url = "/docs-fidoiot/latest/client-sdk/client-sdk-tmp/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../images/securedeviceonboard-icon-color.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/">Reference</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../community/">Community</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">Releases</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../security-best-practices/">Security Best Practices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../installation_rhel/">Installation Guide (RHEL)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../protocol-specification/">Protocol Specification</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PRI</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pri/pri-introduction/">Protocol Reference Implementation</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Client SDK</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../client-sdk-design/">Client SDK Design</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../client-sdk-reference-guide/">Client SDK Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../client-sdk-api-reference/">Client SDK API Reference</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../client-sdk-porting-guide/">Client SDK Porting Guide</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Implementation Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/getting-started-guide/">Getting Started Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/serviceinfo-sys-module/">ServiceInfo System Module</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/device-mfg-info/">DeviceMfgInfo Specification</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/manufacturer-guide/">Manufacturer Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/dms-integration-guide/">DMS Integration Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/proxy-settings/">Proxy Setup Guide</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">FIDO Device Onboard</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">FIDO Device Onboard (FDO) Client SDK TPM API Reference</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="fido-device-onboard-fdo-client-sdk-tpm-api-reference">FIDO Device Onboard (FDO) Client SDK TPM API Reference<a class="headerlink" href="#fido-device-onboard-fdo-client-sdk-tpm-api-reference" title="Permanent link">&para;</a></h1>
+<p>This section describes list of all the functions used by the client SDK to interact with the TPM.</p>
+<!-- 1 -->
+<h2 id="fdo_tpm_get_hmac">fdo_tpm_get_hmac()<a class="headerlink" href="#fdo_tpm_get_hmac" title="Permanent link">&para;</a></h2>
+<p>Generates HMAC using TPM.</p>
+<pre><code class="language-c">int32_t fdo_tpm_get_hmac(const uint8_t *data, size_t data_length, uint8_t *hmac,
+                         size_t hmac_length, char *tpmHMACPub_key,
+                         char *tpmHMACPriv_key);
+</code></pre>
+<h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>This function generates HMAC (Hash-based Message Authentication Code) using the Trusted Platform Module (TPM). It takes input data, calculates its HMAC using TPM, and stores the result in the output buffer provided.</p>
+<h3 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>data</code>: Pointer to the input data for which HMAC needs to be generated.</li>
+<li><code>data_length</code>: Length of the input data in bytes.</li>
+<li><code>hmac</code>: Pointer to the output buffer where the generated HMAC will be saved.</li>
+<li><code>hmac_length</code>: Length of the output HMAC buffer in bytes.</li>
+<li><code>tpmHMACPub_key</code>: File name of the TPM HMAC public key. (It's likely used to access the TPM key for HMAC generation.)</li>
+<li><code>tpmHMACPriv_key</code>: File name of the TPM HMAC private key. (This key is used along with the public key for HMAC generation.)</li>
+</ul>
+<h3 id="return-value">Return Value<a class="headerlink" href="#return-value" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>0</code>: If the HMAC generation is successful.</li>
+<li><code>-1</code>: If there is a failure during the HMAC generation process.</li>
+</ul>
+<!-- 2 -->
+
+<h2 id="fdo_tpm_generate_hmac_key">fdo_tpm_generate_hmac_key()<a class="headerlink" href="#fdo_tpm_generate_hmac_key" title="Permanent link">&para;</a></h2>
+<p>Generates HMAC key inside TPM.</p>
+<pre><code class="language-c">int32_t fdo_tpm_generate_hmac_key(char *tpmHMACPub_key, char *tpmHMACPriv_key);
+</code></pre>
+<h3 id="description_1">Description<a class="headerlink" href="#description_1" title="Permanent link">&para;</a></h3>
+<p>This function generates HMAC key inside the TPM. It takes the file names of the TPM HMAC public and private keys as input.</p>
+<h3 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>tpmHMACPub_key</code>: File name of the TPM HMAC public key.</li>
+<li><code>tpmHMACPriv_key</code>: File name of the TPM HMAC private key.</li>
+</ul>
+<h3 id="return-value_1">Return Value<a class="headerlink" href="#return-value_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>0</code>: If the HMAC key generation is successful.</li>
+<li><code>-1</code>: If there is a failure during the HMAC key generation process.</li>
+</ul>
+<!-- 3 -->
+
+<h2 id="fdotpmgenerate_primary_key_context">fdoTPMGenerate_primary_key_context()<a class="headerlink" href="#fdotpmgenerate_primary_key_context" title="Permanent link">&para;</a></h2>
+<p>Generates TPM primary key context from the endorsement hierarchy.</p>
+<pre><code class="language-c">int32_t fdoTPMGenerate_primary_key_context(ESYS_CONTEXT **esys_context,
+                                             ESYS_TR *primary_key_handle,
+                                             ESYS_TR *auth_session_handle);
+</code></pre>
+<h3 id="description_2">Description<a class="headerlink" href="#description_2" title="Permanent link">&para;</a></h3>
+<p>This function generates the TPM primary key context from the endorsement hierarchy. It takes the Esys context, primary key handle, and authentication session handle as input.</p>
+<h3 id="parameters_2">Parameters<a class="headerlink" href="#parameters_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>esys_context</code>: Output Esys context.</li>
+<li><code>primary_key_handle</code>: Output primary key handle.</li>
+<li><code>auth_session_handle</code>: Output authentication session handle for Esys API.</li>
+</ul>
+<h3 id="return-value_2">Return Value<a class="headerlink" href="#return-value_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>0</code>: If the TPM primary key context generation is successful.</li>
+<li><code>-1</code>: If there is a failure during the TPM primary key context generation process.</li>
+</ul>
+<!-- 4 -->
+
+<h2 id="fdotpmesys_context_init">fdoTPMEsys_context_init()<a class="headerlink" href="#fdotpmesys_context_init" title="Permanent link">&para;</a></h2>
+<p>Initializes the Esys context.</p>
+<pre><code class="language-c">int32_t fdoTPMEsys_context_init(ESYS_CONTEXT **esys_context);
+</code></pre>
+<h3 id="description_3">Description<a class="headerlink" href="#description_3" title="Permanent link">&para;</a></h3>
+<p>This function initializes the Esys context. It takes the Esys context as input.</p>
+<h3 id="parameters_3">Parameters<a class="headerlink" href="#parameters_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>esys_context</code>: Output Esys context.</li>
+</ul>
+<h3 id="return-value_3">Return Value<a class="headerlink" href="#return-value_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>0</code>: If the Esys context initialization is successful.</li>
+<li><code>-1</code>: If there is a failure during the Esys context initialization process.</li>
+</ul>
+<!-- 5 -->
+
+<h2 id="fdotpmesys_auth_session_init">fdoTPMEsys_auth_session_init()<a class="headerlink" href="#fdotpmesys_auth_session_init" title="Permanent link">&para;</a></h2>
+<p>Creates HMAC-based authentication session for Esys context.</p>
+<pre><code class="language-c">int32_t fdoTPMEsys_auth_session_init(ESYS_CONTEXT *esys_context,
+                                       ESYS_TR *session_handle);
+</code></pre>
+<h3 id="description_4">Description<a class="headerlink" href="#description_4" title="Permanent link">&para;</a></h3>
+<p>This function creates HMAC-based authentication session for Esys context. It takes the Esys context and authentication session handle as input.</p>
+<h3 id="parameters_4">Parameters<a class="headerlink" href="#parameters_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>esys_context</code>: Input Esys context.</li>
+<li><code>session_handle</code>: Output authentication session handle.</li>
+</ul>
+<h3 id="return-value_4">Return Value<a class="headerlink" href="#return-value_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>0</code>: If the HMAC-based authentication session creation is successful.</li>
+<li><code>-1</code>: If there is a failure during the HMAC-based authentication session creation process.</li>
+</ul>
+<!-- 6 -->
+
+<h2 id="fdotpmtsscontext_clean_up">fdoTPMTSSContext_clean_up()<a class="headerlink" href="#fdotpmtsscontext_clean_up" title="Permanent link">&para;</a></h2>
+<p>Clears the Esys, TCTI, contexts, and authentication session, primary key handles.</p>
+<pre><code class="language-c">int32_t fdoTPMTSSContext_clean_up(ESYS_CONTEXT **esys_context,
+                                    ESYS_TR *auth_session_handle,
+                                    ESYS_TR *primary_handle);
+</code></pre>
+<h3 id="description_5">Description<a class="headerlink" href="#description_5" title="Permanent link">&para;</a></h3>
+<p>This function clears the Esys, TCTI, contexts, and authentication session, primary key handles. It takes the Esys context, authentication session handle, and primary key handle as input.</p>
+<h3 id="parameters_5">Parameters<a class="headerlink" href="#parameters_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>esys_context</code>: Input Esys context.</li>
+<li><code>auth_session_handle</code>: Input authentication session handle.</li>
+<li><code>primary_handle</code>: Input primary key handle.</li>
+</ul>
+<h3 id="return-value_5">Return Value<a class="headerlink" href="#return-value_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>0</code>: If the Esys, TCTI, contexts, and authentication session, primary key handles are cleared successfully.</li>
+<li><code>-1</code>: If there is a failure during the Esys, TCTI, contexts, and authentication session, primary key handles clearing process.</li>
+</ul>
+<!-- 7 -->
+
+<h2 id="fdo_tpm_commit_replacement_hmac_key">fdo_tpm_commit_replacement_hmac_key()<a class="headerlink" href="#fdo_tpm_commit_replacement_hmac_key" title="Permanent link">&para;</a></h2>
+<p>Replaces the TPM HMAC private and public keys with the replacement keys.</p>
+<pre><code class="language-c">int32_t fdo_tpm_commit_replacement_hmac_key(void);
+</code></pre>
+<h3 id="description_6">Description<a class="headerlink" href="#description_6" title="Permanent link">&para;</a></h3>
+<p>This function replaces the TPM HMAC private and public keys with the replacement keys.</p>
+<h3 id="parameters_6">Parameters<a class="headerlink" href="#parameters_6" title="Permanent link">&para;</a></h3>
+<p>None.</p>
+<h3 id="return-value_6">Return Value<a class="headerlink" href="#return-value_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>0</code>: If the replacement of the TPM HMAC private and public keys is successful.</li>
+<li><code>-1</code>: If there is a failure during the replacement of the TPM HMAC private and public keys process.</li>
+</ul>
+<!-- 8 -->
+
+<h2 id="fdo_tpm_clear_replacement_hmac_key">fdo_tpm_clear_replacement_hmac_key()<a class="headerlink" href="#fdo_tpm_clear_replacement_hmac_key" title="Permanent link">&para;</a></h2>
+<p>Clears the replacement TPM HMAC key objects, if they exist.</p>
+<pre><code class="language-c">void fdo_tpm_clear_replacement_hmac_key(void);
+</code></pre>
+<h3 id="description_7">Description<a class="headerlink" href="#description_7" title="Permanent link">&para;</a></h3>
+<p>This function clears the replacement TPM HMAC key objects, if they exist.</p>
+<h3 id="parameters_7">Parameters<a class="headerlink" href="#parameters_7" title="Permanent link">&para;</a></h3>
+<p>None.</p>
+<h3 id="return-value_7">Return Value<a class="headerlink" href="#return-value_7" title="Permanent link">&para;</a></h3>
+<p>None.</p>
+<!-- 9 -->
+
+<h2 id="is_valid_tpm_data_protection_key_present">is_valid_tpm_data_protection_key_present()<a class="headerlink" href="#is_valid_tpm_data_protection_key_present" title="Permanent link">&para;</a></h2>
+<p>Checks whether a valid data integrity protection HMAC key is present or not.</p>
+<pre><code class="language-c">int32_t is_valid_tpm_data_protection_key_present(void);
+</code></pre>
+<h3 id="description_8">Description<a class="headerlink" href="#description_8" title="Permanent link">&para;</a></h3>
+<p>This function checks whether a valid data integrity protection HMAC key is present or not.</p>
+<h3 id="parameters_8">Parameters<a class="headerlink" href="#parameters_8" title="Permanent link">&para;</a></h3>
+<p>None.</p>
+<h3 id="return-value_8">Return Value<a class="headerlink" href="#return-value_8" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>1</code>: If a valid data integrity protection HMAC key is present.</li>
+<li><code>0</code>: If a valid data integrity protection HMAC key is not present.</li>
+</ul>
+<!-- 10 -->
+
+<h2 id="crypto_hal_ecdsa_sign">crypto_hal_ecdsa_sign()<a class="headerlink" href="#crypto_hal_ecdsa_sign" title="Permanent link">&para;</a></h2>
+<p>Signs a message using provided ECDSA private keys.</p>
+<pre><code class="language-c">int32_t crypto_hal_ecdsa_sign(const uint8_t *data, size_t data_len,
+                              unsigned char *message_signature,
+                              size_t *signature_length);
+</code></pre>
+<h3 id="description_9">Description<a class="headerlink" href="#description_9" title="Permanent link">&para;</a></h3>
+<p>This function signs a message using provided ECDSA private keys. It takes the message, message length, message signature, and signature length as input.</p>
+<h3 id="parameters_9">Parameters<a class="headerlink" href="#parameters_9" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>data</code>: Input message.</li>
+<li><code>data_len</code>: Input message length.</li>
+<li><code>message_signature</code>: Output message signature.</li>
+<li><code>signature_length</code>: Output signature length.</li>
+</ul>
+<h3 id="return-value_9">Return Value<a class="headerlink" href="#return-value_9" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>0</code>: If the message signing is successful.</li>
+<li><code>-1</code>: If there is a failure during the message signing process.</li>
+</ul>
+<!-- 11 -->
+
+<h2 id="tss2_mu_tpm2b_private_unmarshal">Tss2_MU_TPM2B_PRIVATE_Unmarshal()<a class="headerlink" href="#tss2_mu_tpm2b_private_unmarshal" title="Permanent link">&para;</a></h2>
+<p>Generates HMAC using TPM.</p>
+<pre><code class="language-c">int32_t Tss2_MU_TPM2B_PRIVATE_Unmarshal(
+    const uint8_t *buffer, size_t buffer_size, size_t *offset,
+    TPM2B_PRIVATE *out);
+</code></pre>
+<h3 id="description_10">Description<a class="headerlink" href="#description_10" title="Permanent link">&para;</a></h3>
+<p>This function generates HMAC using TPM. It takes the buffer, buffer size, offset, and TPM2B_PRIVATE as input.</p>
+<h3 id="parameters_10">Parameters<a class="headerlink" href="#parameters_10" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>data</code> - pointer to the input data</li>
+<li><code>data_length</code> - length of the input data</li>
+<li><code>hmac</code> - output buffer to save the HMAC</li>
+<li><code>hmac_length</code> - length of the output HMAC buffer hash length</li>
+<li><code>tpmHMACPub_key</code> - File name of the TPM HMAC public key</li>
+<li><code>tpmHMACPriv_key</code> - File name of the TPM HMAC private key</li>
+</ul>
+<h3 id="return-value_10">Return Value<a class="headerlink" href="#return-value_10" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>0</code>: If the HMAC generation is successful.</li>
+<li><code>-1</code>: If there is a failure during the HMAC generation process.</li>
+</ul>
+<!-- 12 -->
+<h2 id="tss2_mu_tpm2b_public_unmarshal">Tss2_MU_TPM2B_PUBLIC_Unmarshal()<a class="headerlink" href="#tss2_mu_tpm2b_public_unmarshal" title="Permanent link">&para;</a></h2>
+<p>Generates HMAC using TPM.</p>
+<pre><code class="language-c">int32_t Tss2_MU_TPM2B_PUBLIC_Unmarshal(
+    const uint8_t *buffer, size_t buffer_size, size_t *offset,
+    TPM2B_PUBLIC *out);
+</code></pre>
+<h3 id="description_11">Description<a class="headerlink" href="#description_11" title="Permanent link">&para;</a></h3>
+<p>This function generates HMAC using TPM. It takes the buffer, buffer size, offset, and TPM2B_PUBLIC as input.</p>
+<h3 id="parameters_11">Parameters<a class="headerlink" href="#parameters_11" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>data</code> - pointer to the input data</li>
+<li><code>data_length</code> - length of the input data</li>
+<li><code>hmac</code> - output buffer to save the HMAC</li>
+<li><code>hmac_length</code> - length of the output HMAC buffer hash length</li>
+<li><code>tpmHMACPub_key</code> - File name of the TPM HMAC public key</li>
+<li><code>tpmHMACPriv_key</code> - File name of the TPM HMAC private key</li>
+</ul>
+<h3 id="return-value_11">Return Value<a class="headerlink" href="#return-value_11" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>0</code>: If the HMAC generation is successful.</li>
+<li><code>-1</code>: If there is a failure during the HMAC generation process.</li>
+</ul>
+<h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
+<p>If the TPM is configured with ECDSA256_DA, then the following constants are defined:</p>
+<ul>
+<li><code>TPM_HMAC_PRIV_KEY_CONTEXT_SIZE_128</code>: 128</li>
+<li><code>FDO_TPM2_CURVE_ID</code>: TPM2_ECC_NIST_P256</li>
+<li><code>TPM_AES_BITS</code>: 128</li>
+<li><code>FDO_TPM2_ALG_SHA</code>: TPM2_ALG_SHA256</li>
+<li><code>TPM_HMAC_PRIV_KEY_CONTEXT_SIZE</code>: 160</li>
+<li><code>TPM_HMAC_PUB_KEY_CONTEXT_SIZE</code>: 48</li>
+</ul>
+<p>If the TPM is not configured with ECDSA256_DA, then the following constants are defined:</p>
+<ul>
+<li><code>TPM_HMAC_PRIV_KEY_CONTEXT_SIZE_128</code>: 128</li>
+<li><code>FDO_TPM2_CURVE_ID</code>: TPM2_ECC_NIST_P384</li>
+<li><code>TPM_AES_BITS</code>: 256</li>
+<li><code>FDO_TPM2_ALG_SHA</code>: TPM2_ALG_SHA384</li>
+<li><code>TPM_HMAC_PRIV_KEY_CONTEXT_SIZE</code>: 224</li>
+<li><code>TPM_HMAC_PUB_KEY_CONTEXT_SIZE</code>: 64</li>
+</ul>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+      <script src="../../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
