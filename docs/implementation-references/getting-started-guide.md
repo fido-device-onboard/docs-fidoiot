@@ -18,14 +18,25 @@ The FDO project provides a reference implementation of the [FIDO specification](
 
 This document provides a quick walk through the E2E flow. Included in this guide:
 
-- [Quick Overview of FDO](#quick-overview-of-fdo)
-- [Building FDO PRI Source](#building-fdo-pri-source)
-- [Starting FDO Service Containers](#starting-fdo-server-side-containers)
-- [Running E2E for PRI device](#running-e2e-for-pri-device)
-- [Building Client-SDK Source](#building-client-sdk-source)
-- [Running E2E for Client-SDK device](#running-e2e-demo-for-fdo-client-sdk)
-- [Enabling ServiceInfo](#enabling-serviceinfo-transfer)
-- [Keystore Management](#keystore-management)
+- [Getting Started Guide](#getting-started-guide)
+  - [Quick Overview of FDO](#quick-overview-of-fdo)
+  - [Building FDO PRI Source](#building-fdo-pri-source)
+  - [Starting FDO Server-side Containers](#starting-fdo-server-side-containers)
+    - [Key Generation for FDO Server-side Containers](#key-generation-for-fdo-server-side-containers)
+    - [Specifying Subject alternate names for the Web/HTTPS self-signed certificate](#specifying-subject-alternate-names-for-the-webhttps-self-signed-certificate)
+    - [Enable DIGEST REST endpoints](#enable-digest-rest-endpoints)
+    - [Starting the FDO PRI Manufacturer Server](#starting-the-fdo-pri-manufacturer-server)
+    - [Starting the FDO PRI Rendezvous (RV) Server](#starting-the-fdo-pri-rendezvous-rv-server)
+  - [Running E2E for PRI Device](#running-e2e-for-pri-device)
+  - [Building Client-SDK Source](#building-client-sdk-source)
+  - [Running E2E Demo for FDO Client-SDK](#running-e2e-demo-for-fdo-client-sdk)
+        - [1. Start FDO Service Containers.](#1-start-fdo-service-containers)
+        - [2. Start Device Initialization (DI)](#2-start-device-initialization-di)
+        - [Voucher Extension for Client-SDK Device](#voucher-extension-for-client-sdk-device)
+        - [TO1 and TO2](#to1-and-to2)
+  - [Enabling ServiceInfo Transfer](#enabling-serviceinfo-transfer)
+  - [Keystore Management](#keystore-management)
+    - [Generating Self-signed keys for HTTPS/TLS Communication.](#generating-self-signed-keys-for-httpstls-communication)
 
 
 ## Quick Overview of FDO
@@ -221,20 +232,20 @@ Uncomment `subjectAltName` and allowed list of IP and DNS in `[alt_names]` secti
       </login-config>
     ```
     Change `<transport-guarantee>` to `NONE` and `<auth-method>` to `DIGEST`.
-    
+
 2. Update `{server.api.user}` and `{server.api.password}` in `demo/<component>/tomcat-users.xml` file.
 
 
 ### Starting the FDO PRI Manufacturer Server
 
-***FDO Manufacturer is an application that runs in the factory, which implements the initial communications with the Device, as part of the Device Initialize Protocol (DI). The manufacturer creates an Ownership Voucher based on the credentials received during DI and extends the voucher to the respective owner.***    
+***FDO Manufacturer is an application that runs in the factory, which implements the initial communications with the Device, as part of the Device Initialize Protocol (DI). The manufacturer creates an Ownership Voucher based on the credentials received during DI and extends the voucher to the respective owner.***
 
 Run the below commands, in a separate console, to start the Manufacturer.
 
 ```
 cd <fdo-pri-src>/component-samples/demo/manufacturer/
 sudo docker-compose up --build
-```   
+```
 Once the Manufacturer has successfully started, the following output is displayed
 <figure>
   <center>
@@ -245,7 +256,7 @@ Once the Manufacturer has successfully started, the following output is displaye
 
 ### Starting the FDO PRI Rendezvous (RV) Server
 
-***RV Server is a network server or service (For example, on the Internet) that acts as a rendezvous point between a newly powered on Device and the Owner Onboarding Service.***   
+***RV Server is a network server or service (For example, on the Internet) that acts as a rendezvous point between a newly powered on Device and the Owner Onboarding Service.***
 
 Run the below commands, on a seperate console, to start the RV server.
 
@@ -263,7 +274,7 @@ Once the RV instance has successfully started, the following output is displayed
 
 ###Starting the FDO PRI Owner Server
 
-***Owner is an entity that is able to prove ownership to the Device using an Ownership Voucher and a private key for the last entry of the Ownership Voucher. Owner supports the transfer of Serviceinfo to the Device.***   
+***Owner is an entity that is able to prove ownership to the Device using an Ownership Voucher and a private key for the last entry of the Ownership Voucher. Owner supports the transfer of Serviceinfo to the Device.***
 
 Run the below commands, on a separate console, to start the Owner Server.
 
@@ -343,7 +354,7 @@ cd <fdo-pri-src>/component-samples/demo/scripts
 bash extend_upload.sh -e mtls -c <path-to-generated-secrets> -s serial_no
 ```
 
-or 
+or
 
 Follow the steps to manually initiate the T00.
 
@@ -466,7 +477,7 @@ cd <fdo-pri-src>/component-samples/demo/scripts
 bash extend_upload.sh -e mtls -c <path-to-generated-secrets> -s serial_no
 ```
 
-or 
+or
 
 ```
 curl -D - --digest -u ${api_user}:${owner_api_passwd} --location --request GET "http://${owner_ip}:${onr_port}/api/v1/certificate?alias=${attestation_type}" -H 'Content-Type: text/plain' -o owner_cert.txt
