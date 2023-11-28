@@ -10,7 +10,7 @@ The FDO project provides a reference implementation of the [FIDO specification](
 
 <figure markdown="1">
    <center>
-        <img src="../../images/securedeviceonboard-icon-color.png" width="40%" />
+        <img src="../images/securedeviceonboard-icon-color.png" width="40%" />
    </center>
 </figure>
 
@@ -77,7 +77,7 @@ FDO consists of four sets of protocols namely **DI, TO0, TO1, and TO2**.
     - When working behind a proxy, ensure to [set proper proxy](https://fido-device-onboard.github.io/docs-fidoiot/latest/implementation-references/proxy-settings/) variables.
     - [Follow the steps](https://docs.docker.com/engine/install/ubuntu/) to setup Docker* environment.
     - [Follow the steps](https://fido-device-onboard.github.io/docs-fidoiot/latest/installation/#running-the-docker-behind-a-proxy) to setup Docker* proxy.
-    - [Follow the steps](../../implementation-references/proxy-settings/) to set the right proxy settings. (Includes documentation for system wide proxy configuration)
+    - [Follow the steps](../implementation-references/proxy-settings.md) to set the right proxy settings. (Includes documentation for system wide proxy configuration)
 
 1.&nbsp; Clone the PRI-fidoiot repository
 ```
@@ -125,7 +125,7 @@ The build stage generates artifacts and stores them in `component-samples/demo` 
 
 <figure>
   <center>
-  <img src="../../images/entities.png"/>
+  <img src="../images/entities.png"/>
   <figcaption> FIDO Device Onboard Entities and Entity Interconnection </figcaption>
   </center>
 </figure>
@@ -238,7 +238,7 @@ sudo docker-compose up --build
 Once the Manufacturer has successfully started, the following output is displayed
 <figure>
   <center>
-  <img src="../../images/manufacturer.png"/>
+  <img src="../images/manufacturer.png"/>
   <figcaption> Manufacturer getting started </figcaption>
   </center>
 </figure>
@@ -256,7 +256,7 @@ sudo docker-compose up --build
 Once the RV instance has successfully started, the following output is displayed
 <figure>
   <center>
-  <img src="../../images/rv.png"/>
+  <img src="../images/rv.png"/>
   <figcaption>RV getting started </figcaption>
   </center>
 </figure>
@@ -274,7 +274,7 @@ sudo docker-compose up --build
 Once the Owner instance has successfully started, the following output is displayed
 <figure>
  <center>
-  <img src="../../images/owner.png"/>
+  <img src="../images/owner.png"/>
   <figcaption> Owner getting started </figcaption>
  </center>
 </figure>
@@ -283,7 +283,7 @@ Once the Owner instance has successfully started, the following output is displa
       - Proper [keystore management](#keystore-management) to be considered before using the services in production environment.
       - To0scheduling interval property can be modified in the component-sample/demo/owner/service.yml.
       Update to0-scheduler: `interval: 120`
-      - [Read more](https://github.com/fido-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md) about starting PRI services.
+      - [Read more](https://github.com/fido-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.MD) about starting PRI services.
 
 ## Running E2E for PRI Device
 
@@ -321,7 +321,7 @@ DI complete, GUID is <guid>
 
 <figure>
   <center>
-  <img src="../../images/Slide3.PNG"/>
+  <img src="../images/Slide3.PNG"/>
   <figcaption>Voucher extension</figcaption>
   </center>
 </figure>
@@ -594,6 +594,6 @@ Device onboarded successfully.
     ```
 
 !!!NOTES
-    - [Read more](https://github.com/fido-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md#generating-key-pair) about key generation.
+    - [Read more](https://github.com/fido-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.MD#generating-key-pair) about key generation.
     - You can update the key type, by modifying the `-newkey` attribute during the key generation stage.
     - You can add multiple IP addresses in the `subjectAltName` attribute.

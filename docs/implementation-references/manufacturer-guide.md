@@ -50,4 +50,4 @@ The following are the implied requirements:
 ### Supply Chain Requirements
 FDO requires support from your supply chain partners. Specially, they will need to deploy the means to manage and extend ownership vouchers. As physical devices come into their inventory they will need to associate those devices with the respective ownership vouchers. Then as those device are resold, the vouchers will need to be extended to the next owner in the supply chain. 
 
-To support this process, there is a reseller component sample that can perform the storage and extension of ownership vouchers. See [Component Reseller](https://github.com/fido-device-onboard/pri-fidoiot/tree/master/component-samples/reseller) for details.
+To support this process, there is a reseller component sample that can perform the storage and extension of ownership vouchers. See [Component Reseller](https://github.com/fido-device-onboard/pri-fidoiot/tree/master/component-samples/demo/reseller) for details.

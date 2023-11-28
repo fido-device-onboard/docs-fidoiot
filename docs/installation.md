@@ -10,7 +10,7 @@ This document can be used as a quick start guide to setup the development enviro
 | Docker\* Engine       | 20.10.10+                                            |
 | Docker\* Compose      | 1.29.2                                               |
 | Maven\*               | 3.5.4                                                |
-| Java                  | 11                                                   |
+| Java                  | 17                                                   |
 | Haveged               | -                                                    |
 
 ## Docker\* Installation
@@ -78,12 +78,12 @@ sudo systemctl show --property Environment docker
 
 ## Docker\* Compose Installation
 
-To install a specific version of Docker\* Compose (for example **_1.21.2_**) follow these steps:
+To install a specific version of Docker\* Compose (for example **_1.29.2_**) follow these steps:
 
-1 . Download the specific version **(1.21.2)** of Docker\* Compose.
+1 . Download the specific version **(1.29.2)** of Docker\* Compose.
 
 ```
-sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/bin/docker-compose
+sudo curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-`uname -s`-`uname -m` -o /usr/bin/docker-compose
 ```
 
 2 . To apply executable permissions, run the following command.
@@ -99,7 +99,7 @@ sudo chmod +x /usr/bin/docker-compose
 1 . To install OpenJDK\*
 
 ```
-sudo apt install openjdk-11-jdk-headless
+sudo apt install openjdk-17-jdk-headless
 ```
 
 2 . To install Maven\*
@@ -150,23 +150,7 @@ timedatectl
 
 ## To Set Correct System Time
 
-1. Set System Time from Google HTTP Response Header (Method 1)
-
-```
-sudo date -s "$(wget -qSO- --max-redirect=0 https://google.com/ 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
-```
-
-Sync the hardware clock with the system using the following command
-
-```
-sudo hwclock --systohc
-```
-
-Ensure that the system time is correct, else you will receive the certificate expiration error.
-
-Change the Google\* domain according to your location.
-
-2. Using NTP (Network Time Protocol) (Method 2)
+Using NTP (Network Time Protocol) 
 
 First, ensure that the NTP client is installed on your system. If it's not already installed, you can install it using the following command:
 

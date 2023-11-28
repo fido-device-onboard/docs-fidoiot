@@ -42,7 +42,7 @@ sudo ln -s /usr/local/bin/podman-compose /usr/bin/podman-compose
 
 ### 1 . To install OpenJDK*
 ```
-sudo yum -y install java-11-openjdk-devel
+sudo yum -y install java-17-openjdk-devel
 ```
 
 ### 2 . To install Maven*
@@ -96,13 +96,40 @@ sudo chkconfig haveged on
 ```
 
 ## To Set Correct System Time
+
+Using NTP (Network Time Protocol) 
+
+First, ensure that the NTP client is installed on your system. If it's not already installed, you can install it using the following command:
+
 ```
-sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
+sudo apt-get update
+sudo apt-get install ntp
 ```
 
-Ensure that the system time is correct, else you will receive the certificate expiration error.
+Open the NTP configuration file for editing. This file typically is located at /etc/ntp.conf. Use your preferred text editor, such as nano or vim:
 
-Change Google* domain according to your location.
+```
+sudo nano /etc/ntp.conf
+```
+
+Replace or add NTP servers based on your location or preference. For example:
+
+```
+server ntp.ubuntu.com
+server pool.ntp.org
+```
+
+Restart the NTP service to apply the configuration changes
+
+```
+sudo systemctl restart ntp
+```
+
+Monitor the NTP synchronization status using the following command:
+
+```
+ntpq -p
+```
 
 ## References
 
