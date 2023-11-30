@@ -10,7 +10,7 @@ The FDO project provides a reference implementation of the [FIDO specification](
 
 <figure markdown="1">
    <center>
-        <img src="../../images/securedeviceonboard-icon-color.png" width="40%" />
+        <img src="../images/securedeviceonboard-icon-color.png" width="40%" />
    </center>
 </figure>
 
@@ -18,14 +18,25 @@ The FDO project provides a reference implementation of the [FIDO specification](
 
 This document provides a quick walk through the E2E flow. Included in this guide:
 
-- [Quick Overview of FDO](#quick-overview-of-fdo)
-- [Building FDO PRI Source](#building-fdo-pri-source)
-- [Starting FDO Service Containers](#starting-fdo-server-side-containers)
-- [Running E2E for PRI device](#running-e2e-for-pri-device)
-- [Building Client-SDK Source](#building-client-sdk-source)
-- [Running E2E for Client-SDK device](#running-e2e-demo-for-fdo-client-sdk)
-- [Enabling ServiceInfo](#enabling-serviceinfo-transfer)
-- [Keystore Management](#keystore-management)
+- [Getting Started Guide](#getting-started-guide)
+  - [Quick Overview of FDO](#quick-overview-of-fdo)
+  - [Building FDO PRI Source](#building-fdo-pri-source)
+  - [Starting FDO Server-side Containers](#starting-fdo-server-side-containers)
+    - [Key Generation for FDO Server-side Containers](#key-generation-for-fdo-server-side-containers)
+    - [Specifying Subject alternate names for the Web/HTTPS self-signed certificate](#specifying-subject-alternate-names-for-the-webhttps-self-signed-certificate)
+    - [Enable DIGEST REST endpoints](#enable-digest-rest-endpoints)
+    - [Starting the FDO PRI Manufacturer Server](#starting-the-fdo-pri-manufacturer-server)
+    - [Starting the FDO PRI Rendezvous (RV) Server](#starting-the-fdo-pri-rendezvous-rv-server)
+  - [Running E2E for PRI Device](#running-e2e-for-pri-device)
+  - [Building Client-SDK Source](#building-client-sdk-source)
+  - [Running E2E Demo for FDO Client-SDK](#running-e2e-demo-for-fdo-client-sdk)
+        - [1. Start FDO Service Containers.](#1-start-fdo-service-containers)
+        - [2. Start Device Initialization (DI)](#2-start-device-initialization-di)
+        - [Voucher Extension for Client-SDK Device](#voucher-extension-for-client-sdk-device)
+        - [TO1 and TO2](#to1-and-to2)
+  - [Enabling ServiceInfo Transfer](#enabling-serviceinfo-transfer)
+  - [Keystore Management](#keystore-management)
+    - [Generating Self-signed keys for HTTPS/TLS Communication.](#generating-self-signed-keys-for-httpstls-communication)
 
 
 ## Quick Overview of FDO
@@ -77,7 +88,7 @@ FDO consists of four sets of protocols namely **DI, TO0, TO1, and TO2**.
     - When working behind a proxy, ensure to [set proper proxy](https://fido-device-onboard.github.io/docs-fidoiot/latest/implementation-references/proxy-settings/) variables.
     - [Follow the steps](https://docs.docker.com/engine/install/ubuntu/) to setup Docker* environment.
     - [Follow the steps](https://fido-device-onboard.github.io/docs-fidoiot/latest/installation/#running-the-docker-behind-a-proxy) to setup Docker* proxy.
-    - [Follow the steps](../../implementation-references/proxy-settings/) to set the right proxy settings. (Includes documentation for system wide proxy configuration)
+    - [Follow the steps](../implementation-references/proxy-settings.md) to set the right proxy settings. (Includes documentation for system wide proxy configuration)
 
 1.&nbsp; Clone the PRI-fidoiot repository
 ```
@@ -125,7 +136,7 @@ The build stage generates artifacts and stores them in `component-samples/demo` 
 
 <figure>
   <center>
-  <img src="../../images/entities.png"/>
+  <img src="../images/entities.png"/>
   <figcaption> FIDO Device Onboard Entities and Entity Interconnection </figcaption>
   </center>
 </figure>
@@ -221,31 +232,31 @@ Uncomment `subjectAltName` and allowed list of IP and DNS in `[alt_names]` secti
       </login-config>
     ```
     Change `<transport-guarantee>` to `NONE` and `<auth-method>` to `DIGEST`.
-    
+
 2. Update `{server.api.user}` and `{server.api.password}` in `demo/<component>/tomcat-users.xml` file.
 
 
 ### Starting the FDO PRI Manufacturer Server
 
-***FDO Manufacturer is an application that runs in the factory, which implements the initial communications with the Device, as part of the Device Initialize Protocol (DI). The manufacturer creates an Ownership Voucher based on the credentials received during DI and extends the voucher to the respective owner.***    
+***FDO Manufacturer is an application that runs in the factory, which implements the initial communications with the Device, as part of the Device Initialize Protocol (DI). The manufacturer creates an Ownership Voucher based on the credentials received during DI and extends the voucher to the respective owner.***
 
 Run the below commands, in a separate console, to start the Manufacturer.
 
 ```
 cd <fdo-pri-src>/component-samples/demo/manufacturer/
 sudo docker-compose up --build
-```   
+```
 Once the Manufacturer has successfully started, the following output is displayed
 <figure>
   <center>
-  <img src="../../images/manufacturer.png"/>
+  <img src="../images/manufacturer.png"/>
   <figcaption> Manufacturer getting started </figcaption>
   </center>
 </figure>
 
 ### Starting the FDO PRI Rendezvous (RV) Server
 
-***RV Server is a network server or service (For example, on the Internet) that acts as a rendezvous point between a newly powered on Device and the Owner Onboarding Service.***   
+***RV Server is a network server or service (For example, on the Internet) that acts as a rendezvous point between a newly powered on Device and the Owner Onboarding Service.***
 
 Run the below commands, on a seperate console, to start the RV server.
 
@@ -256,14 +267,14 @@ sudo docker-compose up --build
 Once the RV instance has successfully started, the following output is displayed
 <figure>
   <center>
-  <img src="../../images/rv.png"/>
+  <img src="../images/rv.png"/>
   <figcaption>RV getting started </figcaption>
   </center>
 </figure>
 
 ###Starting the FDO PRI Owner Server
 
-***Owner is an entity that is able to prove ownership to the Device using an Ownership Voucher and a private key for the last entry of the Ownership Voucher. Owner supports the transfer of Serviceinfo to the Device.***   
+***Owner is an entity that is able to prove ownership to the Device using an Ownership Voucher and a private key for the last entry of the Ownership Voucher. Owner supports the transfer of Serviceinfo to the Device.***
 
 Run the below commands, on a separate console, to start the Owner Server.
 
@@ -274,7 +285,7 @@ sudo docker-compose up --build
 Once the Owner instance has successfully started, the following output is displayed
 <figure>
  <center>
-  <img src="../../images/owner.png"/>
+  <img src="../images/owner.png"/>
   <figcaption> Owner getting started </figcaption>
  </center>
 </figure>
@@ -283,7 +294,7 @@ Once the Owner instance has successfully started, the following output is displa
       - Proper [keystore management](#keystore-management) to be considered before using the services in production environment.
       - To0scheduling interval property can be modified in the component-sample/demo/owner/service.yml.
       Update to0-scheduler: `interval: 120`
-      - [Read more](https://github.com/fido-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md) about starting PRI services.
+      - [Read more](https://github.com/fido-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.MD) about starting PRI services.
 
 ## Running E2E for PRI Device
 
@@ -321,7 +332,7 @@ DI complete, GUID is <guid>
 
 <figure>
   <center>
-  <img src="../../images/Slide3.PNG"/>
+  <img src="../images/Slide3.PNG"/>
   <figcaption>Voucher extension</figcaption>
   </center>
 </figure>
@@ -343,7 +354,7 @@ cd <fdo-pri-src>/component-samples/demo/scripts
 bash extend_upload.sh -e mtls -c <path-to-generated-secrets> -s serial_no
 ```
 
-or 
+or
 
 Follow the steps to manually initiate the T00.
 
@@ -466,7 +477,7 @@ cd <fdo-pri-src>/component-samples/demo/scripts
 bash extend_upload.sh -e mtls -c <path-to-generated-secrets> -s serial_no
 ```
 
-or 
+or
 
 ```
 curl -D - --digest -u ${api_user}:${owner_api_passwd} --location --request GET "http://${owner_ip}:${onr_port}/api/v1/certificate?alias=${attestation_type}" -H 'Content-Type: text/plain' -o owner_cert.txt
@@ -594,6 +605,6 @@ Device onboarded successfully.
     ```
 
 !!!NOTES
-    - [Read more](https://github.com/fido-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.md#generating-key-pair) about key generation.
+    - [Read more](https://github.com/fido-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.MD#generating-key-pair) about key generation.
     - You can update the key type, by modifying the `-newkey` attribute during the key generation stage.
     - You can add multiple IP addresses in the `subjectAltName` attribute.

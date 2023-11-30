@@ -2,7 +2,7 @@
 
 Welcome to the FIDO Device Onboard community. FIDO Device Onboard is an open source project sponsored by [LF Edge](https://www.lfedge.org/projects/fidodeviceonboard/).
 
-Community practices are documented at the [Secure Device Onboard wiki](https://wiki.lfedge.org/display/SDO/Secure+Device+Onboard).
+Community practices are documented at the [FIDO Device Onboard wiki](https://www.lfedge.org/projects/fidodeviceonboard).
 
 For details, refer to the following topics:
 

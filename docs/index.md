@@ -10,7 +10,7 @@ The [FDO PRI](https://github.com/fido-device-onboard/pri-fidoiot) is a reference
 
 The [FDO Client SDK](https://github.com/fido-device-onboard/client-sdk-fidoiot) is a C-based implementation of the Device component defined in FIDO Device Onboard (FDO) Specification. 
 
-The [Implementation Reference](implementation-reference) includes different guides for integrating
+The [Implementation Reference](https://fido-device-onboard.github.io/docs-fidoiot/latest/implementation-references/getting-started-guide/) includes different guides for integrating
 FDO components for various use-cases.
 
 See the [release notes](https://github.com/fido-device-onboard/release-fidoiot/releases) for a summary of features and capabilities implemented (or not) in different releases.
