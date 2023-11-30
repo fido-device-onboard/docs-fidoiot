@@ -191,7 +191,7 @@ sudo ln -s /usr/local/bin/podman-compose /usr/bin/podman-compose
 </code></pre>
 <h2 id="other-development-tools">Other Development Tools<a class="headerlink" href="#other-development-tools" title="Permanent link">&para;</a></h2>
 <h3 id="1-to-install-openjdk">1 . To install OpenJDK*<a class="headerlink" href="#1-to-install-openjdk" title="Permanent link">&para;</a></h3>
-<pre><code>sudo yum -y install java-11-openjdk-devel
+<pre><code>sudo yum -y install java-17-openjdk-devel
 </code></pre>
 <h3 id="2-to-install-maven">2 . To install Maven*<a class="headerlink" href="#2-to-install-maven" title="Permanent link">&para;</a></h3>
 <ol>
@@ -246,10 +246,24 @@ sudo yum -y install haveged
 sudo chkconfig haveged on
 </code></pre>
 <h2 id="to-set-correct-system-time">To Set Correct System Time<a class="headerlink" href="#to-set-correct-system-time" title="Permanent link">&para;</a></h2>
-<pre><code>sudo date -s &quot;$(wget -qSO- --max-redirect=0 google.com 2&gt;&amp;1 | grep Date: | cut -d' ' -f5-8)Z&quot;
+<p>Using NTP (Network Time Protocol) </p>
+<p>First, ensure that the NTP client is installed on your system. If it's not already installed, you can install it using the following command:</p>
+<pre><code>sudo apt-get update
+sudo apt-get install ntp
 </code></pre>
-<p>Ensure that the system time is correct, else you will receive the certificate expiration error.</p>
-<p>Change Google* domain according to your location.</p>
+<p>Open the NTP configuration file for editing. This file typically is located at /etc/ntp.conf. Use your preferred text editor, such as nano or vim:</p>
+<pre><code>sudo nano /etc/ntp.conf
+</code></pre>
+<p>Replace or add NTP servers based on your location or preference. For example:</p>
+<pre><code>server ntp.ubuntu.com
+server pool.ntp.org
+</code></pre>
+<p>Restart the NTP service to apply the configuration changes</p>
+<pre><code>sudo systemctl restart ntp
+</code></pre>
+<p>Monitor the NTP synchronization status using the following command:</p>
+<pre><code>ntpq -p
+</code></pre>
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <p><a href="https://podman.io/getting-started/installation">Podman-installation-methods</a></p>
 <p><a href="https://github.com/containers/podman-compose/blob/devel/README.md">Podman-compose-installation</a></p>

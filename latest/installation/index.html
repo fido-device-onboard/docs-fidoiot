@@ -164,7 +164,7 @@
 </tr>
 <tr>
 <td>Java</td>
-<td>11</td>
+<td>17</td>
 </tr>
 <tr>
 <td>Haveged</td>
@@ -217,9 +217,9 @@ sudo systemctl restart docker
 </li>
 </ol>
 <h2 id="docker-compose-installation">Docker* Compose Installation<a class="headerlink" href="#docker-compose-installation" title="Permanent link">&para;</a></h2>
-<p>To install a specific version of Docker* Compose (for example <strong><em>1.21.2</em></strong>) follow these steps:</p>
-<p>1 . Download the specific version <strong>(1.21.2)</strong> of Docker* Compose.</p>
-<pre><code>sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/bin/docker-compose
+<p>To install a specific version of Docker* Compose (for example <strong><em>1.29.2</em></strong>) follow these steps:</p>
+<p>1 . Download the specific version <strong>(1.29.2)</strong> of Docker* Compose.</p>
+<pre><code>sudo curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-`uname -s`-`uname -m` -o /usr/bin/docker-compose
 </code></pre>
 <p>2 . To apply executable permissions, run the following command.</p>
 <pre><code>sudo chmod +x /usr/bin/docker-compose
@@ -227,7 +227,7 @@ sudo systemctl restart docker
 <p>3 . To ensure that the required version is installed, run <code>docker-compose --version</code> command.</p>
 <h2 id="other-development-tools">Other Development Tools<a class="headerlink" href="#other-development-tools" title="Permanent link">&para;</a></h2>
 <p>1 . To install OpenJDK*</p>
-<pre><code>sudo apt install openjdk-11-jdk-headless
+<pre><code>sudo apt install openjdk-17-jdk-headless
 </code></pre>
 <p>2 . To install Maven*</p>
 <pre><code>sudo apt install maven
@@ -257,19 +257,7 @@ sudo systemctl restart docker
 <pre><code>timedatectl
 </code></pre>
 <h2 id="to-set-correct-system-time">To Set Correct System Time<a class="headerlink" href="#to-set-correct-system-time" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Set System Time from Google HTTP Response Header (Method 1)</li>
-</ol>
-<pre><code>sudo date -s &quot;$(wget -qSO- --max-redirect=0 https://google.com/ 2&gt;&amp;1 | grep Date: | cut -d' ' -f5-8)Z&quot;
-</code></pre>
-<p>Sync the hardware clock with the system using the following command</p>
-<pre><code>sudo hwclock --systohc
-</code></pre>
-<p>Ensure that the system time is correct, else you will receive the certificate expiration error.</p>
-<p>Change the Google* domain according to your location.</p>
-<ol>
-<li>Using NTP (Network Time Protocol) (Method 2)</li>
-</ol>
+<p>Using NTP (Network Time Protocol) </p>
 <p>First, ensure that the NTP client is installed on your system. If it's not already installed, you can install it using the following command:</p>
 <pre><code>sudo apt-get update
 sudo apt-get install ntp
