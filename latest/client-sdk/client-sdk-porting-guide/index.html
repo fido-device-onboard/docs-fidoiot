@@ -1,268 +1,121 @@
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <meta name="author" content="FIDO Device Onboard Contributers">
-  <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Client SDK Porting Guide - FIDO Device Onboard</title>
-  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
-  
-  <script>
-    // Current page data
-    var mkdocs_page_name = "Client SDK Porting Guide";
-    var mkdocs_page_input_path = "client-sdk/client-sdk-porting-guide.md";
-    var mkdocs_page_url = "/docs-fidoiot/client-sdk/client-sdk-porting-guide/";
-  </script>
-  
-  <script src="../../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
-  
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="FIDO Device Onboard Contributers" /><link rel="canonical" href="https://fido-device-onboard.github.io/docs-fidoiot/latest/client-sdk/client-sdk-porting-guide/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Client SDK Porting Guide - FIDO Device Onboard</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Client SDK Porting Guide";
+        var mkdocs_page_input_path = "client-sdk/client-sdk-porting-guide.md";
+        var mkdocs_page_url = "/docs-fidoiot/latest/client-sdk/client-sdk-porting-guide/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
 </head>
 
 <body class="wy-body-for-nav" role="document">
 
   <div class="wy-grid-for-nav">
-
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-        <a href="../.." class="icon icon-home"> FIDO Device Onboard</a>
-        <div role="search">
+          <a href="../..">
+          <img src="../../images/securedeviceonboard-icon-color.png" class="logo" alt="Logo"/>
+        </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-	<ul class="current">
-	  
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">Home</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="../..">Home</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../reference/">Reference</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../community/">Community</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../releases/">Releases</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../security-best-practices/">Security Best Practices</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../installation/">Installation Guide</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../installation_rhel/">Installation Guide (RHEL)</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../protocol-specification/">Protocol Specification</a>
-                </li>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/">Reference</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../community/">Community</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">Releases</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../security-best-practices/">Security Best Practices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../installation_rhel/">Installation Guide (RHEL)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../protocol-specification/">Protocol Specification</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PRI</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pri/pri-introduction/">Protocol Reference Implementation</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Client SDK</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../client-sdk-design/">Client SDK Design</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../client-sdk-reference-guide/">Client SDK Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../client-sdk-api-reference/">Client SDK API Reference</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Client SDK Porting Guide</a>
+    <ul class="current">
     </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">PRI</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="../../pri/pri-introduction/">Protocol Reference Implementation</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">Client SDK</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="../client-sdk-design/">Client SDK Design</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../client-sdk-reference-guide/">Client SDK Introduction</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../client-sdk-api-reference/">Client SDK API Reference</a>
-                </li>
-                <li class=" current">
-                    
-    <a class="current" href="./">Client SDK Porting Guide</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#porting-guide">Porting Guide</a></li>
-    
-
-    <li class="toctree-l3"><a href="#solution-architecture">Solution Architecture</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l4" href="#code-structure">Code Structure</a></li>
-        
-            <li><a class="toctree-l4" href="#build-system">Build System</a></li>
-        
-            <li><a class="toctree-l4" href="#client-sdk-constants">Client SDK Constants</a></li>
-        
-            <li><a class="toctree-l4" href="#client-sdk-functions">Client SDK Functions</a></li>
-        
-        </ul>
-    
-
-    <li class="toctree-l3"><a href="#crypto-subsystem-api">Crypto Subsystem API</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l4" href="#constants">Constants</a></li>
-        
-            <li><a class="toctree-l4" href="#structures">Structures</a></li>
-        
-            <li><a class="toctree-l4" href="#initialization-and-exit-functions">Initialization and Exit Functions</a></li>
-        
-            <li><a class="toctree-l4" href="#random-number-functions">Random Number Functions</a></li>
-        
-            <li><a class="toctree-l4" href="#message-digest-and-mac-functions">Message Digest and MAC Functions</a></li>
-        
-            <li><a class="toctree-l4" href="#asymmetric-functions">Asymmetric Functions</a></li>
-        
-            <li><a class="toctree-l4" href="#symmetric-cipher-functions">Symmetric Cipher Functions</a></li>
-        
-            <li><a class="toctree-l4" href="#certificate-signing-request">Certificate Signing Request</a></li>
-        
-            <li><a class="toctree-l4" href="#key-exchange-functions">Key Exchange Functions</a></li>
-        
-        </ul>
-    
-
-    <li class="toctree-l3"><a href="#network-subsystem-api">Network Subsystem API</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l4" href="#constants_1">Constants</a></li>
-        
-            <li><a class="toctree-l4" href="#data-types">Data Types</a></li>
-        
-            <li><a class="toctree-l4" href="#connection-management-functions">Connection Management Functions</a></li>
-        
-            <li><a class="toctree-l4" href="#connection-data-management-functions">Connection Data Management Functions</a></li>
-        
-            <li><a class="toctree-l4" href="#network-generic-functions">Network Generic Functions</a></li>
-        
-            <li><a class="toctree-l4" href="#legacy-functions">Legacy Functions</a></li>
-        
-        </ul>
-    
-
-    <li class="toctree-l3"><a href="#storage-subsystem-api">Storage Subsystem API</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l4" href="#constants_2">Constants</a></li>
-        
-            <li><a class="toctree-l4" href="#data-types_1">Data Types</a></li>
-        
-            <li><a class="toctree-l4" href="#blob-functions">Blob Functions</a></li>
-        
-        </ul>
-    
-
-    </ul>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">Implementation Reference</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="../../implementation-references/getting-started-guide/">Getting Started Guide</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../implementation-references/serviceinfo-sys-module/">ServiceInfo System Module</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../implementation-references/device-mfg-info/">DeviceMfgInfo Specification</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../implementation-references/manufacturer-guide/">Manufacturer Guide</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../implementation-references/dms-integration-guide/">DMS Integration Guide</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../implementation-references/proxy-settings/">Proxy Setup Guide</a>
-                </li>
-    </ul>
-	    </li>
-          
-        </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Implementation Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/getting-started-guide/">Getting Started Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/serviceinfo-sys-module/">ServiceInfo System Module</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/device-mfg-info/">DeviceMfgInfo Specification</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/manufacturer-guide/">Manufacturer Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/dms-integration-guide/">DMS Integration Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/proxy-settings/">Proxy Setup Guide</a>
+                  </li>
+              </ul>
       </div>
-      &nbsp;
+    </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../..">FIDO Device Onboard</a>
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">FIDO Device Onboard</a>
+        
       </nav>
-
-      
       <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="../..">Docs</a> &raquo;</li>
-    
-      
-        
-          <li>Client SDK &raquo;</li>
-        
-      
-    
-    <li>Client SDK Porting Guide</li>
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Client SDK</li>
+      <li class="breadcrumb-item active">Client SDK Porting Guide</li>
     <li class="wy-breadcrumbs-aside">
-      
     </li>
   </ul>
   <hr/>
 </div>
-          <div role="main">
-            <div class="section">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
               
                 <h2 id="porting-guide">Porting Guide<a class="headerlink" href="#porting-guide" title="Permanent link">&para;</a></h2>
 <p>This document provides a guide to porting the Client SDK to new platforms.</p>
@@ -306,7 +159,6 @@
 ├── storage* - - - - Storage Subsystem
 └── utils  - - - - - Reference files for setting up TPM, flashing and others.
 </code></pre>
-
 <h3 id="build-system">Build System<a class="headerlink" href="#build-system" title="Permanent link">&para;</a></h3>
 <p>The build system uses cmake. This section explains the most prominent configurations in build system. The reference application is tightly coupled with the build system, storage, and crypto APIs. The intent of this section is to cover those specific bindings to make the solution easy to traverse.</p>
 <pre><code>├── app
@@ -332,7 +184,6 @@
 └── storage
     └── CMakeLists.txt
 </code></pre>
-
 <h4 id="cli_inputcmake-erstwhile-basemk">cli_input.cmake (erstwhile base.mk)<a class="headerlink" href="#cli_inputcmake-erstwhile-basemk" title="Permanent link">&para;</a></h4>
 <p>The base.mk was used to define the build flags as a top-level configuration Makefile. The cli_input.cmake still retains that property, however, the blob specific configuration is moved to blob_path.cmake.</p>
 <p>The following specifies the default build configuration which can be overridden in invocation of cmake.</p>
@@ -375,7 +226,6 @@ set (MANUFACTURER_IP &quot; &quot;)
 set (MANUFACTURER_DN &quot; &quot;)
 
 </code></pre>
-
 <h4 id="blob_pathcmake">blob_path.cmake<a class="headerlink" href="#blob_pathcmake" title="Permanent link">&para;</a></h4>
 <p>The blob specific paths are set with this cmake file. A new variable BLOB_PATH is introduced to customize the placement of blobs in the filesystem.</p>
 <pre><code>client_sdk_compile_definitions(
@@ -399,7 +249,6 @@ client_sdk_compile_definitions(
     -DFDO_CRED_NORMAL=\&quot;${BLOB_PATH}/data/Normal.blob\&quot;
     )
 </code></pre>
-
 <h5 id="fdo_cred_normal-normalblob">FDO_CRED_NORMAL - Normal.blob<a class="headerlink" href="#fdo_cred_normal-normalblob" title="Permanent link">&para;</a></h5>
 <p>The Client SDK or Device lifecycle is maintained in this blob. This data is stored as Authenticated Data meaning that HMAC256 is calculated over this data and stored back.</p>
 <p><strong><em>NOTE:</em></strong> This is part of custom storage implementation in reference solution. Please refer to Storage Subsystem API for details required for implementation on custom platform. The Application may use APIs listed in Storage Subsystem API, to manipulate blobs, so, the blobs remain consistent as expected by Client SDK. However, the APIs mentioned in the above said section are internal APIs and it is up to the application developer to reuse them.</p>
@@ -408,7 +257,6 @@ This is initialized to the following value to indicate that the device is in man
 <pre><code>blob_path.cmake:
 file(WRITE ${BLOB_PATH}/data/Normal.blob &quot;{\&quot;ST\&quot;:1}&quot;)
 </code></pre>
-
 <h5 id="platform_ivhmac_keyaes_key">PLATFORM_(IV/HMAC_KEY/AES_KEY)<a class="headerlink" href="#platform_ivhmac_keyaes_key" title="Permanent link">&para;</a></h5>
 <p>The purpose of these defines is to specify the location where the reference solution stores the following information:</p>
 <ul>
@@ -454,7 +302,6 @@ SUPPORTED_DA = ecdsa256 ecdsa384 tpm20_ecdsa256
 ### AES mode for secure channel
 SUPPORTED_AES_MODE = gcm ccm
 </code></pre>
-
 <ul>
 <li><strong>SUPPORTED_DA:</strong> This specifies the supported Device Attestation algorithms which device uses to prove its identity to Rendezvous Server and Owner. This automatically configures the Key Exchange algorithm (ECDH256/ECDH384) that is used to generate the shared secret and the AES Mode, to use higher crypto in the source.</li>
 </ul>
@@ -473,7 +320,6 @@ SUPPORTED_AES_MODE = gcm ccm
     FDO_TO2_ERROR
 } fdo_sdk_error;
 </code></pre>
-
 <p>The usage of this enum is detailed in fdo_sdk_init()</p>
 <h4 id="fdo_sdk_status">fdo_sdk_status<a class="headerlink" href="#fdo_sdk_status" title="Permanent link">&para;</a></h4>
 <pre><code>typedef enum {
@@ -488,7 +334,6 @@ SUPPORTED_AES_MODE = gcm ccm
     FDO_ABORT
 } fdo_sdk_status;
 </code></pre>
-
 <p>The usage of this enum is detailed in <code>fdo_sdk_init()</code></p>
 <h4 id="fdo_sdk_device_state">fdo_sdk_device_state<a class="headerlink" href="#fdo_sdk_device_state" title="Permanent link">&para;</a></h4>
 <pre><code>typedef enum {
@@ -499,7 +344,6 @@ SUPPORTED_AES_MODE = gcm ccm
     FDO_STATE_ERROR
 } fdo_sdk_device_state;
 </code></pre>
-
 <p>The usage of this enum is detailed in <code>fdo_sdk_get_status()</code></p>
 <h3 id="client-sdk-functions">Client SDK Functions<a class="headerlink" href="#client-sdk-functions" title="Permanent link">&para;</a></h3>
 <p>The application resides in the app directory of the reference solution. The application uses the APIs specified in include/fdo.h to trigger the Ownership transfer state machine. The following lists the APIs which the application uses to perform Device Initialization or start Ownership Transfer Protocol.</p>
@@ -509,7 +353,6 @@ SUPPORTED_AES_MODE = gcm ccm
                             fdo_sdk_service_info_module *module_information);
 typedef int (*fdo_sdk_errorCB)(fdo_sdk_status type, fdo_sdk_error error_code);
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function initializes the Client SDK data structures. It allows the application to control the error handling of the Client SDK state machine by setting error_handling_callback. Client SDK calls error_handling_callback to propagate the error_code(fdo_sdk_error) back to the application with Client SDK internal status fdo_sdk_status(fdo_sdk_status). The application may handle the error and return the appropriate action to be taken by Client SDK further.</p>
 <p><strong><em>NOTE:</em></strong> The reference application allows the Client SDK to retry for 5 times before calling abort.</p>
@@ -561,24 +404,20 @@ typedef int (*fdo_sdk_errorCB)(fdo_sdk_status type, fdo_sdk_error error_code);
 <pre><code>#define FDO_CRYPTO_HASH_TYPE_SHA_256  -16
 #define FDO_CRYPTO_HASH_TYPE_SHA_384  -43
 </code></pre>
-
 <p>The usage of this define is detailed in <code>crypto_hal_hash()</code>.</p>
 <h4 id="fdo_crypto_hmac_type">FDO_CRYPTO_HMAC_TYPE<a class="headerlink" href="#fdo_crypto_hmac_type" title="Permanent link">&para;</a></h4>
 <pre><code>#define FDO_CRYPTO_HMAC_TYPE_SHA_256 5
 #define FDO_CRYPTO_HMAC_TYPE_SHA_384 6
 </code></pre>
-
 <p>The usage of this define is detailed in <code>crypto_hal_hmac()</code>.</p>
 <h4 id="fdo_crypto_pub_key_encoding">FDO_CRYPTO_PUB_KEY_ENCODING<a class="headerlink" href="#fdo_crypto_pub_key_encoding" title="Permanent link">&para;</a></h4>
 <pre><code>#define FDO_CRYPTO_PUB_KEY_ENCODING_X509 1
 </code></pre>
-
 <p>The usage of this define is detailed in <code>crypto_hal_sig_verify()</code>.</p>
 <h4 id="fdo_crypto_pub_key_algo">FDO_CRYPTO_PUB_KEY_ALGO<a class="headerlink" href="#fdo_crypto_pub_key_algo" title="Permanent link">&para;</a></h4>
 <pre><code>#define FDO_CRYPTO_PUB_KEY_ALGO_ECDSAp256 10
 #define FDO_CRYPTO_PUB_KEY_ALGO_ECDSAp384 11
 </code></pre>
-
 <p>The usage of this define is detailed in <code>crypto_hal_sig_verify()</code>.</p>
 <h3 id="structures">Structures<a class="headerlink" href="#structures" title="Permanent link">&para;</a></h3>
 <h4 id="fdo_byte_array_t">fdo_byte_array_t<a class="headerlink" href="#fdo_byte_array_t" title="Permanent link">&para;</a></h4>
@@ -588,7 +427,6 @@ typedef int (*fdo_sdk_errorCB)(fdo_sdk_status type, fdo_sdk_error error_code);
 } fdo_bits_t;
 typedef fdo_bits_t fdo_byte_array_t;
 </code></pre>
-
 <p>The usage is detailed in <code>crypto_hal_get_device_csr()</code>.</p>
 <h3 id="initialization-and-exit-functions">Initialization and Exit Functions<a class="headerlink" href="#initialization-and-exit-functions" title="Permanent link">&para;</a></h3>
 <h4 id="crypto_init">crypto_init()<a class="headerlink" href="#crypto_init" title="Permanent link">&para;</a></h4>
@@ -649,7 +487,6 @@ typedef fdo_bits_t fdo_byte_array_t;
                          size_t buffer_length, uint8_t *output,
                          size_t output_length)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function hashes the contents of the memory pointed to by buffer of size <code>buffer_length</code> with <code>hash_type</code> algorithm and fills the memory pointed to by <code>output</code> of size <code>output_length</code> with generated hash.</p>
 <p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
@@ -668,7 +505,6 @@ typedef fdo_bits_t fdo_byte_array_t;
                         size_t output_length, const uint8_t *key,
                         size_t key_length)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function HMACs the contents of the memory pointed to by buffer of size <code>buffer_length</code> using <code>key</code> of size <code>key_length</code>, with <code>hmac_type</code> algorithm and fills the memory pointed to by <code>output</code> of size <code>output_length</code> with generated HMAC.</p>
 <p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
@@ -692,7 +528,6 @@ typedef fdo_bits_t fdo_byte_array_t;
                               const uint8_t *key_param2,
                               uint32_t key_param2Length)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function verifies the ECDSA signature pointed by <code>message_signature</code> of size <code>message_length</code> on the data pointed by <code>message</code> of size <code>message_length</code> with the key material <code>key_param1</code> and <code>key_param2</code> interpreted according to <code>key_encoding</code>.</p>
 <p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
@@ -714,7 +549,6 @@ typedef fdo_bits_t fdo_byte_array_t;
 <pre><code>int32_t crypto_hal_ecdsa_sign(const uint8_t *message, size_t message_len,
                        unsigned char *signature, size_t *signature_len)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function signs the <code>message</code> of size <code>message_len</code> and fills the signed data in <code>signature</code> of size <code>signature_len</code>.</p>
 <ul>
@@ -746,7 +580,6 @@ typedef fdo_bits_t fdo_byte_array_t;
                                uint32_t key_length, uint8_t *tag, size_t tag_length,
                                const uint8_t *aad, size_t aad_length)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function encrypts the <code>clear_text</code> of size <code>clear_text_length</code> with the AES algorithm using <code>key</code> of size <code>key_length</code> and fills the <code>cipher_text</code> with encrypted content of size <code>cipher_length</code>.</p>
 <p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
@@ -774,7 +607,6 @@ typedef fdo_bits_t fdo_byte_array_t;
                                uint32_t key_length, uint8_t *tag, size_t tag_length,
                                const uint8_t *aad, size_t aad_length)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function decrypts the <code>cipher_text</code> of size <code>cipher_length</code> with the AES algorithm using <code>key</code> of size <code>key_length</code> and fills the <code>clear_text</code> with unencrypted content of length <code>clear_text_length</code>.</p>
 <p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses standard mbedTLS/openSSL APIs</p>
@@ -798,7 +630,6 @@ typedef fdo_bits_t fdo_byte_array_t;
 <h4 id="crypto_hal_get_device_csr">crypto_hal_get_device_csr()<a class="headerlink" href="#crypto_hal_get_device_csr" title="Permanent link">&para;</a></h4>
 <pre><code>int32_t crypto_hal_get_device_csr(fdo_byte_array_t **csr);
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function fills the Client SDK byte array <code>csr</code> with the Certificate Signing Request (CSR) data.</p>
 <p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses the standard mbedTLS/openSSL APIs</p>
@@ -814,7 +645,6 @@ This array is allocated by using fdo_byte_array_alloc(size_of_buffer) function.<
 <h4 id="crypto_hal_kex_init">crypto_hal_kex_init()<a class="headerlink" href="#crypto_hal_kex_init" title="Permanent link">&para;</a></h4>
 <pre><code>int32_t crypto_hal_kex_init(void **context)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>Client SDK uses ECDH algorithm to perform key exchange for creating a secure channel between Device and Owner. The configurations are mentioned in Crypto Configuration. The Device is considered as entity B in Key Exchange and the Owner is considered as entity A.</p>
 <p><strong>ECDH:</strong> This function creates an ECDH key pair. It then appends a random number with the public part of the generated key pair to generate a stream of bytes known as Device Random as mentioned below.
@@ -841,7 +671,6 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
 <pre><code>int32_t crypto_hal_get_device_random(void *context, uint8_t *dev_rand_value,
                                      uint32_t *dev_rand_length)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function fills the buffer pointed to by dev_rand_value of size dev_rand_length with the Device Random Value. The Device Random value is generated differently for different algorithms. Currently, only <code>ECDH</code> algorithm is supported in this release.</p>
 <p><strong>ECDH:</strong> The buffer generated in <code>crypto_hal_kex_init()</code> is the Device Random.</p>
@@ -858,7 +687,6 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
                                    const uint8_t *peer_rand_value,
                                    uint32_t peer_rand_length)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function updates the key exchange context with <code>peer_rand_value</code> of size <code>peer_rand_length</code>. This function uses this information to generate shared secret. Currently, only <code>ECDH</code> algorithm is supported in this release.</p>
 <p><strong>ECDH:</strong> The Owner sends the data in a similar buffer layout as device sends it. Please see <code>crypto_hal_kex_init()</code> for the device Key Exchange buffer layout.
@@ -877,7 +705,6 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
 <pre><code>int32_t crypto_hal_get_secret(void *context, uint8_t *secret,
                               uint32_t *secret_length)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function returns the shared secret created as part of key exchange protocol by <code>crypto_hal_set_peer_random()</code>.</p>
 <p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation uses the internal structure members which gets filled in Key Exchange protocol.</p>
@@ -906,49 +733,47 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
         uint8_t addr[16];
 } fdo_ip_address_t;
 </code></pre>
-
 <h4 id="fdo_con_handle">fdo_con_handle<a class="headerlink" href="#fdo_con_handle" title="Permanent link">&para;</a></h4>
 <p><code>fdo_con_handle</code> is specific to the underlying network library. In software distributions supporting POSIX, fdo_con_handle can be an int or any implementation specific datatype. For Client SDK, this is opaque data type, and it will not use its internal members.</p>
 <h3 id="connection-management-functions">Connection Management Functions<a class="headerlink" href="#connection-management-functions" title="Permanent link">&para;</a></h3>
 <h4 id="fdo_con_setup">fdo_con_setup()<a class="headerlink" href="#fdo_con_setup" title="Permanent link">&para;</a></h4>
 <pre><code>int32_t fdo_con_setup(char *medium, char **params, uint32_t count)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function sets up the connection identified by <code>medium</code> based on the <code>count</code> number of <code>params</code>. It is expected that this call will block until the interface has been established and is stable. It may be called multiple times, and if in subsequent calls to this function, the medium value changes, the existing connection must be terminated, and a new connection must be created on new medium. If the medium is the same as used in existing connection, this function must continue to retain the previous setup connection.</p>
 <table>
 <thead>
 <tr>
-<th align="center"><strong>Medium</strong></th>
-<th align="center"><strong>Meaning</strong></th>
-<th align="center"><strong>params</strong></th>
+<th style="text-align: center;"><strong>Medium</strong></th>
+<th style="text-align: center;"><strong>Meaning</strong></th>
+<th style="text-align: center;"><strong>params</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">NULL</td>
-<td align="center">Connect to any available network interface.</td>
-<td align="center">NULL</td>
+<td style="text-align: center;">NULL</td>
+<td style="text-align: center;">Connect to any available network interface.</td>
+<td style="text-align: center;">NULL</td>
 </tr>
 <tr>
-<td align="center">eth*</td>
-<td align="center">Connect to any available Ethernet interface.</td>
-<td align="center">NULL</td>
+<td style="text-align: center;">eth*</td>
+<td style="text-align: center;">Connect to any available Ethernet interface.</td>
+<td style="text-align: center;">NULL</td>
 </tr>
 <tr>
-<td align="center">eth0…9</td>
-<td align="center">Connect to the specified numbered Ethernet interface.</td>
-<td align="center">NULL</td>
+<td style="text-align: center;">eth0…9</td>
+<td style="text-align: center;">Connect to the specified numbered Ethernet interface.</td>
+<td style="text-align: center;">NULL</td>
 </tr>
 <tr>
-<td align="center">Wi-Fi*</td>
-<td align="center">Connect to any available Wi-Fi interface.</td>
-<td align="center">NULL</td>
+<td style="text-align: center;">Wi-Fi*</td>
+<td style="text-align: center;">Connect to any available Wi-Fi interface.</td>
+<td style="text-align: center;">NULL</td>
 </tr>
 <tr>
-<td align="center">Wi-Fi</td>
-<td align="center">Connect to the WiFi SSID and password specified by params.</td>
-<td align="center">params[0] = SSID</td>
+<td style="text-align: center;">Wi-Fi</td>
+<td style="text-align: center;">Connect to the WiFi SSID and password specified by params.</td>
+<td style="text-align: center;">params[0] = SSID</td>
 </tr>
 </tbody>
 </table>
@@ -965,7 +790,6 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
 <pre><code>int32_t fdo_con_teardown(void)
 
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function shuts down the connection established by the function described in <code>fdo_con_setup()</code></p>
 <p><strong><em>NOTE:</em></strong> This function may not require a change in implementation for porting to custom platform, as the reference implementation tears down the REST context created in <code>fdo_con_setup()</code></p>
@@ -978,7 +802,6 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
 <pre><code>int32_t fdo_con_dns_lookup(const char *url, fdo_ip_address_t **ip_list,
                            uint32_t *ip_list_size)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function performs a DNS lookup for the specified host identified by the <code>url</code> and return a list of IP addresses in the <code>ip_list</code>.</p>
 <p><strong><em>NOTE:</em></strong> This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux* libraries to perform Domain Name resolution.</p>
@@ -1001,7 +824,6 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
 <pre><code>fdo_con_handle fdo_con_connect(fdo_ip_address_t *addr, uint16_t port,
                                void **ssl)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function connects to the IP address specified in addr on the given port. If the SSL pointer is non-NULL, enable SSL on the opened socket.</p>
 <p><strong><em>NOTE:</em></strong> This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux* libraries to connect to the server.</p>
@@ -1015,7 +837,6 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
 <h4 id="fdo_con_disconnect">fdo_con_disconnect()<a class="headerlink" href="#fdo_con_disconnect" title="Permanent link">&para;</a></h4>
 <pre><code>int32_t fdo_con_disconnect(fdo_con_handle handle, void *ssl)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function terminates the connection associated with handle.</p>
 <p><strong><em>NOTE:</em></strong> This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux libraries to disconnect from the server.</p>
@@ -1032,7 +853,6 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
                                 uint32_t *message_type, uint32_t *msglen,
                                 void *ssl)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function receives the message header on the specified connection handle and returns <code>protocol_version</code>, <code>message_type</code>, and <code>msglen</code>. It will block until a message is available.</p>
 <p><strong><em>NOTE:</em></strong> This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux* libraries to receive data from the server.</p>
@@ -1049,7 +869,6 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
 <pre><code>int32_t fdo_con_recv_msg_body(fdo_con_handle handle, uint8_t *buf,
                               size_t length, void *ssl)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function receives the message body on the connection specified by <code>handle</code> in the provided memory pointed to by <code>buf</code> of size <code>length</code>. The message received corresponds to the message header received in the immediate preceding call to <code>fdo_con_recv_msg_header()</code>. This function blocks unless the specified length of data is received.</p>
 <p><strong><em>NOTE:</em></strong> This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux* libraries to receive data from the server.</p>
@@ -1066,7 +885,6 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
                              uint32_t message_type, const uint8_t *buf,
                              size_t length, void *ssl)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function sends the data pointed by <code>buf</code> of size <code>length</code> over the connection specified by <code>handle</code> with <code>protocol_version</code> and <code>message_type</code> as metadata.</p>
 <p><strong><em>NOTE:</em></strong> This function may require a minimal change in implementation for porting to custom platform, as the reference implementation relies on Linux libraries to send data to the server.</p>
@@ -1084,7 +902,6 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
 <h4 id="fdo_net_to_host_long">fdo_net_to_host_long()<a class="headerlink" href="#fdo_net_to_host_long" title="Permanent link">&para;</a></h4>
 <pre><code>uint32_t fdo_net_to_host_long(uint32_t value)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function converts the <code>value</code> from network byte order to host byte order.</p>
 <p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as the reference implementation to perform the functionality.</p>
@@ -1104,7 +921,6 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
 <h4 id="fdo_printable_to_net">fdo_printable_to_net()<a class="headerlink" href="#fdo_printable_to_net" title="Permanent link">&para;</a></h4>
 <pre><code>int32_t fdo_printable_to_net(const char *src, void *addr)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function converts the IP address in ASCII string pointed to by <code>src</code> to network byte order and stores the result in <code>addr</code>.</p>
 <p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as the reference implementation to perform the functionality.</p>
@@ -1119,7 +935,6 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
 <h4 id="get_device_model">get_device_model()<a class="headerlink" href="#get_device_model" title="Permanent link">&para;</a></h4>
 <pre><code>const char *get_device_model(void)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function either statically or dynamically generates a device model string.</p>
 <p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as the reference implementation returns a hard-coded string.</p>
@@ -1130,7 +945,6 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
 <h4 id="get_device_serial_number">get_device_serial_number()<a class="headerlink" href="#get_device_serial_number" title="Permanent link">&para;</a></h4>
 <pre><code>const char *get_device_serial_number(void)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function either statically or dynamically generates a device serial number string.</p>
 <p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as the reference implementation returns a hard-coded string.</p>
@@ -1141,7 +955,6 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
 <h4 id="fdo_random">fdo_random()<a class="headerlink" href="#fdo_random" title="Permanent link">&para;</a></h4>
 <pre><code>int fdo_random(void)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function generates a random number</p>
 <p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as the reference implementation uses Linux libraries to perform the functionality.</p>
@@ -1152,7 +965,6 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
 <h4 id="fdo_sleep">fdo_sleep()<a class="headerlink" href="#fdo_sleep" title="Permanent link">&para;</a></h4>
 <pre><code>void fdo_sleep(int sec)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function introduces the delay for <code>sec</code> number of seconds</p>
 <p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to custom platform, as the reference implementation uses Linux libraries to perform the functionality.</p>
@@ -1169,7 +981,6 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
         FDO_SDK_RAW_DATA = 8
 } fdo_sdk_blob_flags;
 </code></pre>
-
 <table>
 <thead>
 <tr>
@@ -1203,7 +1014,6 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
 <pre><code>int32_t fdo_blob_read(const char *blob_name, fdo_sdk_blob_flags flags,
                       uint8_t *buffer, uint32_t length)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function reads the data into the <code>buffer</code> of size <code>length</code> from the blob identified by <code>blob_name</code> whose storage properties match with the <code>flags</code>. Before reading the data from blob into the <code>buffer</code>, it is recommended to use <code>fdo_blob_size()</code> to allocate the exact length of <code>buffer</code>.</p>
 <p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to a custom platform. For guidance in assessing the secure storage requirements for your device, refer to the Client SDK Security Implications document.</p>
@@ -1219,7 +1029,6 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
 <pre><code>int32_t fdo_blob_write(const char *blob_name, fdo_sdk_blob_flags flags,
                        const uint8_t *buffer, uint32_t length)
 </code></pre>
-
 <p><em>Description</em></p>
 <p>This function writes the data from <code>buffer</code> of size <code>length</code> to the blob identified by <code>blob_name</code> whose storage properties are identified with the <code>flags</code>. This function must create the blob if it doesn’t exist, otherwise, overwrite the blob.</p>
 <p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to a custom platform. For guidance in assessing the secure storage requirements for your device, refer to the Client SDK Security Implications document.</p>
@@ -1234,7 +1043,6 @@ In the later part of Client SDK execution, this buffer is retrieved using <code>
 <h4 id="fdo_blob_size">fdo_blob_size()<a class="headerlink" href="#fdo_blob_size" title="Permanent link">&para;</a></h4>
 <pre><code>size_t fdo_blob_size(const char *blob_name, fdo_sdk_blob_flags flags)
 </code></pre>
-
 <p><em>Description</em>
 This function returns the size of blob identified by <code>blob_name</code> whose storage properties match with the <code>flags</code>. This should be used before fdo_blob_read()</p>
 <p><strong><em>NOTE:</em></strong> This function may require a change in implementation for porting to a custom platform. For guidance in assessing the secure storage requirements for your device, refer to the Client SDK Security Implications document.</p>
@@ -1247,31 +1055,22 @@ This function returns the size of blob identified by <code>blob_name</code> whos
 <p><code>0</code> if file does not exist or in case of failure</p>
               
             </div>
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../client-sdk-api-reference/" class="btn btn-neutral float-left" title="Client SDK API Reference"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../../implementation-references/getting-started-guide/" class="btn btn-neutral float-right" title="Getting Started Guide">Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
-        <a href="../client-sdk-api-reference/" class="btn btn-neutral" title="Client SDK API Reference"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-    
       <p>Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license</p>
-    
   </div>
 
-  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-      
+          
         </div>
       </div>
 
@@ -1279,20 +1078,28 @@ This function returns the size of blob identified by <code>blob_name</code> whos
 
   </div>
 
-  <div class="rst-versions" role="note" style="cursor: pointer">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-      
-      
-        <span><a href="../client-sdk-api-reference/" style="color: #fcfcfc;">&laquo; Previous</a></span>
-      
-      
-        <span style="margin-left: 15px"><a href="../../implementation-references/getting-started-guide/" style="color: #fcfcfc">Next &raquo;</a></span>
-      
-    </span>
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../client-sdk-api-reference/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../implementation-references/getting-started-guide/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
 </div>
-    <script>var base_url = '../..';</script>
-    <script src="../../js/theme.js" defer></script>
-      <script src="../../search/main.js" defer></script>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+      <script src="../../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
 
 </body>
 </html>

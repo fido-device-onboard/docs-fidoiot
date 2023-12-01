@@ -1,198 +1,128 @@
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <meta name="author" content="FIDO Device Onboard Contributers">
-  <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>FIDO Device Onboard (FDO) Client SDK TPM API Reference - FIDO Device Onboard</title>
-  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
-  
-  <script>
-    // Current page data
-    var mkdocs_page_name = "FIDO Device Onboard (FDO) Client SDK TPM API Reference";
-    var mkdocs_page_input_path = "client-sdk/client-sdk-tmp.md";
-    var mkdocs_page_url = "/docs-fidoiot/client-sdk/client-sdk-tmp/";
-  </script>
-  
-  <script src="../../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
-  
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="FIDO Device Onboard Contributers" /><link rel="canonical" href="https://fido-device-onboard.github.io/docs-fidoiot/latest/client-sdk/client-sdk-tmp/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>FIDO Device Onboard (FDO) Client SDK TPM API Reference - FIDO Device Onboard</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "FIDO Device Onboard (FDO) Client SDK TPM API Reference";
+        var mkdocs_page_input_path = "client-sdk/client-sdk-tmp.md";
+        var mkdocs_page_url = "/docs-fidoiot/latest/client-sdk/client-sdk-tmp/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
 </head>
 
 <body class="wy-body-for-nav" role="document">
 
   <div class="wy-grid-for-nav">
-
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-        <a href="../.." class="icon icon-home"> FIDO Device Onboard</a>
-        <div role="search">
+          <a href="../..">
+          <img src="../../images/securedeviceonboard-icon-color.png" class="logo" alt="Logo"/>
+        </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-	<ul class="current">
-	  
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">Home</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="../..">Home</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../reference/">Reference</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../community/">Community</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../releases/">Releases</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../security-best-practices/">Security Best Practices</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../installation/">Installation Guide</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../installation_rhel/">Installation Guide (RHEL)</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../protocol-specification/">Protocol Specification</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">PRI</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="../../pri/pri-introduction/">Protocol Reference Implementation</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">Client SDK</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="../client-sdk-design/">Client SDK Design</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../client-sdk-reference-guide/">Client SDK Introduction</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../client-sdk-api-reference/">Client SDK API Reference</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../client-sdk-porting-guide/">Client SDK Porting Guide</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">Implementation Reference</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="../../implementation-references/getting-started-guide/">Getting Started Guide</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../implementation-references/serviceinfo-sys-module/">ServiceInfo System Module</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../implementation-references/device-mfg-info/">DeviceMfgInfo Specification</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../implementation-references/manufacturer-guide/">Manufacturer Guide</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../implementation-references/dms-integration-guide/">DMS Integration Guide</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../implementation-references/proxy-settings/">Proxy Setup Guide</a>
-                </li>
-    </ul>
-	    </li>
-          
-        </ul>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Home</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/">Reference</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../community/">Community</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">Releases</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../security-best-practices/">Security Best Practices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../installation_rhel/">Installation Guide (RHEL)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../protocol-specification/">Protocol Specification</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PRI</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pri/pri-introduction/">Protocol Reference Implementation</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Client SDK</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../client-sdk-design/">Client SDK Design</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../client-sdk-reference-guide/">Client SDK Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../client-sdk-api-reference/">Client SDK API Reference</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../client-sdk-porting-guide/">Client SDK Porting Guide</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Implementation Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/getting-started-guide/">Getting Started Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/serviceinfo-sys-module/">ServiceInfo System Module</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/device-mfg-info/">DeviceMfgInfo Specification</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/manufacturer-guide/">Manufacturer Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/dms-integration-guide/">DMS Integration Guide</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/proxy-settings/">Proxy Setup Guide</a>
+                  </li>
+              </ul>
       </div>
-      &nbsp;
+    </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../..">FIDO Device Onboard</a>
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">FIDO Device Onboard</a>
+        
       </nav>
-
-      
       <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="../..">Docs</a> &raquo;</li>
-    
-      
-    
-    <li>FIDO Device Onboard (FDO) Client SDK TPM API Reference</li>
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">FIDO Device Onboard (FDO) Client SDK TPM API Reference</li>
     <li class="wy-breadcrumbs-aside">
-      
     </li>
   </ul>
   <hr/>
 </div>
-          <div role="main">
-            <div class="section">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
               
                 <h1 id="fido-device-onboard-fdo-client-sdk-tpm-api-reference">FIDO Device Onboard (FDO) Client SDK TPM API Reference<a class="headerlink" href="#fido-device-onboard-fdo-client-sdk-tpm-api-reference" title="Permanent link">&para;</a></h1>
 <p>This section describes list of all the functions used by the client SDK to interact with the TPM.</p>
 <!-- 1 -->
-
 <h2 id="fdo_tpm_get_hmac">fdo_tpm_get_hmac()<a class="headerlink" href="#fdo_tpm_get_hmac" title="Permanent link">&para;</a></h2>
 <p>Generates HMAC using TPM.</p>
-<pre><code class="c">int32_t fdo_tpm_get_hmac(const uint8_t *data, size_t data_length, uint8_t *hmac,
+<pre><code class="language-c">int32_t fdo_tpm_get_hmac(const uint8_t *data, size_t data_length, uint8_t *hmac,
                          size_t hmac_length, char *tpmHMACPub_key,
                          char *tpmHMACPriv_key);
 </code></pre>
-
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
 <p>This function generates HMAC (Hash-based Message Authentication Code) using the Trusted Platform Module (TPM). It takes input data, calculates its HMAC using TPM, and stores the result in the output buffer provided.</p>
 <h3 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h3>
@@ -213,9 +143,8 @@
 
 <h2 id="fdo_tpm_generate_hmac_key">fdo_tpm_generate_hmac_key()<a class="headerlink" href="#fdo_tpm_generate_hmac_key" title="Permanent link">&para;</a></h2>
 <p>Generates HMAC key inside TPM.</p>
-<pre><code class="c">int32_t fdo_tpm_generate_hmac_key(char *tpmHMACPub_key, char *tpmHMACPriv_key);
+<pre><code class="language-c">int32_t fdo_tpm_generate_hmac_key(char *tpmHMACPub_key, char *tpmHMACPriv_key);
 </code></pre>
-
 <h3 id="description_1">Description<a class="headerlink" href="#description_1" title="Permanent link">&para;</a></h3>
 <p>This function generates HMAC key inside the TPM. It takes the file names of the TPM HMAC public and private keys as input.</p>
 <h3 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link">&para;</a></h3>
@@ -232,11 +161,10 @@
 
 <h2 id="fdotpmgenerate_primary_key_context">fdoTPMGenerate_primary_key_context()<a class="headerlink" href="#fdotpmgenerate_primary_key_context" title="Permanent link">&para;</a></h2>
 <p>Generates TPM primary key context from the endorsement hierarchy.</p>
-<pre><code class="c">int32_t fdoTPMGenerate_primary_key_context(ESYS_CONTEXT **esys_context,
+<pre><code class="language-c">int32_t fdoTPMGenerate_primary_key_context(ESYS_CONTEXT **esys_context,
                                              ESYS_TR *primary_key_handle,
                                              ESYS_TR *auth_session_handle);
 </code></pre>
-
 <h3 id="description_2">Description<a class="headerlink" href="#description_2" title="Permanent link">&para;</a></h3>
 <p>This function generates the TPM primary key context from the endorsement hierarchy. It takes the Esys context, primary key handle, and authentication session handle as input.</p>
 <h3 id="parameters_2">Parameters<a class="headerlink" href="#parameters_2" title="Permanent link">&para;</a></h3>
@@ -254,9 +182,8 @@
 
 <h2 id="fdotpmesys_context_init">fdoTPMEsys_context_init()<a class="headerlink" href="#fdotpmesys_context_init" title="Permanent link">&para;</a></h2>
 <p>Initializes the Esys context.</p>
-<pre><code class="c">int32_t fdoTPMEsys_context_init(ESYS_CONTEXT **esys_context);
+<pre><code class="language-c">int32_t fdoTPMEsys_context_init(ESYS_CONTEXT **esys_context);
 </code></pre>
-
 <h3 id="description_3">Description<a class="headerlink" href="#description_3" title="Permanent link">&para;</a></h3>
 <p>This function initializes the Esys context. It takes the Esys context as input.</p>
 <h3 id="parameters_3">Parameters<a class="headerlink" href="#parameters_3" title="Permanent link">&para;</a></h3>
@@ -272,10 +199,9 @@
 
 <h2 id="fdotpmesys_auth_session_init">fdoTPMEsys_auth_session_init()<a class="headerlink" href="#fdotpmesys_auth_session_init" title="Permanent link">&para;</a></h2>
 <p>Creates HMAC-based authentication session for Esys context.</p>
-<pre><code class="c">int32_t fdoTPMEsys_auth_session_init(ESYS_CONTEXT *esys_context,
+<pre><code class="language-c">int32_t fdoTPMEsys_auth_session_init(ESYS_CONTEXT *esys_context,
                                        ESYS_TR *session_handle);
 </code></pre>
-
 <h3 id="description_4">Description<a class="headerlink" href="#description_4" title="Permanent link">&para;</a></h3>
 <p>This function creates HMAC-based authentication session for Esys context. It takes the Esys context and authentication session handle as input.</p>
 <h3 id="parameters_4">Parameters<a class="headerlink" href="#parameters_4" title="Permanent link">&para;</a></h3>
@@ -292,11 +218,10 @@
 
 <h2 id="fdotpmtsscontext_clean_up">fdoTPMTSSContext_clean_up()<a class="headerlink" href="#fdotpmtsscontext_clean_up" title="Permanent link">&para;</a></h2>
 <p>Clears the Esys, TCTI, contexts, and authentication session, primary key handles.</p>
-<pre><code class="c">int32_t fdoTPMTSSContext_clean_up(ESYS_CONTEXT **esys_context,
+<pre><code class="language-c">int32_t fdoTPMTSSContext_clean_up(ESYS_CONTEXT **esys_context,
                                     ESYS_TR *auth_session_handle,
                                     ESYS_TR *primary_handle);
 </code></pre>
-
 <h3 id="description_5">Description<a class="headerlink" href="#description_5" title="Permanent link">&para;</a></h3>
 <p>This function clears the Esys, TCTI, contexts, and authentication session, primary key handles. It takes the Esys context, authentication session handle, and primary key handle as input.</p>
 <h3 id="parameters_5">Parameters<a class="headerlink" href="#parameters_5" title="Permanent link">&para;</a></h3>
@@ -314,9 +239,8 @@
 
 <h2 id="fdo_tpm_commit_replacement_hmac_key">fdo_tpm_commit_replacement_hmac_key()<a class="headerlink" href="#fdo_tpm_commit_replacement_hmac_key" title="Permanent link">&para;</a></h2>
 <p>Replaces the TPM HMAC private and public keys with the replacement keys.</p>
-<pre><code class="c">int32_t fdo_tpm_commit_replacement_hmac_key(void);
+<pre><code class="language-c">int32_t fdo_tpm_commit_replacement_hmac_key(void);
 </code></pre>
-
 <h3 id="description_6">Description<a class="headerlink" href="#description_6" title="Permanent link">&para;</a></h3>
 <p>This function replaces the TPM HMAC private and public keys with the replacement keys.</p>
 <h3 id="parameters_6">Parameters<a class="headerlink" href="#parameters_6" title="Permanent link">&para;</a></h3>
@@ -330,9 +254,8 @@
 
 <h2 id="fdo_tpm_clear_replacement_hmac_key">fdo_tpm_clear_replacement_hmac_key()<a class="headerlink" href="#fdo_tpm_clear_replacement_hmac_key" title="Permanent link">&para;</a></h2>
 <p>Clears the replacement TPM HMAC key objects, if they exist.</p>
-<pre><code class="c">void fdo_tpm_clear_replacement_hmac_key(void);
+<pre><code class="language-c">void fdo_tpm_clear_replacement_hmac_key(void);
 </code></pre>
-
 <h3 id="description_7">Description<a class="headerlink" href="#description_7" title="Permanent link">&para;</a></h3>
 <p>This function clears the replacement TPM HMAC key objects, if they exist.</p>
 <h3 id="parameters_7">Parameters<a class="headerlink" href="#parameters_7" title="Permanent link">&para;</a></h3>
@@ -343,9 +266,8 @@
 
 <h2 id="is_valid_tpm_data_protection_key_present">is_valid_tpm_data_protection_key_present()<a class="headerlink" href="#is_valid_tpm_data_protection_key_present" title="Permanent link">&para;</a></h2>
 <p>Checks whether a valid data integrity protection HMAC key is present or not.</p>
-<pre><code class="c">int32_t is_valid_tpm_data_protection_key_present(void);
+<pre><code class="language-c">int32_t is_valid_tpm_data_protection_key_present(void);
 </code></pre>
-
 <h3 id="description_8">Description<a class="headerlink" href="#description_8" title="Permanent link">&para;</a></h3>
 <p>This function checks whether a valid data integrity protection HMAC key is present or not.</p>
 <h3 id="parameters_8">Parameters<a class="headerlink" href="#parameters_8" title="Permanent link">&para;</a></h3>
@@ -359,11 +281,10 @@
 
 <h2 id="crypto_hal_ecdsa_sign">crypto_hal_ecdsa_sign()<a class="headerlink" href="#crypto_hal_ecdsa_sign" title="Permanent link">&para;</a></h2>
 <p>Signs a message using provided ECDSA private keys.</p>
-<pre><code class="c">int32_t crypto_hal_ecdsa_sign(const uint8_t *data, size_t data_len,
+<pre><code class="language-c">int32_t crypto_hal_ecdsa_sign(const uint8_t *data, size_t data_len,
                               unsigned char *message_signature,
                               size_t *signature_length);
 </code></pre>
-
 <h3 id="description_9">Description<a class="headerlink" href="#description_9" title="Permanent link">&para;</a></h3>
 <p>This function signs a message using provided ECDSA private keys. It takes the message, message length, message signature, and signature length as input.</p>
 <h3 id="parameters_9">Parameters<a class="headerlink" href="#parameters_9" title="Permanent link">&para;</a></h3>
@@ -382,11 +303,10 @@
 
 <h2 id="tss2_mu_tpm2b_private_unmarshal">Tss2_MU_TPM2B_PRIVATE_Unmarshal()<a class="headerlink" href="#tss2_mu_tpm2b_private_unmarshal" title="Permanent link">&para;</a></h2>
 <p>Generates HMAC using TPM.</p>
-<pre><code class="c">int32_t Tss2_MU_TPM2B_PRIVATE_Unmarshal(
+<pre><code class="language-c">int32_t Tss2_MU_TPM2B_PRIVATE_Unmarshal(
     const uint8_t *buffer, size_t buffer_size, size_t *offset,
     TPM2B_PRIVATE *out);
 </code></pre>
-
 <h3 id="description_10">Description<a class="headerlink" href="#description_10" title="Permanent link">&para;</a></h3>
 <p>This function generates HMAC using TPM. It takes the buffer, buffer size, offset, and TPM2B_PRIVATE as input.</p>
 <h3 id="parameters_10">Parameters<a class="headerlink" href="#parameters_10" title="Permanent link">&para;</a></h3>
@@ -404,14 +324,12 @@
 <li><code>-1</code>: If there is a failure during the HMAC generation process.</li>
 </ul>
 <!-- 12 -->
-
 <h2 id="tss2_mu_tpm2b_public_unmarshal">Tss2_MU_TPM2B_PUBLIC_Unmarshal()<a class="headerlink" href="#tss2_mu_tpm2b_public_unmarshal" title="Permanent link">&para;</a></h2>
 <p>Generates HMAC using TPM.</p>
-<pre><code class="c">int32_t Tss2_MU_TPM2B_PUBLIC_Unmarshal(
+<pre><code class="language-c">int32_t Tss2_MU_TPM2B_PUBLIC_Unmarshal(
     const uint8_t *buffer, size_t buffer_size, size_t *offset,
     TPM2B_PUBLIC *out);
 </code></pre>
-
 <h3 id="description_11">Description<a class="headerlink" href="#description_11" title="Permanent link">&para;</a></h3>
 <p>This function generates HMAC using TPM. It takes the buffer, buffer size, offset, and TPM2B_PUBLIC as input.</p>
 <h3 id="parameters_11">Parameters<a class="headerlink" href="#parameters_11" title="Permanent link">&para;</a></h3>
@@ -449,22 +367,18 @@
 </ul>
               
             </div>
-          </div>
-          <footer>
-  
+          </div><footer>
 
   <hr/>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-    
       <p>Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license</p>
-    
   </div>
 
-  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-      
+          
         </div>
       </div>
 
@@ -472,16 +386,24 @@
 
   </div>
 
-  <div class="rst-versions" role="note" style="cursor: pointer">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-      
-      
-      
-    </span>
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
 </div>
-    <script>var base_url = '../..';</script>
-    <script src="../../js/theme.js" defer></script>
-      <script src="../../search/main.js" defer></script>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+      <script src="../../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
 
 </body>
 </html>
