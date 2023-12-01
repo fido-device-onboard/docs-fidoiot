@@ -1,125 +1,238 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="FIDO Device Onboard Contributers" /><link rel="canonical" href="https://fido-device-onboard.github.io/docs-fidoiot/latest/client-sdk/client-sdk-reference-guide/" />
-      <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Client SDK Introduction - FIDO Device Onboard</title>
-    <link rel="stylesheet" href="../../css/theme.css" />
-    <link rel="stylesheet" href="../../css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
-        <link href="../../css/version-select.css" rel="stylesheet" />
-    
-      <script>
-        // Current page data
-        var mkdocs_page_name = "Client SDK Introduction";
-        var mkdocs_page_input_path = "client-sdk/client-sdk-reference-guide.md";
-        var mkdocs_page_url = "/docs-fidoiot/latest/client-sdk/client-sdk-reference-guide/";
-      </script>
-    
-    <!--[if lt IE 9]>
-      <script src="../../js/html5shiv.min.js"></script>
-    <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-      <script>hljs.highlightAll();</script> 
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="FIDO Device Onboard Contributers">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Client SDK Introduction - FIDO Device Onboard</title>
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Client SDK Introduction";
+    var mkdocs_page_input_path = "client-sdk/client-sdk-reference-guide.md";
+    var mkdocs_page_url = "/docs-fidoiot/client-sdk/client-sdk-reference-guide/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
 </head>
 
 <body class="wy-body-for-nav" role="document">
 
   <div class="wy-grid-for-nav">
+
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href="../..">
-          <img src="../../images/securedeviceonboard-icon-color.png" class="logo" alt="Logo"/>
-        </a><div role="search">
+        <a href="../.." class="icon icon-home"> FIDO Device Onboard</a>
+        <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Home</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../reference/">Reference</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../community/">Community</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../releases/">Releases</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../security-best-practices/">Security Best Practices</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation Guide</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../installation_rhel/">Installation Guide (RHEL)</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../protocol-specification/">Protocol Specification</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">PRI</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../pri/pri-introduction/">Protocol Reference Implementation</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Client SDK</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../client-sdk-design/">Client SDK Design</a>
-                  </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Client SDK Introduction</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#terminology">Terminology</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#reference-documents">Reference Documents</a>
-    </li>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Home</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../..">Home</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../reference/">Reference</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../community/">Community</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../releases/">Releases</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../security-best-practices/">Security Best Practices</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../installation/">Installation Guide</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../installation_rhel/">Installation Guide (RHEL)</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../protocol-specification/">Protocol Specification</a>
+                </li>
     </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../client-sdk-api-reference/">Client SDK API Reference</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../client-sdk-porting-guide/">Client SDK Porting Guide</a>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Implementation Reference</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/getting-started-guide/">Getting Started Guide</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/serviceinfo-sys-module/">ServiceInfo System Module</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/device-mfg-info/">DeviceMfgInfo Specification</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/manufacturer-guide/">Manufacturer Guide</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/dms-integration-guide/">DMS Integration Guide</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../implementation-references/proxy-settings/">Proxy Setup Guide</a>
-                  </li>
-              </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">PRI</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../pri/pri-introduction/">Protocol Reference Implementation</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Client SDK</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../client-sdk-design/">Client SDK Design</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Client SDK Introduction</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#introduction">Introduction</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#terminology">Terminology</a></li>
+        
+            <li><a class="toctree-l4" href="#reference-documents">Reference Documents</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l3"><a href="#client-sdk-overview">Client SDK Overview</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#threading-model">Threading Model</a></li>
+        
+            <li><a class="toctree-l4" href="#networking">Networking</a></li>
+        
+            <li><a class="toctree-l4" href="#device-specific-modules">Device-Specific Modules</a></li>
+        
+            <li><a class="toctree-l4" href="#integrated-operational-flows">Integrated Operational Flows</a></li>
+        
+            <li><a class="toctree-l4" href="#fdo-module-flows">FDO Module Flows</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l3"><a href="#run-the-client-sdk">Run the Client SDK</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#prerequisites">Prerequisites</a></li>
+        
+            <li><a class="toctree-l4" href="#run-the-fdo-client-sdk-onboarding-demo">Run the FDO Client SDK Onboarding Demo</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l3"><a href="#custom-pluggable-modules">Custom Pluggable Modules</a></li>
+    
+
+    <li class="toctree-l3"><a href="#known-issues-and-limitations">Known Issues and Limitations</a></li>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../client-sdk-api-reference/">Client SDK API Reference</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../client-sdk-porting-guide/">Client SDK Porting Guide</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Implementation Reference</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../implementation-references/getting-started-guide/">Getting Started Guide</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../implementation-references/serviceinfo-sys-module/">ServiceInfo System Module</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../implementation-references/device-mfg-info/">DeviceMfgInfo Specification</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../implementation-references/manufacturer-guide/">Manufacturer Guide</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../implementation-references/dms-integration-guide/">DMS Integration Guide</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../implementation-references/proxy-settings/">Proxy Setup Guide</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
       </div>
-    </div>
+      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../..">FIDO Device Onboard</a>
-        
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">FIDO Device Onboard</a>
       </nav>
+
+      
       <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Client SDK</li>
-      <li class="breadcrumb-item active">Client SDK Introduction</li>
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Client SDK &raquo;</li>
+        
+      
+    
+    <li>Client SDK Introduction</li>
     <li class="wy-breadcrumbs-aside">
+      
     </li>
   </ul>
   <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div class="section" itemprop="articleBody">
+          <div role="main">
+            <div class="section">
               
                 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
 <p>The FIDO Device Onboard Client SDK is a portable implementation of the FIDO Device Onboard (FDO) protocol state machines, cryptographic operations, and associated components. While the Client SDK was developed and tested on the Linux* OS, the core components of the SDK are isolated from OS-specific components via an abstraction layer. Well-known open-source implementations of cryptographic libraries are used for cryptographic operations.</p>
@@ -139,7 +252,7 @@
 <h2 id="client-sdk-overview">Client SDK Overview<a class="headerlink" href="#client-sdk-overview" title="Permanent link">&para;</a></h2>
 <p>Like any SDK, the Client SDK is expected to be embedded within a custom implementation that provides overall device functionality while using the SDK to perform FDO-based device onboarding. The SDK will be statically linked to an application that invokes SDK APIs to trigger onboarding functionality. This implementation is referred to as the ‘Application’ in this document.</p>
 <p>Figure 1.   FDO Client Block Diagram</p>
-<p><img alt="FDO Client Block Diagram" src="../img/1-Intel%20FDO%20Client%20Block%20Diagram.JPG" /></p>
+<p><img alt="FDO Client Block Diagram" src="img/1-Intel%20FDO%20Client%20Block%20Diagram.JPG" /></p>
 <p><strong><em>NOTE:</em></strong> FDO is an acronym for FIDO Device Onboard.</p>
 <p>Before initiating the FIDO Device Onboard functionality, the Application must first initialize the SDK. After initializing the SDK, the Application can initiate the onboarding by calling the <code>fdo_sdk_run()</code>API. The SDK maintains persistent data such as configuration and state information that are used to track the onboarding state and store credentials, among others. This information is stored in the <strong>SDK Configuration</strong> file that persists across reboots.</p>
 <h3 id="threading-model">Threading Model<a class="headerlink" href="#threading-model" title="Permanent link">&para;</a></h3>
@@ -174,7 +287,7 @@ The following section details the interactions between the Application, Client S
 <h3 id="integrated-operational-flows">Integrated Operational Flows<a class="headerlink" href="#integrated-operational-flows" title="Permanent link">&para;</a></h3>
 <p>This SDK release requires all software components to be linked together into a single binary image and execute at the same privilege level. While some systems might include overlays and Trusted Execution Environments, these are not considered for this version.</p>
 <p>Figure 2.   Integrated Image and Execution Flow</p>
-<p><img alt="FDO Client Block Diagram" src="../img/2-Integrated%20Image%20and%20Execution%20Flow.JPG" /></p>
+<p><img alt="FDO Client Block Diagram" src="img/2-Integrated%20Image%20and%20Execution%20Flow.JPG" /></p>
 <p>The integrated image and execution flows from system boot are shown above and each step is described below:</p>
 <ol>
 <li>On reset, the Board Support Package (BSP) and RTOS initialize the hardware and pass the control to the Application. On Linux* systems, this is the normal OS boot flow and is complete by the time the Application executes.</li>
@@ -193,7 +306,7 @@ The following section details the interactions between the Application, Client S
 </ol>
 <p>Each of these is described as follows:</p>
 <p>Figure 3.   ServiceInfo Exchanges between Device and Owner Server</p>
-<p><img alt="FDO Client Block Diagram" src="../img/3-Service%20Info%20Exchanges%20between%20Device%20and%20Owner%20Server.JPG" /></p>
+<p><img alt="FDO Client Block Diagram" src="img/3-Service%20Info%20Exchanges%20between%20Device%20and%20Owner%20Server.JPG" /></p>
 <h4 id="module-initialization">Module Initialization<a class="headerlink" href="#module-initialization" title="Permanent link">&para;</a></h4>
 <p>For each registered module, the SDK initializes the module by calling its callback with the <code>FDO_SI_START</code> type. The module is expected to prepare to receive PSI, Device ServiceInfo, and Owner ServiceInfo calls after initialization.</p>
 <p>If an error occurs after a module has been initialized, during the remainder of TO2 protocol execution and the Application is restarted, the SDK will again call this API to initialize each registered module. The module must be prepared for multiple such calls due to the SDK’s retry-based approach to error recovery.</p>
@@ -264,22 +377,31 @@ location: <code>data/ecdsa384privkey.data</code></p>
 <p>•   The ARM platforms, namely ARM Cortex M4, M7, and A7 devices, as well as mbedTLS and SE crypto operations, are not supported in this release.</p>
               
             </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../client-sdk-design/" class="btn btn-neutral float-left" title="Client SDK Design"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
         <a href="../client-sdk-api-reference/" class="btn btn-neutral float-right" title="Client SDK API Reference">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../client-sdk-design/" class="btn btn-neutral" title="Client SDK Design"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
+    
       <p>Copyright &copy; 2020 Intel Corporation - Released under CC BY 4.0 license</p>
+    
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-          
+      
         </div>
       </div>
 
@@ -287,28 +409,20 @@ location: <code>data/ecdsa384privkey.data</code></p>
 
   </div>
 
-  <div class="rst-versions" role="note" aria-label="Versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    
-    
-      <span><a href="../client-sdk-design/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../client-sdk-api-reference/" style="color: #fcfcfc">Next &raquo;</a></span>
-    
-  </span>
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../client-sdk-design/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../client-sdk-api-reference/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
 </div>
-    <script src="../../js/jquery-3.6.0.min.js"></script>
-    <script>var base_url = "../..";</script>
-    <script src="../../js/theme_extra.js"></script>
-    <script src="../../js/theme.js"></script>
-      <script src="../../search/main.js"></script>
-      <script src="../../js/version-select.js"></script>
-    <script>
-        jQuery(function () {
-            SphinxRtdTheme.Navigation.enable(true);
-        });
-    </script>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
 
 </body>
 </html>
