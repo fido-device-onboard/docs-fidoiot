@@ -296,6 +296,10 @@ Once the Owner instance has successfully started, the following output is displa
       Update to0-scheduler: `interval: 120`
       - [Read more](https://github.com/fido-device-onboard/pri-fidoiot/blob/master/component-samples/demo/README.MD) about starting PRI services.
 
+!!!NOTES
+      - The PRI FIDO IOT component uses Bouncy Castle FIPS as the primary security provider for all cryptographic operations within the project with the exception of the KDF.
+      - The KDF implementation is compliant with the FIDO specification and is not based on the Bouncy Castle FIPS.
+
 ## Running E2E for PRI Device
 
 1. #####[Start FDO Service Containers](#starting-fdo-server-side-containers).
