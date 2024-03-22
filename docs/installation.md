@@ -50,8 +50,8 @@ Environment="HTTPS_PROXY=<Proxy IP/URL:Port>"
         "default":
         {
             "httpProxy": "<Proxy IP/URL:Port>",
-            "httpsProxy": "<Proxy IP/URL:Port>"
-            "noProxy": "<Proxy IP/URL:Port>"
+            "httpsProxy": "<Proxy IP/URL:Port>",
+            "noProxy": "<Domain names or IP addresses>"
         }
     }
 }
