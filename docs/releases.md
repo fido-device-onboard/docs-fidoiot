@@ -5,10 +5,11 @@ Following list provides details about all the past releases.
 
 ## Current Release
 
-* [Release v1.1.9](https://github.com/fido-device-onboard/release-fidoiot/releases/v1.1.9)
+* [Release v1.1.10](https://github.com/fido-device-onboard/release-fidoiot/releases/v1.1.10)
 
 ## Past Releases
 
+* [Release v1.1.9](https://github.com/fido-device-onboard/release-fidoiot/releases/v1.1.9)
 * [Release v1.1.8](https://github.com/fido-device-onboard/release-fidoiot/releases/v1.1.8)
 
 * [Release v1.1.7](https://github.com/fido-device-onboard/release-fidoiot/releases/v1.1.7)
